@@ -1,16 +1,33 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class CrescimentoPlanta : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private int aguaNecessaria = 1;
+    private Animator animator;
+    private bool jaCresceu = false;
+
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TentarRegar(int aguaDoPlayer)
     {
+        if (!jaCresceu && aguaDoPlayer >= aguaNecessaria)
+        {
+            Crescer();
+        }
+        else if (aguaDoPlayer < aguaNecessaria)
+        {
+            Debug.Log("Água insuficiente!");
+        }
+    }
+
+    void Crescer()
+    {
+        jaCresceu = true;
+        animator.SetTrigger("Crescer"); 
         
+        GetComponent<Collider2D>().enabled = true;
     }
 }
