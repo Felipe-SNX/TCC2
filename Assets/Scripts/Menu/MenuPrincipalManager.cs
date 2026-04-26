@@ -7,6 +7,7 @@ public class MenuScript : MonoBehaviour
     [SerializeField] private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelMenuConfiguracoes;
     [SerializeField] private GameObject painelMenuAudio;
+    [SerializeField] private GameObject painelMenuCreditos;
 
     public void Jogar()
     {
@@ -28,6 +29,11 @@ public class MenuScript : MonoBehaviour
     public void AbrirMenuAudio()
     {
         painelMenuAudio.SetActive(true);
+    }
+
+    public void AbrirMenuCreditos()
+    {
+        painelMenuCreditos.SetActive(true);
     }
 
     public void SairJogo()
