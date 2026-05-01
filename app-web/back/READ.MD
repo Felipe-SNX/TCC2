@@ -1,0 +1,1 @@
+sudo docker run --name tcc-mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=tcc_db -p 3307:3306 -v tcc_mysql_data:/var/lib/mysql -d mysql:8.0
