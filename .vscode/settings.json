@@ -68,5 +68,8 @@
         "*.slnx": "*.csproj"
     },
     "dotnet.defaultSolution": "Tcc2.slnx",
-    "dotnet.enableWorkspaceBasedDevelopment": false
+    "dotnet.enableWorkspaceBasedDevelopment": false,
+    "antigravity.git.commitPrompt": "${workspaceFolder}/.agents/rules/git.md",
+    "antigravity.agent.autoContext": true,
+    "antigravity.agent.language": "pt-BR"
 }
