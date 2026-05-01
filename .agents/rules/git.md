@@ -3,7 +3,8 @@ trigger: always_on
 ---
 
 # Git Commit Rules
-- Use padrão Conventional Commits.]
+- IDIOMA OBRIGATÓRIO: Português do Brasil (pt-BR).
+- NUNCA escreva mensagens em inglês.
 - Os commit DEVEM ser escritos em lingua portuguesa.
 - Formato: <tipo>(<escopo>): <descrição curta em minúsculas em língua portuguesa>
 - Tipos permitidos: feat, fix, docs, style, refactor, test, chore.
