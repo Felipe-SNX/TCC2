@@ -24,10 +24,15 @@ O sistema garante a integridade e privacidade dos dados operando com a seguinte 
 ## Como Executar Localmente
 
 ### 1. Banco de Dados
-Inicie o contêiner do MySQL via Docker (mapeado para a porta 3307 caso a 3306 esteja em uso localmente):
+Adicione no .env na pasta backend,
+depois crie a Database:
 ```bash
-docker run --name tcc-mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=tcc_db -p 3307:3306 -v tcc_mysql_data:/var/lib/mysql -d mysql:8.0
+CREATE DATABASE tcc_db;
+ALTER USER 'seu_user_aqui'@'localhost' IDENTIFIED WITH mysql_native_password BY 'seu_password_aqui';
+FLUSH PRIVILEGES;
+EXIT;
 ```
+
 
 ### 2. Backend (API)
 Navegue até a pasta backend, configure o ambiente e inicie o servidor:
