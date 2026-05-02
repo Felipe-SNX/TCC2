@@ -38,9 +38,16 @@ const handleLogin = async (credentials: {
     tokenCookie.value = response.access_token;
     userCookie.value = response.user;
 
-    // Redireciona para o dashboard
-    showSnackbar({ message: "Login realizado com sucesso!", color: "success" });
-    navigateTo("/");
+    // Redireciona com base no papel (role) do usuário
+    showSnackbar({ message: 'Login realizado com sucesso!', color: 'success' })
+    
+    if (response.user.role === 'ADMIN') {
+      navigateTo('/usuarios')
+    } else if (response.user.role === 'PSICOLOGO') {
+      navigateTo('/pacientes')
+    } else {
+      navigateTo('/')
+    };
   } catch (error: any) {
     if (error.response?.status === 401 || error.response?.status === 403) {
       showSnackbar({
