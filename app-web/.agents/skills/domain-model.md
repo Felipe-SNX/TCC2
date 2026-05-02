@@ -2,10 +2,11 @@
 
 Table: Usuarios
 - id (UUID, Primary Key)
-- role (Enum: 'PSICOLOGO', 'ADMIN')
+- role (Enum: 'PSICOLOGO', 'ADMIN', Default: 'PSICOLOGO')
 - nome (String)
 - email (String, Unique)
 - senha (String, Hash)
+- ativo (Boolean, Default: False)
 
 Table: Paciente
 - id (UUID, Primary Key)
