@@ -4,7 +4,7 @@
       <v-icon class="mr-2" color="primary">mdi-account-cog</v-icon>
       <span class="text-h6 font-weight-bold">Usuários do Sistema</span>
       <v-spacer></v-spacer>
-      <v-btn color="primary" prepend-icon="mdi-plus" size="small">
+      <v-btn color="primary" prepend-icon="mdi-plus" size="small" @click="$emit('create')">
         Novo Usuário
       </v-btn>
     </v-card-title>
@@ -49,7 +49,7 @@
       </template>
 
       <template v-slot:item.acoes="{ item }">
-        <v-btn icon="mdi-eye" variant="text" size="small" color="info" title="Ver detalhes"></v-btn>
+        <v-btn icon="mdi-pencil" variant="text" size="small" color="warning" title="Editar usuário" @click="$emit('edit', item)"></v-btn>
       </template>
 
       <template v-slot:no-data>
@@ -72,6 +72,8 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:options', options: { page: number, itemsPerPage: number }): void
+  (e: 'create'): void
+  (e: 'edit', item: any): void
 }>()
 
 const headers = [

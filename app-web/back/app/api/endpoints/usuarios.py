@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from app.api.dependencies import get_db, get_current_user, RoleChecker
-from app.schemas.usuario import UsuarioCreate, UsuarioResponse, UsuarioPaginatedResponse
+from app.schemas.usuario import UsuarioCreate, UsuarioUpdate, UsuarioResponse, UsuarioPaginatedResponse
 from app.models.schema import Usuario
 from app.crud import crud_usuario
 
@@ -38,6 +38,18 @@ def obter_usuario(
     current_user: Usuario = Depends(allow_admin)
 ):
     usuario = crud_usuario.get_usuario(db, usuario_id=usuario_id)
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+    return usuario
+
+@router.put("/{usuario_id}", response_model=UsuarioResponse)
+def atualizar_usuario(
+    usuario_id: str,
+    usuario_in: UsuarioUpdate,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(allow_admin)
+):
+    usuario = crud_usuario.update_usuario(db=db, usuario_id=usuario_id, usuario_in=usuario_in)
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     return usuario
