@@ -10,9 +10,33 @@
       :color="color"
       :timeout="timeout"
     />
+
+    <UiConfirmDialog
+      v-model="confirmIsOpen"
+      :title="confirmTitle"
+      :message="confirmMessage"
+      :confirm-text="confirmConfirmText"
+      :cancel-text="confirmCancelText"
+      :confirm-color="confirmConfirmColor"
+      :confirm-icon="confirmConfirmIcon"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    />
   </v-app>
 </template>
 
 <script setup lang="ts">
 const { isVisible, message, color, timeout } = useSnackbar()
+
+const {
+  isOpen: confirmIsOpen,
+  title: confirmTitle,
+  message: confirmMessage,
+  confirmText: confirmConfirmText,
+  cancelText: confirmCancelText,
+  confirmColor: confirmConfirmColor,
+  confirmIcon: confirmConfirmIcon,
+  onConfirm,
+  onCancel
+} = useConfirmDialog()
 </script>
