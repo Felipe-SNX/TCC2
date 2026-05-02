@@ -5,13 +5,15 @@ public class MenuScript : MonoBehaviour
 {
     [SerializeField] private string nomeLevel;
     [SerializeField] private GameObject painelMenuInicial;
+    [SerializeField] private GameObject painelSelecaoFases;
     [SerializeField] private GameObject painelMenuConfiguracoes;
     [SerializeField] private GameObject painelMenuAudio;
     [SerializeField] private GameObject painelMenuCreditos;
 
     public void Jogar()
     {
-        SceneManager.LoadScene(nomeLevel);
+        painelMenuInicial.SetActive(false);
+        painelSelecaoFases.SetActive(true);
     }
 
     public void AbrirConfigurações()
@@ -34,6 +36,12 @@ public class MenuScript : MonoBehaviour
     public void AbrirMenuCreditos()
     {
         painelMenuCreditos.SetActive(true);
+    }
+
+    public void RetornarTelaInicial()
+    {
+        painelSelecaoFases.SetActive(false);
+        painelMenuInicial.SetActive(true);    
     }
 
     public void SairJogo()
