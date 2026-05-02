@@ -14,35 +14,91 @@
       :total-items="total"
       :loading="isLoading"
       @update:options="fetchPacientes"
+      @create="openCreateDialog"
+      @edit="openEditDialog"
+    />
+
+    <!-- 
+      Modal de criação/edição, também puramente "dummy".
+      Apenas exibe o formulário e emite os dados preenchidos via 'save'.
+    -->
+    <PacientesFormDialog
+      v-model="dialogOpen"
+      :paciente="selectedPaciente"
+      :saving="isSaving"
+      @save="handleSave"
+      @cancel="closeDialog"
     />
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { pacientesService } from '~/services/pacientes.service'
+import { pacientesService, type PacienteForm } from '~/services/pacientes.service'
 
 const { showSnackbar } = useSnackbar()
 
+// Estado da tabela
 const pacientes = ref([])
 const total = ref(0)
 const isLoading = ref(false)
+const currentOptions = ref({ page: 1, itemsPerPage: 25 })
+
+// Estado do modal
+const dialogOpen = ref(false)
+const selectedPaciente = ref<any | null>(null)
+const isSaving = ref(false)
 
 const fetchPacientes = async (options: { page: number, itemsPerPage: number }) => {
+  currentOptions.value = options
   isLoading.value = true
   try {
     const data = await pacientesService.listar(options.page, options.itemsPerPage)
-
     pacientes.value = data.items
     total.value = data.total
   } catch (error: any) {
     console.error('Erro ao buscar pacientes:', error)
-    // Erros 401 e 403 já são interceptados globalmente pelo axios plugin
     if (error.response?.status !== 401 && error.response?.status !== 403) {
       showSnackbar({ message: 'Falha ao carregar lista de pacientes.', color: 'error' })
     }
   } finally {
     isLoading.value = false
+  }
+}
+
+const openCreateDialog = () => {
+  selectedPaciente.value = null
+  dialogOpen.value = true
+}
+
+const openEditDialog = (paciente: any) => {
+  selectedPaciente.value = paciente
+  dialogOpen.value = true
+}
+
+const closeDialog = () => {
+  dialogOpen.value = false
+  selectedPaciente.value = null
+}
+
+const handleSave = async (formData: PacienteForm) => {
+  isSaving.value = true
+  try {
+    if (selectedPaciente.value) {
+      await pacientesService.atualizar(selectedPaciente.value.id, formData)
+      showSnackbar({ message: 'Paciente atualizado com sucesso.', color: 'success' })
+    } else {
+      await pacientesService.criar(formData)
+      showSnackbar({ message: 'Paciente criado com sucesso.', color: 'success' })
+    }
+    closeDialog()
+    await fetchPacientes(currentOptions.value)
+  } catch (error: any) {
+    console.error('Erro ao salvar paciente:', error)
+    const detail = error.response?.data?.detail
+    showSnackbar({ message: detail || 'Falha ao salvar paciente.', color: 'error' })
+  } finally {
+    isSaving.value = false
   }
 }
 </script>

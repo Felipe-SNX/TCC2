@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from typing import List
 from app.api.dependencies import get_db, get_current_user, RoleChecker
-from app.schemas.paciente import PacienteCreate, PacienteResponse, PacientePaginatedResponse
+from app.schemas.paciente import PacienteCreate, PacienteUpdate, PacienteResponse, PacientePaginatedResponse
 from app.schemas.resposta import RespostaResponse
 from app.models.schema import Usuario
 from app.crud import crud_paciente, crud_resposta
@@ -37,6 +37,20 @@ def obter_paciente(paciente_id: str, db: Session = Depends(get_db), current_user
     if current_user.role == "PSICOLOGO" and paciente.created_by != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
     return paciente
+
+@router.put("/{paciente_id}", response_model=PacienteResponse)
+def atualizar_paciente(
+    paciente_id: str,
+    paciente_in: PacienteUpdate,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(allow_psicologo_admin)
+):
+    paciente_existente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
+    if not paciente_existente:
+        raise HTTPException(status_code=404, detail="Paciente não encontrado.")
+    if current_user.role == "PSICOLOGO" and paciente_existente.created_by != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
+    return crud_paciente.update_paciente(db=db, paciente_id=paciente_id, paciente_in=paciente_in, user_id=current_user.id)
 
 @router.get("/{paciente_id}/respostas", response_model=List[RespostaResponse])
 def listar_respostas_do_paciente(

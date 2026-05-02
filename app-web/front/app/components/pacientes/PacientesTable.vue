@@ -4,7 +4,7 @@
       <v-icon class="mr-2" color="primary">mdi-account-group</v-icon>
       <span class="text-h6 font-weight-bold">Meus Pacientes</span>
       <v-spacer></v-spacer>
-      <v-btn color="primary" prepend-icon="mdi-plus" size="small">
+      <v-btn color="primary" prepend-icon="mdi-plus" size="small" @click="$emit('create')">
         Novo Paciente
       </v-btn>
     </v-card-title>
@@ -36,6 +36,7 @@
       </template>
 
       <template v-slot:item.acoes="{ item }">
+        <v-btn icon="mdi-pencil" variant="text" size="small" color="warning" title="Editar paciente" @click="$emit('edit', item)"></v-btn>
         <v-btn icon="mdi-eye" variant="text" size="small" color="info" title="Ver histórico"></v-btn>
       </template>
 
@@ -59,6 +60,8 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:options', options: { page: number, itemsPerPage: number }): void
+  (e: 'create'): void
+  (e: 'edit', item: any): void
 }>()
 
 const headers = [
