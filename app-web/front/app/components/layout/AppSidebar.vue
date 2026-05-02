@@ -31,6 +31,7 @@
 
     <v-list density="compact" nav>
       <v-list-item prepend-icon="mdi-account-group" title="Pacientes" to="/pacientes"></v-list-item>
+      <v-list-item prepend-icon="mdi-help-circle-outline" title="Perguntas" to="/perguntas"></v-list-item>
       <v-list-item prepend-icon="mdi-shield-account" title="Usuários" to="/usuarios"></v-list-item>
     </v-list>
   </v-navigation-drawer>

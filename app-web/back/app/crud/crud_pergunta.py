@@ -8,6 +8,9 @@ def get_pergunta(db: Session, pergunta_id: str):
 def get_perguntas(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Pergunta).offset(skip).limit(limit).all()
 
+def get_perguntas_count(db: Session):
+    return db.query(Pergunta).count()
+
 def create_pergunta(db: Session, pergunta: PerguntaCreate, user_id: str = None):
     db_pergunta = Pergunta(**pergunta.model_dump(), created_by=user_id)
     db.add(db_pergunta)
@@ -28,3 +31,12 @@ def update_pergunta(db: Session, pergunta_id: str, pergunta: PerguntaUpdate, use
     db.commit()
     db.refresh(db_pergunta)
     return db_pergunta
+
+def delete_pergunta(db: Session, pergunta_id: str):
+    db_pergunta = db.query(Pergunta).filter(Pergunta.id == pergunta_id).first()
+    if not db_pergunta:
+        return False
+    db.delete(db_pergunta)
+    db.commit()
+    return True
+
