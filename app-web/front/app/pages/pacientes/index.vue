@@ -37,10 +37,8 @@ const fetchPacientes = async (options: { page: number, itemsPerPage: number }) =
     total.value = data.total
   } catch (error: any) {
     console.error('Erro ao buscar pacientes:', error)
-    if (error.response?.status === 401 || error.response?.status === 403) {
-      showSnackbar({ message: 'Sessão expirada ou sem permissão. Faça login novamente.', color: 'error' })
-      navigateTo('/login')
-    } else {
+    // Erros 401 e 403 já são interceptados globalmente pelo axios plugin
+    if (error.response?.status !== 401 && error.response?.status !== 403) {
       showSnackbar({ message: 'Falha ao carregar lista de pacientes.', color: 'error' })
     }
   } finally {
