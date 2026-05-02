@@ -1,8 +1,8 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
-      <v-icon class="mr-2" color="primary">mdi-account-group</v-icon>
-      <span class="text-h6 font-weight-bold">Meus Pacientes</span>
+      <v-icon class="mr-2" color="primary">mdi-help-circle-outline</v-icon>
+      <span class="text-h6 font-weight-bold">Perguntas do Sistema</span>
       <v-spacer></v-spacer>
       <v-btn
         color="primary"
@@ -10,7 +10,7 @@
         size="small"
         @click="$emit('create')"
       >
-        Novo Paciente
+        Nova Pergunta
       </v-btn>
     </v-card-title>
 
@@ -28,18 +28,31 @@
       class="elevation-0"
       hover
     >
-      <template v-slot:item.nome="{ item }">
+      <template v-slot:item.pergunta="{ item }">
         <div class="d-flex align-center py-2">
-          <v-avatar color="primary" size="36" class="mr-3 text-white">
-            {{ item.nome.charAt(0).toUpperCase() }}
-          </v-avatar>
-          <div>
-            <div class="font-weight-medium">{{ item.nome }}</div>
-            <div class="text-caption text-medium-emphasis">
-              {{ item.email }}
-            </div>
-          </div>
+          <v-icon color="primary" class="mr-3" size="small">mdi-chat-question</v-icon>
+          <div class="font-weight-medium">{{ item.pergunta }}</div>
         </div>
+      </template>
+
+      <template v-slot:item.alternativas="{ item }">
+        <div class="d-flex ga-1 flex-wrap py-1">
+          <v-chip
+            v-for="(alt, idx) in item.alternativas"
+            :key="idx"
+            size="x-small"
+            variant="tonal"
+            :color="chipColor(alt.valor)"
+          >
+            {{ alt.valor }} - {{ alt.texto }}
+          </v-chip>
+        </div>
+      </template>
+
+      <template v-slot:item.created_at="{ item }">
+        <span class="text-body-2 text-medium-emphasis">
+          {{ formatDate(item.created_at) }}
+        </span>
       </template>
 
       <template v-slot:item.acoes="{ item }">
@@ -71,7 +84,7 @@
 
       <template v-slot:no-data>
         <div class="pa-4 text-center text-medium-emphasis">
-          Nenhum paciente encontrado.
+          Nenhuma pergunta encontrada.
         </div>
       </template>
     </v-data-table-server>
@@ -95,8 +108,9 @@ const emit = defineEmits<{
 }>();
 
 const headers = [
-  { title: "Paciente", key: "nome", align: "start" as const, sortable: false },
-  { title: "Idade", key: "idade", align: "center" as const, sortable: false },
+  { title: "Pergunta", key: "pergunta", align: "start" as const, sortable: false },
+  { title: "Alternativas", key: "alternativas", align: "start" as const, sortable: false },
+  { title: "Criado em", key: "created_at", align: "center" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
 
@@ -111,4 +125,24 @@ const handleOptionsUpdate = (newOptions: any) => {
     itemsPerPage: newOptions.itemsPerPage,
   });
 };
+
+const chipColor = (valor: number): string => {
+  const colors: Record<number, string> = {
+    1: 'error',
+    2: 'warning',
+    3: 'grey',
+    4: 'success',
+    5: 'info'
+  }
+  return colors[valor] || 'grey'
+}
+
+const formatDate = (dateStr: string): string => {
+  if (!dateStr) return '-'
+  return new Date(dateStr).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
+}
 </script>

@@ -1,16 +1,16 @@
 import { useNuxtApp } from '#app'
 
-export interface PacienteForm {
+export interface UsuarioForm {
   nome: string
-  idade: number
   email: string
-  observacoes?: string
+  role: 'PSICOLOGO' | 'ADMIN'
+  senha?: string
 }
 
-export const pacientesService = {
+export const usuariosService = {
   async listar(page: number, itemsPerPage: number) {
     const { $api } = useNuxtApp() as any
-    const response = await $api.get('/pacientes/', {
+    const response = await $api.get('/usuarios/', {
       params: {
         page,
         items_per_page: itemsPerPage
@@ -19,20 +19,20 @@ export const pacientesService = {
     return response.data
   },
 
-  async criar(paciente: PacienteForm) {
+  async criar(usuario: UsuarioForm) {
     const { $api } = useNuxtApp() as any
-    const response = await $api.post('/pacientes/', paciente)
+    const response = await $api.post('/usuarios/', usuario)
     return response.data
   },
 
-  async atualizar(id: string, paciente: Partial<PacienteForm>) {
+  async atualizar(id: string, usuario: Partial<UsuarioForm>) {
     const { $api } = useNuxtApp() as any
-    const response = await $api.put(`/pacientes/${id}`, paciente)
+    const response = await $api.put(`/usuarios/${id}`, usuario)
     return response.data
   },
 
   async excluir(id: string) {
     const { $api } = useNuxtApp() as any
-    await $api.delete(`/pacientes/${id}`)
+    await $api.delete(`/usuarios/${id}`)
   }
 }

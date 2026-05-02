@@ -1,8 +1,8 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
-      <v-icon class="mr-2" color="primary">mdi-account-group</v-icon>
-      <span class="text-h6 font-weight-bold">Meus Pacientes</span>
+      <v-icon class="mr-2" color="primary">mdi-account-cog</v-icon>
+      <span class="text-h6 font-weight-bold">Usuários do Sistema</span>
       <v-spacer></v-spacer>
       <v-btn
         color="primary"
@@ -10,7 +10,7 @@
         size="small"
         @click="$emit('create')"
       >
-        Novo Paciente
+        Novo Usuário
       </v-btn>
     </v-card-title>
 
@@ -42,6 +42,19 @@
         </div>
       </template>
 
+      <template v-slot:item.role="{ item }">
+        <v-chip
+          :color="item.role === 'ADMIN' ? 'error' : 'info'"
+          size="small"
+          variant="tonal"
+        >
+          <v-icon start size="small">
+            {{ item.role === "ADMIN" ? "mdi-shield-crown" : "mdi-account-tie" }}
+          </v-icon>
+          {{ item.role === "ADMIN" ? "Administrador" : "Psicólogo" }}
+        </v-chip>
+      </template>
+
       <template v-slot:item.acoes="{ item }">
         <v-tooltip text="Editar" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
@@ -71,7 +84,7 @@
 
       <template v-slot:no-data>
         <div class="pa-4 text-center text-medium-emphasis">
-          Nenhum paciente encontrado.
+          Nenhum usuário encontrado.
         </div>
       </template>
     </v-data-table-server>
@@ -95,8 +108,8 @@ const emit = defineEmits<{
 }>();
 
 const headers = [
-  { title: "Paciente", key: "nome", align: "start" as const, sortable: false },
-  { title: "Idade", key: "idade", align: "center" as const, sortable: false },
+  { title: "Usuário", key: "nome", align: "start" as const, sortable: false },
+  { title: "Perfil", key: "role", align: "center" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
 

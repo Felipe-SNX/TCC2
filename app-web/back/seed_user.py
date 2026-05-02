@@ -11,22 +11,40 @@ from app.core.security import get_password_hash
 def seed_user():
     db = SessionLocal()
     try:
-        email = "admin@chromotherapy.com"
-        if db.query(Usuario).filter(Usuario.email == email).first():
-            print("O usuário já existe no banco de dados!")
-            return
+        users_to_create = [
+            {
+                "nome": "Administrador",
+                "email": "admin@admin.com",
+                "role": "ADMIN",
+                "senha": "123"
+            },
+            {
+                "nome": "Psicólogo",
+                "email": "psico@psico.com",
+                "role": "PSICOLOGO",
+                "senha": "123"
+            }
+        ]
+
+        for user_data in users_to_create:
+            if db.query(Usuario).filter(Usuario.email == user_data["email"]).first():
+                print(f"O usuário {user_data['email']} já existe no banco de dados!")
+                continue
+            
+            novo_usuario = Usuario(
+                nome=user_data["nome"],
+                email=user_data["email"],
+                role=user_data["role"],
+                senha=get_password_hash(user_data["senha"])
+            )
+            db.add(novo_usuario)
+            print(f"Usuário {user_data['nome']} ({user_data['role']}) preparado para criação.")
         
-        novo_usuario = Usuario(
-            nome="Psicólogo Teste",
-            email=email,
-            role="PSICOLOGO",
-            senha=get_password_hash("admin123")
-        )
-        db.add(novo_usuario)
         db.commit()
-        print(f"Usuário criado com sucesso!\nE-mail: {email}\nSenha: admin123")
+        print("Usuários criados com sucesso!")
     except Exception as e:
-        print(f"Erro ao criar o usuário: {e}")
+        db.rollback()
+        print(f"Erro ao criar os usuários: {e}")
     finally:
         db.close()
 
