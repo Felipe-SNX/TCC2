@@ -40,3 +40,14 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if usuario is None:
         raise credentials_exception
     return usuario
+
+from app.models.schema import Usuario
+
+class RoleChecker:
+    def __init__(self, allowed_roles: list):
+        self.allowed_roles = allowed_roles
+
+    def __call__(self, current_user: Usuario = Depends(get_current_user)):
+        if current_user.role not in self.allowed_roles:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Nível de permissão insuficiente.")
+        return current_user
