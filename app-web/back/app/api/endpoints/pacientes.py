@@ -1,13 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from typing import List
-from app.api.dependencies import get_db, get_current_user
+from app.api.dependencies import get_db, get_current_user, RoleChecker
 from app.schemas.paciente import PacienteCreate, PacienteResponse, PacientePaginatedResponse
 from app.schemas.resposta import RespostaResponse
 from app.models.schema import Usuario
 from app.crud import crud_paciente, crud_resposta
 
 router = APIRouter()
+allow_psicologo_admin = RoleChecker(["ADMIN", "PSICOLOGO"])
 
 @router.post("/", response_model=PacienteResponse, status_code=status.HTTP_201_CREATED)
 def criar_paciente(paciente_in: PacienteCreate, db: Session = Depends(get_db), current_user: Usuario = Depends(get_current_user)):
@@ -29,16 +30,25 @@ def listar_pacientes(
     return {"items": items, "total": total}
 
 @router.get("/{paciente_id}", response_model=PacienteResponse)
-def obter_paciente(paciente_id: str, db: Session = Depends(get_db)):
+def obter_paciente(paciente_id: str, db: Session = Depends(get_db), current_user: Usuario = Depends(allow_psicologo_admin)):
     paciente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
     if not paciente:
         raise HTTPException(status_code=404, detail="Paciente não encontrado.")
+    if current_user.role == "PSICOLOGO" and paciente.created_by != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
     return paciente
 
 @router.get("/{paciente_id}/respostas", response_model=List[RespostaResponse])
-def listar_respostas_do_paciente(paciente_id: str, db: Session = Depends(get_db)):
+def listar_respostas_do_paciente(
+    paciente_id: str, 
+    db: Session = Depends(get_db), 
+    current_user: Usuario = Depends(allow_psicologo_admin)
+):
     """
-    Endpoint importante para o psicólogo ver o histórico de respostas do paciente
-    através do dashboard Nuxt.
+    Endpoint para o psicólogo ver o histórico de respostas do paciente.
     """
+    if current_user.role == "PSICOLOGO":
+        paciente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
+        if not paciente or paciente.created_by != current_user.id:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
     return crud_resposta.get_respostas_by_paciente(db, paciente_id=paciente_id)
