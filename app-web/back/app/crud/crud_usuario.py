@@ -41,3 +41,10 @@ def update_usuario(db: Session, usuario_id: str, usuario_in: UsuarioUpdate):
     db.refresh(db_usuario)
     return db_usuario
 
+def delete_usuario(db: Session, usuario_id: str):
+    db_usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
+    if not db_usuario:
+        return False
+    db.delete(db_usuario)
+    db.commit()
+    return True

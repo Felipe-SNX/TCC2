@@ -53,3 +53,15 @@ def atualizar_usuario(
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     return usuario
+
+@router.delete("/{usuario_id}", status_code=status.HTTP_204_NO_CONTENT)
+def excluir_usuario(
+    usuario_id: str,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(allow_admin)
+):
+    if current_user.id == usuario_id:
+        raise HTTPException(status_code=400, detail="Não é possível excluir o próprio usuário.")
+    deleted = crud_usuario.delete_usuario(db=db, usuario_id=usuario_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
