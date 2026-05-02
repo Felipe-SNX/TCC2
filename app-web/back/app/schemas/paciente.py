@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, ConfigDict
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 class PacienteBase(BaseModel):
@@ -25,3 +25,7 @@ class PacienteResponse(PacienteBase):
     updated_by: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class PacientePaginatedResponse(BaseModel):
+    items: List[PacienteResponse]
+    total: int
