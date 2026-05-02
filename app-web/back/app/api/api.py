@@ -1,7 +1,10 @@
 from fastapi import APIRouter
-from app.api.endpoints import jogo, pacientes, usuarios, perguntas
+from app.api.endpoints import jogo, pacientes, usuarios, perguntas, auth
 
 api_router = APIRouter()
+
+# Autenticação
+api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 
 # O jogo envia dados aqui
 api_router.include_router(jogo.router, prefix="/jogo", tags=["jogo"])
