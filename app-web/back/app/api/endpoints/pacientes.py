@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from typing import List
-from app.api.dependencies import get_db, get_current_user
+from app.api.dependencies import get_db, get_current_user, verify_paciente_access
 from app.schemas.paciente import PacienteCreate, PacienteResponse, PacientePaginatedResponse
 from app.schemas.resposta import RespostaResponse
 from app.models.schema import Usuario
@@ -29,16 +29,19 @@ def listar_pacientes(
     return {"items": items, "total": total}
 
 @router.get("/{paciente_id}", response_model=PacienteResponse)
-def obter_paciente(paciente_id: str, db: Session = Depends(get_db)):
+def obter_paciente(paciente_id: str, db: Session = Depends(get_db), current_user: Usuario = Depends(verify_paciente_access)):
     paciente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
     if not paciente:
         raise HTTPException(status_code=404, detail="Paciente não encontrado.")
     return paciente
 
 @router.get("/{paciente_id}/respostas", response_model=List[RespostaResponse])
-def listar_respostas_do_paciente(paciente_id: str, db: Session = Depends(get_db)):
+def listar_respostas_do_paciente(
+    paciente_id: str, 
+    db: Session = Depends(get_db), 
+    current_user: Usuario = Depends(verify_paciente_access)
+):
     """
-    Endpoint importante para o psicólogo ver o histórico de respostas do paciente
-    através do dashboard Nuxt.
+    Endpoint para o psicólogo ver o histórico de respostas do paciente.
     """
     return crud_resposta.get_respostas_by_paciente(db, paciente_id=paciente_id)

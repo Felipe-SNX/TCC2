@@ -40,3 +40,25 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if usuario is None:
         raise credentials_exception
     return usuario
+
+from app.models.schema import Usuario
+from app.crud.crud_paciente import get_paciente
+
+def verify_paciente_access(
+    paciente_id: str,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(get_current_user)
+) -> Usuario:
+    """
+    Dependência de segurança global:
+    Garante que o usuário tenha acesso ao paciente específico pelo path param paciente_id.
+    """
+    if current_user.role not in ["ADMIN", "PSICOLOGO"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado.")
+    
+    if current_user.role == "PSICOLOGO":
+        paciente = get_paciente(db, paciente_id=paciente_id)
+        if not paciente or paciente.created_by != current_user.id:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado ou paciente não encontrado.")
+            
+    return current_user
