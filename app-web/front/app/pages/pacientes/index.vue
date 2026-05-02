@@ -20,9 +20,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { pacientesService } from '~/services/pacientes.service'
 
-const config = useRuntimeConfig()
-const tokenCookie = useCookie('access_token')
 const { showSnackbar } = useSnackbar()
 
 const pacientes = ref([])
@@ -30,23 +29,12 @@ const total = ref(0)
 const isLoading = ref(false)
 
 const fetchPacientes = async (options: { page: number, itemsPerPage: number }) => {
-  if (!tokenCookie.value) return
-
   isLoading.value = true
   try {
-    const response = await $fetch<{ items: any[], total: number }>(`${config.public.apiBaseUrl}/pacientes/`, {
-      method: 'GET',
-      query: {
-        page: options.page,
-        items_per_page: options.itemsPerPage
-      },
-      headers: {
-        Authorization: `Bearer ${tokenCookie.value}`
-      }
-    })
+    const data = await pacientesService.listar(options.page, options.itemsPerPage)
 
-    pacientes.value = response.items
-    total.value = response.total
+    pacientes.value = data.items
+    total.value = data.total
   } catch (error: any) {
     console.error('Erro ao buscar pacientes:', error)
     if (error.response?.status === 401 || error.response?.status === 403) {
