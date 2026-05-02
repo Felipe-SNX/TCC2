@@ -37,6 +37,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useConfirmDialog } from "~/composables/useConfirmDialog";
 import {
   pacientesService,
   type PacienteForm,
