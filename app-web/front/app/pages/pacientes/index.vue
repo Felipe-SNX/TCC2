@@ -1,12 +1,5 @@
 <template>
   <v-container class="py-6">
-    <div class="mb-6">
-      <h1 class="text-h4 font-weight-bold">Painel de Pacientes</h1>
-      <p class="text-medium-emphasis">
-        Gerencie seus pacientes e acompanhe o histórico de respostas.
-      </p>
-    </div>
-
     <!-- 
       Componente da tabela, sendo puramente "dummy". 
       A lógica é toda controlada pelo Container Pai 
@@ -42,6 +35,12 @@ import {
   pacientesService,
   type PacienteForm,
 } from "~/services/pacientes.service";
+
+definePageMeta({
+  layout: 'dashboard',
+  title: 'Painel de Pacientes',
+  description: 'Gerencie seus pacientes e acompanhe o histórico de respostas.'
+});
 
 const { showSnackbar } = useSnackbar();
 const { confirm } = useConfirmDialog();

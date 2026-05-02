@@ -1,10 +1,5 @@
 <template>
   <v-container class="py-6">
-    <div class="mb-6">
-      <h1 class="text-h4 font-weight-bold">Painel de Usuários</h1>
-      <p class="text-medium-emphasis">Gerencie os usuários do sistema e seus níveis de acesso.</p>
-    </div>
-
     <!-- 
       Componente da tabela, sendo puramente "dummy". 
       A lógica é toda controlada pelo Container Pai 
@@ -36,6 +31,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { usuariosService, type UsuarioForm } from '~/services/usuarios.service'
+
+definePageMeta({
+  layout: 'dashboard',
+  title: 'Painel de Usuários',
+  description: 'Gerencie os usuários do sistema e seus níveis de acesso.'
+});
 
 const { showSnackbar } = useSnackbar()
 const { confirm } = useConfirmDialog()
