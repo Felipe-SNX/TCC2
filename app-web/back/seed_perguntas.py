@@ -17,26 +17,26 @@ def seed_perguntas():
             return
 
         perguntas_textos = [
-            "Como você se sente após observar a cor azul?",
-            "Qual a intensidade da sensação de calma ao ver a cor verde?",
-            "A cor vermelha aumenta sua energia?",
-            "A cor amarela melhora seu humor?",
-            "A cor roxa traz sensação de criatividade?",
-            "Como a cor laranja influencia seu estado de alerta?",
-            "A cor branca gera sensação de leveza?",
-            "A cor preta provoca sensação de introspecção?",
-            "A cor rosa tem efeito relaxante?",
-            "A cor turquesa desperta sentimentos de tranquilidade?",
-            "A cor dourada aumenta sua motivação?",
-            "A cor cinza reduz seu nível de estresse?",
-            "A cor marrom traz sensação de estabilidade?",
-            "A cor índigo favorece a meditação?",
-            "A cor prata aumenta a clareza mental?",
-            "A cor verde-água afeta seu humor positivamente?",
-            "A cor coral eleva sua criatividade?",
-            "A cor violeta influencia sua percepção de tempo?",
-            "A cor azul-claro ajuda na concentração?",
-            "A cor amarelo-ouro reduz ansiedade?"
+            "Como você se sente após observar a cor?",
+            "Qual a intensidade da sensação de calma ao ver a cor?",
+            "A cor aumenta sua energia?",
+            "A cor melhora seu humor?",
+            "A cor traz sensação de criatividade?",
+            "Como a cor influencia seu estado de alerta?",
+            "A cor gera sensação de leveza?",
+            "A cor provoca sensação de introspecção?",
+            "A cor tem efeito relaxante?",
+            "A cor desperta sentimentos de tranquilidade?",
+            "A cor aumenta sua motivação?",
+            "A cor reduz seu nível de estresse?",
+            "A cor traz sensação de estabilidade?",
+            "A cor favorece a meditação?",
+            "A cor aumenta a clareza mental?",
+            "A cor afeta seu humor positivamente?",
+            "A cor eleva sua criatividade?",
+            "A cor influencia sua percepção de tempo?",
+            "A cor ajuda na concentração?",
+            "A cor reduz ansiedade?"
         ]
 
         # Alternativas padrão (escala de 1 a 5)
