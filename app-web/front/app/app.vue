@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import { useSnackbar } from '~/composables/useSnackbar'
 import { useConfirmDialog } from '~/composables/useConfirmDialog'
+import UiConfirmDialog from '~/components/ui/ConfirmDialog.vue'
 
 const { isVisible, message, color, timeout } = useSnackbar()
 

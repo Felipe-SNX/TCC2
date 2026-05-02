@@ -29,5 +29,10 @@ export const pacientesService = {
     const { $api } = useNuxtApp() as any
     const response = await $api.put(`/pacientes/${id}`, paciente)
     return response.data
+  },
+
+  async excluir(id: string) {
+    const { $api } = useNuxtApp() as any
+    await $api.delete(`/pacientes/${id}`)
   }
 }

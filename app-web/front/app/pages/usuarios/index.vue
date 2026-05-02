@@ -16,6 +16,7 @@
       @update:options="fetchUsuarios"
       @create="openCreateDialog"
       @edit="openEditDialog"
+      @delete="handleDelete"
     />
 
     <!-- 
@@ -37,6 +38,7 @@ import { ref } from 'vue'
 import { usuariosService, type UsuarioForm } from '~/services/usuarios.service'
 
 const { showSnackbar } = useSnackbar()
+const { confirm } = useConfirmDialog()
 
 // Estado da tabela
 const usuarios = ref([])
@@ -102,6 +104,29 @@ const handleSave = async (formData: UsuarioForm) => {
     showSnackbar({ message: detail || 'Falha ao salvar usuário.', color: 'error' })
   } finally {
     isSaving.value = false
+  }
+}
+
+const handleDelete = async (usuario: any) => {
+  const decision = await confirm({
+    title: 'Excluir usuário',
+    message: `Tem certeza que deseja excluir o usuário "${usuario.nome}"? Esta ação não pode ser desfeita.`,
+    confirmText: 'Excluir',
+    cancelText: 'Cancelar',
+    confirmColor: 'error',
+    confirmIcon: 'mdi-delete'
+  })
+
+  if (!decision) return
+
+  try {
+    await usuariosService.excluir(usuario.id)
+    showSnackbar({ message: 'Usuário excluído com sucesso.', color: 'success' })
+    await fetchUsuarios(currentOptions.value)
+  } catch (error: any) {
+    console.error('Erro ao excluir usuário:', error)
+    const detail = error.response?.data?.detail
+    showSnackbar({ message: detail || 'Falha ao excluir usuário.', color: 'error' })
   }
 }
 </script>

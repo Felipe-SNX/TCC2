@@ -41,3 +41,13 @@ def update_paciente(db: Session, paciente_id: str, paciente_in: PacienteUpdate, 
     db.commit()
     db.refresh(db_paciente)
     return db_paciente
+
+def delete_paciente(db: Session, paciente_id: str):
+    db_paciente = db.query(Paciente).filter(Paciente.id == paciente_id).first()
+    if not db_paciente:
+        return False
+    # Remove vínculos na tabela de associação antes de excluir
+    db.query(PacientePsicologo).filter(PacientePsicologo.id_paciente == paciente_id).delete()
+    db.delete(db_paciente)
+    db.commit()
+    return True

@@ -4,11 +4,16 @@
       <v-icon class="mr-2" color="primary">mdi-account-cog</v-icon>
       <span class="text-h6 font-weight-bold">Usuários do Sistema</span>
       <v-spacer></v-spacer>
-      <v-btn color="primary" prepend-icon="mdi-plus" size="small" @click="$emit('create')">
+      <v-btn
+        color="primary"
+        prepend-icon="mdi-plus"
+        size="small"
+        @click="$emit('create')"
+      >
         Novo Usuário
       </v-btn>
     </v-card-title>
-    
+
     <v-divider></v-divider>
 
     <v-data-table-server
@@ -30,7 +35,9 @@
           </v-avatar>
           <div>
             <div class="font-weight-medium">{{ item.nome }}</div>
-            <div class="text-caption text-medium-emphasis">{{ item.email }}</div>
+            <div class="text-caption text-medium-emphasis">
+              {{ item.email }}
+            </div>
           </div>
         </div>
       </template>
@@ -42,14 +49,37 @@
           variant="tonal"
         >
           <v-icon start size="small">
-            {{ item.role === 'ADMIN' ? 'mdi-shield-crown' : 'mdi-account-tie' }}
+            {{ item.role === "ADMIN" ? "mdi-shield-crown" : "mdi-account-tie" }}
           </v-icon>
-          {{ item.role === 'ADMIN' ? 'Administrador' : 'Psicólogo' }}
+          {{ item.role === "ADMIN" ? "Administrador" : "Psicólogo" }}
         </v-chip>
       </template>
 
       <template v-slot:item.acoes="{ item }">
-        <v-btn icon="mdi-pencil" variant="text" size="small" color="warning" title="Editar usuário" @click="$emit('edit', item)"></v-btn>
+        <v-tooltip text="Editar" location="top">
+          <template v-slot:activator="{ props: tooltipProps }">
+            <v-btn
+              icon="mdi-pencil"
+              variant="text"
+              size="small"
+              color="warning"
+              v-bind="tooltipProps"
+              @click="$emit('edit', item)"
+            ></v-btn>
+          </template>
+        </v-tooltip>
+        <v-tooltip text="Excluir" location="top">
+          <template v-slot:activator="{ props: tooltipProps }">
+            <v-btn
+              icon="mdi-delete"
+              variant="text"
+              size="small"
+              color="error"
+              v-bind="tooltipProps"
+              @click="$emit('delete', item)"
+            ></v-btn>
+          </template>
+        </v-tooltip>
       </template>
 
       <template v-slot:no-data>
@@ -62,35 +92,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const props = defineProps<{
-  items: any[]
-  totalItems: number
-  loading: boolean
-}>()
+  items: any[];
+  totalItems: number;
+  loading: boolean;
+}>();
 
 const emit = defineEmits<{
-  (e: 'update:options', options: { page: number, itemsPerPage: number }): void
-  (e: 'create'): void
-  (e: 'edit', item: any): void
-}>()
+  (e: "update:options", options: { page: number; itemsPerPage: number }): void;
+  (e: "create"): void;
+  (e: "edit", item: any): void;
+  (e: "delete", item: any): void;
+}>();
 
 const headers = [
-  { title: 'Usuário', key: 'nome', align: 'start' as const, sortable: false },
-  { title: 'Perfil', key: 'role', align: 'center' as const, sortable: false },
-  { title: 'Ações', key: 'acoes', align: 'end' as const, sortable: false }
-]
+  { title: "Usuário", key: "nome", align: "start" as const, sortable: false },
+  { title: "Perfil", key: "role", align: "center" as const, sortable: false },
+  { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
+];
 
 const options = ref({
   page: 1,
-  itemsPerPage: 25
-})
+  itemsPerPage: 25,
+});
 
 const handleOptionsUpdate = (newOptions: any) => {
-  emit('update:options', {
+  emit("update:options", {
     page: newOptions.page,
-    itemsPerPage: newOptions.itemsPerPage
-  })
-}
+    itemsPerPage: newOptions.itemsPerPage,
+  });
+};
 </script>
