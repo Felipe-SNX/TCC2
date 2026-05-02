@@ -26,19 +26,21 @@ const config = useRuntimeConfig()
 const isLoading = ref(false)
 const errorMessage = ref('')
 const tokenCookie = useCookie('access_token', { maxAge: 60 * 60 * 24 * 7 }) // 7 dias
+const userCookie = useCookie('user_data', { maxAge: 60 * 60 * 24 * 7 }) // 7 dias
 
 const handleLogin = async (credentials: { email: string; password: string }) => {
   isLoading.value = true
   errorMessage.value = ''
   
   try {
-    const response = await $fetch<{ access_token: string }>(`${config.public.apiBaseUrl}/auth/psychologist`, {
+    const response = await $fetch<{ access_token: string, user: any }>(`${config.public.apiBaseUrl}/auth/login`, {
       method: 'POST',
       body: credentials
     })
     
-    // Salva o token (o useCookie gerencia isso de forma reativa e armazena nos cookies do browser)
+    // Salva o token e os dados do usuário (o useCookie gerencia automaticamente JSON)
     tokenCookie.value = response.access_token
+    userCookie.value = response.user
     
     // Redireciona para o dashboard
     navigateTo('/')
