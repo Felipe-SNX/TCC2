@@ -1,16 +1,56 @@
 <template>
-  <v-container class="fill-height d-flex align-center justify-center">
+  <v-container class="fill-height d-flex align-center justify-center bg-background">
     <v-row justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <!-- O Nuxt utiliza prefixo baseado em pastas para auto-import. -->
-        <AuthLoginForm @submit="handleLogin" />
+        
+        <v-alert
+          v-if="errorMessage"
+          type="error"
+          class="mb-4"
+          closable
+          @click:close="errorMessage = ''"
+        >
+          {{ errorMessage }}
+        </v-alert>
+
+        <AuthLoginForm @submit="handleLogin" :loading="isLoading" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
-const handleLogin = (credentials: { email: string; password: string }) => {
-  console.log('Login submetido com credenciais:', credentials)
+import { ref } from 'vue'
+
+const config = useRuntimeConfig()
+const isLoading = ref(false)
+const errorMessage = ref('')
+const tokenCookie = useCookie('access_token', { maxAge: 60 * 60 * 24 * 7 }) // 7 dias
+
+const handleLogin = async (credentials: { email: string; password: string }) => {
+  isLoading.value = true
+  errorMessage.value = ''
+  
+  try {
+    const response = await $fetch<{ access_token: string }>(`${config.public.apiBaseUrl}/auth/psychologist`, {
+      method: 'POST',
+      body: credentials
+    })
+    
+    // Salva o token (o useCookie gerencia isso de forma reativa e armazena nos cookies do browser)
+    tokenCookie.value = response.access_token
+    
+    // Redireciona para o dashboard
+    navigateTo('/')
+  } catch (error: any) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      errorMessage.value = error.response._data?.detail || 'E-mail ou senha incorretos.'
+    } else {
+      errorMessage.value = 'Ocorreu um erro ao tentar realizar o login. Verifique se a API está rodando.'
+    }
+    console.error('Erro no login:', error)
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>

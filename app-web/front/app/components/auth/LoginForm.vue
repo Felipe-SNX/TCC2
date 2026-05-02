@@ -25,7 +25,7 @@
         required
       ></v-text-field>
 
-      <v-btn type="submit" color="primary" class="mt-2" block size="large">
+      <v-btn type="submit" color="primary" class="mt-2" block size="large" :loading="loading">
         Entrar
       </v-btn>
 
@@ -43,6 +43,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
+const props = defineProps<{
+  loading?: boolean
+}>()
 
 const emit = defineEmits<{
   (e: 'submit', payload: { email: string; password: string }): void
