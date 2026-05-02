@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, ConfigDict
-from typing import Optional
+from typing import Optional, List
 from enum import Enum
 
 class RoleEnum(str, Enum):
@@ -24,3 +24,7 @@ class UsuarioResponse(UsuarioBase):
     id: str
 
     model_config = ConfigDict(from_attributes=True)
+
+class UsuarioPaginatedResponse(BaseModel):
+    items: List[UsuarioResponse]
+    total: int
