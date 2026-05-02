@@ -21,3 +21,7 @@ class PerguntaResponse(PerguntaBase):
     updated_by: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class PerguntaPaginatedResponse(BaseModel):
+    items: List[PerguntaResponse]
+    total: int
