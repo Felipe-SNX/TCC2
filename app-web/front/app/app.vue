@@ -26,6 +26,9 @@
 </template>
 
 <script setup lang="ts">
+import { useSnackbar } from '~/composables/useSnackbar'
+import { useConfirmDialog } from '~/composables/useConfirmDialog'
+
 const { isVisible, message, color, timeout } = useSnackbar()
 
 const {
