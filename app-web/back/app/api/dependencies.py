@@ -8,7 +8,7 @@ from app.core.config import settings
 from app.crud.crud_usuario import get_usuario_by_email
 from app.schemas.token import TokenData
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/psychologist")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 def get_db() -> Generator:
     """

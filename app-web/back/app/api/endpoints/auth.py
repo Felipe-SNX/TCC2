@@ -9,7 +9,7 @@ from app.schemas.token import Token, LoginSchema
 
 router = APIRouter()
 
-@router.post("/psychologist", response_model=Token)
+@router.post("/login", response_model=Token)
 def login_for_access_token(login_data: LoginSchema, db: Session = Depends(get_db)):
     usuario = get_usuario_by_email(db, email=login_data.email)
     if not usuario:
@@ -28,11 +28,20 @@ def login_for_access_token(login_data: LoginSchema, db: Session = Depends(get_db
     if usuario.role not in ['PSICOLOGO', 'ADMIN']:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Acesso negado. Apenas psicólogos podem acessar este painel.",
+            detail="Acesso negado. Apenas psicólogos e administradores podem acessar este painel.",
         )
 
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": usuario.email, "role": usuario.role}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {
+        "access_token": access_token, 
+        "token_type": "bearer",
+        "user": {
+            "id": usuario.id,
+            "nome": usuario.nome,
+            "email": usuario.email,
+            "role": usuario.role
+        }
+    }
