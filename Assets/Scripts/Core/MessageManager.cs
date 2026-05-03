@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class MessageManager : MonoBehaviour
 {
-    public static MessageManager Instance;
+    public static MessageManager Instance { get; private set; }
 
-    private List<string> collectedParts = new List<string>();
+    [SerializeField] private List<string> collectedParts = new List<string>();
 
     private void Awake()
     {
@@ -17,34 +17,37 @@ public class MessageManager : MonoBehaviour
 
         Instance = this;
 
-        //Debug.Log("Instance definido corretamente");
+        Debug.Log("Instance definido corretamente"); 
     }
 
     public void Collect(string part)
     {
-        if (string.IsNullOrEmpty(part))
-            return;
+        if (string.IsNullOrEmpty(part)) return;
 
-        // Evita duplicatas (opcional)
         if (!collectedParts.Contains(part))
         {
             collectedParts.Add(part);
         }
 
-        // Segurança ao chamar UI
         if (UIManager.Instance != null)
         {
-            //Debug.Log("Mensagem coletada: " + part);
             UIManager.Instance.ShowMessage(part);
         }
         else
         {
-            Debug.LogWarning("UIManager não encontrado na cena!");
+            Debug.LogWarning("UIManager não encontrado!");
         }
     }
 
     public string GetFullMessage()
     {
-        return string.Join(" ", collectedParts);
+        // Une as partes coletadas em um único texto formatado
+        return string.Join("\n", collectedParts); 
+    }
+
+    // Método para limpar as mensagens ao reiniciar o jogo ou fase
+    public void ClearMessages()
+    {
+        collectedParts.Clear();
     }
 }

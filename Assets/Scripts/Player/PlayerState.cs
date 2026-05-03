@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public bool hasWater = false;
+    [Header("Estado do Inventário")]
+    [SerializeField] private bool hasWater = false;
 
     public void CollectWater()
     {
@@ -19,6 +20,9 @@ public class PlayerState : MonoBehaviour
             return true;
         }
 
+        Debug.Log("O jogador não possui água.");
         return false;
     }
+
+    public bool CurrentWaterStatus() => hasWater;
 }

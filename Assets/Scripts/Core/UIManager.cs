@@ -4,17 +4,17 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIManager Instance { get; private set; }
 
-    public GameObject modal;
-    public TextMeshProUGUI messageText;
-    public float displayTime = 3f;
+    [Header("Componentes de UI")]
+    [SerializeField] private GameObject modal;
+    [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private float displayTime = 3f;
 
     private Coroutine currentRoutine;
 
     private void Awake()
     {
-        // Garante apenas uma instância
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -22,13 +22,14 @@ public class UIManager : MonoBehaviour
         }
 
         Instance = this;
+
+        if (modal != null) modal.SetActive(false);
     }
 
     public void ShowMessage(string msg)
     {
         if (currentRoutine != null)
         {
-            //Debug.Log("Mostrando mensagem: " + msg);
             StopCoroutine(currentRoutine);
         }
 
@@ -37,17 +38,14 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ShowMessageRoutine(string msg)
     {
-        if (modal == null || messageText == null)
-        {
-            //Debug.LogError("UIManager não está configurado no Inspector!");
-            yield break;
-        }
+        if (modal == null || messageText == null) yield break;
 
-        modal.SetActive(true);
         messageText.text = msg;
+        modal.SetActive(true);
 
         yield return new WaitForSeconds(displayTime);
 
         modal.SetActive(false);
+        currentRoutine = null;
     }
 }

@@ -6,11 +6,11 @@ public class WaterCollectible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerState player = other.GetComponent<PlayerState>();
-
-            if (player != null)
+            if (other.TryGetComponent<PlayerState>(out PlayerState player))
             {
-                player.CollectWater();
+                player.CollectWater();               
+                UIManager.Instance.ShowMessage("Você coletou água!"); 
+                Debug.Log("Item de água coletado!");
                 Destroy(gameObject);
             }
         }
