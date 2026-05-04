@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.schema import Usuario
-from app.schemas.usuario import UsuarioCreate, UsuarioUpdate
+from app.schemas.usuario import UsuarioCreate, UsuarioRegister, UsuarioUpdate
 from app.core.security import get_password_hash
 
 def get_usuario(db: Session, usuario_id: str):
@@ -21,7 +21,23 @@ def create_usuario(db: Session, usuario: UsuarioCreate):
         nome=usuario.nome,
         email=usuario.email,
         role=usuario.role,
-        senha=hashed_password
+        senha=hashed_password,
+        ativo=True  # Criado por admin → ativo imediatamente
+    )
+    db.add(db_usuario)
+    db.commit()
+    db.refresh(db_usuario)
+    return db_usuario
+
+def create_usuario_registro(db: Session, usuario: UsuarioRegister):
+    """Cria um usuário via auto-registro. Sempre PSICOLOGO e sempe inicia inativo."""
+    hashed_password = get_password_hash(usuario.senha)
+    db_usuario = Usuario(
+        nome=usuario.nome,
+        email=usuario.email,
+        role='PSICOLOGO',
+        senha=hashed_password,
+        ativo=False
     )
     db.add(db_usuario)
     db.commit()
@@ -37,6 +53,16 @@ def update_usuario(db: Session, usuario_id: str, usuario_in: UsuarioUpdate):
         update_data["senha"] = get_password_hash(update_data["senha"])
     for field, value in update_data.items():
         setattr(db_usuario, field, value)
+    db.commit()
+    db.refresh(db_usuario)
+    return db_usuario
+
+def toggle_ativo(db: Session, usuario_id: str):
+    """Inverte o status ativo/inativo do usuário."""
+    db_usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
+    if not db_usuario:
+        return None
+    db_usuario.ativo = not db_usuario.ativo
     db.commit()
     db.refresh(db_usuario)
     return db_usuario

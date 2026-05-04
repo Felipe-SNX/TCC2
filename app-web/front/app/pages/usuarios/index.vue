@@ -12,6 +12,7 @@
       @create="openCreateDialog"
       @edit="openEditDialog"
       @delete="handleDelete"
+      @toggle-ativo="handleToggleAtivo"
     />
 
     <!-- 
@@ -128,6 +129,19 @@ const handleDelete = async (usuario: any) => {
     console.error('Erro ao excluir usuário:', error)
     const detail = error.response?.data?.detail
     showSnackbar({ message: detail || 'Falha ao excluir usuário.', color: 'error' })
+  }
+}
+
+const handleToggleAtivo = async (usuario: any) => {
+  try {
+    const updated = await usuariosService.toggleAtivo(usuario.id)
+    const statusText = updated.ativo ? 'ativado' : 'desativado'
+    showSnackbar({ message: `Usuário "${usuario.nome}" ${statusText} com sucesso.`, color: 'success' })
+    await fetchUsuarios(currentOptions.value)
+  } catch (error: any) {
+    console.error('Erro ao alterar status do usuário:', error)
+    const detail = error.response?.data?.detail
+    showSnackbar({ message: detail || 'Falha ao alterar status do usuário.', color: 'error' })
   }
 }
 </script>

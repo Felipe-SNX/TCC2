@@ -94,3 +94,17 @@ def excluir_usuario(
     deleted = crud_usuario.delete_usuario(db=db, usuario_id=usuario_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+
+@router.patch("/{usuario_id}/ativo", response_model=UsuarioResponse)
+def toggle_ativo_usuario(
+    usuario_id: str,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(allow_admin)
+):
+    """Alterna o status ativo/inativo de um usuário. Apenas administradores."""
+    if current_user.id == usuario_id:
+        raise HTTPException(status_code=400, detail="Não é possível alterar o status do próprio usuário.")
+    usuario = crud_usuario.toggle_ativo(db=db, usuario_id=usuario_id)
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+    return usuario

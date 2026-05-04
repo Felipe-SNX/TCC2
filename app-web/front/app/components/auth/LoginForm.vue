@@ -33,7 +33,7 @@
         <v-btn variant="text" size="small" color="secondary">
           Esqueci minha senha
         </v-btn>
-        <v-btn variant="text" size="small" color="secondary">
+        <v-btn variant="text" size="small" color="secondary" @click="$emit('register')">
           Criar conta
         </v-btn>
       </div>
@@ -50,6 +50,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'submit', payload: { email: string; password: string }): void
+  (e: 'register'): void
 }>()
 
 const form = ref<any>(null)

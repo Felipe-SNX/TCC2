@@ -4,7 +4,7 @@
   >
     <v-row justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <AuthLoginForm @submit="handleLogin" :loading="isLoading" />
+        <AuthLoginForm @submit="handleLogin" @register="navigateTo('/registrar')" :loading="isLoading" />
       </v-col>
     </v-row>
   </v-container>
