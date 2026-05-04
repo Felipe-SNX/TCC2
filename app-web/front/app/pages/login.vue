@@ -4,7 +4,11 @@
   >
     <v-row justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <AuthLoginForm @submit="handleLogin" @register="navigateTo('/registrar')" :loading="isLoading" />
+        <AuthLoginForm
+          @submit="handleLogin"
+          @register="navigateTo('/registrar')"
+          :loading="isLoading"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -39,15 +43,15 @@ const handleLogin = async (credentials: {
     userCookie.value = response.user;
 
     // Redireciona com base no papel (role) do usuário
-    showSnackbar({ message: 'Login realizado com sucesso!', color: 'success' })
-    
-    if (response.user.role === 'ADMIN') {
-      navigateTo('/usuarios')
-    } else if (response.user.role === 'PSICOLOGO') {
-      navigateTo('/pacientes')
+    showSnackbar({ message: "Login realizado com sucesso!", color: "success" });
+
+    if (response.user.role === "ADMIN") {
+      navigateTo("/usuarios");
+    } else if (response.user.role === "PSICOLOGO") {
+      navigateTo("/pacientes");
     } else {
-      navigateTo('/')
-    };
+      navigateTo("/");
+    }
   } catch (error: any) {
     if (error.response?.status === 401 || error.response?.status === 403) {
       showSnackbar({

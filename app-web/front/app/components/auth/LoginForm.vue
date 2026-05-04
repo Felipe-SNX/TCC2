@@ -25,7 +25,14 @@
         required
       ></v-text-field>
 
-      <v-btn type="submit" color="primary" class="mt-2" block size="large" :loading="loading">
+      <v-btn
+        type="submit"
+        color="primary"
+        class="mt-2"
+        block
+        size="large"
+        :loading="loading"
+      >
         Entrar
       </v-btn>
 
@@ -33,7 +40,12 @@
         <v-btn variant="text" size="small" color="secondary">
           Esqueci minha senha
         </v-btn>
-        <v-btn variant="text" size="small" color="secondary" @click="$emit('register')">
+        <v-btn
+          variant="text"
+          size="small"
+          color="secondary"
+          @click="$emit('register')"
+        >
           Criar conta
         </v-btn>
       </div>
@@ -42,29 +54,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const props = defineProps<{
-  loading?: boolean
-}>()
+  loading?: boolean;
+}>();
 
 const emit = defineEmits<{
-  (e: 'submit', payload: { email: string; password: string }): void
-  (e: 'register'): void
-}>()
+  (e: "submit", payload: { email: string; password: string }): void;
+  (e: "register"): void;
+}>();
 
-const form = ref<any>(null)
-const email = ref('')
-const password = ref('')
-
+const form = ref<any>(null);
+const email = ref("");
+const password = ref("");
 
 const onSubmit = async () => {
-  if (!form.value) return
-  
-  const { valid } = await form.value.validate()
-  
+  if (!form.value) return;
+
+  const { valid } = await form.value.validate();
+
   if (valid) {
-    emit('submit', { email: email.value, password: password.value })
+    emit("submit", { email: email.value, password: password.value });
   }
-}
+};
 </script>
