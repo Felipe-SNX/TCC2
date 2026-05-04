@@ -14,14 +14,28 @@ class UsuarioBase(BaseModel):
 class UsuarioCreate(UsuarioBase):
     senha: str
 
+class UsuarioRegister(BaseModel):
+    """Schema para auto-registro público. Não permite definir role ou ativo."""
+    nome: str
+    email: EmailStr
+    senha: str
+
 class UsuarioUpdate(BaseModel):
     nome: Optional[str] = None
     email: Optional[EmailStr] = None
     role: Optional[RoleEnum] = None
     senha: Optional[str] = None
+    ativo: Optional[bool] = None
+
+class UsuarioSelfUpdate(BaseModel):
+    """Schema para auto-edição do usuário. Não permite alterar o role."""
+    nome: Optional[str] = None
+    email: Optional[EmailStr] = None
+    senha: Optional[str] = None
 
 class UsuarioResponse(UsuarioBase):
     id: str
+    ativo: bool
 
     model_config = ConfigDict(from_attributes=True)
 
