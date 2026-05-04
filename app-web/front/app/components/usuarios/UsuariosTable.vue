@@ -55,6 +55,21 @@
         </v-chip>
       </template>
 
+      <template v-slot:item.ativo="{ item }">
+        <v-tooltip text="Ativar / Desativar usuário" location="bottom">
+          <template v-slot:activator="{ props: tooltipProps }">
+            <v-switch
+              :model-value="item.ativo"
+              color="success"
+              density="compact"
+              hide-details
+              v-bind="tooltipProps"
+              @update:model-value="$emit('toggle-ativo', item)"
+            ></v-switch>
+          </template>
+        </v-tooltip>
+      </template>
+
       <template v-slot:item.acoes="{ item }">
         <v-tooltip text="Editar" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
@@ -105,11 +120,13 @@ const emit = defineEmits<{
   (e: "create"): void;
   (e: "edit", item: any): void;
   (e: "delete", item: any): void;
+  (e: "toggle-ativo", item: any): void;
 }>();
 
 const headers = [
   { title: "Usuário", key: "nome", align: "start" as const, sortable: false },
   { title: "Perfil", key: "role", align: "center" as const, sortable: false },
+  { title: "Ativo", key: "ativo", align: "center" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
 
