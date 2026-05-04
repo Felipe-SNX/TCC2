@@ -20,6 +20,12 @@ class UsuarioUpdate(BaseModel):
     role: Optional[RoleEnum] = None
     senha: Optional[str] = None
 
+class UsuarioSelfUpdate(BaseModel):
+    """Schema para auto-edição do usuário. Não permite alterar o role."""
+    nome: Optional[str] = None
+    email: Optional[EmailStr] = None
+    senha: Optional[str] = None
+
 class UsuarioResponse(UsuarioBase):
     id: str
 

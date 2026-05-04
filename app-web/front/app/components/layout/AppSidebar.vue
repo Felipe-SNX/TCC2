@@ -9,8 +9,8 @@
     <v-list>
       <v-list-item
         prepend-icon="mdi-account-circle"
-        title="Meu Nome"
-        subtitle="meu.email@exemplo.com"
+        :title="userName"
+        :subtitle="userEmail"
         class="mb-2"
       >
         <template v-slot:append>
@@ -38,15 +38,22 @@
 </template>
 
 <script setup lang="ts">
-import { navigateTo } from '#imports'
+import { computed } from 'vue'
+import { navigateTo, useCookie } from '#imports'
+
+const tokenCookie = useCookie('access_token')
+const userCookie = useCookie<{ id: string; nome: string; email: string; role: string } | null>('user_data')
+
+const userName = computed(() => userCookie.value?.nome || 'Usuário')
+const userEmail = computed(() => userCookie.value?.email || '')
 
 const editData = () => {
-  // Lógica de edição (placeholder)
-  console.log('Editar dados clicado')
+  navigateTo('/perfil')
 }
 
 const logout = () => {
-  // Lógica de sair
+  tokenCookie.value = null
+  userCookie.value = null
   navigateTo('/login')
 }
 </script>
