@@ -90,6 +90,8 @@ interface PacienteFormData {
   observacoes: string
 }
 
+import type { PacienteForm } from '~/services/pacientes.service'
+
 const props = defineProps<{
   modelValue: boolean
   paciente: any | null
@@ -99,7 +101,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
   (e: 'cancel'): void
-  (e: 'save', data: PacienteFormData): void
+  (e: 'save', data: PacienteForm): void
 }>()
 
 const formRef = ref()
@@ -138,6 +140,14 @@ watch(() => props.modelValue, (open) => {
 const handleSubmit = async () => {
   const { valid } = await formRef.value?.validate()
   if (!valid) return
-  emit('save', { ...form.value })
+  
+  const payload: PacienteForm = {
+    nome: form.value.nome,
+    email: form.value.email,
+    idade: form.value.idade as number,
+    observacoes: form.value.observacoes
+  }
+  
+  emit('save', payload)
 }
 </script>
