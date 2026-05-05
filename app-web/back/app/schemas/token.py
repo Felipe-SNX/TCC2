@@ -17,3 +17,10 @@ class TokenData(BaseModel):
 class LoginSchema(BaseModel):
     email: str
     password: str
+
+class EsqueciSenhaSchema(BaseModel):
+    email: str
+
+class RedefinirSenhaSchema(BaseModel):
+    token: str
+    nova_senha: str

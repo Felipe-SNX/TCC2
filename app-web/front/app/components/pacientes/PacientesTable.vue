@@ -92,6 +92,7 @@ const emit = defineEmits<{
   (e: "create"): void;
   (e: "edit", item: any): void;
   (e: "delete", item: any): void;
+  (e: "view-dashboard", item: any): void;
 }>();
 
 const headers = [

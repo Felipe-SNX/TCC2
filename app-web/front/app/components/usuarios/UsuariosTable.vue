@@ -43,16 +43,30 @@
       </template>
 
       <template v-slot:item.role="{ item }">
-        <v-chip
-          :color="item.role === 'ADMIN' ? 'error' : 'info'"
-          size="small"
-          variant="tonal"
+        <v-select
+          :model-value="item.role"
+          :items="roles"
+          item-title="title"
+          item-value="value"
+          density="compact"
+          hide-details
+          variant="outlined"
+          class="role-select"
+          @update:model-value="(newRole) => $emit('change-role', item, newRole)"
         >
-          <v-icon start size="small">
-            {{ item.role === "ADMIN" ? "mdi-shield-crown" : "mdi-account-tie" }}
-          </v-icon>
-          {{ item.role === "ADMIN" ? "Administrador" : "Psicólogo" }}
-        </v-chip>
+          <template v-slot:selection="{ item: selectionItem }">
+            <v-chip
+              :color="selectionItem.value === 'ADMIN' ? 'error' : 'info'"
+              size="small"
+              variant="tonal"
+            >
+              <v-icon start size="small">
+                {{ selectionItem.value === "ADMIN" ? "mdi-shield-crown" : "mdi-account-tie" }}
+              </v-icon>
+              {{ selectionItem.title }}
+            </v-chip>
+          </template>
+        </v-select>
       </template>
 
       <template v-slot:item.ativo="{ item }">
@@ -121,11 +135,17 @@ const emit = defineEmits<{
   (e: "edit", item: any): void;
   (e: "delete", item: any): void;
   (e: "toggle-ativo", item: any): void;
+  (e: "change-role", item: any, newRole: string): void;
 }>();
+
+const roles = [
+  { title: "Administrador", value: "ADMIN" },
+  { title: "Psicólogo", value: "PSICOLOGO" },
+];
 
 const headers = [
   { title: "Usuário", key: "nome", align: "start" as const, sortable: false },
-  { title: "Perfil", key: "role", align: "center" as const, sortable: false },
+  { title: "Perfil", key: "role", align: "center" as const, sortable: false, width: "200px" },
   { title: "Ativo", key: "ativo", align: "center" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
@@ -142,3 +162,10 @@ const handleOptionsUpdate = (newOptions: any) => {
   });
 };
 </script>
+
+<style scoped>
+.role-select {
+  max-width: 180px;
+  margin: 0 auto;
+}
+</style>

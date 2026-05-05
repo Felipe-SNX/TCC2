@@ -12,6 +12,7 @@
       @create="openCreateDialog"
       @edit="openEditDialog"
       @delete="handleDelete"
+      @view-dashboard="handleViewDashboard"
     />
 
     <!-- 
@@ -37,9 +38,9 @@ import {
 } from "~/services/pacientes.service";
 
 definePageMeta({
-  layout: 'dashboard',
-  title: 'Painel de Pacientes',
-  description: 'Gerencie seus pacientes e acompanhe o histórico de respostas.'
+  layout: "dashboard",
+  title: "Painel de Pacientes",
+  description: "Gerencie seus pacientes e acompanhe o histórico de respostas.",
 });
 
 const { showSnackbar } = useSnackbar();
@@ -154,5 +155,9 @@ const handleDelete = async (paciente: any) => {
       color: "error",
     });
   }
+};
+
+const handleViewDashboard = (paciente: any) => {
+  navigateTo(`/dashboard/${paciente.id}`);
 };
 </script>

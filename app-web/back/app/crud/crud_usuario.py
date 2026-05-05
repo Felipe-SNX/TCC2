@@ -74,3 +74,13 @@ def delete_usuario(db: Session, usuario_id: str):
     db.delete(db_usuario)
     db.commit()
     return True
+
+def update_senha_by_email(db: Session, email: str, nova_senha: str):
+    """Atualiza a senha de um usuário pelo email. Usado na redefinição de senha."""
+    db_usuario = db.query(Usuario).filter(Usuario.email == email).first()
+    if not db_usuario:
+        return None
+    db_usuario.senha = get_password_hash(nova_senha)
+    db.commit()
+    db.refresh(db_usuario)
+    return db_usuario
