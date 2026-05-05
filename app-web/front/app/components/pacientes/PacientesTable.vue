@@ -43,6 +43,19 @@
       </template>
 
       <template v-slot:item.acoes="{ item }">
+        <v-tooltip text="Ver respostas" location="top">
+          <template v-slot:activator="{ props: tooltipProps }">
+            <v-btn
+              icon="mdi-chart-line"
+              variant="text"
+              size="small"
+              color="info"
+              class="mr-1"
+              v-bind="tooltipProps"
+              @click="$emit('view-dashboard', item)"
+            ></v-btn>
+          </template>
+        </v-tooltip>
         <v-tooltip text="Editar" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
             <v-btn
@@ -92,6 +105,7 @@ const emit = defineEmits<{
   (e: "create"): void;
   (e: "edit", item: any): void;
   (e: "delete", item: any): void;
+  (e: "view-dashboard", item: any): void;
 }>();
 
 const headers = [

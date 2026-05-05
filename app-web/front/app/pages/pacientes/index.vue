@@ -12,6 +12,7 @@
       @create="openCreateDialog"
       @edit="openEditDialog"
       @delete="handleDelete"
+      @view-dashboard="handleViewDashboard"
     />
 
     <!-- 
@@ -154,5 +155,9 @@ const handleDelete = async (paciente: any) => {
       color: "error",
     });
   }
+};
+
+const handleViewDashboard = (paciente: any) => {
+  navigateTo(`/dashboard/${paciente.id}`);
 };
 </script>
