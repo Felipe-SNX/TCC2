@@ -1,8 +1,6 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
-      <v-icon class="mr-2" color="primary">mdi-account-group</v-icon>
-      <span class="text-h6 font-weight-bold">Meus Pacientes</span>
       <v-spacer></v-spacer>
       <v-btn
         color="primary"

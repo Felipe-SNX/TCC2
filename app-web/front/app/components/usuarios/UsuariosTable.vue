@@ -1,8 +1,6 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
-      <v-icon class="mr-2" color="primary">mdi-account-cog</v-icon>
-      <span class="text-h6 font-weight-bold">Usuários do Sistema</span>
       <v-spacer></v-spacer>
       <v-btn
         color="primary"
@@ -51,6 +49,7 @@
           density="compact"
           hide-details
           variant="outlined"
+          color="primary"
           class="role-select"
           @update:model-value="(newRole) => $emit('change-role', item, newRole)"
         >
@@ -61,7 +60,11 @@
               variant="tonal"
             >
               <v-icon start size="small">
-                {{ selectionItem.value === "ADMIN" ? "mdi-shield-crown" : "mdi-account-tie" }}
+                {{
+                  selectionItem.value === "ADMIN"
+                    ? "mdi-shield-crown"
+                    : "mdi-account-tie"
+                }}
               </v-icon>
               {{ selectionItem.title }}
             </v-chip>
@@ -145,7 +148,13 @@ const roles = [
 
 const headers = [
   { title: "Usuário", key: "nome", align: "start" as const, sortable: false },
-  { title: "Perfil", key: "role", align: "center" as const, sortable: false, width: "200px" },
+  {
+    title: "Perfil",
+    key: "role",
+    align: "center" as const,
+    sortable: false,
+    width: "200px",
+  },
   { title: "Ativo", key: "ativo", align: "center" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];

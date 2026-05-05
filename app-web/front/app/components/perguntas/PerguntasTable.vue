@@ -1,8 +1,6 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
-      <v-icon class="mr-2" color="primary">mdi-help-circle-outline</v-icon>
-      <span class="text-h6 font-weight-bold">Perguntas do Sistema</span>
       <v-spacer></v-spacer>
       <v-btn
         color="primary"
@@ -30,7 +28,9 @@
     >
       <template v-slot:item.pergunta="{ item }">
         <div class="d-flex align-center py-2">
-          <v-icon color="primary" class="mr-3" size="small">mdi-chat-question</v-icon>
+          <v-icon color="primary" class="mr-3" size="small"
+            >mdi-chat-question</v-icon
+          >
           <div class="font-weight-medium">{{ item.pergunta }}</div>
         </div>
       </template>
@@ -108,9 +108,24 @@ const emit = defineEmits<{
 }>();
 
 const headers = [
-  { title: "Pergunta", key: "pergunta", align: "start" as const, sortable: false },
-  { title: "Alternativas", key: "alternativas", align: "start" as const, sortable: false },
-  { title: "Criado em", key: "created_at", align: "center" as const, sortable: false },
+  {
+    title: "Pergunta",
+    key: "pergunta",
+    align: "start" as const,
+    sortable: false,
+  },
+  {
+    title: "Alternativas",
+    key: "alternativas",
+    align: "start" as const,
+    sortable: false,
+  },
+  {
+    title: "Criado em",
+    key: "created_at",
+    align: "center" as const,
+    sortable: false,
+  },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
 
@@ -128,21 +143,21 @@ const handleOptionsUpdate = (newOptions: any) => {
 
 const chipColor = (valor: number): string => {
   const colors: Record<number, string> = {
-    1: 'error',
-    2: 'warning',
-    3: 'grey',
-    4: 'success',
-    5: 'info'
-  }
-  return colors[valor] || 'grey'
-}
+    1: "error",
+    2: "warning",
+    3: "grey",
+    4: "success",
+    5: "info",
+  };
+  return colors[valor] || "grey";
+};
 
 const formatDate = (dateStr: string): string => {
-  if (!dateStr) return '-'
-  return new Date(dateStr).toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  })
-}
+  if (!dateStr) return "-";
+  return new Date(dateStr).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
 </script>

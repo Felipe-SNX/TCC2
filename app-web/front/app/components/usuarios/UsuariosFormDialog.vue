@@ -20,6 +20,7 @@
             prepend-inner-icon="mdi-account"
             :rules="[rules.required]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-text-field>
 
@@ -30,6 +31,7 @@
             prepend-inner-icon="mdi-email"
             :rules="[rules.required, rules.email]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-text-field>
 
@@ -42,6 +44,7 @@
             item-value="value"
             :rules="[rules.required]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-select>
 
@@ -52,6 +55,7 @@
             prepend-inner-icon="mdi-lock"
             :rules="isEditing ? [] : [rules.required, rules.minLength]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-text-field>
         </v-form>
