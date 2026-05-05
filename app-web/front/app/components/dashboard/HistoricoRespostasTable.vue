@@ -45,17 +45,30 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-
 const props = defineProps<{
   items: any[];
   loading: boolean;
 }>();
 
 const headers = [
-  { title: "Data e Hora", key: "created_at", align: "start" as const, sortable: true },
-  { title: "Cor Exibida", key: "cor", align: "center" as const, sortable: true },
-  { title: "Estado Emocional (1-5)", key: "resposta", align: "center" as const, sortable: true },
+  {
+    title: "Data e Hora",
+    key: "created_at",
+    align: "start" as const,
+    sortable: true,
+  },
+  {
+    title: "Cor Exibida",
+    key: "cor",
+    align: "center" as const,
+    sortable: true,
+  },
+  {
+    title: "Estado Emocional (1-5)",
+    key: "resposta",
+    align: "center" as const,
+    sortable: true,
+  },
 ];
 
 const formatDateTime = (dateString: string) => {

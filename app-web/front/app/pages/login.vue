@@ -61,8 +61,7 @@ const handleLogin = async (credentials: {
       });
     } else {
       showSnackbar({
-        message:
-          "Ocorreu um erro ao tentar realizar o login. Verifique se a API está rodando.",
+        message: "Ocorreu um erro ao tentar realizar o login.",
         color: "error",
       });
     }
