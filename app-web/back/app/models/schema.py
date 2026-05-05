@@ -38,6 +38,7 @@ class Pergunta(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     pergunta = Column(String(255), nullable=False)
     alternativas = Column(JSON, nullable=False)
+    ativo = Column(Boolean, nullable=False, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_by = Column(String(36), ForeignKey("usuarios.id"))
