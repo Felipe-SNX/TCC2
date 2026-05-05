@@ -34,5 +34,17 @@ export const pacientesService = {
   async excluir(id: string) {
     const { $api } = useNuxtApp() as any
     await $api.delete(`/pacientes/${id}`)
+  },
+
+  async obter(id: string) {
+    const { $api } = useNuxtApp() as any
+    const response = await $api.get(`/pacientes/${id}`)
+    return response.data
+  },
+
+  async listarRespostas(id: string) {
+    const { $api } = useNuxtApp() as any
+    const response = await $api.get(`/pacientes/${id}/respostas`)
+    return response.data
   }
 }
