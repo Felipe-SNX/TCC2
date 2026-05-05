@@ -7,6 +7,7 @@
         <AuthLoginForm
           @submit="handleLogin"
           @register="navigateTo('/registrar')"
+          @forgot-password="navigateTo('/esqueci-senha')"
           :loading="isLoading"
         />
       </v-col>
