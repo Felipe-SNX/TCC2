@@ -90,19 +90,19 @@ const isLoading = ref(false);
 const dataInicio = ref<string>("");
 const dataFim = ref<string>("");
 
-// Computed para filtrar as respostas pelo período selecionado
 const respostasFiltradas = computed(() => {
   if (!dataInicio.value && !dataFim.value) return respostas.value;
 
   return respostas.value.filter((r) => {
     if (!r.created_at) return false;
-    
-    // Comparação simples de string yyyy-mm-dd
-    const respDate = new Date(r.created_at).toISOString().split("T")[0];
-    
+
+    const respDate = new Date(r.created_at)
+      .toISOString()
+      .split("T")[0] as string;
+
     const inicio = dataInicio.value || "0000-00-00";
     const fim = dataFim.value || "9999-99-99";
-    
+
     return respDate >= inicio && respDate <= fim;
   });
 });
@@ -141,13 +141,12 @@ const fetchData = async () => {
 };
 
 onMounted(() => {
-  // Configura o filtro inicial para os últimos 7 dias
   const hoje = new Date();
   const seteDiasAtras = new Date();
   seteDiasAtras.setDate(hoje.getDate() - 7);
 
-  dataInicio.value = seteDiasAtras.toISOString().split("T")[0];
-  dataFim.value = hoje.toISOString().split("T")[0];
+  dataInicio.value = seteDiasAtras.toISOString().split("T")[0] as string;
+  dataFim.value = hoje.toISOString().split("T")[0] as string;
 
   fetchData();
 });
