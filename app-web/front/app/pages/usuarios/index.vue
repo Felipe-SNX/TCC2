@@ -13,6 +13,7 @@
       @edit="openEditDialog"
       @delete="handleDelete"
       @toggle-ativo="handleToggleAtivo"
+      @change-role="handleRoleChange"
     />
 
     <!-- 
@@ -172,6 +173,26 @@ const handleToggleAtivo = async (usuario: any) => {
       message: detail || "Falha ao alterar status do usuário.",
       color: "error",
     });
+  }
+};
+
+const handleRoleChange = async (usuario: any, newRole: string) => {
+  try {
+    await usuariosService.atualizar(usuario.id, { role: newRole as any });
+    showSnackbar({
+      message: `Perfil do usuário "${usuario.nome}" alterado para ${newRole === "ADMIN" ? "Administrador" : "Psicólogo"} com sucesso.`,
+      color: "success",
+    });
+    await fetchUsuarios(currentOptions.value);
+  } catch (error: any) {
+    console.error("Erro ao alterar perfil do usuário:", error);
+    const detail = error.response?.data?.detail;
+    showSnackbar({
+      message: detail || "Falha ao alterar perfil do usuário.",
+      color: "error",
+    });
+    // Recarrega para voltar ao valor anterior em caso de erro
+    await fetchUsuarios(currentOptions.value);
   }
 };
 </script>
