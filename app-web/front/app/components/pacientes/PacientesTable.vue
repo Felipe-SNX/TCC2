@@ -41,6 +41,18 @@
       </template>
 
       <template v-slot:item.acoes="{ item }">
+        <v-tooltip text="Ver Respostar" location="top">
+          <template v-slot:activator="{ props: tooltipProps }">
+            <v-btn
+              icon="mdi-chart-line"
+              variant="text"
+              size="small"
+              color="secondary"
+              v-bind="tooltipProps"
+              @click="$emit('view-dashboard', item)"
+            ></v-btn>
+          </template>
+        </v-tooltip>
         <v-tooltip text="Editar" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
             <v-btn
