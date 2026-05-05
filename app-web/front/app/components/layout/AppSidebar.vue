@@ -24,11 +24,6 @@
             </template>
             <v-list>
               <v-list-item
-                prepend-icon="mdi-account-edit"
-                title="Editar Dados"
-                @click="editData"
-              ></v-list-item>
-              <v-list-item
                 prepend-icon="mdi-logout"
                 title="Sair"
                 @click="logout"
@@ -57,6 +52,16 @@
         prepend-icon="mdi-shield-account"
         title="Usuários"
         to="/usuarios"
+      ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-account-cog-outline"
+        title="Meu perfil"
+        to="/perfil"
+      ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-logout"
+        title="Sair"
+        @click="logout"
       ></v-list-item>
     </v-list>
   </v-navigation-drawer>
