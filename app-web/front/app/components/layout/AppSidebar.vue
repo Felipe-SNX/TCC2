@@ -53,6 +53,7 @@
         to="/perguntas"
       ></v-list-item>
       <v-list-item
+        v-if="userCookie?.role === 'ADMIN'"
         prepend-icon="mdi-shield-account"
         title="Usuários"
         to="/usuarios"
