@@ -26,7 +26,8 @@ public class ControladorSelecaoFases : MonoBehaviour, IMenuPopup
     private void CarregarFase(string nomeDaCena)
     {
         Debug.Log($"Iniciando a cena: {nomeDaCena}");
-        SceneManager.LoadScene(nomeDaCena);
+        DadosGlobais.proximaCena = nomeDaCena;        
+        SceneManager.LoadScene("Loading");
     }
 
     private void FecharTela()
