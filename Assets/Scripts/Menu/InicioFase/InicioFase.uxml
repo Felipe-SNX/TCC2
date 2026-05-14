@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+>
+    <Style src="InicioFase.uss" />
+
+    <ui:VisualElement class="tela-cheia">
+        
+        <ui:VisualElement class="banner-anuncio">
+            
+            <ui:Label name="txt-nome-fase" text="Nome da Fase" class="texto-fase" />
+            <ui:Label name="txt-anuncio" text="Prepara" class="texto-gigante" />
+            
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>
