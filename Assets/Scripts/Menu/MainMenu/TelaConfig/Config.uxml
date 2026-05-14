@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    
+    <Style src="Config.uss" />
+
+    <ui:VisualElement class="tela-inteira">
+        <ui:Label text="Configurações" class="titulo-tela" />
+
+        <ui:VisualElement class="layout-duas-colunas">
+            
+            <ui:VisualElement class="sidebar">
+                <ui:Button name="btn-aba-audio" text="Áudio" class="botao-menu" />
+                <ui:Button name="btn-aba-controles" text="Controles" class="botao-menu" />
+                <ui:VisualElement style="flex-grow: 1;" /> 
+                <ui:Button name="btn-voltar" text="Voltar" class="botao-menu" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="painel-conteudo">
+    
+                <ui:Label name="titulo-aba" text="Áudio" class="titulo-aba" />
+
+                <!-- CONTAINER DE ÁUDIO -->
+                <ui:VisualElement name="conteudo-audio">
+                    
+                    <!-- Slider 1: Master -->
+                    <ui:VisualElement class="linha-slider">
+                        <ui:Label text="Volume Master" class="label-slider" />
+                        <ui:Slider name="slider-master" low-value="0" high-value="100" value="100" class="meu-slider" />
+                        <ui:Label name="txt-valor-master" text="100" class="valor-slider" />
+                    </ui:VisualElement>
+
+                    <!-- Slider 2: Música -->
+                    <ui:VisualElement class="linha-slider">
+                        <ui:Label text="Música" class="label-slider" />
+                        <ui:Slider name="slider-musica" low-value="0" high-value="100" value="80" class="meu-slider" />
+                        <ui:Label name="txt-valor-musica" text="80" class="valor-slider" />
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- CONTAINER DE CONTROLES -->
+                <ui:VisualElement name="conteudo-controles" style="display: none;">
+                    <ui:Label text="Pular: Espaço" class="label-controles" />
+                    <ui:Label text="Mover: A e D / Setas" class="label-controles" />
+                    <ui:Label text="Poder Cromático: Shift" class="label-controles" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>
