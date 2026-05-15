@@ -18,6 +18,7 @@
     flex-grow: 1;        
 }
 
+/* Classes da Sidebar com os botões */
 .sidebar {
     width: 500px;
     margin-right: 40px; 
@@ -60,6 +61,8 @@
     background-color: #FFEA70; 
 }
 
+
+/* Classes da Aba Lateral Gerais */
 .painel-conteudo {
     flex-grow: 1; 
     background-color: rgba(30, 50, 90, 0.85); 
@@ -75,20 +78,45 @@
     margin-bottom: 60px;
 }
 
-.linha-slider {
+.linha {
     flex-direction: row; 
     align-items: center; 
     justify-content: space-between;
     margin-bottom: 40px;
 }
 
-.label-slider {
-    font-size: 50px; 
+.labels {
+    width: 300px; 
+    font-size: 50px;
     color: white;
     -unity-font-style: bold;
-    width: 300px; 
 }
 
+.botao-reset {
+    width: 600px;
+    align-self: center;
+    margin-top: 50px;
+    font-size: 42px;
+    color: black;
+    background-color: #FDF9EB; 
+    padding: 15px 50px;
+    border-radius: 12px;
+    border-left-width: 8px;
+    border-bottom-width: 6px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-color: #D6D0B9;
+    -unity-font-style: bold;
+    transition-duration: 0.15s;
+}
+
+.botao-reset:hover {
+    background-color: #FFFFFF;
+    scale: 1.05; 
+}
+
+
+/* Classes da Aba Áudio */
 .meu-slider {
     width: 450px;
 }
@@ -137,32 +165,45 @@
     width: 80px;
 }
 
-.label-controles {
-    font-size: 40px;
+
+/* Classes da Aba Controles */
+
+
+/* Classes da Aba Gráficos */
+.dropdown-graficos {
+    width: 500px;
+    height: 60px;
+    margin-bottom: 25px;
+    font-size: 18px;
     color: white;
-    -unity-font-style: bold;
-    margin-bottom: 20px;
 }
 
-.botao-reset {
-    width: 600px;
-    align-self: center;
-    margin-top: 50px;
-    font-size: 42px;
-    color: black;
-    background-color: #FDF9EB; 
-    padding: 15px 50px;
-    border-radius: 12px;
-    border-left-width: 8px;
-    border-bottom-width: 6px;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-color: #D6D0B9;
-    -unity-font-style: bold;
-    transition-duration: 0.15s;
+.dropdown-graficos .unity-base-field__input {
+    background-color: #3C4B64;
+    border-color: #FFD700;
+    border-radius: 5px;
+    padding: 8px;
 }
 
-.botao-reset:hover {
-    background-color: #FFFFFF;
-    scale: 1.05; 
+.unity-base-dropdown__container-inner {
+    background-color: #1A212E;
+    border-color: #FFD700;
+}
+
+.unity-base-dropdown__item:hover {
+    background-color: #FFD700;
+    color: #1A212E;
+}
+
+.dropdown-graficos .unity-base-popup-field__text {
+    font-size: 24px; 
+    -unity-font-style: bold;
+    color: white;
+    padding-left: 10px;
+}
+
+.unity-base-dropdown__item .unity-base-dropdown__label {
+    font-size: 22px;
+    color: white;
+    padding: 8px;
 }
