@@ -478,6 +478,98 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &974596341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 974596343}
+  - component: {fileID: 974596342}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &974596342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974596341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7214f2a42d9fb8499201f91f7632f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  menuMusic: {fileID: 0}
+  levelMusic: {fileID: 8300000, guid: f4de00dc83c18e144bc887b0996f280a, type: 3}
+  pauseMusic: {fileID: 0}
+  musicSource: {fileID: 0}
+--- !u!4 &974596343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974596341}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.63426, y: -2.33748, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1211423433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1211423435}
+  - component: {fileID: 1211423436}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1211423435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211423433}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.63426, y: -2.33748, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1211423436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211423433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ce22da3b955a142917c5bafe7c4428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelController
 --- !u!1 &1499347481
 GameObject:
   m_ObjectHideFlags: 0
@@ -111500,6 +111592,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Move
       objectReference: {fileID: 0}
+    - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
+      propertyPath: m_text
+      value: "Para andar, use A e D ou as setas \u2190  \u2192\n\nPara pular, use
+        a barra de Espa\xE7o"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
+      propertyPath: m_fontSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
+      propertyPath: m_characterHorizontalScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6223258289119885247, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -111697,3 +111806,5 @@ SceneRoots:
   - {fileID: 3225313881011506112}
   - {fileID: 4980290234414859196}
   - {fileID: 1199530338681000061}
+  - {fileID: 974596343}
+  - {fileID: 1211423435}
