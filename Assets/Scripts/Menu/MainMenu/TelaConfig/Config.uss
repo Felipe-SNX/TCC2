@@ -64,35 +64,73 @@
     flex-grow: 1; 
     background-color: rgba(30, 50, 90, 0.85); 
     border-radius: 12px;
-    padding: 50px;
+    padding: 60px;
 }
 
 .titulo-aba {
-    font-size: 60px;
+    font-size: 70px;
     color: white;
+    align-self: center;
     -unity-font-style: bold;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 .linha-slider {
     flex-direction: row; 
     align-items: center; 
+    justify-content: space-between;
     margin-bottom: 40px;
 }
 
 .label-slider {
-    font-size: 35px; 
+    font-size: 50px; 
     color: white;
     -unity-font-style: bold;
     width: 300px; 
 }
 
 .meu-slider {
-    width: 350px;
+    width: 450px;
+}
+
+.meu-slider-rastro {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #FFEA70;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    transition-duration: 0.1s; 
+    transition-property: width;
+}
+
+.unity-base-slider__input {
+    overflow: visible;
+}
+
+.unity-base-slider__tracker {
+    background-color: #2A2A2A;
+    height: 20px;
+    border-radius: 10px;
+    border-width: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    top: 50%;
+}
+
+.unity-base-slider__dragger {
+    width: 40px;
+    height: 40px;
+    margin-top: -10px;    
+    border-radius: 20px;
+    background-color: #FFD700;
+    border-width: 0;
+    z-index: 1;
 }
 
 .valor-slider {
-    font-size: 35px;
+    font-size: 50px;
     color: #FFD700; 
     -unity-font-style: bold;
     margin-left: 20px; 
@@ -104,4 +142,27 @@
     color: white;
     -unity-font-style: bold;
     margin-bottom: 20px;
+}
+
+.botao-reset {
+    width: 600px;
+    align-self: center;
+    margin-top: 50px;
+    font-size: 42px;
+    color: black;
+    background-color: #FDF9EB; 
+    padding: 15px 50px;
+    border-radius: 12px;
+    border-left-width: 8px;
+    border-bottom-width: 6px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-color: #D6D0B9;
+    -unity-font-style: bold;
+    transition-duration: 0.15s;
+}
+
+.botao-reset:hover {
+    background-color: #FFFFFF;
+    scale: 1.05; 
 }

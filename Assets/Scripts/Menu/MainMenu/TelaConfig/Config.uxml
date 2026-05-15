@@ -29,12 +29,21 @@
                         <ui:Label name="txt-valor-master" text="100" class="valor-slider" />
                     </ui:VisualElement>
 
-                    <!-- Slider 2: Música -->
+                    <!-- Slider 2: Som -->
+                    <ui:VisualElement class="linha-slider">
+                        <ui:Label text="Som" class="label-slider" />
+                        <ui:Slider name="slider-som" low-value="0" high-value="100" value="100" class="meu-slider" />
+                        <ui:Label name="txt-valor-som" text="100" class="valor-slider" />
+                    </ui:VisualElement>
+
+                    <!-- Slider 3: Música -->
                     <ui:VisualElement class="linha-slider">
                         <ui:Label text="Música" class="label-slider" />
-                        <ui:Slider name="slider-musica" low-value="0" high-value="100" value="80" class="meu-slider" />
-                        <ui:Label name="txt-valor-musica" text="80" class="valor-slider" />
+                        <ui:Slider name="slider-musica" low-value="0" high-value="100" value="100" class="meu-slider" />
+                        <ui:Label name="txt-valor-musica" text="100" class="valor-slider" />
                     </ui:VisualElement>
+
+                    <ui:Button name="btn-reset" text="Resetar Configurações" class="botao-reset" />
 
                 </ui:VisualElement>
 
