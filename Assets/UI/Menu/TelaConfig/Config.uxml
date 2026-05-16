@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    
+    <Style src="Config.uss" />
+
+    <ui:VisualElement class="tela-inteira">
+        <ui:Label text="Configurações" class="titulo-tela" />
+
+        <ui:VisualElement class="layout-duas-colunas">
+            
+            <ui:VisualElement class="sidebar">
+                <ui:Button name="btn-aba-audio" text="Áudio" class="botao-menu" />
+                <ui:Button name="btn-aba-controles" text="Controles" class="botao-menu" />
+                <ui:Button name="btn-aba-graficos" text="Gráficos" class="botao-menu" />
+                <ui:VisualElement style="flex-grow: 1;" /> 
+                <ui:Button name="btn-voltar" text="Voltar" class="botao-menu" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="painel-conteudo">
+    
+                <ui:Label name="titulo-aba" text="Áudio" class="titulo-aba" />
+
+                <!-- CONTAINER DE ÁUDIO -->
+                <ui:VisualElement name="conteudo-audio">
+                    
+                    <!-- Slider 1: Master -->
+                    <ui:VisualElement class="linha">
+                        <ui:Label text="Volume Master" class="labels" />
+                        <ui:Slider name="slider-master" low-value="0" high-value="100" value="100" class="meu-slider" />
+                        <ui:Label name="txt-valor-master" text="100" class="valor-slider" />
+                    </ui:VisualElement>
+
+                    <!-- Slider 2: Som -->
+                    <ui:VisualElement class="linha">
+                        <ui:Label text="Som" class="labels" />
+                        <ui:Slider name="slider-som" low-value="0" high-value="100" value="100" class="meu-slider" />
+                        <ui:Label name="txt-valor-som" text="100" class="valor-slider" />
+                    </ui:VisualElement>
+
+                    <!-- Slider 3: Música -->
+                    <ui:VisualElement class="linha">
+                        <ui:Label text="Música" class="labels" />
+                        <ui:Slider name="slider-musica" low-value="0" high-value="100" value="100" class="meu-slider" />
+                        <ui:Label name="txt-valor-musica" text="100" class="valor-slider" />
+                    </ui:VisualElement>
+
+                    <ui:Button name="btn-reset-audio" text="Resetar Configurações" class="botao-reset" />
+
+                </ui:VisualElement>
+
+                <!-- CONTAINER DE CONTROLES -->
+                <ui:VisualElement name="conteudo-controles" class="aba-container">
+                    <ui:ScrollView name="lista-controles-container" class="scroll-controles" />
+                </ui:VisualElement>
+
+                <!-- CONTAINER DE GRÁFICOS -->
+                <ui:VisualElement name="conteudo-graficos" class="aba-container">
+    
+                    <ui:VisualElement class="linha">
+                        <ui:Label text="Resolução" class="labels" />
+                        <ui:DropdownField name="drp-resolucao" class="dropdown-graficos" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="linha">
+                        <ui:Label text="Tela Cheia" class="labels" />
+                        <ui:DropdownField name="drp-modo-tela" class="dropdown-graficos" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="linha">
+                        <ui:Label text="Qualidade Geral" class="labels" />
+                        <ui:DropdownField name="drp-qualidade" high-value="3" low-value="0" class="dropdown-graficos" />
+                    </ui:VisualElement>
+
+                    <ui:Button name="btn-reset-graficos" text="Resetar Configurações" class="botao-reset" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

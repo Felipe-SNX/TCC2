@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    
+    <Style src="Pause.uss" />
+
+    <ui:VisualElement class="tela-pause-fundo">
+        
+        <ui:Label text="Pausado" class="titulo-pause" />
+
+        <ui:Button name="btn-retomar" text="Retomar" class="botao-pause" />
+        <ui:Button name="btn-config" text="Configurações" class="botao-pause" />
+        <ui:Button name="btn-menu" text="Voltar ao Menu Principal" class="botao-pause" />
+
+    </ui:VisualElement>
+
+</ui:UXML>
