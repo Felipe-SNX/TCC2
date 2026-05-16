@@ -32,7 +32,7 @@
 
                     <!-- Slider 2: Som -->
                     <ui:VisualElement class="linha">
-                        <ui:Label text="Som" class="labels" />
+                        <ui:Label text="SFX" class="labels" />
                         <ui:Slider name="slider-som" low-value="0" high-value="100" value="100" class="meu-slider" />
                         <ui:Label name="txt-valor-som" text="100" class="valor-slider" />
                     </ui:VisualElement>
