@@ -1,8 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+
+    [Header("Audio Mixer Central")]
+    public AudioMixer meuMixer;
 
     [Header("Music Clips")]
     public AudioClip menuMusic;
@@ -36,7 +40,7 @@ public class AudioManager : MonoBehaviour
 
         musicSource.loop = true;
         musicSource.playOnAwake = false;
-        musicSource.volume = musicVolume;
+        musicSource.volume = 1f;
     }
 
     public void PlayMenuMusic()
@@ -71,13 +75,23 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
+    public void SetMasterVolume(float volume)
+    {
+        float db = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
+        
+        if (meuMixer != null)
+        {
+            meuMixer.SetFloat("MasterVol", db); 
+        }
+    }
+
     public void SetMusicVolume(float volume)
     {
-        musicVolume = Mathf.Clamp01(volume);
-
-        if (musicSource != null)
+        float db = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
+        
+        if (meuMixer != null)
         {
-            musicSource.volume = musicVolume;
+            meuMixer.SetFloat("MusicaVol", db); 
         }
     }
 

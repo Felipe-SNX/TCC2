@@ -26,6 +26,14 @@ public class ControladorMenu : MonoBehaviour, IMenuPopup
         if (btnSair != null) btnSair.clicked += SairDoJogo;
     }
 
+    void Start()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMenuMusic();
+        }
+    }
+
     private void AbrirTela(GameObject objetoFase)
     {
         if (objetoFase != null)
