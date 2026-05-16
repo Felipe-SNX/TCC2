@@ -8,6 +8,7 @@
         <ui:Label text="Pausado" class="titulo-pause" />
 
         <ui:Button name="btn-retomar" text="Retomar" class="botao-pause" />
+        <ui:Button name="btn-reset" text="Reiniciar Fase" class="botao-pause" />
         <ui:Button name="btn-config" text="Configurações" class="botao-pause" />
         <ui:Button name="btn-menu" text="Voltar ao Menu Principal" class="botao-pause" />
 

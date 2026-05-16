@@ -11,6 +11,8 @@ public class ControladorPause : MonoBehaviour
     private VisualElement root;
     public bool JogoPausado { get; private set; } = false;
 
+    Button btnReset;
+
     private void Awake()
     {
         if (Instancia != null && Instancia != this)
@@ -26,10 +28,12 @@ public class ControladorPause : MonoBehaviour
         root = GetComponent<UIDocument>().rootVisualElement;
         
         Button btnRetomar = root.Q<Button>("btn-retomar");
+        btnReset = root.Q<Button>("btn-reset");
         Button btnConfig = root.Q<Button>("btn-config");
         Button btnMenu = root.Q<Button>("btn-menu");
 
         if (btnRetomar != null) btnRetomar.clicked += RetomarJogo;
+        if (btnReset != null) btnReset.clicked += ReiniciarFase;
         if (btnConfig != null) btnConfig.clicked += AbrirConfiguracoes;
         if (btnMenu != null) btnMenu.clicked += VoltarMenuPrincipal;
 
@@ -54,6 +58,26 @@ public class ControladorPause : MonoBehaviour
             RetomarJogo();
         else
             PausarJogo();
+    }
+
+    private void ReiniciarFase()
+    {
+        if (MetricsManager.Instance != null)
+        {
+            MetricsManager.Instance.RegistrarTentativas(); 
+        }
+
+        Time.timeScale = 1f;
+
+        string nomeCenaAtual = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(nomeCenaAtual);
+        
+        Debug.Log($"[PAUSE] Fase {nomeCenaAtual} reiniciada. Tentativa computada nas métricas!");
+    }
+
+    private void OnDisable()
+    {
+        if (btnReset != null) btnReset.clicked -= ReiniciarFase;
     }
 
     private void PausarJogo()
