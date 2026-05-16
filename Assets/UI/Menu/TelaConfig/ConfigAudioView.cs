@@ -4,9 +4,9 @@ using UnityEngine.UIElements;
 [System.Serializable] 
 public class ConfigAudioView
 {
-    private const float VOL_PADRAO_MASTER = 100f;
-    private const float VOL_PADRAO_MUSICA = 100f;
-    private const float VOL_PADRAO_SOM = 100f;
+    private const float VOL_PADRAO_MASTER = 80f;
+    private const float VOL_PADRAO_MUSICA = 80f;
+    private const float VOL_PADRAO_SFX = 80f;
     private VisualElement root;
     private Slider sliderMaster;
     private Slider sliderMusica;
@@ -19,6 +19,37 @@ public class ConfigAudioView
         sliderMaster = ConfigurarSliderCompleto("slider-master", "txt-valor-master");
         sliderSom = ConfigurarSliderCompleto("slider-som", "txt-valor-som");
         sliderMusica = ConfigurarSliderCompleto("slider-musica", "txt-valor-musica");
+
+        if (sliderMaster != null)
+        {
+            if (AudioManager.Instance != null && AudioManager.Instance.meuMixer != null)
+            {
+                sliderMaster.value = 80f; 
+                AudioManager.Instance.SetMasterVolume(80f / 100f);
+            }
+
+            sliderMaster.RegisterValueChangedCallback(evt => 
+            {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.SetMasterVolume(evt.newValue / 100f);
+                }
+            });
+        }
+
+        if (sliderMusica != null)
+        {
+            sliderMusica.value = 80f;
+            if (AudioManager.Instance != null) AudioManager.Instance.SetMusicVolume(80f / 100f);
+
+            sliderMusica.RegisterValueChangedCallback(evt => 
+            {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.SetMusicVolume(evt.newValue / 100f);
+                }
+            });
+        }
 
         Button btnReset = root.Q<Button>("btn-reset-audio");
         if (btnReset != null) btnReset.clicked += ResetarParaPadrao; 
@@ -82,9 +113,19 @@ public class ConfigAudioView
 
     private void ResetarParaPadrao()
     {
-        if (sliderMaster != null) sliderMaster.value = VOL_PADRAO_MASTER;
-        if (sliderMusica != null) sliderMusica.value = VOL_PADRAO_MUSICA;
-        if (sliderSom != null) sliderSom.value = VOL_PADRAO_SOM;
+        if (sliderMaster != null)
+        {
+            sliderMaster.value = VOL_PADRAO_MASTER;
+            if (AudioManager.Instance != null) AudioManager.Instance.SetMasterVolume(VOL_PADRAO_MASTER / 100f);
+        }
+
+        if (sliderMusica != null) 
+        {
+            sliderMusica.value = VOL_PADRAO_MUSICA; 
+            if (AudioManager.Instance != null) AudioManager.Instance.SetMusicVolume(VOL_PADRAO_MUSICA / 100f);
+        }
+
+        if (sliderSom != null) sliderSom.value = VOL_PADRAO_SFX;
 
         Debug.Log("Configurações de Áudio Resetadas");
     }
