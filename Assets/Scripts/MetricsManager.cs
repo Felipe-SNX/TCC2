@@ -108,4 +108,19 @@ public class MetricsManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
+    public string GetNomeFase()
+    {
+        return nomeFaseAtual; 
+    }
+
+    public float GetTempoTotalFase()
+    {
+        return tempoFinalFase; 
+    }
+
+    public int GetNumeroTentativasFase()
+    {
+        return contadorTentativas; 
+    }
 }

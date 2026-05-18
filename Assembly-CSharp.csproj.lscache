@@ -116,6 +116,7 @@ Assets/TextMesh Pro/Examples & Extras/Scripts/
 Assets/UI/
  Interfaces/IMenuPopup.cs
  Menu/
+  FinalFase/ControladorFinalFase.cs
   InicioFase/ControladorInicioFase.cs
   Loading/ControladorLoading.cs
   PauseMenu/ControladorPause.cs
