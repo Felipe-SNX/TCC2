@@ -33,18 +33,11 @@
     height: 85%;         
     margin: 0 40px;      
     border-radius: 35px; 
-    background-color: #808080;
-    justify-content: flex-end; 
-    padding-bottom: 60px; 
-    border-color: #555555;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 20px; 
-    overflow: hidden;
-    transition-property: scale, translate, border-color;
+    border-width: 0;
+    background-color: #555555;
+    padding-bottom: 20px;
+    transition-property: scale, translate, background-color;
     transition-duration: 0.2s, 0.2s, 0.3s;
-    position: relative;
     flex-shrink: 0; 
 }
 
@@ -53,8 +46,16 @@
     translate: 0 -20px; 
 }
 
-.cartao-fase:hover .cor-preenchimento{
+.frente-cartao {
+    width: 100%;
     height: 100%;
+    background-color: #808080; 
+    border-radius: 35px; 
+    border-width: 0;
+    overflow: hidden; 
+    position: relative;
+    justify-content: flex-end; 
+    padding-bottom: 60px; 
 }
 
 .texto-fase {
@@ -69,35 +70,27 @@
 
 .cor-preenchimento { 
     position: absolute;
-    bottom: 0;
+    bottom: 0; 
     left: 0;
     width: 100%;
-    height: 0%; 
+    height: 0%;
     transition-property: height;
     transition-duration: 0.3s;
     transition-timing-function: ease-out;
 }
 
-.bg-verde { 
-    background-color: #4CAF50; 
-}
-
-.bg-vermelha { 
-    background-color: #F44336; 
-}
-
-.bg-amarela { 
-    background-color: #FFC107; 
+.cartao-fase:hover .cor-preenchimento {
+    height: 100%;
 }
 
 .tema-verde .cor-preenchimento { background-color: #4CAF50; }
-.tema-verde:hover { border-color: #2E7D32; }
+.tema-verde:hover { background-color: #2E7D32; }
 
 .tema-vermelho .cor-preenchimento { background-color: #F44336; }
-.tema-vermelho:hover { border-color: #C62828; }
+.tema-vermelho:hover { background-color: #C62828; }
 
 .tema-amarelo .cor-preenchimento { background-color: #FFC107; }
-.tema-amarelo:hover { border-color: #FFC40C; }
+.tema-amarelo:hover { background-color: #FFC40C; }
 
 .botao-voltar {
     align-self: flex-start; 
