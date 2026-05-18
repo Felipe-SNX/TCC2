@@ -33,17 +33,18 @@
     height: 85%;         
     margin: 0 40px;      
     border-radius: 35px; 
-    
+    background-color: #808080;
     justify-content: flex-end; 
     padding-bottom: 60px; 
-    
+    border-color: #555555;
     border-top-width: 0;
     border-left-width: 0;
     border-right-width: 0;
     border-bottom-width: 20px; 
-    
-    transition-duration: 0.2s;
-    
+    overflow: hidden;
+    transition-property: scale, translate, border-color;
+    transition-duration: 0.2s, 0.2s, 0.3s;
+    position: relative;
     flex-shrink: 0; 
 }
 
@@ -52,7 +53,12 @@
     translate: 0 -20px; 
 }
 
+.cartao-fase:hover .cor-preenchimento{
+    height: 100%;
+}
+
 .texto-fase {
+    position: relative;
     font-size: 65px; 
     color: white;
     -unity-font-style: bold;
@@ -61,20 +67,37 @@
     text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4); 
 }
 
+.cor-preenchimento { 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%; 
+    transition-property: height;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
 .bg-verde { 
     background-color: #4CAF50; 
-    border-color: #2E7D32; 
 }
 
 .bg-vermelha { 
     background-color: #F44336; 
-    border-color: #C62828; 
 }
 
 .bg-amarela { 
     background-color: #FFC107; 
-    border-color: #FF8F00; 
 }
+
+.tema-verde .cor-preenchimento { background-color: #4CAF50; }
+.tema-verde:hover { border-color: #2E7D32; }
+
+.tema-vermelho .cor-preenchimento { background-color: #F44336; }
+.tema-vermelho:hover { border-color: #C62828; }
+
+.tema-amarelo .cor-preenchimento { background-color: #FFC107; }
+.tema-amarelo:hover { border-color: #FFC40C; }
 
 .botao-voltar {
     align-self: flex-start; 

@@ -12,38 +12,38 @@ public class ConfigControlesView
 
         GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentação", true);
 
-        // 2. Linhas normais para as teclas individuais
+        // Linhas normais para as teclas individuais
         GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/space"), "Pular / Saltar", false);
         GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/shift"), "Dash", false);
         GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Energizar Objetos", false);
     }
 
-private void GerarLinha(Sprite icone, string acao, bool ehLargo)
-    {
-        if (icone == null) return;
+    private void GerarLinha(Sprite icone, string acao, bool ehLargo)
+        {
+            if (icone == null) return;
 
-        VisualElement linha = new VisualElement();
-        linha.AddToClassList("linha-controle");
+            VisualElement linha = new VisualElement();
+            linha.AddToClassList("linha-controle");
 
-        Label labelAcao = new Label(acao);
-        labelAcao.AddToClassList("texto-acao");
+            Label labelAcao = new Label(acao);
+            labelAcao.AddToClassList("texto-acao");
 
-        VisualElement wrapperDireita = new VisualElement();
-        wrapperDireita.AddToClassList("tecla-wrapper-direita");
+            VisualElement wrapperDireita = new VisualElement();
+            wrapperDireita.AddToClassList("tecla-wrapper-direita");
 
-        VisualElement iconeElement = new VisualElement();
-        if (ehLargo)
-            iconeElement.AddToClassList("tecla-container-larga");
-        else
-            iconeElement.AddToClassList("tecla-container");
+            VisualElement iconeElement = new VisualElement();
+            if (ehLargo)
+                iconeElement.AddToClassList("tecla-container-larga");
+            else
+                iconeElement.AddToClassList("tecla-container");
 
 
-        iconeElement.style.backgroundImage = new StyleBackground(icone);
+            iconeElement.style.backgroundImage = new StyleBackground(icone);
 
-        linha.Add(labelAcao);         
-        wrapperDireita.Add(iconeElement); 
-        linha.Add(wrapperDireita);
+            linha.Add(labelAcao);         
+            wrapperDireita.Add(iconeElement); 
+            linha.Add(wrapperDireita);
 
-        root.Add(linha);
-    }
+            root.Add(linha);
+        }
 }

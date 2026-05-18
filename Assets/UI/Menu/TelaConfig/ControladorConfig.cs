@@ -10,7 +10,7 @@ public class ControladorConfiguracoes : MonoBehaviour, IMenuPopup
     public ConfigAudioView viewAudio;
     public ConfigControlesView viewControles;
     public ConfigGraficosView viewGraficos;
-
+    
     private Label tituloAba;
     private VisualElement conteudoAudio;
     private VisualElement conteudoControles;
