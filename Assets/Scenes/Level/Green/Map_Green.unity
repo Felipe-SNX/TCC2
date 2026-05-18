@@ -111611,13 +111611,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_text
-      value: "Para andar, use A e D ou as setas \u2190  \u2192\n\nPara pular, use
-        a barra de Espa\xE7o"
+      value: 'Para andar, use    <size=200%><voffset=0.25em><sprite name="a"></voffset></size>e     
+        <size=200%><voffset=0.25em><sprite name="d"></voffset></size>ou as setas   
+        <size=200%><voffset=0.25em><sprite name="arrow-left"></voffset></size>  <size=200%><voffset=0.25em><sprite
+        name="arrow-right"></voffset></size>
+
+
+        Para pular, use     <size=200%><voffset=0.25em><sprite
+        name="space"></voffset></size>'
       objectReference: {fileID: 0}
     - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_fontSize
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ce60c9ce7665184093139ee2fae17bf, type: 2}
     - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_fontSizeBase
       value: 4
