@@ -43,6 +43,17 @@ public class AudioManager : MonoBehaviour
         musicSource.volume = 1f;
     }
 
+    private void Start()
+    {
+        float volumeMasterSalvo = PlayerPrefs.GetFloat("VolumeMaster", 1f);
+        float volumeSFXSalvo = PlayerPrefs.GetFloat("VolumeSFX", 1f);
+        float volumeMusicaSalvo = PlayerPrefs.GetFloat("VolumeMusica", 1f);
+
+        SetMasterVolume(volumeMasterSalvo);
+        SetSFXVolume(volumeSFXSalvo);
+        SetMusicVolume(volumeMusicaSalvo);
+    }
+
     public void PlayMenuMusic()
     {
         PlayMusic(menuMusic);
@@ -83,6 +94,8 @@ public class AudioManager : MonoBehaviour
         {
             meuMixer.SetFloat("MasterVol", db); 
         }
+
+        PlayerPrefs.SetFloat("VolumeMaster", volume);
     }
 
     public void SetMusicVolume(float volume)
@@ -93,6 +106,35 @@ public class AudioManager : MonoBehaviour
         {
             meuMixer.SetFloat("MusicaVol", db); 
         }
+
+        PlayerPrefs.SetFloat("VolumeMusica", volume);
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        float db = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
+        
+        if (meuMixer != null)
+        {
+            meuMixer.SetFloat("SFXVol", db); 
+        }
+
+        PlayerPrefs.SetFloat("VolumeSFX", volume);
+    }
+
+    public float GetMasterVolume()
+    {
+        return PlayerPrefs.GetFloat("VolumeMaster", 1f);
+    }
+
+    public float GetSFXVolume()
+    {
+        return PlayerPrefs.GetFloat("VolumeSFX", 1f);
+    }
+
+    public float GetMusicVolume()
+    {
+        return PlayerPrefs.GetFloat("VolumeMusica", 1f);
     }
 
     public void StopMusic()
