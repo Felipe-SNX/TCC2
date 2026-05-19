@@ -12,8 +12,9 @@
         <ui:VisualElement class="banner-anuncio">
             
             <ui:Label name="txt-nome-fase" text="Nome da Fase" class="titulo" />
-            <ui:Label name="txt-tempo-total" text="00:00" class="texto-fase" />
-            <ui:Label name="txt-tentativas" text="0" class="texto-fase" />
+            <ui:Label name="txt-tempo-total" text="Tempo Total: 00:00" class="texto-fase" />
+            <ui:Label name="txt-tentativas" text="Número de Tentativas: 0" class="texto-fase" />
+            <ui:Label name="txt-coletaveis" text="Número de Coletáveis obtidos: 0" class="texto-fase" />
             <ui:Button name="btn-reset" text="Reiniciar Fase" class="botao" />
             <ui:Button name="btn-voltar-menu" text="Voltar a seleção de fase" class="botao" />
 
