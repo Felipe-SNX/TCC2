@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class ConfigGraficosView
 {
     private VisualElement root;
-    private const int QUALIDADE_PADRAO = 5; 
+    private const int QUALIDADE_PADRAO = 3; 
     private const string MODO_TELA_PADRAO = "Tela Cheia";
     private DropdownField drpResolucao;
     private DropdownField drpModoTela;

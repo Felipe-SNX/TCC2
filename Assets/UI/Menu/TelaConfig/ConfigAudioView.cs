@@ -4,29 +4,28 @@ using UnityEngine.UIElements;
 [System.Serializable] 
 public class ConfigAudioView
 {
-    private const float VOL_PADRAO_MASTER = 80f;
-    private const float VOL_PADRAO_MUSICA = 80f;
-    private const float VOL_PADRAO_SFX = 80f;
+    private const float VOL_PADRAO_MASTER = 100f;
+    private const float VOL_PADRAO_MUSICA = 100f;
+    private const float VOL_PADRAO_SFX = 100f;
     private VisualElement root;
     private Slider sliderMaster;
     private Slider sliderMusica;
-    private Slider sliderSom;
+    private Slider sliderSFX;
 
     public void Inicializar(VisualElement container)
     {
         root = container;
         
         sliderMaster = ConfigurarSliderCompleto("slider-master", "txt-valor-master");
-        sliderSom = ConfigurarSliderCompleto("slider-som", "txt-valor-som");
+        sliderSFX = ConfigurarSliderCompleto("slider-som", "txt-valor-som");
         sliderMusica = ConfigurarSliderCompleto("slider-musica", "txt-valor-musica");
 
         if (sliderMaster != null)
         {
-            if (AudioManager.Instance != null && AudioManager.Instance.meuMixer != null)
-            {
-                sliderMaster.value = 80f; 
-                AudioManager.Instance.SetMasterVolume(80f / 100f);
-            }
+            float valorSalvoMaster = PlayerPrefs.GetFloat("VolumeMaster", VOL_PADRAO_MASTER / 100f) * 100f;
+            
+            sliderMaster.SetValueWithoutNotify(valorSalvoMaster);
+            AtualizarLabelERastroAoAbrir(sliderMaster, "txt-valor-master");
 
             sliderMaster.RegisterValueChangedCallback(evt => 
             {
@@ -37,10 +36,28 @@ public class ConfigAudioView
             });
         }
 
+        if (sliderSFX != null)
+        {
+            float valorSalvoSFX = PlayerPrefs.GetFloat("VolumeSFX", VOL_PADRAO_SFX / 100f) * 100f;
+            
+            sliderSFX.SetValueWithoutNotify(valorSalvoSFX);
+            AtualizarLabelERastroAoAbrir(sliderSFX, "txt-valor-som");
+
+            sliderSFX.RegisterValueChangedCallback(evt => 
+            {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.SetSFXVolume(evt.newValue / 100f);
+                }
+            });
+        }
+
         if (sliderMusica != null)
         {
-            sliderMusica.value = 80f;
-            if (AudioManager.Instance != null) AudioManager.Instance.SetMusicVolume(80f / 100f);
+            float valorSalvoMusica = PlayerPrefs.GetFloat("VolumeMusica", VOL_PADRAO_MUSICA / 100f) * 100f;
+            
+            sliderMusica.SetValueWithoutNotify(valorSalvoMusica);
+            AtualizarLabelERastroAoAbrir(sliderMusica, "txt-valor-musica");
 
             sliderMusica.RegisterValueChangedCallback(evt => 
             {
@@ -53,6 +70,15 @@ public class ConfigAudioView
 
         Button btnReset = root.Q<Button>("btn-reset-audio");
         if (btnReset != null) btnReset.clicked += ResetarParaPadrao; 
+    }
+
+    private void AtualizarLabelERastroAoAbrir(Slider slider, string nomeLabel)
+    {
+        Label label = root.Q<Label>(nomeLabel);
+        if (label != null) label.text = Mathf.RoundToInt(slider.value).ToString();
+
+        var fillElement = slider.Q<VisualElement>("slider-fill");
+        if (fillElement != null) UpdateFill(slider, fillElement);
     }
 
     private Slider ConfigurarSliderCompleto(string nomeSlider, string nomeLabel)
@@ -116,16 +142,17 @@ public class ConfigAudioView
         if (sliderMaster != null)
         {
             sliderMaster.value = VOL_PADRAO_MASTER;
-            if (AudioManager.Instance != null) AudioManager.Instance.SetMasterVolume(VOL_PADRAO_MASTER / 100f);
+        }
+
+        if (sliderSFX != null) 
+        {
+            sliderSFX.value = VOL_PADRAO_MUSICA; 
         }
 
         if (sliderMusica != null) 
         {
             sliderMusica.value = VOL_PADRAO_MUSICA; 
-            if (AudioManager.Instance != null) AudioManager.Instance.SetMusicVolume(VOL_PADRAO_MUSICA / 100f);
         }
-
-        if (sliderSom != null) sliderSom.value = VOL_PADRAO_SFX;
 
         Debug.Log("Configurações de Áudio Resetadas");
     }

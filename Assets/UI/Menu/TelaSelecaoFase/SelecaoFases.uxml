@@ -11,19 +11,28 @@
             
             <ui:VisualElement class="bandeja-fases">
                 <!-- Fase 1 -->
-                <ui:Button name="btn-fase-verde" class="cartao-fase bg-verde">
-                    <ui:Label text="Fase Verde" class="texto-fase" />
-                </ui:Button>
+                <ui:VisualElement class="cartao-fase tema-verde">
+                    <ui:Button name="btn-fase-verde" class="frente-cartao">
+                        <ui:VisualElement class="cor-preenchimento" />
+                        <ui:Label text="Fase Verde" class="texto-fase" />
+                    </ui:Button>
+                </ui:VisualElement>
 
                 <!-- Fase 2 -->
-                <ui:Button name="btn-fase-vermelha" class="cartao-fase bg-vermelha">
-                    <ui:Label text="Fase Vermelha" class="texto-fase" />
-                </ui:Button>
+                <ui:VisualElement class="cartao-fase tema-vermelho">
+                    <ui:Button name="btn-fase-vermelha" class="frente-cartao">
+                        <ui:VisualElement class="cor-preenchimento" />
+                        <ui:Label text="Fase Vermelha" class="texto-fase" />
+                    </ui:Button>
+                </ui:VisualElement>
 
                 <!-- Fase 3 -->
-                <ui:Button name="btn-fase-amarela" class="cartao-fase bg-amarela">
-                    <ui:Label text="Fase Amarela" class="texto-fase" />
-                </ui:Button>
+                <ui:VisualElement class="cartao-fase tema-amarelo">
+                    <ui:Button name="btn-fase-amarela" class="frente-cartao">
+                        <ui:VisualElement class="cor-preenchimento" />
+                        <ui:Label text="Fase Amarela" class="texto-fase" />
+                    </ui:Button>
+                </ui:VisualElement>
             </ui:VisualElement>
             
         </ui:ScrollView>
