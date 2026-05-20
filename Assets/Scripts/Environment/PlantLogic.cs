@@ -9,6 +9,9 @@ public class PlantLogic : MonoBehaviour
     private SpriteRenderer sr;
     private Collider2D plantCollider;
     private bool isGrown = false;
+    
+
+    
 
     void Awake()
     {
@@ -44,12 +47,23 @@ public class PlantLogic : MonoBehaviour
         // Troca o sprite se houver um definido
         if (grownSprite != null && sr != null) sr.sprite = grownSprite;
 
+        //Altera tag de colisão do sprite após crescer
+        gameObject.tag = "Escada";
+
+        // Altera a cor do SpriteRenderer ao crescer
+        if (sr != null)
+        {
+            sr.color = Color.green;
+        }
+        
         // Se a planta deve virar chão, mudamos o collider
-        if (plantCollider != null)
+        /*if (plantCollider != null)
         {
             plantCollider.isTrigger = false; 
             gameObject.layer = LayerMask.NameToLayer("Ground");
-        }
+        }*/
+
+    
 
         Debug.Log("A planta cresceu!");
     }
