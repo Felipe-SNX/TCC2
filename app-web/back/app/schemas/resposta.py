@@ -1,10 +1,12 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
+from typing import Optional
 
 class RespostaBase(BaseModel):
     id_paciente: str
     resposta: int
-    cor: str
+    cor: Optional[str] = None
+    id_pergunta: Optional[str] = None
 
 class RespostaCreate(RespostaBase):
     pass
@@ -20,3 +22,8 @@ class RespostaResponse(RespostaBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class RespostaPerguntaCreate(BaseModel):
+    id_paciente: str
+    id_pergunta: str
+    resposta: int

@@ -49,6 +49,7 @@ class Resposta(Base):
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     id_paciente = Column(String(36), ForeignKey("pacientes.id"), nullable=False)
+    id_pergunta = Column(String(36), ForeignKey("perguntas.id"), nullable=True)
     resposta = Column(Integer, nullable=False)
-    cor = Column(String(50), nullable=False)
+    cor = Column(String(50), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
