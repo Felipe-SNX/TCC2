@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class PlantLogic : MonoBehaviour
 {
+    public enum GrowthDirection
+    {
+        Vertical,
+        Horizontal
+    }
+
     [Header("Configurações de Crescimento")]
     [SerializeField] private Sprite grownSprite;
+    [SerializeField] private GrowthDirection growthDirection = GrowthDirection.Vertical;
     
     private Animator animator;
     private SpriteRenderer sr;
@@ -47,23 +54,26 @@ public class PlantLogic : MonoBehaviour
         // Troca o sprite se houver um definido
         if (grownSprite != null && sr != null) sr.sprite = grownSprite;
 
-        //Altera tag de colisão do sprite após crescer
-        gameObject.tag = "Escada";
-
         // Altera a cor do SpriteRenderer ao crescer
         if (sr != null)
         {
             sr.color = Color.green;
         }
         
-        // Se a planta deve virar chão, mudamos o collider
-        /*if (plantCollider != null)
+        // Configura a colisão com base no tipo de crescimento (vertical ou horizontal)
+        if (growthDirection == GrowthDirection.Horizontal)
         {
-            plantCollider.isTrigger = false; 
-            gameObject.layer = LayerMask.NameToLayer("Ground");
-        }*/
-
-    
+            if (plantCollider != null)
+            {
+                plantCollider.isTrigger = false; 
+                gameObject.layer = LayerMask.NameToLayer("Ground");
+            }
+        }
+        else
+        {
+            // Altera tag de colisão do sprite após crescer para o tipo vertical (Escada)
+            gameObject.tag = "Escada";
+        }
 
         Debug.Log("A planta cresceu!");
     }

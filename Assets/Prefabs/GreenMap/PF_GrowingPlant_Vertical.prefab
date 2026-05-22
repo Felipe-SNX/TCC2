@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 709005228659746124}
   - component: {fileID: 6529487241339999522}
   m_Layer: 0
-  m_Name: PF_GrowingPlant
+  m_Name: PF_GrowingPlant_Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
