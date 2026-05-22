@@ -42,6 +42,12 @@ export const pacientesService = {
     return response.data
   },
 
+  async renovarPin(id: string) {
+    const { $api } = useNuxtApp() as any
+    const response = await $api.patch(`/pacientes/${id}/pin`)
+    return response.data
+  },
+
   async listarRespostas(id: string) {
     const { $api } = useNuxtApp() as any
     const response = await $api.get(`/pacientes/${id}/respostas`)
