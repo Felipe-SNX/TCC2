@@ -325242,6 +325242,10 @@ PrefabInstance:
       propertyPath: climbSpeed
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8098381135721428497, guid: 05171dac965202942905757d808ed97b, type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 9168679066008341558, guid: 05171dac965202942905757d808ed97b, type: 3}
       propertyPath: m_Color.b
       value: 0
