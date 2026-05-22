@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WaterCollectible : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -11,7 +12,7 @@ public class WaterCollectible : MonoBehaviour
                 player.CollectWater();               
                 UIManager.Instance.ShowMessage("Você coletou água!"); 
                 Debug.Log("Item de água coletado!");
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }
