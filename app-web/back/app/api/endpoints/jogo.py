@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import func
 from app.api.dependencies import get_db
-from app.schemas.resposta import RespostaGameCreate, RespostaResponse, RespostaPerguntaCreate
+from app.schemas.resposta import RespostaGameCreate, RespostaResponse, RespostaPerguntaCreate, CredenciaisPaciente, CredenciaisPacienteResponse
 from app.schemas.pergunta import PerguntaResponse
 from app.crud.crud_resposta import create_resposta_from_game, create_resposta_pergunta
 from app.models.schema import PacientePsicologo, Pergunta, Paciente
@@ -23,6 +23,23 @@ def salvar_resposta_do_jogo(resposta_in: RespostaGameCreate, db: Session = Depen
             detail="Paciente não encontrado para o e-mail fornecido."
         )
     return resposta
+
+@router.post("/verificar-credenciais", response_model=CredenciaisPacienteResponse, status_code=status.HTTP_200_OK)
+def verificar_credenciais_paciente(dados: CredenciaisPaciente, db: Session = Depends(get_db)):
+    """
+    Verifica se um paciente existe no sistema através do e-mail e PIN.
+    Retorna o id_paciente caso os dados estejam corretos.
+    """
+    paciente = db.query(Paciente).filter(
+        Paciente.email == dados.email,
+        Paciente.pin == dados.pin
+    ).first()
+    if not paciente:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Paciente não encontrado."
+        )
+    return {"id_paciente": paciente.id}
 
 @router.get("/{id_paciente}/pergunta-aleatoria", response_model=PerguntaResponse)
 def get_pergunta_aleatoria(id_paciente: str, db: Session = Depends(get_db)):

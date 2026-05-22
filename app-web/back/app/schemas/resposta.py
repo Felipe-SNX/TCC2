@@ -17,6 +17,13 @@ class RespostaGameCreate(BaseModel):
     resposta: int
     cor: str
 
+class CredenciaisPaciente(BaseModel):
+    email: str
+    pin: str
+
+class CredenciaisPacienteResponse(BaseModel):
+    id_paciente: str
+
 class RespostaResponse(RespostaBase):
     id: str
     created_at: datetime

@@ -1,3 +1,4 @@
+import random
 from sqlalchemy.orm import Session
 from app.models.schema import Paciente, PacientePsicologo
 from app.schemas.paciente import PacienteCreate, PacienteUpdate
@@ -21,9 +22,16 @@ def get_pacientes(db: Session, skip: int = 0, limit: int = 100, user_id: str = N
 def get_pacientes_count(db: Session, user_id: str = None, user_role: str = None):
     return _get_pacientes_query(db, user_id, user_role).count()
 
+def _generate_unique_pin(db: Session) -> str:
+    while True:
+        pin = f"{random.randint(0, 999999):06d}"
+        if not db.query(Paciente).filter(Paciente.pin == pin).first():
+            return pin
+
 def create_paciente(db: Session, paciente: PacienteCreate, user_id: str = None):
     # Converte o modelo Pydantic para um dicionário
     db_paciente = Paciente(**paciente.model_dump(), created_by=user_id)
+    db_paciente.pin = _generate_unique_pin(db)
     db.add(db_paciente)
     db.commit()
     db.refresh(db_paciente)
@@ -51,3 +59,12 @@ def delete_paciente(db: Session, paciente_id: str):
     db.delete(db_paciente)
     db.commit()
     return True
+
+def regenerate_pin(db: Session, paciente_id: str):
+    db_paciente = db.query(Paciente).filter(Paciente.id == paciente_id).first()
+    if not db_paciente:
+        return None
+    db_paciente.pin = _generate_unique_pin(db)
+    db.commit()
+    db.refresh(db_paciente)
+    return db_paciente

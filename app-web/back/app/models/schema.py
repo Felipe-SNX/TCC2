@@ -20,6 +20,7 @@ class Paciente(Base):
     nome = Column(String(255), nullable=False)
     idade = Column(Integer, nullable=False)
     email = Column(String(255), unique=True, nullable=False)
+    pin = Column(String(6), unique=True, nullable=True)
     observacoes = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
