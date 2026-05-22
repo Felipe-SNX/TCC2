@@ -13,7 +13,8 @@ class RespostaCreate(RespostaBase):
 
 # Schema específico para receber os dados do Jogo Unity
 class RespostaGameCreate(BaseModel):
-    email_paciente: str
+    id_paciente: str
+    id_pergunta: str
     resposta: int
     cor: str
 

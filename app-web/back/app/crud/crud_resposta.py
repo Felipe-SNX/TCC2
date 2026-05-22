@@ -13,14 +13,9 @@ def create_resposta(db: Session, resposta: RespostaCreate):
     return db_resposta
 
 def create_resposta_from_game(db: Session, resposta_in: RespostaGameCreate):
-    # Encontra o paciente pelo email
-    paciente = db.query(Paciente).filter(Paciente.email == resposta_in.email_paciente).first()
-    if not paciente:
-        # Retorna None caso o paciente não exista. O Router deverá lidar com isso e retornar 404
-        return None
-        
     db_resposta = Resposta(
-        id_paciente=paciente.id,
+        id_paciente=resposta_in.id_paciente,
+        id_pergunta=resposta_in.id_pergunta,
         resposta=resposta_in.resposta,
         cor=resposta_in.cor
     )

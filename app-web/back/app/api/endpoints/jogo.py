@@ -13,16 +13,24 @@ router = APIRouter()
 def salvar_resposta_do_jogo(resposta_in: RespostaGameCreate, db: Session = Depends(get_db)):
     """
     Endpoint dedicado a receber os dados vindos do Jogo Unity.
-    - Recebe o email_paciente, valor da resposta (1-5) e a cor.
-    - O banco vincula pelo e-mail e salva.
+    - Recebe o id_paciente, id_pergunta, valor da resposta (1-5) e a cor.
     """
-    resposta = create_resposta_from_game(db=db, resposta_in=resposta_in)
-    if not resposta:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Paciente não encontrado para o e-mail fornecido."
-        )
-    return resposta
+    # Verifica se o paciente existe
+    paciente = db.query(Paciente).filter(Paciente.id == resposta_in.id_paciente).first()
+    if not paciente:
+        raise HTTPException(status_code=404, detail="Paciente não encontrado.")
+        
+    # Verifica se a pergunta existe
+    pergunta = db.query(Pergunta).filter(Pergunta.id == resposta_in.id_pergunta).first()
+    if not pergunta:
+        raise HTTPException(status_code=404, detail="Pergunta não encontrada.")
+
+    try:
+        resposta = create_resposta_from_game(db=db, resposta_in=resposta_in)
+        return resposta
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Erro ao salvar a resposta: {str(e)}")
 
 @router.post("/verificar-credenciais", response_model=CredenciaisPacienteResponse, status_code=status.HTTP_200_OK)
 def verificar_credenciais_paciente(dados: CredenciaisPaciente, db: Session = Depends(get_db)):
@@ -37,7 +45,7 @@ def verificar_credenciais_paciente(dados: CredenciaisPaciente, db: Session = Dep
     if not paciente:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Paciente não encontrado."
+            detail="E-mail ou PIN incorretos."
         )
     return {"id_paciente": paciente.id}
 
