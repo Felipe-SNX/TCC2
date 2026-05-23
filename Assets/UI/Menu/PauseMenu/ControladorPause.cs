@@ -1,6 +1,10 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem; 
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using System.Collections;
+using UnityEngine.EventSystems; 
 
 public class ControladorPause : MonoBehaviour
 {
@@ -11,7 +15,11 @@ public class ControladorPause : MonoBehaviour
     private VisualElement root;
     public bool JogoPausado { get; private set; } = false;
 
-    Button btnReset;
+    private Button btnRetomar;
+    private Button btnReset;
+    private Button btnConfig;
+    private Button btnMenu;
+    private InputSystem_Actions controles;
 
     private void Awake()
     {
@@ -21,36 +29,63 @@ public class ControladorPause : MonoBehaviour
             return;
         }
         Instancia = this;
+
+        controles = new InputSystem_Actions();
+        
+        controles.Player.Pause.performed += ctx => AlternarPause();
     }
 
     private void OnEnable()
     {
+        controles.Enable(); // Liga os controles
+
         root = GetComponent<UIDocument>().rootVisualElement;
         
-        Button btnRetomar = root.Q<Button>("btn-retomar");
+        btnRetomar = root.Q<Button>("btn-retomar");
         btnReset = root.Q<Button>("btn-reset");
-        Button btnConfig = root.Q<Button>("btn-config");
-        Button btnMenu = root.Q<Button>("btn-menu");
+        btnConfig = root.Q<Button>("btn-config");
+        btnMenu = root.Q<Button>("btn-menu");
 
-        if (btnRetomar != null) btnRetomar.clicked += RetomarJogo;
-        if (btnReset != null) btnReset.clicked += ReiniciarFase;
-        if (btnConfig != null) btnConfig.clicked += AbrirConfiguracoes;
-        if (btnMenu != null) btnMenu.clicked += VoltarMenuPrincipal;
+        ConfigurarBotao(btnRetomar, RetomarJogo);
+        ConfigurarBotao(btnReset, ReiniciarFase);
+        ConfigurarBotao(btnConfig, AbrirConfiguracoes);
+        ConfigurarBotao(btnMenu, VoltarMenuPrincipal);
 
         root.style.display = DisplayStyle.None;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        controles.Disable(); // Desliga os controles
+        
+        if (btnReset != null) btnReset.clicked -= ReiniciarFase;
+    }
+
+    private void ConfigurarBotao(Button botao, Action acao)
+    {
+        if (botao == null) return;
+        
+        botao.clicked += acao;
+        botao.RegisterCallback<NavigationSubmitEvent>(evt => acao.Invoke());
+    }
+
+    private IEnumerator FocarAposDesenhar(Button botao)
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        
+        if (botao != null)
         {
-            AlternarPause();
+            if (EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(this.gameObject);
+            }
+
+            botao.Focus();
         }
     }
 
     public void AlternarPause()
     {
-        // Se a tela de configurações estiver aberta, não permite despausar pelo ESC
         if (objetoConfiguracoes != null && objetoConfiguracoes.activeSelf) 
             return;
 
@@ -58,6 +93,31 @@ public class ControladorPause : MonoBehaviour
             RetomarJogo();
         else
             PausarJogo();
+    }
+
+    private void PausarJogo()
+    {
+        JogoPausado = true;
+        Time.timeScale = 0f; 
+        root.style.display = DisplayStyle.Flex; 
+
+        if (btnRetomar != null)
+        {
+            StartCoroutine(FocarAposDesenhar(btnRetomar));
+        }
+    }
+
+    private void DefinirFocoInicial(GeometryChangedEvent evt)
+    {
+        btnRetomar.Focus();
+        btnRetomar.UnregisterCallback<GeometryChangedEvent>(DefinirFocoInicial);
+    }
+
+    private void RetomarJogo()
+    {
+        JogoPausado = false;
+        Time.timeScale = 1f; 
+        root.style.display = DisplayStyle.None; 
     }
 
     private void ReiniciarFase()
@@ -75,25 +135,6 @@ public class ControladorPause : MonoBehaviour
         Debug.Log($"[PAUSE] Fase {nomeCenaAtual} reiniciada. Tentativa computada nas métricas!");
     }
 
-    private void OnDisable()
-    {
-        if (btnReset != null) btnReset.clicked -= ReiniciarFase;
-    }
-
-    private void PausarJogo()
-    {
-        JogoPausado = true;
-        Time.timeScale = 0f; // Congela a física e animações do jogo
-        root.style.display = DisplayStyle.Flex; 
-    }
-
-    private void RetomarJogo()
-    {
-        JogoPausado = false;
-        Time.timeScale = 1f; // Descongela o jogo
-        root.style.display = DisplayStyle.None; 
-    }
-
     private void AbrirConfiguracoes()
     {
         if (objetoConfiguracoes != null)
@@ -103,7 +144,14 @@ public class ControladorPause : MonoBehaviour
             var scriptConfig = objetoConfiguracoes.GetComponent<ControladorConfiguracoes>();
             if (scriptConfig != null)
             {
-                scriptConfig.AoFechar = () => { root.style.display = DisplayStyle.Flex; };
+                scriptConfig.AoFechar = () => { 
+                    root.style.display = DisplayStyle.Flex; 
+                    
+                    if (btnConfig != null) 
+                    {
+                        StartCoroutine(FocarAposDesenhar(btnConfig));
+                    }
+                };
             }
             objetoConfiguracoes.SetActive(true);
         }

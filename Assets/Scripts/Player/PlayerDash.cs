@@ -7,21 +7,36 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float dashVelocity = 24f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
-    [SerializeField] private KeyCode dashKey = KeyCode.LeftShift;
 
     private Rigidbody2D rb;
     private PlayerMovement movement;
     private bool canDash = true;
 
+    private InputSystem_Actions controles;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<PlayerMovement>();
+
+        controles = new InputSystem_Actions();
+        
+        controles.Player.Dash.performed += context => TentarDash();
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(dashKey) && canDash)
+        controles.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controles.Disable();
+    }
+
+    private void TentarDash()
+    {
+        if (canDash)
         {
             StartCoroutine(PerformDash());
         }
@@ -37,7 +52,8 @@ public class PlayerDash : MonoBehaviour
         rb.gravityScale = 0f;
         
         // Usa a direção do input do PlayerMovement ou o lado que o sprite está virado
-        float dashDirection = movement.MoveInput != 0 ? movement.MoveInput : transform.localScale.x;
+        float rawDirection = movement.MoveInput != 0 ? movement.MoveInput : transform.localScale.x;
+        float dashDirection = Mathf.Sign(rawDirection);
         rb.linearVelocity = new Vector2(dashDirection * dashVelocity, 0f);
 
         yield return new WaitForSeconds(dashTime);

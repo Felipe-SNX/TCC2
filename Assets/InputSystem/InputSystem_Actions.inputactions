@@ -82,6 +82,15 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "18f4c706-ef73-4d1c-88a5-65b400d250c3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -90,7 +99,7 @@
                 {
                     "name": "Pause",
                     "type": "Button",
-                    "id": "2a00c111-988b-4ed4-b1aa-dfdbf3553298",
+                    "id": "f16654de-5a3e-436e-9903-c87478608673",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -226,6 +235,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a7f02ce-31dc-4875-88a3-239d6d6c5f63",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -507,22 +527,44 @@
                 },
                 {
                     "name": "",
-                    "id": "1176ff35-55bf-4e2d-8b72-a3300b3be820",
-                    "path": "<Gamepad>/start",
+                    "id": "73822078-90f0-455f-938f-51fb6f85b3dc",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad;Joystick",
+                    "groups": ";Gamepad",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "927e7143-0ff7-42d4-9881-9438e66cde03",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff9042cc-13e9-4918-872f-f91703ef3bd3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "e4bc3437-8746-4dfa-b85e-14914fe0aea8",
-                    "path": "<Keyboard>/escape",
+                    "id": "6a0135a0-1796-494f-9a99-f5224c90d166",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Gamepad;Joystick",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
