@@ -5,6 +5,7 @@ from datetime import datetime
 class PerguntaBase(BaseModel):
     pergunta: str
     alternativas: List[Dict[str, Any]] | Dict[str, Any] | List[str]
+    ativo: bool = True
 
 class PerguntaCreate(PerguntaBase):
     pass
@@ -12,6 +13,7 @@ class PerguntaCreate(PerguntaBase):
 class PerguntaUpdate(BaseModel):
     pergunta: Optional[str] = None
     alternativas: Optional[Any] = None
+    ativo: Optional[bool] = None
 
 class PerguntaResponse(PerguntaBase):
     id: str

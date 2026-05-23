@@ -65,6 +65,24 @@ def excluir_paciente(
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
     crud_paciente.delete_paciente(db=db, paciente_id=paciente_id)
 
+@router.patch("/{paciente_id}/pin", response_model=PacienteResponse)
+def renovar_pin_paciente(
+    paciente_id: str,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(allow_psicologo_admin)
+):
+    """
+    Gera um novo PIN aleatório para o paciente.
+    """
+    paciente_existente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
+    if not paciente_existente:
+        raise HTTPException(status_code=404, detail="Paciente não encontrado.")
+    if current_user.role == "PSICOLOGO" and paciente_existente.created_by != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
+    
+    paciente_atualizado = crud_paciente.regenerate_pin(db=db, paciente_id=paciente_id)
+    return paciente_atualizado
+
 @router.get("/{paciente_id}/respostas", response_model=List[RespostaResponse])
 def listar_respostas_do_paciente(
     paciente_id: str, 

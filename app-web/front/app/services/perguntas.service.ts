@@ -8,6 +8,7 @@ export interface Alternativa {
 export interface PerguntaForm {
   pergunta: string
   alternativas: Alternativa[]
+  ativo?: boolean
 }
 
 export const perguntasService = {

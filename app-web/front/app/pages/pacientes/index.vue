@@ -13,6 +13,7 @@
       @edit="openEditDialog"
       @delete="handleDelete"
       @view-dashboard="handleViewDashboard"
+      @refresh-pin="handleRefreshPin"
     />
 
     <!-- 
@@ -159,5 +160,34 @@ const handleDelete = async (paciente: any) => {
 
 const handleViewDashboard = (paciente: any) => {
   navigateTo(`/dashboard/${paciente.id}`);
+};
+
+const handleRefreshPin = async (paciente: any) => {
+  const decision = await confirm({
+    title: "Renovar PIN",
+    message: `Tem certeza que deseja renovar o PIN do paciente "${paciente.nome}"? O PIN antigo deixará de funcionar imediatamente.`,
+    confirmText: "Renovar",
+    cancelText: "Cancelar",
+    confirmColor: "primary",
+    confirmIcon: "mdi-refresh",
+  });
+
+  if (!decision) return;
+
+  try {
+    await pacientesService.renovarPin(paciente.id);
+    showSnackbar({
+      message: "PIN renovado com sucesso.",
+      color: "success",
+    });
+    await fetchPacientes(currentOptions.value);
+  } catch (error: any) {
+    console.error("Erro ao renovar PIN:", error);
+    const detail = error.response?.data?.detail;
+    showSnackbar({
+      message: detail || "Falha ao renovar PIN.",
+      color: "error",
+    });
+  }
 };
 </script>

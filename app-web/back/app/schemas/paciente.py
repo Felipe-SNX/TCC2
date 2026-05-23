@@ -19,6 +19,7 @@ class PacienteUpdate(BaseModel):
 
 class PacienteResponse(PacienteBase):
     id: str
+    pin: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     created_by: Optional[str] = None

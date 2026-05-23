@@ -20,6 +20,7 @@
             prepend-inner-icon="mdi-account"
             :rules="[rules.required]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-text-field>
 
@@ -30,6 +31,7 @@
             prepend-inner-icon="mdi-email"
             :rules="[rules.required, rules.email]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-text-field>
 
@@ -40,6 +42,7 @@
             prepend-inner-icon="mdi-calendar"
             :rules="[rules.required, rules.idade]"
             variant="outlined"
+            color="primary"
             class="mb-2"
           ></v-text-field>
 
@@ -48,6 +51,7 @@
             label="Observações (opcional)"
             prepend-inner-icon="mdi-note-text"
             variant="outlined"
+            color="primary"
             rows="3"
             auto-grow
             class="mb-2"

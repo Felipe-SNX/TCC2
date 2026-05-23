@@ -2,7 +2,7 @@
   <div class="dashboard-layout">
     <LayoutAppHeader />
     <LayoutAppSidebar />
-    <v-main class="bg-grey-lighten-4" style="min-height: 100vh;">
+    <v-main style="min-height: 100vh;">
       <v-container fluid class="pa-6">
         <slot />
       </v-container>

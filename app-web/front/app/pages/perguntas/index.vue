@@ -12,6 +12,7 @@
       @create="openCreateDialog"
       @edit="openEditDialog"
       @delete="handleDelete"
+      @toggle-ativo="handleToggleAtivo"
     />
 
     <!-- 
@@ -125,6 +126,27 @@ const handleDelete = async (pergunta: any) => {
     console.error('Erro ao excluir pergunta:', error)
     const detail = error.response?.data?.detail
     showSnackbar({ message: detail || 'Falha ao excluir pergunta.', color: 'error' })
+  }
+}
+
+const handleToggleAtivo = async (pergunta: any) => {
+  const newAtivo = !pergunta.ativo
+  try {
+    // Apenas envia o campo ativo usando o tipo Partial<PerguntaForm>
+    await perguntasService.atualizar(pergunta.id, { ativo: newAtivo })
+    pergunta.ativo = newAtivo
+    showSnackbar({
+      message: `Pergunta ${newAtivo ? 'ativada' : 'desativada'} com sucesso.`,
+      color: 'success'
+    })
+  } catch (error: any) {
+    console.error('Erro ao alterar status da pergunta:', error)
+    showSnackbar({
+      message: 'Falha ao alterar status da pergunta.',
+      color: 'error'
+    })
+    // Reverte a tabela caso falhe no servidor
+    await fetchPerguntas(currentOptions.value)
   }
 }
 </script>

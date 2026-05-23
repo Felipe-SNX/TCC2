@@ -20,6 +20,7 @@
             prepend-inner-icon="mdi-chat-question"
             :rules="[rules.required]"
             variant="outlined"
+            color="primary"
             rows="3"
             auto-grow
             class="mb-4"
@@ -56,6 +57,7 @@
                 :label="`Alternativa ${index + 1}`"
                 :rules="[rules.required]"
                 variant="outlined"
+                color="primary"
                 density="compact"
                 hide-details="auto"
               ></v-text-field>
@@ -65,6 +67,7 @@
                 type="number"
                 :rules="[rules.required, rules.positiveNumber]"
                 variant="outlined"
+                color="primary"
                 density="compact"
                 hide-details="auto"
                 style="max-width: 100px"

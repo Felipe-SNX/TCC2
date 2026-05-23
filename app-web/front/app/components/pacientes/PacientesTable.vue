@@ -1,8 +1,6 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
-      <v-icon class="mr-2" color="primary">mdi-account-group</v-icon>
-      <span class="text-h6 font-weight-bold">Meus Pacientes</span>
       <v-spacer></v-spacer>
       <v-btn
         color="primary"
@@ -42,7 +40,37 @@
         </div>
       </template>
 
+      <template v-slot:item.pin="{ item }">
+        <div class="d-flex align-center">
+          <span class="font-weight-medium mr-2">{{ item.pin || 'N/A' }}</span>
+          <v-tooltip text="Renovar PIN" location="top">
+            <template v-slot:activator="{ props: tooltipProps }">
+              <v-btn
+                icon="mdi-refresh"
+                variant="text"
+                size="x-small"
+                color="primary"
+                v-bind="tooltipProps"
+                @click="$emit('refresh-pin', item)"
+              ></v-btn>
+            </template>
+          </v-tooltip>
+        </div>
+      </template>
+
       <template v-slot:item.acoes="{ item }">
+        <v-tooltip text="Ver Respostar" location="top">
+          <template v-slot:activator="{ props: tooltipProps }">
+            <v-btn
+              icon="mdi-chart-line"
+              variant="text"
+              size="small"
+              color="secondary"
+              v-bind="tooltipProps"
+              @click="$emit('view-dashboard', item)"
+            ></v-btn>
+          </template>
+        </v-tooltip>
         <v-tooltip text="Editar" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
             <v-btn
@@ -93,11 +121,13 @@ const emit = defineEmits<{
   (e: "edit", item: any): void;
   (e: "delete", item: any): void;
   (e: "view-dashboard", item: any): void;
+  (e: "refresh-pin", item: any): void;
 }>();
 
 const headers = [
   { title: "Paciente", key: "nome", align: "start" as const, sortable: false },
   { title: "Idade", key: "idade", align: "center" as const, sortable: false },
+  { title: "PIN", key: "pin", align: "center" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
 

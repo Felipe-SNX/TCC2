@@ -14,27 +14,14 @@
         class="mb-2"
       >
         <template v-slot:append>
-          <v-menu>
-            <template v-slot:activator="{ props }">
-              <v-btn
-                icon="mdi-dots-vertical"
-                variant="text"
-                v-bind="props"
-              ></v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                prepend-icon="mdi-account-edit"
-                title="Editar Dados"
-                @click="editData"
-              ></v-list-item>
-              <v-list-item
-                prepend-icon="mdi-logout"
-                title="Sair"
-                @click="logout"
-              ></v-list-item>
-            </v-list>
-          </v-menu>
+          <v-btn
+            icon
+            variant="text"
+            @click="toggleTheme"
+            :title="isDark ? 'Mudar para modo claro' : 'Mudar para modo escuro'"
+          >
+            <v-icon>{{ isDark ? 'mdi-weather-night' : 'mdi-weather-sunny' }}</v-icon>
+          </v-btn>
         </template>
       </v-list-item>
     </v-list>
@@ -58,13 +45,35 @@
         title="Usuários"
         to="/usuarios"
       ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-account-cog-outline"
+        title="Meu perfil"
+        to="/perfil"
+      ></v-list-item>
     </v-list>
+
+    <!-- Slot append para fixar o botão de sair no fundo -->
+    <template v-slot:append>
+      <v-divider></v-divider>
+      <v-list density="compact" nav>
+        <v-list-item
+          prepend-icon="mdi-logout"
+          title="Sair"
+          class="text-error"
+          @click="logout"
+        ></v-list-item>
+      </v-list>
+    </template>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { navigateTo, useCookie } from "#imports";
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+const isDark = computed(() => theme.global.name.value === "dark");
 
 const tokenCookie = useCookie("access_token");
 const userCookie = useCookie<{
@@ -77,9 +86,28 @@ const userCookie = useCookie<{
 const userName = computed(() => userCookie.value?.nome || "Usuário");
 const userEmail = computed(() => userCookie.value?.email || "");
 
-const editData = () => {
-  navigateTo("/perfil");
-};
+// Inicialização do tema baseada no localStorage
+onMounted(() => {
+  const savedTheme = localStorage.getItem("isDarkTheme");
+  
+  if (savedTheme === null) {
+    // Se não existir, padrão é escuro (true)
+    setTheme(true);
+  } else {
+    // Se existir, carrega o valor salvo
+    setTheme(savedTheme === "true");
+  }
+});
+
+function setTheme(dark: boolean) {
+  theme.global.name.value = dark ? "dark" : "light";
+  localStorage.setItem("isDarkTheme", dark.toString());
+}
+
+function toggleTheme() {
+  const newTheme = !isDark.value;
+  setTheme(newTheme);
+}
 
 const logout = () => {
   tokenCookie.value = null;

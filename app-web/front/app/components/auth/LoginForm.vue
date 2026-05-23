@@ -11,6 +11,7 @@
         :rules="emailRules"
         @keyup.enter="onSubmit"
         variant="outlined"
+        color="primary"
         required
       ></v-text-field>
 
@@ -22,6 +23,7 @@
         :rules="passwordRules"
         @keyup.enter="onSubmit"
         variant="outlined"
+        color="primary"
         required
       ></v-text-field>
 
