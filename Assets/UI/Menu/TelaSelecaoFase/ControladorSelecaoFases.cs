@@ -16,11 +16,20 @@ public class ControladorSelecaoFases : MonoBehaviour, IMenuPopup
         Button btnAmarela = root.Q<Button>("btn-fase-amarela");
         Button btnVoltar = root.Q<Button>("btn-voltar");
 
-        if (btnVerde != null) btnVerde.clicked += () => CarregarFase("Map_Green");
-        if (btnVermelha != null) btnVermelha.clicked += () => CarregarFase("Map_Red");
-        if (btnAmarela != null) btnAmarela.clicked += () => CarregarFase("Map_Yellow");
+        ConfigurarBotao(btnVerde, () => CarregarFase("Map_Green"));
+        ConfigurarBotao(btnVermelha, () => CarregarFase("Map_Red"));
+        ConfigurarBotao(btnAmarela, () => CarregarFase("Map_Yellow"));
+
+        btnVerde?.RegisterCallback<GeometryChangedEvent>(evt => btnVerde.Focus());
 
         if (btnVoltar != null) btnVoltar.clicked += FecharTela;
+    }
+
+    private void ConfigurarBotao(Button botao, Action acao)
+    {
+        if (botao == null) return;
+        botao.clicked += acao;
+        botao.RegisterCallback<NavigationSubmitEvent>(evt => acao.Invoke());
     }
 
     private void CarregarFase(string nomeDaCena)
