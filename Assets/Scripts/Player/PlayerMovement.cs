@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
-    private bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
     private void FlipSprite()
     {
