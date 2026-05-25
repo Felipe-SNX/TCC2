@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -23,13 +24,30 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
     private float verticalInput;
     private bool isClimbing;
+    private bool isNearLadder;
     private float defaultGravity;
+
+    private InputSystem_Actions controles;
 
     void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         defaultGravity = rb.gravityScale;
+
+        controles = new InputSystem_Actions();
+
+        controles.Player.Jump.performed += context => TentarPulo();
+    }
+
+    private void OnEnable()
+    {
+        controles.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controles.Disable();
     }
 
     void Update()
@@ -37,8 +55,27 @@ public class PlayerMovement : MonoBehaviour
         // Se o Dash pausar o movimento, ignora o resto
         if (IsMovementPaused) return;
 
-        moveInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        Vector2 direcao = controles.Player.Move.ReadValue<Vector2>();
+        
+        moveInput = direcao.x;
+        verticalInput = direcao.y;
+
+        if (isNearLadder && Mathf.Abs(verticalInput) > 0.1f)
+        {
+            isClimbing = true;
+        }
+        else if (!isNearLadder)
+        {
+            isClimbing = false;
+        }
+
+        FlipSprite();
+    }
+
+    private void TentarPulo()
+    {
+        // Só executa o pulo se o movimento não estiver pausado, estiver no chão e não na escada
+        if (IsMovementPaused) return;
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -51,8 +88,6 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
             }
         }
-
-        FlipSprite();
     }
 
     void FixedUpdate()
@@ -81,8 +116,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipSprite()
     {
-        if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
-        else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
+        if (moveInput > 0.1f) transform.localScale = new Vector3(1, 1, 1);
+        else if (moveInput < -0.1f) transform.localScale = new Vector3(-1, 1, 1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) => CheckClimbing(collision, true);
@@ -90,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckClimbing(Collider2D collision, bool state)
     {
-        if (collision.CompareTag("Escada")) isClimbing = state;
+        if (collision.CompareTag("Escada")) isNearLadder = state;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

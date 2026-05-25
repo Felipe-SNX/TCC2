@@ -40,7 +40,8 @@
     transition-duration: 0.15s;
 }
 
-.botao-menu:hover {
+.botao-menu:hover,
+.botao-menu:focus {
     background-color: #FFFFFF;
     translate: 10px 0;
 }
@@ -110,7 +111,8 @@
     transition-duration: 0.15s;
 }
 
-.botao-reset:hover {
+.botao-reset:hover,
+.botao-reset:focus {
     background-color: #FFFFFF;
     scale: 1.05; 
 }
@@ -119,6 +121,16 @@
 /* Classes da Aba Áudio */
 .meu-slider {
     width: 450px;
+}
+
+.meu-slider:focus .unity-base-slider__tracker {
+    border-color: #FFC107;
+    border-width: 2px;
+}
+
+.meu-slider:focus .unity-base-slider__dragger {
+    background-color: #FFC107;
+    scale: 1.2;
 }
 
 .meu-slider-rastro {

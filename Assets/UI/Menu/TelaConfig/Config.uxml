@@ -58,7 +58,7 @@
     
                     <ui:VisualElement class="linha">
                         <ui:Label text="Resolução" class="labels" />
-                        <ui:DropdownField name="drp-resolucao" class="dropdown-graficos" />
+                        <ui:DropdownField name="drp-resolucao" class="dropdown-graficos"/>
                     </ui:VisualElement>
 
                     <ui:VisualElement class="linha">

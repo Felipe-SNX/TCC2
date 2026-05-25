@@ -39,7 +39,8 @@
     transition-duration: 0.15s;
 }
 
-.botao-menu:hover {
+.botao-menu:hover,
+.botao-menu:focus {
     background-color: #FFFFFF;
     translate: 10px 0; 
 }

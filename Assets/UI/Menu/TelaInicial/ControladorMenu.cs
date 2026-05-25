@@ -8,6 +8,7 @@ public class ControladorMenu : MonoBehaviour, IMenuPopup
     [SerializeField] private GameObject objetoConfiguracoes;
     [SerializeField] private GameObject objetoSelecaoFases;
     [SerializeField] private GameObject objetoCreditos;
+    private Button btnJogar;
 
     private VisualElement root;
 
@@ -17,10 +18,13 @@ public class ControladorMenu : MonoBehaviour, IMenuPopup
 
         Button btnOpcoes = root.Q<Button>("btn-opcoes");
         Button btnCreditos = root.Q<Button>("btn-creditos");
-        Button btnJogar = root.Q<Button>("btn-jogar");
+        btnJogar = root.Q<Button>("btn-jogar");
         Button btnSair = root.Q<Button>("btn-sair");
 
-        if (btnJogar != null) btnJogar.clicked += () => AbrirTela(objetoSelecaoFases);
+        if (btnJogar != null) {
+            btnJogar.RegisterCallback<GeometryChangedEvent>(DefinirFocoInicial);
+            btnJogar.clicked += () => AbrirTela(objetoSelecaoFases);
+        }
         if (btnCreditos != null) btnCreditos.clicked += () => AbrirTela(objetoCreditos);
         if (btnOpcoes != null) btnOpcoes.clicked += () => AbrirTela(objetoConfiguracoes);
         if (btnSair != null) btnSair.clicked += SairDoJogo;
@@ -32,6 +36,15 @@ public class ControladorMenu : MonoBehaviour, IMenuPopup
         {
             AudioManager.Instance.PlayMenuMusic();
         }
+    }
+
+    private void DefinirFocoInicial(GeometryChangedEvent evt)
+    {
+        // Força a seleção ir para o botão de Jogar
+        btnJogar.Focus();
+
+        // Limpa o evento para não ficar rodando toda hora
+        btnJogar.UnregisterCallback<GeometryChangedEvent>(DefinirFocoInicial);
     }
 
     private void AbrirTela(GameObject objetoFase)

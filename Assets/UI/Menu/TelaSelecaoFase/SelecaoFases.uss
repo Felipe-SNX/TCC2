@@ -35,13 +35,22 @@
     border-radius: 35px; 
     border-width: 0;
     background-color: #555555;
-    padding-bottom: 20px;
     transition-property: scale, translate, background-color;
     transition-duration: 0.2s, 0.2s, 0.3s;
     flex-shrink: 0; 
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    background-image: none; 
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
 }
 
-.cartao-fase:hover {
+.cartao-fase:hover,
+.cartao-fase:focus {
     scale: 1.05; 
     translate: 0 -20px; 
 }
@@ -82,15 +91,18 @@
 .cartao-fase:hover .cor-preenchimento {
     height: 100%;
 }
+.cartao-fase:focus .cor-preenchimento {
+    height: 100%;
+}
 
 .tema-verde .cor-preenchimento { background-color: #4CAF50; }
-.tema-verde:hover { background-color: #2E7D32; }
+.tema-verde:hover, .tema-verde:focus { background-color: #2E7D32; }
 
 .tema-vermelho .cor-preenchimento { background-color: #F44336; }
-.tema-vermelho:hover { background-color: #C62828; }
+.tema-vermelho:hover, .tema-vermelho:focus { background-color: #C62828; }
 
 .tema-amarelo .cor-preenchimento { background-color: #FFC107; }
-.tema-amarelo:hover { background-color: #FFC40C; }
+.tema-amarelo:hover, .tema-amarelo:focus { background-color: #FFC40C; }
 
 .botao-voltar {
     align-self: flex-start; 
@@ -111,7 +123,8 @@
     transition-duration: 0.15s;
 }
 
-.botao-voltar:hover {
+.botao-voltar:hover,
+.botao-voltar:focus {
     background-color: #FFFFFF;
     scale: 1.05;
 }
