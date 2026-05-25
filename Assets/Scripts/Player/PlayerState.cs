@@ -32,9 +32,22 @@ public class PlayerState : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         hasWater = true;
         Debug.Log("Player pegou água!");
+        ChangeColor(sr);
+    }
+
+    public void DiscardWater()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        hasWater = false;
+        Debug.Log("Player descartou a água!");
+        ChangeColor(sr);
+    }
+
+    private void ChangeColor(SpriteRenderer sr)
+    {
         if (hasWater && sr != null)
         {
-           sr.color = Color.blue;
+            sr.color = Color.blue;
         } else {
             sr.color = Color.red;
         }

@@ -61,7 +61,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (isNearLadder && Mathf.Abs(verticalInput) > 0.1f)
         {
-            isClimbing = true;
+            if (PlayerState.Instancia.CurrentWaterStatus())
+            {
+                isClimbing = false;
+                Debug.Log("O jogador não pode carregar a água para subir");
+            }
+            else
+            {
+                isClimbing = true;
+            }
         }
         else if (!isNearLadder)
         {

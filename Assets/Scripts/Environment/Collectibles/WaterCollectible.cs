@@ -10,6 +10,7 @@ public class WaterCollectible : MonoBehaviour
         controls = new InputSystem_Actions();
         
         controls.Player.Interact.performed += context => TentarColetarAgua();
+        controls.Player.Discard.performed += context => DescartarAgua();
     }
 
     private void OnEnable()
@@ -26,13 +27,21 @@ public class WaterCollectible : MonoBehaviour
     {        
         if (!playerContact) return;
 
-        if (PlayerState.Instancia != null)
+        if (PlayerState.Instancia != null && !PlayerState.Instancia.CurrentWaterStatus())
         {
             PlayerState.Instancia.CollectWater();               
             UIManager.Instance.ShowMessage("Você coletou água!"); 
             Debug.Log("Item de água coletado!");
-            
-            playerContact = false; 
+        }
+    }
+
+    private void DescartarAgua()
+    {        
+        if (PlayerState.Instancia != null)
+        {
+            PlayerState.Instancia.DiscardWater();               
+            UIManager.Instance.ShowMessage("Você descartou a água!"); 
+            Debug.Log("Item de água descartado!");
         }
     }
 
