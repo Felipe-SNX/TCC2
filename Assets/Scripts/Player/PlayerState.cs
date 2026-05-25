@@ -7,6 +7,8 @@ public class PlayerState : MonoBehaviour
     [Header("Estado do Inventário")]
     [SerializeField] private bool hasWater = false;
 
+    public bool IsMovementPaused { get; private set; }
+
     private SpriteRenderer sr;
     
     private void Awake()
@@ -17,6 +19,12 @@ public class PlayerState : MonoBehaviour
             return;
         }
         Instancia = this;
+    }
+
+    public void SetPauseMovement(bool isPaused)
+    {
+        IsMovementPaused = isPaused;
+        Debug.Log(isPaused ? "Movimento do Player Pausado." : "Movimento do Player Liberado.");
     }
 
     public void CollectWater()

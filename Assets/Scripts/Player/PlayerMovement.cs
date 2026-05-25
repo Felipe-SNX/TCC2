@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
-    public bool IsMovementPaused { get; set; } 
     public float MoveInput => moveInput;
     public float DefaultGravity => defaultGravity;
     private Collider2D playerCollider;
@@ -53,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Se o Dash pausar o movimento, ignora o resto
-        if (IsMovementPaused) return;
+        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
 
         Vector2 direcao = controles.Player.Move.ReadValue<Vector2>();
         
@@ -75,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private void TentarPulo()
     {
         // Só executa o pulo se o movimento não estiver pausado, estiver no chão e não na escada
-        if (IsMovementPaused) return;
+        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -92,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsMovementPaused) return;
+        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
         HandleMovement();
     }
 

@@ -47,7 +47,7 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         
         // Avisa o script de movimento para parar de processar
-        movement.IsMovementPaused = true; 
+        PlayerState.Instancia.SetPauseMovement(true); 
         
         rb.gravityScale = 0f;
         
@@ -60,7 +60,7 @@ public class PlayerDash : MonoBehaviour
 
         // Devolve a gravidade e libera o movimento
         rb.gravityScale = movement.DefaultGravity;
-        movement.IsMovementPaused = false; 
+        PlayerState.Instancia.SetPauseMovement(false);
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
