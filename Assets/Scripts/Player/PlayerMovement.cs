@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMovementPaused { get; set; } 
     public float MoveInput => moveInput;
     public float DefaultGravity => defaultGravity;
-
+    private Collider2D playerCollider;
+    private Collider2D plataformaAtual;
     private Rigidbody2D rb;
     private float moveInput;
     private float verticalInput;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
         defaultGravity = rb.gravityScale;
     }
 
@@ -38,9 +40,16 @@ public class PlayerMovement : MonoBehaviour
         moveInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButtonDown("Jump") && IsGrounded() && !isClimbing)
+        if (Input.GetButtonDown("Jump"))
         {
-            Jump();
+            if (verticalInput < -0.5f && plataformaAtual != null)
+            {
+                StartCoroutine(DescerPlataforma());
+            }
+            else if (IsGrounded() && !isClimbing)
+            {
+                Jump();
+            }
         }
 
         FlipSprite();
@@ -82,5 +91,37 @@ public class PlayerMovement : MonoBehaviour
     private void CheckClimbing(Collider2D collision, bool state)
     {
         if (collision.CompareTag("Escada")) isClimbing = state;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlataformaAtravessavel"))
+        {
+            plataformaAtual = collision.collider;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlataformaAtravessavel"))
+        {
+            plataformaAtual = null;
+        }
+    }
+
+    private IEnumerator DescerPlataforma()
+    {
+        //Salva a plataforma para não poder ligar a colisão dela depois
+        Collider2D plataformaParaIgnorar = plataformaAtual;
+
+        if (playerCollider != null && plataformaParaIgnorar != null)
+        {
+            //Ignora a colisão para permite o jogador passar
+            Physics2D.IgnoreCollision(playerCollider, plataformaParaIgnorar, true);
+            //Tempo de espera para religar a colisão
+            yield return new WaitForSeconds(0.3f);
+            //Liga a colisão novamente
+            Physics2D.IgnoreCollision(playerCollider, plataformaParaIgnorar, false);
+        }
     }
 }
