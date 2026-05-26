@@ -49,6 +49,9 @@ public class CameraLookController : MonoBehaviour
         if (cameraTarget == null) return;
 
         Vector2 currentLook = lookInput;
+
+        // Correção para que não inverta os controles ao personagem virar
+        currentLook.x *= Mathf.Sign(transform.localScale.x);
         
         // Verifica se o jogador está tentando andar
         if (playerMovement != null && Mathf.Abs(playerMovement.MoveInput) > 0.1f)
