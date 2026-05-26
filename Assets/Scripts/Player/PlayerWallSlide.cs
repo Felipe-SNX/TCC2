@@ -22,18 +22,18 @@ public class PlayerWallSlide : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) 
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) 
             return;
 
-        VerificarParede();
+        CheckWall();
     }
 
     private void FixedUpdate()
     {
-        AplicarFriccaoNaParede();
+        ApplyWallSlide();
     }
 
-    private void VerificarParede()
+    private void CheckWall()
     {
         if (!playerMovement.IsGrounded() && IsWalled() && playerMovement.MoveInput != 0f)
         {
@@ -45,7 +45,7 @@ public class PlayerWallSlide : MonoBehaviour
         }
     }
 
-    private void AplicarFriccaoNaParede()
+    private void ApplyWallSlide()
     {
         if (IsWallSliding)
         {

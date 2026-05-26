@@ -23,11 +23,11 @@ public class PlayerClimb : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
 
         if (isNearLadder && Mathf.Abs(playerMovement.VerticalInput) > 0.1f && canClimb)
         {
-            if (PlayerState.Instancia.CurrentWaterStatus())
+            if (PlayerState.Instance.CurrentWaterStatus())
             {
                 IsClimbing = false;
                 Debug.Log("O jogador não pode carregar a água para subir");
@@ -52,17 +52,17 @@ public class PlayerClimb : MonoBehaviour
         }
     }
 
-    public void ExecutarPuloDaPlanta()
+    public void PlantJump()
     {
-        StartCoroutine(RotinaPularDaPlanta());
+        StartCoroutine(PlantJumpCoroutine());
     }
 
-    private IEnumerator RotinaPularDaPlanta()
+    private IEnumerator PlantJumpCoroutine()
     {
         canClimb = false;
         IsClimbing = false;
 
-        playerMovement.AplicarForcaPulo(); 
+        playerMovement.AddJumpForce(); 
 
         yield return new WaitForSeconds(0.2f);
 
@@ -74,6 +74,6 @@ public class PlayerClimb : MonoBehaviour
 
     private void CheckClimbing(Collider2D collision, bool state)
     {
-        if (collision.CompareTag("Escada")) isNearLadder = state;
+        if (collision.CompareTag("Ladder")) isNearLadder = state;
     }
 }

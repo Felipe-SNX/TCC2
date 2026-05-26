@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public static PlayerState Instancia { get; private set; }
+    public static PlayerState Instance { get; private set; }
 
     [Header("Estado do Inventário")]
     [SerializeField] private bool hasWater = false;
@@ -13,12 +13,12 @@ public class PlayerState : MonoBehaviour
     
     private void Awake()
     {
-        if (Instancia != null && Instancia != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        Instancia = this;
+        Instance = this;
     }
 
     public void SetPauseMovement(bool isPaused)

@@ -45,13 +45,13 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        float volumeMasterSalvo = PlayerPrefs.GetFloat("VolumeMaster", 1f);
-        float volumeSFXSalvo = PlayerPrefs.GetFloat("VolumeSFX", 1f);
-        float volumeMusicaSalvo = PlayerPrefs.GetFloat("VolumeMusica", 1f);
+        float savedMasterVolume = PlayerPrefs.GetFloat("VolumeMaster", 1f);
+        float savedSFXVolume = PlayerPrefs.GetFloat("VolumeSFX", 1f);
+        float savedMusicVolume = PlayerPrefs.GetFloat("VolumeMusica", 1f);
 
-        SetMasterVolume(volumeMasterSalvo);
-        SetSFXVolume(volumeSFXSalvo);
-        SetMusicVolume(volumeMusicaSalvo);
+        SetMasterVolume(savedMasterVolume);
+        SetSFXVolume(savedSFXVolume);
+        SetMusicVolume(savedMusicVolume);
     }
 
     public void PlayMenuMusic()

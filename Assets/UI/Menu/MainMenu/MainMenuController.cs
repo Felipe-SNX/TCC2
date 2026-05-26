@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ControladorMenu : MonoBehaviour, IMenuPopup
+public class MainMenuController : MonoBehaviour, IMenuPopup
 {
     public Action AoFechar { get; set; }
     [SerializeField] private GameObject objetoConfiguracoes;

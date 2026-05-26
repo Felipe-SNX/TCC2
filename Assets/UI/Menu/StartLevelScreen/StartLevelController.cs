@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ControladorInicioFase : MonoBehaviour
+public class StartLevelController : MonoBehaviour
 {
     [Header("Configurações da Fase")]
     [Tooltip("Escreva o nome da fase que aparecerá na tela inicial")]

@@ -12,29 +12,29 @@ public class PlayerDash : MonoBehaviour
     private PlayerMovement movement;
     private bool canDash = true;
 
-    private InputSystem_Actions controles;
+    private InputSystem_Actions controls;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<PlayerMovement>();
 
-        controles = new InputSystem_Actions();
+        controls = new InputSystem_Actions();
         
-        controles.Player.Dash.performed += context => TentarDash();
+        controls.Player.Dash.performed += context => TryDash();
     }
 
     private void OnEnable()
     {
-        controles.Enable();
+        controls.Enable();
     }
 
     private void OnDisable()
     {
-        controles.Disable();
+        controls.Disable();
     }
 
-    private void TentarDash()
+    private void TryDash()
     {
         if (canDash)
         {
@@ -47,7 +47,7 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         
         // Avisa o script de movimento para parar de processar
-        PlayerState.Instancia.SetPauseMovement(true); 
+        PlayerState.Instance.SetPauseMovement(true); 
         
         rb.gravityScale = 0f;
         
@@ -60,7 +60,7 @@ public class PlayerDash : MonoBehaviour
 
         // Devolve a gravidade e libera o movimento
         rb.gravityScale = movement.DefaultGravity;
-        PlayerState.Instancia.SetPauseMovement(false);
+        PlayerState.Instance.SetPauseMovement(false);
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;

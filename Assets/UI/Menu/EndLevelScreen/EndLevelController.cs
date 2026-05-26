@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
-public class ControladorFinalFase : MonoBehaviour
+public class EndLevelController : MonoBehaviour
 {
     private VisualElement root;
     private Button btnReset;

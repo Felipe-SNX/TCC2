@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ControladorCreditos : MonoBehaviour, IMenuPopup
+public class CreditsController : MonoBehaviour, IMenuPopup
 {
     public Action AoFechar { get; set; }
 

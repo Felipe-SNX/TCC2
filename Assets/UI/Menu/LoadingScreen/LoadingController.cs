@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class ControladorLoading : MonoBehaviour
+public class LoadingController : MonoBehaviour
 {
     private VisualElement barraPreenchimento;
     private Label txtPorcentagem;
@@ -15,7 +15,7 @@ public class ControladorLoading : MonoBehaviour
         barraPreenchimento = root.Q<VisualElement>("barra-preenchimento");
         txtPorcentagem = root.Q<Label>("txt-porcentagem");
 
-        string cenaAlvo = string.IsNullOrEmpty(DadosGlobais.proximaCena) ? "Map_Green" : DadosGlobais.proximaCena;
+        string cenaAlvo = string.IsNullOrEmpty(GlobalData.nextScene) ? "Map_Green" : GlobalData.nextScene;
 
         StartCoroutine(CarregarCenaAsync(cenaAlvo));
     }

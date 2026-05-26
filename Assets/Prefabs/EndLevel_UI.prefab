@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8721250443115494181
+--- !u!1 &1101132325058028772
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1263844613125278440}
-  - component: {fileID: 8752404349482615226}
-  - component: {fileID: 8370521739320237451}
+  - component: {fileID: 9053302675255398080}
+  - component: {fileID: 6712138672431513163}
+  - component: {fileID: 461484229154987124}
   m_Layer: 5
-  m_Name: TelaCreditos_UI
+  m_Name: EndLevel_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1263844613125278440
+  m_IsActive: 1
+--- !u!4 &9053302675255398080
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8721250443115494181}
+  m_GameObject: {fileID: 1101132325058028772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8752404349482615226
+--- !u!114 &6712138672431513163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8721250443115494181}
+  m_GameObject: {fileID: 1101132325058028772}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: fabc9c841a9c2434697416eab4421021, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b4a03c82816f02745b073f320c2106cf, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: bec2d2daf087b034480050ed95b57630, type: 3}
   m_SortingOrder: 10
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -56,15 +56,15 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!114 &8370521739320237451
+--- !u!114 &461484229154987124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8721250443115494181}
+  m_GameObject: {fileID: 1101132325058028772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c901ddb835ce3429d214bb6b09da79, type: 3}
+  m_Script: {fileID: 11500000, guid: 91145a7f46ba559479f76aeccf41aa23, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ControladorCreditos
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorFinalFase

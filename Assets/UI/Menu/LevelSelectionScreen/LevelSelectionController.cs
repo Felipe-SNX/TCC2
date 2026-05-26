@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement; 
 using UnityEngine.UIElements;
 
-public class ControladorSelecaoFases : MonoBehaviour, IMenuPopup
+public class LevelSelectionController : MonoBehaviour, IMenuPopup
 {
     public Action AoFechar { get; set; }
 
@@ -35,7 +35,7 @@ public class ControladorSelecaoFases : MonoBehaviour, IMenuPopup
     private void CarregarFase(string nomeDaCena)
     {
         Debug.Log($"Iniciando a cena: {nomeDaCena}");
-        DadosGlobais.proximaCena = nomeDaCena;        
+        GlobalData.nextScene = nomeDaCena;        
         SceneManager.LoadScene("Loading");
     }
 

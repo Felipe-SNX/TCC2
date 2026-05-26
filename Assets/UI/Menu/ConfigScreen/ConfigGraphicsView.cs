@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class ConfigGraficosView
+public class ConfigGraphicsView
 {
     private VisualElement root;
     private const int QUALIDADE_PADRAO = 3; 

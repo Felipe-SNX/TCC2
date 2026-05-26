@@ -45,9 +45,9 @@ public class PlantLogic : MonoBehaviour
     {        
         if (!playerContact || isGrown) return;
 
-        if (PlayerState.Instancia != null)
+        if (PlayerState.Instance != null)
         {
-            if (PlayerState.Instancia.UseWater())
+            if (PlayerState.Instance.UseWater())
             {
                 Grow();
             } 
@@ -103,7 +103,7 @@ public class PlantLogic : MonoBehaviour
         else
         {
             // Altera tag de colisão do sprite após crescer para o tipo vertical (Escada)
-            gameObject.tag = "Escada";
+            gameObject.tag = "Ladder";
         }
 
         Debug.Log("A planta cresceu!");

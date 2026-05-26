@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private Collider2D playerCollider;
-    private Collider2D plataformaAtual;
+    private Collider2D currentPlatform;
     private Rigidbody2D rb;
     private float moveInput;
     private float verticalInput;
@@ -29,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Outros Componentes
     private PlayerClimb playerClimbScript;
-    private InputSystem_Actions controles;
+    private InputSystem_Actions controls;
     private PlayerWallSlide wallSlideScript;
     private PlayerWallJump wallJumpScript;
 
@@ -39,61 +38,61 @@ public class PlayerMovement : MonoBehaviour
         playerCollider = GetComponent<Collider2D>();
         defaultGravity = rb.gravityScale;
 
-        controles = new InputSystem_Actions();
+        controls = new InputSystem_Actions();
         wallSlideScript = GetComponent<PlayerWallSlide>();
         wallJumpScript = GetComponent<PlayerWallJump>();
         playerClimbScript = GetComponent<PlayerClimb>();
 
-        controles.Player.Jump.performed += context => TentarPulo();
+        controls.Player.Jump.performed += context => TryJump();
     }
 
     private void OnEnable()
     {
-        controles.Enable();
+        controls.Enable();
     }
 
     private void OnDisable()
     {
-        controles.Disable();
+        controls.Disable();
     }
 
     void Update()
     {
-        // Se o Dash pausar o movimento, ignora o resto
-        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
+        // Se alguma mecânica pausar o movimento, ignora o resto
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
 
-        Vector2 direcao = controles.Player.Move.ReadValue<Vector2>();
+        Vector2 direction = controls.Player.Move.ReadValue<Vector2>();
         
-        moveInput = direcao.x;
-        verticalInput = direcao.y;
+        moveInput = direction.x;
+        verticalInput = direction.y;
 
         FlipSprite();
     }
 
-    private void TentarPulo()
+    private void TryJump()
     {
         // Trava de pause e de Wall Jump
-        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
         if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
 
         // Descer Plataforma
-        if (verticalInput < -0.5f && plataformaAtual != null)
+        if (verticalInput < -0.5f && currentPlatform != null)
         {
-            StartCoroutine(DescerPlataforma());
+            StartCoroutine(FallThroughPlatform());
             return; 
         }
 
         // Pulo na Planta
         if (playerClimbScript != null && playerClimbScript.IsClimbing)
         {
-            playerClimbScript.ExecutarPuloDaPlanta();
+            playerClimbScript.PlantJump();
             return;
         }
 
         // Wall Jump
-        if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled()) 
+        if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled() && wallJumpScript != null) 
         {
-            wallJumpScript?.ExecutarPulo(); 
+            wallJumpScript.ExecuteJump();
             return;
         }
 
@@ -106,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
         HandleMovement();
     }
 
@@ -120,11 +119,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-    public void AplicarForcaPulo() => Jump();
+    public void AddJumpForce() => Jump();
     public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
     private void FlipSprite()
     {
+        // Não realiza no WallJump, pois em pulos consecutivos ele precisa estar virado contra a parede sempre
         if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
 
         if (moveInput > 0.1f) transform.localScale = new Vector3(1, 1, 1);
@@ -133,33 +133,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlataformaAtravessavel"))
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
-            plataformaAtual = collision.collider;
+            currentPlatform = collision.collider;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlataformaAtravessavel"))
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
-            plataformaAtual = null;
+            currentPlatform = null;
         }
     }
 
-    private IEnumerator DescerPlataforma()
+    private IEnumerator FallThroughPlatform()
     {
-        //Salva a plataforma para não poder ligar a colisão dela depois
-        Collider2D plataformaParaIgnorar = plataformaAtual;
+        // Salva a plataforma para poder ligar a colisão dela depois
+        Collider2D platformToIgnore = currentPlatform;
 
-        if (playerCollider != null && plataformaParaIgnorar != null)
+        if (playerCollider != null && platformToIgnore != null)
         {
-            //Ignora a colisão para permite o jogador passar
-            Physics2D.IgnoreCollision(playerCollider, plataformaParaIgnorar, true);
-            //Tempo de espera para religar a colisão
+            // Ignora a colisão para permitir o jogador passar
+            Physics2D.IgnoreCollision(playerCollider, platformToIgnore, true);
+            // Tempo de espera para religar a colisão
             yield return new WaitForSeconds(0.3f);
-            //Liga a colisão novamente
-            Physics2D.IgnoreCollision(playerCollider, plataformaParaIgnorar, false);
+            // Liga a colisão novamente
+            Physics2D.IgnoreCollision(playerCollider, platformToIgnore, false);
         }
     }
 }

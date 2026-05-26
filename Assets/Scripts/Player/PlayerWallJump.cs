@@ -17,7 +17,7 @@ public class PlayerWallJump : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void ExecutarPulo()
+    public void ExecuteJump()
     {
         StartCoroutine(WallJump());
     }
@@ -26,16 +26,16 @@ public class PlayerWallJump : MonoBehaviour
     {
         IsWallJumping = true;
 
-        float direcaoOposta = -Mathf.Sign(transform.localScale.x);
+        float reverseDirection = -Mathf.Sign(transform.localScale.x);
 
         // Zera a velocidade antes, para não dar um efeito de quicar
         rb.linearVelocity = Vector2.zero;
 
         // Aplica a força de disparo 
-        rb.linearVelocity = new Vector2(wallJumpForce.x * direcaoOposta, wallJumpForce.y);
+        rb.linearVelocity = new Vector2(wallJumpForce.x * reverseDirection, wallJumpForce.y);
 
         // Vira o Sprite
-        transform.localScale = new Vector3(direcaoOposta, 1, 1);
+        transform.localScale = new Vector3(reverseDirection, 1, 1);
 
         // Não permite a interferência do jogador durante o movimento
         yield return new WaitForSeconds(wallJumpDuration);

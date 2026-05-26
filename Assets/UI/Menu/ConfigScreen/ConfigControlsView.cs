@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable] 
-public class ConfigControlesView
+public class ConfigControlsView
 {
     private VisualElement root;
     public void Inicializar(VisualElement container)

@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 using System.Collections;
 using UnityEngine.EventSystems; 
 
-public class ControladorPause : MonoBehaviour
+public class PauseController : MonoBehaviour
 {
-    public static ControladorPause Instancia { get; private set; }
+    public static PauseController Instancia { get; private set; }
 
     [SerializeField] private GameObject objetoConfiguracoes;
     
@@ -141,7 +141,7 @@ public class ControladorPause : MonoBehaviour
         {
             root.style.display = DisplayStyle.None; 
             
-            var scriptConfig = objetoConfiguracoes.GetComponent<ControladorConfiguracoes>();
+            var scriptConfig = objetoConfiguracoes.GetComponent<ConfigController>();
             if (scriptConfig != null)
             {
                 scriptConfig.AoFechar = () => { 

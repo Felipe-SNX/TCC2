@@ -2,14 +2,14 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ControladorConfiguracoes : MonoBehaviour, IMenuPopup
+public class ConfigController : MonoBehaviour, IMenuPopup
 {
     public Action AoFechar { get; set; }
 
     [Header("Sub-Sistemas")]
     public ConfigAudioView viewAudio;
-    public ConfigControlesView viewControles;
-    public ConfigGraficosView viewGraficos;
+    public ConfigControlsView viewControles;
+    public ConfigGraphicsView viewGraficos;
     
     private Label tituloAba;
     private VisualElement conteudoAudio;

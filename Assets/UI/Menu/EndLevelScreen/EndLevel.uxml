@@ -5,7 +5,7 @@
     xmlns:uie="UnityEditor.UIElements"
     xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
 >
-    <Style src="FinalFase.uss" />
+    <Style src="EndLevel.uss" />
 
     <ui:VisualElement class="tela-cheia">
         

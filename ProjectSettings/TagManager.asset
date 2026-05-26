@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Escada
-  - PlataformaAtravessavel
-  - ParedeEscalavel
+  - OneWayPlatform
+  - ClimbableWall
+  - Ladder
   layers:
   - Default
   - TransparentFX
