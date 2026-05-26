@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private float verticalInput;
     private bool isClimbing;
     private bool isNearLadder;
+    private bool canClimb = true;
     private float defaultGravity;
 
     private InputSystem_Actions controles;
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput = direcao.x;
         verticalInput = direcao.y;
 
-        if (isNearLadder && Mathf.Abs(verticalInput) > 0.1f)
+        if (isNearLadder && Mathf.Abs(verticalInput) > 0.1f && canClimb)
         {
             if (PlayerState.Instancia.CurrentWaterStatus())
             {
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
                 isClimbing = true;
             }
         }
-        else if (!isNearLadder)
+        else if (!isNearLadder || !canClimb)
         {
             isClimbing = false;
         }
@@ -90,7 +91,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 StartCoroutine(DescerPlataforma());
             }
-            else if (IsGrounded() && !isClimbing)
+            else if (isClimbing)
+            {
+                StartCoroutine(PularDaPlanta());
+            }
+            else if (IsGrounded())
             {
                 Jump();
             }
@@ -165,5 +170,17 @@ public class PlayerMovement : MonoBehaviour
             //Liga a colisão novamente
             Physics2D.IgnoreCollision(playerCollider, plataformaParaIgnorar, false);
         }
+    }
+
+    private IEnumerator PularDaPlanta()
+    {
+        canClimb = false;
+        isClimbing = false;
+
+        Jump(); 
+
+        yield return new WaitForSeconds(0.2f);
+
+        canClimb = true;
     }
 }
