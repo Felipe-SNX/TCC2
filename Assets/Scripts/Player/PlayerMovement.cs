@@ -8,26 +8,30 @@ public class PlayerMovement : MonoBehaviour
     [Header("Configurações")]
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpForce = 12f;
-    [SerializeField] private float climbSpeed = 5f;
     
     [Header("Detecção de Chão")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
-    public float MoveInput => moveInput;
-    public float DefaultGravity => defaultGravity;
     private Collider2D playerCollider;
     private Collider2D plataformaAtual;
     private Rigidbody2D rb;
     private float moveInput;
     private float verticalInput;
-    private bool isClimbing;
-    private bool isNearLadder;
-    private bool canClimb = true;
     private float defaultGravity;
 
+    // Parâmetros Expostos
+    public float MoveInput => moveInput;
+    public float DefaultGravity => defaultGravity;
+    public float VerticalInput => verticalInput;
+    public float Speed => speed;
+
+    // Outros Componentes
+    private PlayerClimb playerClimbScript;
     private InputSystem_Actions controles;
+    private PlayerWallSlide wallSlideScript;
+    private PlayerWallJump wallJumpScript;
 
     void Awake() 
     {
@@ -36,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
         defaultGravity = rb.gravityScale;
 
         controles = new InputSystem_Actions();
+        wallSlideScript = GetComponent<PlayerWallSlide>();
+        wallJumpScript = GetComponent<PlayerWallJump>();
+        playerClimbScript = GetComponent<PlayerClimb>();
 
         controles.Player.Jump.performed += context => TentarPulo();
     }
@@ -60,45 +67,40 @@ public class PlayerMovement : MonoBehaviour
         moveInput = direcao.x;
         verticalInput = direcao.y;
 
-        if (isNearLadder && Mathf.Abs(verticalInput) > 0.1f && canClimb)
-        {
-            if (PlayerState.Instancia.CurrentWaterStatus())
-            {
-                isClimbing = false;
-                Debug.Log("O jogador não pode carregar a água para subir");
-            }
-            else
-            {
-                isClimbing = true;
-            }
-        }
-        else if (!isNearLadder || !canClimb)
-        {
-            isClimbing = false;
-        }
-
         FlipSprite();
     }
 
     private void TentarPulo()
     {
-        // Só executa o pulo se o movimento não estiver pausado, estiver no chão e não na escada
+        // Trava de pause e de Wall Jump
         if (PlayerState.Instancia != null && PlayerState.Instancia.IsMovementPaused) return;
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
 
-        if (Input.GetButtonDown("Jump"))
+        // Descer Plataforma
+        if (verticalInput < -0.5f && plataformaAtual != null)
         {
-            if (verticalInput < -0.5f && plataformaAtual != null)
-            {
-                StartCoroutine(DescerPlataforma());
-            }
-            else if (isClimbing)
-            {
-                StartCoroutine(PularDaPlanta());
-            }
-            else if (IsGrounded())
-            {
-                Jump();
-            }
+            StartCoroutine(DescerPlataforma());
+            return; 
+        }
+
+        // Pulo na Planta
+        if (playerClimbScript != null && playerClimbScript.IsClimbing)
+        {
+            playerClimbScript.ExecutarPuloDaPlanta();
+            return;
+        }
+
+        // Wall Jump
+        if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled()) 
+        {
+            wallJumpScript?.ExecutarPulo(); 
+            return;
+        }
+
+        // Pulo Normal 
+        if (IsGrounded())
+        {
+            Jump();
         }
     }
 
@@ -110,34 +112,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (isClimbing)
-        {
-            rb.gravityScale = 0f;
-            rb.linearVelocity = new Vector2(moveInput * speed, verticalInput * climbSpeed);
-        }
-        else
-        {
-            rb.gravityScale = defaultGravity;
-            rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
-        }
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+        if (playerClimbScript != null && playerClimbScript.IsClimbing) return;
+
+        rb.gravityScale = defaultGravity;
+        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
     }
 
     private void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-
+    public void AplicarForcaPulo() => Jump();
     public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
     private void FlipSprite()
     {
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+
         if (moveInput > 0.1f) transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < -0.1f) transform.localScale = new Vector3(-1, 1, 1);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) => CheckClimbing(collision, true);
-    private void OnTriggerExit2D(Collider2D collision) => CheckClimbing(collision, false);
-
-    private void CheckClimbing(Collider2D collision, bool state)
-    {
-        if (collision.CompareTag("Escada")) isNearLadder = state;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -170,17 +161,5 @@ public class PlayerMovement : MonoBehaviour
             //Liga a colisão novamente
             Physics2D.IgnoreCollision(playerCollider, plataformaParaIgnorar, false);
         }
-    }
-
-    private IEnumerator PularDaPlanta()
-    {
-        canClimb = false;
-        isClimbing = false;
-
-        Jump(); 
-
-        yield return new WaitForSeconds(0.2f);
-
-        canClimb = true;
     }
 }
