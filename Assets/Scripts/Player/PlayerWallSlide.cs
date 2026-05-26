@@ -53,5 +53,5 @@ public class PlayerWallSlide : MonoBehaviour
         }
     }
 
-    private bool IsWalled() => Physics2D.OverlapCircle(wallSensor.position, wallCheckRadius, wallLayer);
+    public bool IsWalled() => Physics2D.OverlapCircle(wallSensor.position, wallCheckRadius, wallLayer);
 }
