@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
             // Ignora a colisão para permitir o jogador passar
             Physics2D.IgnoreCollision(playerCollider, platformToIgnore, true);
             // Tempo de espera para religar a colisão
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.4f);
             // Liga a colisão novamente
             Physics2D.IgnoreCollision(playerCollider, platformToIgnore, false);
         }
