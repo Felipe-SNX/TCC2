@@ -122,14 +122,28 @@ public class PlayerMovement : MonoBehaviour
     public void AddJumpForce() => Jump();
     public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-    private void FlipSprite()
+  private void FlipSprite()
     {
         // Não realiza no WallJump, pois em pulos consecutivos ele precisa estar virado contra a parede sempre
         if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
 
-        if (moveInput > 0.1f) transform.localScale = new Vector3(1, 1, 1);
-        else if (moveInput < -0.1f) transform.localScale = new Vector3(-1, 1, 1);
+        Vector3 escala = transform.localScale;
+
+        if (moveInput > 0.1f) 
+        {
+            // Pega o valor puro e garante que é POSITIVO (Olha para a direita)
+            escala.x = Mathf.Abs(escala.x);
+        }
+        else if (moveInput < -0.1f) 
+        {
+            // Pega o valor puro e garante que é NEGATIVO (Olha para a esquerda)
+            escala.x = -Mathf.Abs(escala.x);
+        }
+
+        transform.localScale = escala;
     }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
