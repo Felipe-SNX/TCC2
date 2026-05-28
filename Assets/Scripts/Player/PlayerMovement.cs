@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Configurações")]
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpForce = 12f;
+    [SerializeField] private float jumpCutMultiplier = 0.5f; // Controla altura do pulo
     
     [Header("Detecção de Chão")]
     [SerializeField] private Transform groundCheck;
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         playerClimbScript = GetComponent<PlayerClimb>();
 
         controls.Player.Jump.performed += context => TryJump();
+        controls.Player.Jump.canceled += context => CancelJump();
     }
 
     private void OnEnable()
@@ -100,6 +102,16 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             Jump();
+        }
+    }
+
+    private void CancelJump()
+    {
+        // Só aplica o freio se o personagem estiver ativamente subindo no ar.
+        // Se ele já estiver caindo (y < 0), soltar o botão não deve afetar a gravidade.
+        if (rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
         }
     }
 
