@@ -26,16 +26,6 @@ public class SecretPassage : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        // Quando o Player sair da caverna, a parede volta a ficar sólida (Alpha 1)
-        if (collision.CompareTag("Player"))
-        {
-            StopAllCoroutines();
-            StartCoroutine(FadeIn(1f));
-        }
-    }
-
     IEnumerator FadeIn(float alphaAlvo)
     {
         Color currentColor = rend.material.color;

@@ -145,9 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94577d1f44088a748acc631ee175a0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimentacaoPersonagem
-  speed: 5
-  jumpForce: 10
-  climbSpeed: 3.5
+  speed: 7
+  jumpForce: 15
   groundCheck: {fileID: 8526948237696973409}
   groundCheckRadius: 0.15
   groundLayer:
@@ -296,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb887b332d3dfd439cfc4a79a14d7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallSlide
-  wallCheck: {fileID: 0}
+  wallSensor: {fileID: 0}
   wallCheckRadius: 0.2
   wallLayer:
     serializedVersion: 2
