@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 445462920}
   - component: {fileID: 445462925}
   - component: {fileID: 445462924}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PassableTilemap
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -325913,6 +325913,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2021656743329549642, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5496296623552628724, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.98
