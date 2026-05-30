@@ -44,6 +44,13 @@ public class PlantLogic : MonoBehaviour
     private void TentarCrescerPlanta()
     {        
         if (!playerContact || isGrown) return;
+        PlayerMovement movimento = FindAnyObjectByType<PlayerMovement>();
+        
+        if (!movimento.IsGrounded())
+        {
+            Debug.Log("Você precisa estar no chão para usar a água");
+            return;
+        }
 
         if (PlayerState.Instance != null)
         {
