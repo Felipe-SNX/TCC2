@@ -68,7 +68,9 @@ public class PlayerMovement : MonoBehaviour
         moveInput = direction.x;
         verticalInput = direction.y;
 
-        FlipSprite();
+        if(!wallJumpScript.IsWallJumping){
+            FlipSprite();
+        }
     }
 
     private void TryJump()
@@ -134,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     public void AddJumpForce() => Jump();
     public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-  private void FlipSprite()
+    public void FlipSprite()
     {
         // Não realiza no WallJump, pois em pulos consecutivos ele precisa estar virado contra a parede sempre
         if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;

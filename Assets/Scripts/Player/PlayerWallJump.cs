@@ -6,40 +6,63 @@ public class PlayerWallJump : MonoBehaviour
 {
     [Header("Configurações do Wall Jump")]
     [SerializeField] private Vector2 wallJumpForce = new Vector2(5f, 12f);
-    [SerializeField] private float wallJumpDuration = 0.15f;
+    [SerializeField] private float wallJumpDuration = 0.4f;
+    [SerializeField] private float wallJumpTime = 0.2f;
     
     public bool IsWallJumping { get; private set; }
+    private float wallJumpDirection;
+    private float wallJumpCounter;
 
     private Rigidbody2D rb;
+    private PlayerWallSlide wallSlideScript;
+    private PlayerMovement movement;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        wallSlideScript = GetComponent<PlayerWallSlide>();
+        movement = GetComponent<PlayerMovement>();
     }
 
     public void ExecuteJump()
     {
-        StartCoroutine(WallJump());
+        WallJump();
     }
 
-    private IEnumerator WallJump()
+    private void WallJump()
     {
-        IsWallJumping = true;
+        if (wallSlideScript.IsWallSliding)
+        {
+            IsWallJumping = false;
+            wallJumpDirection = -transform.localScale.x;
+            wallJumpCounter = wallJumpTime;
 
-        float reverseDirection = -Mathf.Sign(transform.localScale.x);
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpCounter -= Time.deltaTime;
+        }
 
-        // Zera a velocidade antes, para não dar um efeito de quicar
-        rb.linearVelocity = Vector2.zero;
+        if(wallJumpCounter > 0f)
+        {
+            IsWallJumping = true;
+            rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpForce.x, wallJumpForce.y);
+            wallJumpCounter = 0f;
 
-        // Aplica a força de disparo 
-        rb.linearVelocity = new Vector2(wallJumpForce.x * reverseDirection, wallJumpForce.y);
+        if (Mathf.Sign(transform.localScale.x) != Mathf.Sign(wallJumpDirection))
+        {
+            Vector3 escala = transform.localScale;
+            escala.x = Mathf.Sign(wallJumpDirection) * Mathf.Abs(escala.x);
+            transform.localScale = escala;
+        }
 
-        // Vira o Sprite
-        transform.localScale = new Vector3(reverseDirection, 1, 1);
+            Invoke(nameof(StopWallJumping), wallJumpDuration);
+        }
+    }
 
-        // Não permite a interferência do jogador durante o movimento
-        yield return new WaitForSeconds(wallJumpDuration);
-
+    private void StopWallJumping()
+    {
         IsWallJumping = false;
     }
 }
