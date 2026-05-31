@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: tcc_db
     ports:
-      - "3306:3306"
+      - "3307:3306"  # 3307 no seu PC → 3306 dentro do container (evita conflito com MySQL local)
     # 💾 VOLUME: os dados ficam salvos aqui mesmo após desligar o Docker
     volumes:
       - tcc_mysql_data:/var/lib/mysql
