@@ -1,0 +1,12 @@
+# Ignora node_modules (será recriado dentro do container)
+node_modules
+.nuxt
+.output
+
+# Ignora arquivos de IDE e git
+.git
+.gitignore
+
+# Ignora arquivos de log
+*.log
+npm-debug.log*
