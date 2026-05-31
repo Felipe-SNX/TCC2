@@ -65,6 +65,7 @@ def seed_usuarios(db):
             email=user_data["email"],
             role=user_data["role"],
             senha=get_password_hash(user_data["senha"]),
+            ativo=True,
         )
         db.add(novo)
         print(f"  ✅ {user_data['nome']} ({user_data['role']}) criado.")

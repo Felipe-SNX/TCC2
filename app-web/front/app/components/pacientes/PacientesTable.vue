@@ -42,7 +42,7 @@
 
       <template v-slot:item.pin="{ item }">
         <div class="d-flex align-center">
-          <span class="font-weight-medium mr-2">{{ item.pin || 'N/A' }}</span>
+          <span class="font-weight-medium mr-2">{{ item.pin || "N/A" }}</span>
           <v-tooltip text="Renovar PIN" location="top">
             <template v-slot:activator="{ props: tooltipProps }">
               <v-btn
@@ -59,7 +59,7 @@
       </template>
 
       <template v-slot:item.acoes="{ item }">
-        <v-tooltip text="Ver Respostar" location="top">
+        <v-tooltip text="Ver Respostas" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
             <v-btn
               icon="mdi-chart-line"
@@ -127,7 +127,7 @@ const emit = defineEmits<{
 const headers = [
   { title: "Paciente", key: "nome", align: "start" as const, sortable: false },
   { title: "Idade", key: "idade", align: "center" as const, sortable: false },
-  { title: "PIN", key: "pin", align: "center" as const, sortable: false },
+  { title: "PIN", key: "pin", align: "start" as const, sortable: false },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
 
