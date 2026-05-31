@@ -58,13 +58,13 @@ const headers = [
     sortable: true,
   },
   {
-    title: "Cor Exibida",
+    title: "Cor da Fase",
     key: "cor",
     align: "center" as const,
     sortable: true,
   },
   {
-    title: "Estado Emocional (1-5)",
+    title: "Resposta (1-5)",
     key: "resposta",
     align: "center" as const,
     sortable: true,
