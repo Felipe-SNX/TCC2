@@ -1,0 +1,14 @@
+# Ignora o ambiente virtual Python (será recriado dentro do container)
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Ignora arquivos de IDE e git
+.git
+.gitignore
+.env
+
+# Ignora arquivos de log
+*.log
