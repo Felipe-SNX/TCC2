@@ -2,27 +2,39 @@
 seed.py — Seed centralizado do banco de dados.
 
 Ordem de execução:
-  1. Usuários (ADMIN e PSICOLOGO)
+  1. Usuários  (ADMIN e PSICOLOGO)
   2. Pacientes (com PIN único de 6 dígitos)
   3. Perguntas
+  4. Respostas (20-30 respostas falsas por paciente, últimos 30 dias)
 """
 
 import sys
 import os
 import random
 import string
+from datetime import datetime, timedelta
 
 # Garante que o diretório raiz do backend esteja no path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from app.db.session import SessionLocal
-from app.models.schema import Usuario, Paciente, PacientePsicologo, Pergunta
+from app.models.schema import Usuario, Paciente, PacientePsicologo, Pergunta, Resposta
 from app.core.security import get_password_hash
 
 
 # ─────────────────────────────────────────────
 # Helpers
 # ─────────────────────────────────────────────
+
+CORES = [
+    "vermelho", "verde", "amarelo"
+]
+
+def data_aleatoria_ultimos_30_dias() -> datetime:
+    """Retorna um datetime aleatório dentro dos últimos 30 dias."""
+    dias_atras = random.randint(0, 29)
+    segundos_atras = random.randint(0, 86399)  # 0 a 23h59m59s
+    return datetime.utcnow() - timedelta(days=dias_atras, seconds=segundos_atras)
 
 def gerar_pin_unico(db) -> str:
     """Gera um PIN numérico de 6 dígitos único na tabela de pacientes."""
@@ -38,7 +50,7 @@ def gerar_pin_unico(db) -> str:
 # ─────────────────────────────────────────────
 
 def seed_usuarios(db):
-    print("\n📋 [1/3] Criando usuários...")
+    print("\n📋 [1/4] Criando usuários...")
 
     users_to_create = [
         {
@@ -79,7 +91,7 @@ def seed_usuarios(db):
 # ─────────────────────────────────────────────
 
 def seed_pacientes(db):
-    print("\n👥 [2/3] Criando pacientes...")
+    print("\n👥 [2/4] Criando pacientes...")
 
     psicologos = db.query(Usuario).filter(Usuario.role == "PSICOLOGO").all()
     if not psicologos:
@@ -160,7 +172,7 @@ def seed_pacientes(db):
 # ─────────────────────────────────────────────
 
 def seed_perguntas(db):
-    print("\n❓ [3/3] Criando perguntas...")
+    print("\n❓ [3/4] Criando perguntas...")
 
     psicologos = db.query(Usuario).filter(Usuario.role == "PSICOLOGO").all()
     if not psicologos:
@@ -220,6 +232,50 @@ def seed_perguntas(db):
 
 
 # ─────────────────────────────────────────────
+# 4. Respostas
+# ─────────────────────────────────────────────
+
+def seed_respostas(db):
+    print("\n📊 [4/4] Criando respostas falsas para os pacientes...")
+
+    pacientes = db.query(Paciente).all()
+    if not pacientes:
+        print("  ❌ Nenhum paciente encontrado — pulando criação de respostas.")
+        return
+
+    perguntas = db.query(Pergunta).all()
+    if not perguntas:
+        print("  ⚠️  Nenhuma pergunta encontrada — respostas serão criadas sem id_pergunta.")
+
+    # Verifica se já existem respostas para não duplicar em re-execuções
+    total_existente = db.query(Resposta).count()
+    if total_existente > 0:
+        print(f"  ⚠️  Já existem {total_existente} respostas no banco — pulando.")
+        return
+
+    total_criado = 0
+    for paciente in pacientes:
+        qtd = random.randint(20, 30)
+        for _ in range(qtd):
+            pergunta = random.choice(perguntas) if perguntas else None
+            nova_resposta = Resposta(
+                id_paciente=paciente.id,
+                id_pergunta=pergunta.id if pergunta else None,
+                resposta=random.randint(1, 5),
+                cor=random.choice(CORES),
+                created_at=data_aleatoria_ultimos_30_dias(),
+            )
+            db.add(nova_resposta)
+            total_criado += 1
+
+        # Flush em lote para não sobrecarregar a sessão
+        db.flush()
+
+    db.commit()
+    print(f"  ✅ {total_criado} respostas criadas com sucesso.")
+
+
+# ─────────────────────────────────────────────
 # Orquestrador principal
 # ─────────────────────────────────────────────
 
@@ -233,6 +289,7 @@ def run_seed():
         seed_usuarios(db)
         seed_pacientes(db)
         seed_perguntas(db)
+        seed_respostas(db)
     except Exception as e:
         db.rollback()
         print(f"\n❌ Erro durante o seed: {e}")
