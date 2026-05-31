@@ -53,15 +53,9 @@
       </v-col>
     </v-row>
 
-    <!-- O Gráfico será inserido aqui futuramente -->
-    <v-card
-      class="mb-6 pa-4 d-flex align-center justify-center rounded-lg bg-surface-light border"
-      style="min-height: 200px; border-style: dashed !important"
-    >
-      <div class="text-center text-medium-emphasis">
-        <v-icon size="large" class="mb-2">mdi-chart-bar</v-icon>
-        <div>[Área reservada para o Gráfico de Respostas]</div>
-      </div>
+    <!-- Gráfico de Respostas -->
+    <v-card class="mb-6 pa-4 rounded-lg bg-surface-light border elevation-0">
+      <DashboardRespostasChart :items="respostasFiltradas" />
     </v-card>
 
     <!-- Tabela de Histórico -->
