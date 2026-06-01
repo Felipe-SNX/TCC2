@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Collider2D playerCollider;
     private Collider2D currentPlatform;
+    private Animator anim;
     private Rigidbody2D rb;
     private float moveInput;
     private float verticalInput;
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
         defaultGravity = rb.gravityScale;
 
@@ -69,6 +71,19 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = direction.y;
 
         FlipSprite();
+
+        UpdateAnimations();
+    }
+
+    private void UpdateAnimations()
+    {
+        if (anim == null) return;
+
+        anim.SetFloat("velocityX", Mathf.Abs(rb.linearVelocity.x));
+
+        anim.SetFloat("velocityY", rb.linearVelocity.y);
+
+        anim.SetBool("grounded", IsGrounded());
     }
 
     private void TryJump()
