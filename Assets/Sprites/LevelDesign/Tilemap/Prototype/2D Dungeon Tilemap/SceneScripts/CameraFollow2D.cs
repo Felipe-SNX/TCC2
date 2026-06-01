@@ -15,13 +15,26 @@ namespace SceneScript
         public float smoothSpeed = 5f;
         // Higher values result in snappier movement; lower values make it smoother and more gradual
 
-        void LateUpdate()
+        [Header("Map Limits (Camera Confinement)")]
+        public bool useLimits = true; 
+        public float minX;
+        public float maxX;
+        public float minY;
+        public float maxY;
+
+void LateUpdate()
         {
             // Make sure a target has been assigned
             if (target == null) return;
 
-            // Calculate the desired camera position based on the target’s position and offset
+            // Calculate the desired camera position based on the target's position and offset
             Vector3 desiredPosition = target.position + offset;
+
+            if (useLimits)
+            {
+                desiredPosition.x = Mathf.Clamp(desiredPosition.x, minX, maxX);
+                desiredPosition.y = Mathf.Clamp(desiredPosition.y, minY, maxY);
+            }
 
             // Smoothly interpolate from the current position to the desired position
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);

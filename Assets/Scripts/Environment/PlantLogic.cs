@@ -2,35 +2,83 @@ using UnityEngine;
 
 public class PlantLogic : MonoBehaviour
 {
+    public enum GrowthDirection
+    {
+        Vertical,
+        Horizontal
+    }
+
     [Header("Configurações de Crescimento")]
     [SerializeField] private Sprite grownSprite;
+    [SerializeField] private GrowthDirection growthDirection = GrowthDirection.Vertical;
     
     private Animator animator;
     private SpriteRenderer sr;
     private Collider2D plantCollider;
     private bool isGrown = false;
 
+    private bool playerContact = false;
+    private InputSystem_Actions controls;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         plantCollider = GetComponent<Collider2D>();
+
+        controls = new InputSystem_Actions();
+        
+        controls.Player.Interact.performed += context => TentarCrescerPlanta();
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
+    private void TentarCrescerPlanta()
+    {        
+        if (!playerContact || isGrown) return;
+        PlayerMovement movimento = FindAnyObjectByType<PlayerMovement>();
+        
+        if (!movimento.IsGrounded())
+        {
+            Debug.Log("Você precisa estar no chão para usar a água");
+            return;
+        }
+
+        if (PlayerState.Instance != null)
+        {
+            if (PlayerState.Instance.UseWater())
+            {
+                Grow();
+            } 
+            else 
+            {
+                if (UIManager.Instance != null)
+                    UIManager.Instance.ShowMessage("Você precisa de água para esta planta.");
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Se já cresceu ou não é o player, ignora
-        if (isGrown || !other.CompareTag("Player")) return;
-
-        // Tenta pegar o estado do player
-        if (other.TryGetComponent<PlayerState>(out PlayerState player))
+        if (other.CompareTag("Player"))
         {
-            // Se o player conseguir usar a água (bool for true)
-            if (player.UseWater()){
-                Grow();
-            } else {
-                UIManager.Instance.ShowMessage("Você precisa de água para esta planta.");
-            }
+            playerContact = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerContact = false;
         }
     }
 
@@ -44,11 +92,25 @@ public class PlantLogic : MonoBehaviour
         // Troca o sprite se houver um definido
         if (grownSprite != null && sr != null) sr.sprite = grownSprite;
 
-        // Se a planta deve virar chão, mudamos o collider
-        if (plantCollider != null)
+        // Altera a cor do SpriteRenderer ao crescer
+        if (sr != null)
         {
-            plantCollider.isTrigger = false; 
-            gameObject.layer = LayerMask.NameToLayer("Ground");
+            sr.color = Color.green;
+        }
+        
+        // Configura a colisão com base no tipo de crescimento (vertical ou horizontal)
+        if (growthDirection == GrowthDirection.Horizontal)
+        {
+            if (plantCollider != null)
+            {
+                plantCollider.isTrigger = false; 
+                gameObject.layer = LayerMask.NameToLayer("Ground");
+            }
+        }
+        else
+        {
+            // Altera tag de colisão do sprite após crescer para o tipo vertical (Escada)
+            gameObject.tag = "Ladder";
         }
 
         Debug.Log("A planta cresceu!");

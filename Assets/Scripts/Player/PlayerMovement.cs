@@ -1,86 +1,206 @@
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Configurações")]
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpForce = 12f;
-    [SerializeField] private float climbSpeed = 5f;
+    [SerializeField] private float jumpCutMultiplier = 0.5f; // Controla altura do pulo
     
     [Header("Detecção de Chão")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
-    public bool IsMovementPaused { get; set; } 
-    public float MoveInput => moveInput;
-    public float DefaultGravity => defaultGravity;
-
+    private Collider2D playerCollider;
+    private Collider2D currentPlatform;
+    private Animator anim;
     private Rigidbody2D rb;
     private float moveInput;
     private float verticalInput;
-    private bool isClimbing;
     private float defaultGravity;
+
+    // Parâmetros Expostos
+    public float MoveInput => moveInput;
+    public float DefaultGravity => defaultGravity;
+    public float VerticalInput => verticalInput;
+    public float Speed => speed;
+
+    // Outros Componentes
+    private PlayerClimb playerClimbScript;
+    private InputSystem_Actions controls;
+    private PlayerWallSlide wallSlideScript;
+    private PlayerWallJump wallJumpScript;
 
     void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        playerCollider = GetComponent<Collider2D>();
         defaultGravity = rb.gravityScale;
+
+        controls = new InputSystem_Actions();
+        wallSlideScript = GetComponent<PlayerWallSlide>();
+        wallJumpScript = GetComponent<PlayerWallJump>();
+        playerClimbScript = GetComponent<PlayerClimb>();
+
+        controls.Player.Jump.performed += context => TryJump();
+        controls.Player.Jump.canceled += context => CancelJump();
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     void Update()
     {
-        // Se o Dash pausar o movimento, ignora o resto
-        if (IsMovementPaused) return;
+        // Se alguma mecânica pausar o movimento, ignora o resto
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
 
-        moveInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        Vector2 direction = controls.Player.Move.ReadValue<Vector2>();
+        
+        moveInput = direction.x;
+        verticalInput = direction.y;
 
-        if (Input.GetButtonDown("Jump") && IsGrounded() && !isClimbing)
+        FlipSprite();
+
+        UpdateAnimations();
+    }
+
+    private void UpdateAnimations()
+    {
+        if (anim == null) return;
+
+        anim.SetFloat("velocityX", Mathf.Abs(rb.linearVelocity.x));
+
+        anim.SetFloat("velocityY", rb.linearVelocity.y);
+
+        anim.SetBool("grounded", IsGrounded());
+    }
+
+    private void TryJump()
+    {
+        // Trava de pause e de Wall Jump
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+
+        // Descer Plataforma
+        if (verticalInput < -0.5f && currentPlatform != null)
+        {
+            StartCoroutine(FallThroughPlatform());
+            return; 
+        }
+
+        // Pulo na Planta
+        if (playerClimbScript != null && playerClimbScript.IsClimbing)
+        {
+            playerClimbScript.PlantJump();
+            return;
+        }
+
+        // Wall Jump
+        if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled() && wallJumpScript != null) 
+        {
+            wallJumpScript.ExecuteJump();
+            return;
+        }
+
+        // Pulo Normal 
+        if (IsGrounded())
         {
             Jump();
         }
+    }
 
-        FlipSprite();
+    private void CancelJump()
+    {
+        // Só aplica o freio se o personagem estiver ativamente subindo no ar.
+        // Se ele já estiver caindo (y < 0), soltar o botão não deve afetar a gravidade.
+        if (rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+        }
     }
 
     void FixedUpdate()
     {
-        if (IsMovementPaused) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
         HandleMovement();
     }
 
     private void HandleMovement()
     {
-        if (isClimbing)
-        {
-            rb.gravityScale = 0f;
-            rb.linearVelocity = new Vector2(moveInput * speed, verticalInput * climbSpeed);
-        }
-        else
-        {
-            rb.gravityScale = defaultGravity;
-            rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
-        }
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+        if (playerClimbScript != null && playerClimbScript.IsClimbing) return;
+
+        rb.gravityScale = defaultGravity;
+        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
     }
 
     private void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    public void AddJumpForce() => Jump();
+    public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-    private bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-    private void FlipSprite()
+  private void FlipSprite()
     {
-        if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
-        else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
+        // Não realiza no WallJump, pois em pulos consecutivos ele precisa estar virado contra a parede sempre
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+
+        Vector3 escala = transform.localScale;
+
+        if (moveInput > 0.1f) 
+        {
+            // Pega o valor puro e garante que é POSITIVO (Olha para a direita)
+            escala.x = Mathf.Abs(escala.x);
+        }
+        else if (moveInput < -0.1f) 
+        {
+            // Pega o valor puro e garante que é NEGATIVO (Olha para a esquerda)
+            escala.x = -Mathf.Abs(escala.x);
+        }
+
+        transform.localScale = escala;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => CheckClimbing(collision, true);
-    private void OnTriggerExit2D(Collider2D collision) => CheckClimbing(collision, false);
 
-    private void CheckClimbing(Collider2D collision, bool state)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Escada")) isClimbing = state;
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
+        {
+            currentPlatform = collision.collider;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
+        {
+            currentPlatform = null;
+        }
+    }
+
+    private IEnumerator FallThroughPlatform()
+    {
+        // Salva a plataforma para poder ligar a colisão dela depois
+        Collider2D platformToIgnore = currentPlatform;
+
+        if (playerCollider != null && platformToIgnore != null)
+        {
+            // Ignora a colisão para permitir o jogador passar
+            Physics2D.IgnoreCollision(playerCollider, platformToIgnore, true);
+            // Tempo de espera para religar a colisão
+            yield return new WaitForSeconds(0.4f);
+            // Liga a colisão novamente
+            Physics2D.IgnoreCollision(playerCollider, platformToIgnore, false);
+        }
     }
 }

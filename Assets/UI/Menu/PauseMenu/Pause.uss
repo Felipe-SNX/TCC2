@@ -30,7 +30,8 @@
     transition-duration: 0.15s;
 }
 
-.botao-pause:hover {
+.botao-pause:hover,
+.botao-pause:focus {
     background-color: #FFFFFF;
     scale: 1.05;
 }

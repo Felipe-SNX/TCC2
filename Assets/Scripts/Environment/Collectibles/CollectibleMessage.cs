@@ -15,14 +15,10 @@ public class CollectibleMessage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && MessageManager.Instance != null)
         {
-            // Verifica se o MessageManager existe antes de chamar
-            if (MessageManager.Instance != null)
-            {
-                MessageManager.Instance.Collect(messagePart);
-                Destroy(gameObject);
-            }
+            MessageManager.Instance.Collect(messagePart);
+            Destroy(gameObject);
         }
     }
 
