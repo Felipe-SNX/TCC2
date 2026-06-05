@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class GameplayData
 {
-    public string faseAtual;
-    public float tempoSegundos;
-    public int tentativas;          
+    public string currentLevel;
+    public float time;
+    public int tries;          
 }
 
 public class MetricsManager : MonoBehaviour
@@ -19,11 +19,11 @@ public class MetricsManager : MonoBehaviour
     [SerializeField] private string urlEndpoint = "https://endpoint";
 
     // Variáveis internas da fase atual
-    private float cronometroFase = 0f;
-    private int contadorTentativas = 1;
-    private string nomeFaseAtual;
-    private bool cronometroAtivo = false;
-    private float tempoFinalFase = 0f;
+    private float stopWatchLevel = 0f;
+    private int countTries = 1;
+    private string nameCurrentLevel;
+    private bool activeStopWatch = false;
+    private float finalTimeLevel = 0f;
 
     private void Awake()
     {
@@ -40,38 +40,38 @@ public class MetricsManager : MonoBehaviour
 
     private void Update()
     {
-        if (cronometroAtivo)
+        if (activeStopWatch)
         {
-            cronometroFase += Time.deltaTime;
+            stopWatchLevel += Time.deltaTime;
         }
     }
 
     private void OnSceneLoaded(Scene cena, LoadSceneMode modo)
     {
-        nomeFaseAtual = cena.name;
-        cronometroFase = 0f;
-        cronometroAtivo = (nomeFaseAtual != "Main_Menu");
+        nameCurrentLevel = cena.name;
+        stopWatchLevel = 0f;
+        activeStopWatch = (nameCurrentLevel != "Main_Menu");
     }
 
-    public void RegistrarTentativas()
+    public void CountTries()
     {
-        contadorTentativas++;
+        countTries++;
     }
 
-    public void FinalizarFaseECongelarDados()
+    public void FinishLevelAndFreezeData()
     {
-        cronometroAtivo = false; 
-        tempoFinalFase = Mathf.Round(cronometroFase * 100f) / 100f;
-        Debug.Log($"[MÉTRICAS] Gameplay congelada! Tempo: {tempoFinalFase}s | Tentativas: {contadorTentativas}");
+        activeStopWatch = false; 
+        finalTimeLevel = Mathf.Round(stopWatchLevel * 100f) / 100f;
+        Debug.Log($"[MÉTRICAS] Gameplay congelada! Tempo: {finalTimeLevel}s | Tentativas: {countTries}");
     }
 
     public void EnviarDadosComQuestionario(int respCor, int respDificuldade, string feedback)
     {
         GameplayData pacoteCompleto = new GameplayData
         {
-            faseAtual = nomeFaseAtual,
-            tempoSegundos = tempoFinalFase,
-            tentativas = contadorTentativas,
+            currentLevel = nameCurrentLevel,
+            time = finalTimeLevel,
+            tries = countTries,
         };
 
         string jsonDados = JsonUtility.ToJson(pacoteCompleto);
@@ -79,7 +79,7 @@ public class MetricsManager : MonoBehaviour
 
         StartCoroutine(EnviarDadosWeb(jsonDados));
 
-        contadorTentativas = 1;
+        countTries = 1;
     }
 
     private IEnumerator EnviarDadosWeb(string jsonTexto)
@@ -111,16 +111,16 @@ public class MetricsManager : MonoBehaviour
 
     public string GetNomeFase()
     {
-        return nomeFaseAtual; 
+        return nameCurrentLevel; 
     }
 
     public float GetTempoTotalFase()
     {
-        return tempoFinalFase; 
+        return finalTimeLevel; 
     }
 
     public int GetNumeroTentativasFase()
     {
-        return contadorTentativas; 
+        return countTries; 
     }
 }

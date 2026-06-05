@@ -72,5 +72,15 @@ public class PlayerState : MonoBehaviour
         return false;
     }
 
+    public void PauseMovement()
+    {
+        IsMovementPaused = true;
+    }
+
+    public void ResumeMovement()
+    {
+        IsMovementPaused = false;
+    }
+
     public bool CurrentWaterStatus() => hasWater;
 }

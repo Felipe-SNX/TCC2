@@ -42,7 +42,7 @@ public class EndLevelController : MonoBehaviour
     {
         if (MetricsManager.Instance != null)
         {
-            MetricsManager.Instance.RegistrarTentativas(); 
+            MetricsManager.Instance.CountTries(); 
         }
         
         Time.timeScale = 1f;
