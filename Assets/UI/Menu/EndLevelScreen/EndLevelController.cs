@@ -24,14 +24,14 @@ public class EndLevelController : MonoBehaviour
 
         if (MetricsManager.Instance != null)
         {
-            float tempo = MetricsManager.Instance.GetTempoTotalFase(); 
+            float tempo = MetricsManager.Instance.GetTimeLevel(); 
             int minutos = Mathf.FloorToInt(tempo / 60F);
             int segundos = Mathf.FloorToInt(tempo - minutos * 60);
             string tempoFormatado = string.Format("{0:00}:{1:00}", minutos, segundos);
 
-            if (txtNomeFase != null) txtNomeFase.text = MetricsManager.Instance.GetNomeFase(); 
+            if (txtNomeFase != null) txtNomeFase.text = MetricsManager.Instance.GetNameLevel(); 
             if (txtTempoTotal != null) txtTempoTotal.text = "Tempo: " + tempoFormatado;
-            if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetNumeroTentativasFase();
+            if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetTriesLevel();
         }
 
         if (btnReset != null) btnReset.clicked += ReiniciarFase;

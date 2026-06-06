@@ -4,7 +4,7 @@ using UnityEngine;
 public class FinishFlag : MonoBehaviour
 {
     [Header("Interface")]
-    [SerializeField] private GameObject resultScreen;
+    [SerializeField] private GameObject questionnaireScreen;
 
     private bool completedLevel = false;
 
@@ -36,9 +36,9 @@ public class FinishFlag : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
-        if (resultScreen != null)
+        if (questionnaireScreen != null)
         {
-            resultScreen.SetActive(true);
+            questionnaireScreen.SetActive(true);
         }
     }
 }

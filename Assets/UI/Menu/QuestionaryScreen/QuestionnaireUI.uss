@@ -1,0 +1,103 @@
+.tela-cheia {
+    width: 100%;
+    height: 100%;
+    align-items: center; 
+    justify-content: center; 
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+.banner-anuncio {
+    align-items: center; 
+    padding: 60px 100px;
+    background-color: rgba(30, 40, 50, 0.9); 
+    border-radius: 20px; 
+}
+
+.titulo {
+    font-size: 110px; 
+    color: white;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center; 
+    margin-bottom: 60px; 
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.texto-fase {
+    font-size: 60px;
+    color: #A0C0D0;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 25px; 
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
+    white-space: normal; 
+}
+
+.botao {
+    width: 550px; 
+    font-size: 35px;
+    color: black;
+    background-color: #FDF9EB;
+    padding: 15px 20px;
+    margin-top: 40px; 
+    margin-bottom: 15px; 
+    border-radius: 8px;
+    border-left-width: 8px;
+    border-bottom-width: 6px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-color: #D6D0B9;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center; 
+    transition-duration: 0.15s;
+}
+
+.botao:hover {
+    background-color: #FFFFFF;
+    scale: 1.05;
+}
+
+.question-group {
+    margin-bottom: 40px;
+    width: 100%;
+    align-items: center;
+}
+
+.slider-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.slider-limit {
+    color: #FDF9EB;
+    font-size: 40px;
+    -unity-font-style: bold;
+    padding: 0 30px;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
+}
+
+.custom-slider {
+    flex-grow: 1;
+    width: 550px; /* Mesma largura do seu botão */
+}
+
+.custom-text-field {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    border-width: 3px;
+    border-color: #A0C0D0;
+    color: white;
+    font-size: 30px;
+    min-height: 120px;
+    width: 700px;
+    margin-top: 15px;
+    padding: 15px;
+}
+
+.custom-text-field .unity-base-text-field__input {
+    background-color: transparent;
+    border-width: 0;
+    color: white;
+    white-space: normal;
+}

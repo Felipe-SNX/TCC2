@@ -8,7 +8,9 @@ public class GameplayData
 {
     public string currentLevel;
     public float time;
-    public int tries;          
+    public int tries;   
+    public int colorResponse; 
+    public int difficultyResponse;
 }
 
 public class MetricsManager : MonoBehaviour
@@ -16,7 +18,7 @@ public class MetricsManager : MonoBehaviour
     public static MetricsManager Instance;
 
     [Header("Configuração de Endpoints")]
-    [SerializeField] private string urlEndpoint = "https://endpoint";
+    [SerializeField] private string urlEndpoint = "http://localhost:8000/respostas";
 
     // Variáveis internas da fase atual
     private float stopWatchLevel = 0f;
@@ -61,28 +63,30 @@ public class MetricsManager : MonoBehaviour
     public void FinishLevelAndFreezeData()
     {
         activeStopWatch = false; 
-        finalTimeLevel = Mathf.Round(stopWatchLevel * 100f) / 100f;
+        finalTimeLevel = Mathf.Round(stopWatchLevel * 100f) / 100f;        
         Debug.Log($"[MÉTRICAS] Gameplay congelada! Tempo: {finalTimeLevel}s | Tentativas: {countTries}");
     }
 
-    public void EnviarDadosComQuestionario(int respCor, int respDificuldade, string feedback)
+    public void SubmitDataWithSurvey(int colorScore, int difficultyScore)
     {
         GameplayData pacoteCompleto = new GameplayData
         {
             currentLevel = nameCurrentLevel,
             time = finalTimeLevel,
             tries = countTries,
+            colorResponse = colorScore,
+            difficultyResponse = difficultyScore,
         };
 
         string jsonDados = JsonUtility.ToJson(pacoteCompleto);
         Debug.Log("[MÉTRICAS] Enviando pacote unificado: " + jsonDados);
 
-        StartCoroutine(EnviarDadosWeb(jsonDados));
+        StartCoroutine(SendData(jsonDados));
 
         countTries = 1;
     }
 
-    private IEnumerator EnviarDadosWeb(string jsonTexto)
+    private IEnumerator SendData(string jsonTexto)
     {
         using (UnityWebRequest request = new UnityWebRequest(urlEndpoint, "POST"))
         {
@@ -109,17 +113,17 @@ public class MetricsManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public string GetNomeFase()
+    public string GetNameLevel()
     {
         return nameCurrentLevel; 
     }
 
-    public float GetTempoTotalFase()
+    public float GetTimeLevel()
     {
         return finalTimeLevel; 
     }
 
-    public int GetNumeroTentativasFase()
+    public int GetTriesLevel()
     {
         return countTries; 
     }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Style src="QuestionnaireUI.uss" />
+    
+    <ui:VisualElement name="screen-overlay" class="tela-cheia">
+        
+        <ui:VisualElement name="survey-container" class="banner-anuncio">
+            
+            <ui:Label text="Fase Completada" class="titulo" />
+            
+            <ui:Label text="Por favor, compartilhe sua experiência com essa fase" class="texto-fase" style="font-size: 40px; margin-bottom: 10px;" />
+            <ui:Label text="Responda as perguntas em uma escala de 1 (Muito Negativo) a 5 (Muito Positivo)" class="texto-fase" style="font-size: 30px; color: #D6D0B9; margin-bottom: 50px;" />
+
+            <ui:VisualElement class="question-group">
+                <ui:Label name="lbl_question_1" text="Carregando pergunta..." class="texto-fase" />
+                
+                <ui:Label name="lbl_valor_q1" text="Valor: 3" class="texto-fase" style="font-size: 35px; color: white; margin-bottom: 5px;" />
+                
+                <ui:VisualElement class="slider-row">
+                    <ui:Label text="1" class="slider-limit" />
+                    <ui:SliderInt name="slider_q1" low-value="1" high-value="5" value="3" class="custom-slider" />
+                    <ui:Label text="5" class="slider-limit" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="question-group">
+                <ui:Label name="lbl_question_2" text="Carregando pergunta..." class="texto-fase" />
+                
+                <ui:Label name="lbl_valor_q2" text="Valor: 3" class="texto-fase" style="font-size: 35px; color: white; margin-bottom: 5px;" />
+                
+                <ui:VisualElement class="slider-row">
+                    <ui:Label text="1" class="slider-limit" />
+                    <ui:SliderInt name="slider_q2" low-value="1" high-value="5" value="3" class="custom-slider" />
+                    <ui:Label text="5" class="slider-limit" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Button name="btn_submit" text="Enviar respostas" class="botao" />
+            
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
