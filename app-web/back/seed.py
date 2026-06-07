@@ -31,15 +31,15 @@ from app.core.security import get_password_hash
 # Configuração
 # ─────────────────────────────────────────────
 
-# Cores do jogo e seus pesos de resposta (1=muito negativo, 5=muito positivo)
-# Distribui respostas de forma tendenciosa por cor para simular efeitos clínicos
-DISTRIBUICAO_POR_COR: dict[str, list[int]] = {
-    "vermelho":  [1, 1, 2, 2, 3, 3, 4, 5, 5, 5],  # estimulante/energético — pende para positivo
-    "verde":     [2, 3, 3, 4, 4, 4, 5, 5, 5, 5],  # calmante — pende fortemente para positivo
-    "amarelo":   [1, 2, 2, 3, 3, 3, 4, 4, 5, 5],  # alegre/neutro — distribuição equilibrada
+# Fases do jogo (Levels correspondentes às cores) e seus pesos de resposta
+# Distribui respostas de forma tendenciosa por nível para simular efeitos clínicos
+DISTRIBUICAO_POR_LEVEL: dict[str, list[int]] = {
+    "Level_1":  [1, 1, 2, 2, 3, 3, 4, 5, 5, 5],  # vermelho: estimulante/energético
+    "Level_2":  [2, 3, 3, 4, 4, 4, 5, 5, 5, 5],  # verde: calmante
+    "Level_3":  [1, 2, 2, 3, 3, 3, 4, 4, 5, 5],  # amarelo: alegre/neutro
 }
 
-CORES = list(DISTRIBUICAO_POR_COR.keys())
+LEVELS = list(DISTRIBUICAO_POR_LEVEL.keys())
 
 
 # ─────────────────────────────────────────────
@@ -61,9 +61,9 @@ def data_sessao_aleatoria(num_sessao: int, total_sessoes: int) -> datetime:
     )
     return datetime.utcnow() - timedelta(days=dias_atras) + hora - timedelta(hours=datetime.utcnow().hour)
 
-def resposta_para_cor(cor: str) -> int:
-    """Retorna um valor de resposta tendencioso com base na cor."""
-    return random.choice(DISTRIBUICAO_POR_COR[cor])
+def resposta_para_level(level: str) -> int:
+    """Retorna um valor de resposta tendencioso com base no level."""
+    return random.choice(DISTRIBUICAO_POR_LEVEL[level])
 
 def gerar_pin_unico(db) -> str:
     """Gera um PIN numérico de 6 dígitos único na tabela de pacientes."""
@@ -215,15 +215,15 @@ def seed_respostas(db):
             # Cada sessão ocorre em um dia específico
             data_base = data_sessao_aleatoria(i, num_sessoes)
 
-            # Cada sessão expõe o paciente às 3 cores, nessa ordem
-            for j, cor in enumerate(CORES):
+            # Cada sessão expõe o paciente aos 3 níveis, nessa ordem
+            for j, level in enumerate(LEVELS):
                 nova_resposta = Resposta(
                     id_paciente=paciente.id,
-                    currentLevel=cor,
+                    currentLevel=level,
                     time=round(random.uniform(20.0, 120.0), 1),
                     tries=random.choices([1, 2, 3], weights=[80, 15, 5])[0],
-                    response=resposta_para_cor(cor),
-                    # Cada cor é mostrada com ~5 minutos de intervalo dentro da sessão
+                    response=resposta_para_level(level),
+                    # Cada nível é jogado com ~5 minutos de intervalo dentro da sessão
                     created_at=data_base + timedelta(minutes=j * 5),
                 )
                 db.add(nova_resposta)
