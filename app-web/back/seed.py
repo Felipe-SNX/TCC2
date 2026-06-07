@@ -219,8 +219,10 @@ def seed_respostas(db):
             for j, cor in enumerate(CORES):
                 nova_resposta = Resposta(
                     id_paciente=paciente.id,
-                    resposta=resposta_para_cor(cor),
-                    cor=cor,
+                    currentLevel=cor,
+                    time=round(random.uniform(20.0, 120.0), 1),
+                    tries=random.choices([1, 2, 3], weights=[80, 15, 5])[0],
+                    response=resposta_para_cor(cor),
                     # Cada cor é mostrada com ~5 minutos de intervalo dentro da sessão
                     created_at=data_base + timedelta(minutes=j * 5),
                 )
