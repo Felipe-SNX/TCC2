@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 7989557277322522341}
   - component: {fileID: 1169247444371806049}
   - component: {fileID: 8843400523744611672}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PF_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingOrder: 100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300020, guid: ba86c7b200abe499cb750833482830b3, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovimentacaoPersonagem
   speed: 7
   jumpForce: 15
+  jumpCutMultiplier: 0.5
   groundCheck: {fileID: 8526948237696973409}
   groundCheckRadius: 0.15
   groundLayer:
