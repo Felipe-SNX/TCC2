@@ -12,26 +12,28 @@
         {{ formatDateTime(item.created_at) }}
       </template>
 
-      <template v-slot:item.cor="{ item }">
-        <div class="d-flex align-center">
-          <div
-            class="color-dot mr-2"
-            :style="{ backgroundColor: item.cor }"
-          ></div>
-          <span class="text-capitalize">{{ item.cor }}</span>
-        </div>
+      <template v-slot:item.currentLevel="{ item }">
+        <span class="text-capitalize">{{ item.currentLevel }}</span>
       </template>
 
-      <template v-slot:item.resposta="{ item }">
+      <template v-slot:item.time="{ item }">
+        {{ typeof item.time === 'number' ? item.time.toFixed(1) + 's' : item.time }}
+      </template>
+
+      <template v-slot:item.tries="{ item }">
+        {{ item.tries }}
+      </template>
+
+      <template v-slot:item.response="{ item }">
         <v-chip
-          :color="getEmotionColor(item.resposta)"
+          :color="getEmotionColor(item.response)"
           size="small"
           variant="tonal"
         >
           <v-icon start size="small">
-            {{ getEmotionIcon(item.resposta) }}
+            {{ getEmotionIcon(item.response) }}
           </v-icon>
-          {{ getEmotionText(item.resposta) }}
+          {{ getEmotionText(item.response) }}
         </v-chip>
       </template>
 
@@ -58,14 +60,26 @@ const headers = [
     sortable: true,
   },
   {
-    title: "Cor da Fase",
-    key: "cor",
+    title: "Fase (Nível)",
+    key: "currentLevel",
+    align: "center" as const,
+    sortable: true,
+  },
+  {
+    title: "Tempo (s)",
+    key: "time",
+    align: "center" as const,
+    sortable: true,
+  },
+  {
+    title: "Tentativas",
+    key: "tries",
     align: "center" as const,
     sortable: true,
   },
   {
     title: "Resposta (1-5)",
-    key: "resposta",
+    key: "response",
     align: "center" as const,
     sortable: true,
   },
@@ -116,12 +130,3 @@ const getEmotionIcon = (value: number) => {
   return map[value] || "mdi-help-circle-outline";
 };
 </script>
-
-<style scoped>
-.color-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-}
-</style>
