@@ -6,7 +6,6 @@ class RespostaBase(BaseModel):
     id_paciente: str
     resposta: int
     cor: Optional[str] = None
-    id_pergunta: Optional[str] = None
 
 class RespostaCreate(RespostaBase):
     pass
@@ -14,7 +13,6 @@ class RespostaCreate(RespostaBase):
 # Schema específico para receber os dados do Jogo Unity
 class RespostaGameCreate(BaseModel):
     id_paciente: str
-    id_pergunta: str
     resposta: int
     cor: str
 
@@ -30,8 +28,3 @@ class RespostaResponse(RespostaBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
-
-class RespostaPerguntaCreate(BaseModel):
-    id_paciente: str
-    id_pergunta: str
-    resposta: int

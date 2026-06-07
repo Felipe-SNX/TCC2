@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.endpoints import jogo, pacientes, usuarios, perguntas, auth
+from app.api.endpoints import jogo, pacientes, usuarios, auth
 
 api_router = APIRouter()
 
@@ -12,4 +12,3 @@ api_router.include_router(jogo.router, prefix="/jogo", tags=["jogo"])
 # O Dashboard consome daqui
 api_router.include_router(pacientes.router, prefix="/pacientes", tags=["pacientes"])
 api_router.include_router(usuarios.router, prefix="/usuarios", tags=["usuarios"])
-api_router.include_router(perguntas.router, prefix="/perguntas", tags=["perguntas"])

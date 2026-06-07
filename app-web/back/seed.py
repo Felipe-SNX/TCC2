@@ -4,8 +4,7 @@ seed.py — Seed centralizado do banco de dados.
 Ordem de execução:
   1. Usuários  (ADMIN e PSICOLOGO)
   2. Pacientes (com PIN único de 6 dígitos)
-  3. Perguntas
-  4. Respostas (20-30 respostas falsas por paciente, últimos 30 dias)
+  3. Respostas (20-30 respostas falsas por paciente, últimos 30 dias)
 """
 
 import sys
@@ -18,7 +17,7 @@ from datetime import datetime, timedelta
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from app.db.session import SessionLocal
-from app.models.schema import Usuario, Paciente, PacientePsicologo, Pergunta, Resposta
+from app.models.schema import Usuario, Paciente, Resposta
 from app.core.security import get_password_hash
 
 
@@ -50,7 +49,7 @@ def gerar_pin_unico(db) -> str:
 # ─────────────────────────────────────────────
 
 def seed_usuarios(db):
-    print("\n📋 [1/4] Criando usuários...")
+    print("\n📋 [1/3] Criando usuários...")
 
     users_to_create = [
         {
@@ -91,7 +90,7 @@ def seed_usuarios(db):
 # ─────────────────────────────────────────────
 
 def seed_pacientes(db):
-    print("\n👥 [2/4] Criando pacientes...")
+    print("\n👥 [2/3] Criando pacientes...")
 
     psicologos = db.query(Usuario).filter(Usuario.role == "PSICOLOGO").all()
     if not psicologos:
@@ -154,13 +153,7 @@ def seed_pacientes(db):
                 updated_by=psico.id,
             )
             db.add(novo_paciente)
-            db.flush()  # gera o ID antes de criar a associação
-
-            relacao = PacientePsicologo(
-                id_paciente=novo_paciente.id,
-                id_usuario=psico.id,
-            )
-            db.add(relacao)
+            db.flush()  # gera o ID antes de criar respostas
             total_criado += 1
 
     db.commit()
@@ -168,84 +161,16 @@ def seed_pacientes(db):
 
 
 # ─────────────────────────────────────────────
-# 3. Perguntas
-# ─────────────────────────────────────────────
-
-def seed_perguntas(db):
-    print("\n❓ [3/4] Criando perguntas...")
-
-    psicologos = db.query(Usuario).filter(Usuario.role == "PSICOLOGO").all()
-    if not psicologos:
-        print("  ❌ Nenhum psicólogo encontrado — pulando criação de perguntas.")
-        return
-
-    perguntas_textos = [
-        "Como você se sente após observar a cor?",
-        "Qual a intensidade da sensação de calma ao ver a cor?",
-        "A cor aumenta sua energia?",
-        "A cor melhora seu humor?",
-        "A cor traz sensação de criatividade?",
-        "Como a cor influencia seu estado de alerta?",
-        "A cor gera sensação de leveza?",
-        "A cor provoca sensação de introspecção?",
-        "A cor tem efeito relaxante?",
-        "A cor desperta sentimentos de tranquilidade?",
-        "A cor aumenta sua motivação?",
-        "A cor reduz seu nível de estresse?",
-        "A cor traz sensação de estabilidade?",
-        "A cor favorece a meditação?",
-        "A cor aumenta a clareza mental?",
-        "A cor afeta seu humor positivamente?",
-        "A cor eleva sua criatividade?",
-        "A cor influencia sua percepção de tempo?",
-        "A cor ajuda na concentração?",
-        "A cor reduz ansiedade?",
-    ]
-
-    alternativas_padrao = [
-        {"texto": "Muito negativo", "valor": 1},
-        {"texto": "Negativo",       "valor": 2},
-        {"texto": "Neutro",         "valor": 3},
-        {"texto": "Positivo",       "valor": 4},
-        {"texto": "Muito positivo", "valor": 5},
-    ]
-
-    total_criado = 0
-    for texto in perguntas_textos:
-        # Verifica se a pergunta já existe (evita duplicatas em re-execuções)
-        if db.query(Pergunta).filter(Pergunta.pergunta == texto).first():
-            print(f"  ⚠️  Pergunta já existe — pulando: \"{texto[:50]}...\"")
-            continue
-
-        psico = random.choice(psicologos)
-        nova_pergunta = Pergunta(
-            pergunta=texto,
-            alternativas=alternativas_padrao,
-            created_by=psico.id,
-            updated_by=psico.id,
-        )
-        db.add(nova_pergunta)
-        total_criado += 1
-
-    db.commit()
-    print(f"  ✅ {total_criado} perguntas criadas com sucesso.")
-
-
-# ─────────────────────────────────────────────
-# 4. Respostas
+# 3. Respostas
 # ─────────────────────────────────────────────
 
 def seed_respostas(db):
-    print("\n📊 [4/4] Criando respostas falsas para os pacientes...")
+    print("\n📊 [3/3] Criando respostas falsas para os pacientes...")
 
     pacientes = db.query(Paciente).all()
     if not pacientes:
         print("  ❌ Nenhum paciente encontrado — pulando criação de respostas.")
         return
-
-    perguntas = db.query(Pergunta).all()
-    if not perguntas:
-        print("  ⚠️  Nenhuma pergunta encontrada — respostas serão criadas sem id_pergunta.")
 
     # Verifica se já existem respostas para não duplicar em re-execuções
     total_existente = db.query(Resposta).count()
@@ -257,10 +182,8 @@ def seed_respostas(db):
     for paciente in pacientes:
         qtd = random.randint(20, 30)
         for _ in range(qtd):
-            pergunta = random.choice(perguntas) if perguntas else None
             nova_resposta = Resposta(
                 id_paciente=paciente.id,
-                id_pergunta=pergunta.id if pergunta else None,
                 resposta=random.randint(1, 5),
                 cor=random.choice(CORES),
                 created_at=data_aleatoria_ultimos_30_dias(),
@@ -288,7 +211,6 @@ def run_seed():
     try:
         seed_usuarios(db)
         seed_pacientes(db)
-        seed_perguntas(db)
         seed_respostas(db)
     except Exception as e:
         db.rollback()
