@@ -35,11 +35,6 @@
         to="/pacientes"
       ></v-list-item>
       <v-list-item
-        prepend-icon="mdi-help-circle-outline"
-        title="Perguntas"
-        to="/perguntas"
-      ></v-list-item>
-      <v-list-item
         v-if="userCookie?.role === 'ADMIN'"
         prepend-icon="mdi-shield-account"
         title="Usuários"
