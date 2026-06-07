@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime, Enum, Boolean
+from sqlalchemy import Column, String, Integer, Float, Text, ForeignKey, DateTime, Enum, Boolean
 from app.db.base import Base
 
 class Usuario(Base):
@@ -32,6 +32,8 @@ class Resposta(Base):
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     id_paciente = Column(String(36), ForeignKey("pacientes.id"), nullable=False)
-    resposta = Column(Integer, nullable=False)
-    cor = Column(String(50), nullable=True)
+    currentLevel = Column(String(50), nullable=False)
+    time = Column(Float, nullable=False)
+    tries = Column(Integer, nullable=False)
+    response = Column(Integer, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
