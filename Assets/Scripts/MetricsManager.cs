@@ -9,8 +9,10 @@ public class GameplayData
     public string currentLevel;
     public float time;
     public int tries;   
-    public int colorResponse; 
-    public int difficultyResponse;
+    public int response; 
+    public string email;
+    public int pin;
+    public int collectables;
 }
 
 public class MetricsManager : MonoBehaviour
@@ -67,15 +69,17 @@ public class MetricsManager : MonoBehaviour
         Debug.Log($"[MÉTRICAS] Gameplay congelada! Tempo: {finalTimeLevel}s | Tentativas: {countTries}");
     }
 
-    public void SubmitDataWithSurvey(int colorScore, int difficultyScore)
+    public void SubmitDataWithSurvey(int responseScore, string email, int pin)
     {
         GameplayData pacoteCompleto = new GameplayData
         {
             currentLevel = nameCurrentLevel,
             time = finalTimeLevel,
             tries = countTries,
-            colorResponse = colorScore,
-            difficultyResponse = difficultyScore,
+            response = responseScore,
+            email = email,
+            pin = pin,
+            collectables = 0
         };
 
         string jsonDados = JsonUtility.ToJson(pacoteCompleto);

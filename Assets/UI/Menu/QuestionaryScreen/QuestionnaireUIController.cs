@@ -1,21 +1,18 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Text.RegularExpressions;
 
-[RequireComponent(typeof(UIDocument))]
 public class QuestionnaireUIController : MonoBehaviour
 {
-
-    [Header("Próxima Tela")]
+    [Header("Fluxo de Telas")]
     [SerializeField] private GameObject resultScreen;
-
     private UIDocument uiDocument;
-    
-    private Label q1Label;
-    private Label q2Label;
-    private Label lblValorQ1;
-    private Label lblValorQ2;
+    private TextField inputEmail;
+    private TextField inputPin;
+    private Label erroEmail;
+    private Label erroPin;
+    private Label q1ValorLabel;
     private SliderInt q1Slider;
-    private SliderInt q2Slider;
     private Button submitButton;
 
     private void OnEnable()
@@ -23,62 +20,68 @@ public class QuestionnaireUIController : MonoBehaviour
         uiDocument = GetComponent<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        q1Label = root.Q<Label>("lbl_question_1");
-        q2Label = root.Q<Label>("lbl_question_2");
+        inputEmail = root.Q<TextField>("input_email");
+        inputPin = root.Q<TextField>("input_pin");
+        erroEmail = root.Q<Label>("lbl_erro_email");
+        erroPin = root.Q<Label>("lbl_erro_pin");
+
+        q1ValorLabel = root.Q<Label>("lbl_valor_q1");
         q1Slider = root.Q<SliderInt>("slider_q1");
-        q2Slider = root.Q<SliderInt>("slider_q2");
         submitButton = root.Q<Button>("btn_submit");
 
-        lblValorQ1 = root.Q<Label>("lbl_valor_q1");
-        lblValorQ2 = root.Q<Label>("lbl_valor_q2");
-
-        if (lblValorQ1 != null && q1Slider != null) 
-            lblValorQ1.text = "Valor: " + q1Slider.value;
-            
-        if (lblValorQ2 != null && q2Slider != null) 
-            lblValorQ2.text = "Valor: " + q2Slider.value;
-
-        if (q1Slider != null)
+        // Atualiza o valor do texto ao arrastar o slider
+        if (q1Slider != null && q1ValorLabel != null)
         {
             q1Slider.RegisterValueChangedCallback(evt => {
-                lblValorQ1.text = "Valor: " + evt.newValue;
+                q1ValorLabel.text = evt.newValue.ToString();
             });
         }
-
-        if (q2Slider != null)
-        {
-            q2Slider.RegisterValueChangedCallback(evt => {
-                lblValorQ2.text = "Valor: " + evt.newValue;
-            });
-        }
-
-        SetupDynamicQuestions();
 
         if (submitButton != null)
         {
-            submitButton.clicked += SubmitQuestionnaire;
+            submitButton.clicked += ValidateAndSubmit;
         }
     }
 
-    private void SetupDynamicQuestions()
+    private void ValidateAndSubmit()
     {
-        if (MetricsManager.Instance == null) return;
+        bool formularioValido = true;
 
-        string currentLevel = MetricsManager.Instance.GetNameLevel();
-        string[] levelQuestions = QuestionSettings.GetQuestions(currentLevel);
+        // Validação do E-mail 
+        string emailRegexPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        if (string.IsNullOrWhiteSpace(inputEmail.text) || !Regex.IsMatch(inputEmail.text, emailRegexPattern))
+        {
+            erroEmail.style.display = DisplayStyle.Flex; 
+            formularioValido = false;
+        }
+        else
+        {
+            erroEmail.style.display = DisplayStyle.None; 
+        }
 
-        if (q1Label != null) q1Label.text = levelQuestions[0];
-        if (q2Label != null) q2Label.text = levelQuestions[1];
-    }
+        // Validação do PIN 
+        if (string.IsNullOrWhiteSpace(inputPin.text) || !int.TryParse(inputPin.text, out int pinNumber))
+        {
+            erroPin.style.display = DisplayStyle.Flex; 
+            formularioValido = false;
+        }
+        else
+        {
+            erroPin.style.display = DisplayStyle.None; 
+        }
 
-    private void SubmitQuestionnaire()
-    {
-        int score1 = q1Slider != null ? q1Slider.value : 0;
-        int score2 = q2Slider != null ? q2Slider.value : 0;
+        if (!formularioValido)
+        {
+            return;
+        }
+
+        string emailFinal = inputEmail.text;
+        int pinFinal = int.Parse(inputPin.text);
+        int scoreCor = q1Slider.value;
 
         if (MetricsManager.Instance != null)
         {
-            MetricsManager.Instance.SubmitDataWithSurvey(score1, score2);
+            MetricsManager.Instance.SubmitDataWithSurvey(scoreCor, emailFinal, pinFinal); 
         }
 
         gameObject.SetActive(false); 
@@ -92,8 +95,6 @@ public class QuestionnaireUIController : MonoBehaviour
     private void OnDisable()
     {
         if (submitButton != null)
-        {
-            submitButton.clicked -= SubmitQuestionnaire;
-        }
+            submitButton.clicked -= ValidateAndSubmit;
     }
 }
