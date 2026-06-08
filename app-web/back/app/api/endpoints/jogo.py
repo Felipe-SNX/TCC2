@@ -31,7 +31,8 @@ def salvar_resposta_do_jogo(resposta_in: RespostaGameCreate, db: Session = Depen
             currentLevel=resposta_in.currentLevel,
             time=resposta_in.time,
             tries=resposta_in.tries,
-            response=resposta_in.response
+            response=resposta_in.response,
+            colectables=resposta_in.colectables
         )
         create_resposta(db=db, resposta=nova_resposta)
         return {"message": "Resposta salva com sucesso."}

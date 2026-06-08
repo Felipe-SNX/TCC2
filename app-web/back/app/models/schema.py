@@ -36,4 +36,5 @@ class Resposta(Base):
     time = Column(Float, nullable=False)
     tries = Column(Integer, nullable=False)
     response = Column(Integer, nullable=False)
+    colectables = Column(Integer, nullable=False, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)

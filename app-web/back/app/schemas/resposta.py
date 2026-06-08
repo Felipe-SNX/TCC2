@@ -8,6 +8,7 @@ class RespostaBase(BaseModel):
     time: float
     tries: int
     response: int
+    colectables: int
 
 class RespostaCreate(RespostaBase):
     pass
@@ -17,6 +18,7 @@ class RespostaGameCreate(BaseModel):
     time: float
     tries: int
     response: int
+    colectables: int
     email: str
     pin: str
 
