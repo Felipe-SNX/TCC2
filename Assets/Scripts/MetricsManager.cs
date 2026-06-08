@@ -28,6 +28,9 @@ public class MetricsManager : MonoBehaviour
     private string nameCurrentLevel;
     private bool activeStopWatch = false;
     private float finalTimeLevel = 0f;
+    private int finalTriesLevel = 0;
+    private int finalCollectiblesLevel = 0;
+    private int countCollectibles = 0;
 
     private void Awake()
     {
@@ -54,6 +57,7 @@ public class MetricsManager : MonoBehaviour
     {
         nameCurrentLevel = cena.name;
         stopWatchLevel = 0f;
+        countCollectibles = 0;
         activeStopWatch = (nameCurrentLevel != "Main_Menu");
     }
 
@@ -62,11 +66,18 @@ public class MetricsManager : MonoBehaviour
         countTries++;
     }
 
+    public void RegisterCollectible()
+    {
+        countCollectibles++;
+    }
+
     public void FinishLevelAndFreezeData()
     {
         activeStopWatch = false; 
-        finalTimeLevel = Mathf.Round(stopWatchLevel * 100f) / 100f;        
-        Debug.Log($"[MÉTRICAS] Gameplay congelada! Tempo: {finalTimeLevel}s | Tentativas: {countTries}");
+        finalTimeLevel = Mathf.Round(stopWatchLevel * 100f) / 100f;    
+        finalTriesLevel = countTries;
+        finalCollectiblesLevel = countCollectibles; 
+        Debug.Log($"[MÉTRICAS] Dados congelados! Tempo: {finalTimeLevel}s | Tentativas: {finalTriesLevel} | Moedas: {finalCollectiblesLevel}");   
     }
 
     public void SubmitDataWithSurvey(int responseScore, string email, int pin)
@@ -75,11 +86,11 @@ public class MetricsManager : MonoBehaviour
         {
             currentLevel = nameCurrentLevel,
             time = finalTimeLevel,
-            tries = countTries,
+            tries = finalTriesLevel,
             response = responseScore,
             email = email,
             pin = pin,
-            collectables = 0
+            collectables = finalCollectiblesLevel
         };
 
         string jsonDados = JsonUtility.ToJson(pacoteCompleto);
@@ -88,6 +99,7 @@ public class MetricsManager : MonoBehaviour
         StartCoroutine(SendData(jsonDados));
 
         countTries = 1;
+        countCollectibles = 0;
     }
 
     private IEnumerator SendData(string jsonTexto)
@@ -129,6 +141,11 @@ public class MetricsManager : MonoBehaviour
 
     public int GetTriesLevel()
     {
-        return countTries; 
+        return finalTriesLevel; 
+    }
+
+    public int GetCollectiblesCount()
+    {
+        return finalCollectiblesLevel;
     }
 }
