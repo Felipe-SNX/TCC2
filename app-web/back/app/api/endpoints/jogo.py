@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
+import logging
 from app.api.dependencies import get_db
 from app.schemas.resposta import RespostaGameCreate, RespostaCreate
 from app.crud.crud_resposta import create_resposta
 from app.models.schema import Paciente
 from app.main import limiter
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -20,7 +23,7 @@ def salvar_resposta_do_jogo(request: Request, resposta_in: RespostaGameCreate, d
         Paciente.email == resposta_in.email,
         Paciente.pin == resposta_in.pin
     ).first()
-    
+
     if not paciente:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -40,4 +43,9 @@ def salvar_resposta_do_jogo(request: Request, resposta_in: RespostaGameCreate, d
         return {"message": "Resposta salva com sucesso."}
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"Erro ao salvar a resposta: {str(e)}")
+        logger.error("Falha ao persistir resposta do paciente: %s", e, exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Erro interno ao salvar a resposta."
+        )
+
