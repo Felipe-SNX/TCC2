@@ -24,6 +24,13 @@
         {{ item.tries }}
       </template>
 
+      <template v-slot:item.colectables="{ item }">
+        <v-chip size="small" variant="outlined" color="primary">
+          <v-icon start size="small">mdi-star-circle-outline</v-icon>
+          {{ item.colectables }}
+        </v-chip>
+      </template>
+
       <template v-slot:item.response="{ item }">
         <v-chip
           :color="getEmotionColor(item.response)"
@@ -74,6 +81,12 @@ const headers = [
   {
     title: "Tentativas",
     key: "tries",
+    align: "center" as const,
+    sortable: true,
+  },
+  {
+    title: "Colecionáveis",
+    key: "colectables",
     align: "center" as const,
     sortable: true,
   },
