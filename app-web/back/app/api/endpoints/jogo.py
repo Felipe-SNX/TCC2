@@ -1,14 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 from app.api.dependencies import get_db
 from app.schemas.resposta import RespostaGameCreate, RespostaCreate
 from app.crud.crud_resposta import create_resposta
 from app.models.schema import Paciente
+from app.main import limiter
 
 router = APIRouter()
 
 @router.post("/respostas", status_code=status.HTTP_201_CREATED)
-def salvar_resposta_do_jogo(resposta_in: RespostaGameCreate, db: Session = Depends(get_db)):
+@limiter.limit("20/minute")
+def salvar_resposta_do_jogo(request: Request, resposta_in: RespostaGameCreate, db: Session = Depends(get_db)):
     """
     Endpoint dedicado a receber os dados vindos do Jogo Unity.
     - Verifica as credenciais do paciente (email e pin).
@@ -39,4 +41,3 @@ def salvar_resposta_do_jogo(resposta_in: RespostaGameCreate, db: Session = Depen
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Erro ao salvar a resposta: {str(e)}")
-
