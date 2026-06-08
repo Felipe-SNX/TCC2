@@ -1,8 +1,17 @@
 services:
 
-  # ============================================================
-  # 🗄️  BANCO DE DADOS — MySQL
-  # ============================================================
+#   {
+#     "currentLevel": "Level_1",
+#     "time": 45.5,
+#     "tries": 1,
+#     "response": 4,
+#     "email": "emailPaciente@email.com",
+#     "pin": '123456',
+# }
+
+
+#
+
   db:
     image: mysql:8.0
     container_name: tcc_db
@@ -11,8 +20,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: tcc_db
     ports:
-      - "3307:3306"  # 3307 no seu PC → 3306 dentro do container (evita conflito com MySQL local)
-    # 💾 VOLUME: os dados ficam salvos aqui mesmo após desligar o Docker
+      - "3307:3306" 
     volumes:
       - tcc_mysql_data:/var/lib/mysql
     healthcheck:
@@ -22,16 +30,12 @@ services:
       retries: 15
       start_period: 240s
 
-  # ============================================================
-  # 👨‍🍳  BACKEND — FastAPI
-  # ============================================================
   back:
     build:
       context: ./back
       dockerfile: Dockerfile
     container_name: tcc_back
     restart: unless-stopped
-    # O backend SÓ sobe depois que o banco estiver saudável (healthcheck ok)
     depends_on:
       db:
         condition: service_healthy
@@ -39,22 +43,17 @@ services:
       DATABASE_URL: mysql+pymysql://root:root@db:3306/tcc_db
     ports:
       - "8000:8000"
-    # Roda as migrations e o seed automaticamente antes de subir a API
     command: >
       sh -c "alembic upgrade head &&
              python seed.py &&
              uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
 
-  # ============================================================
-  # 🍔  FRONTEND — Nuxt
-  # ============================================================
   front:
     build:
       context: ./front
       dockerfile: Dockerfile
     container_name: tcc_front
     restart: unless-stopped
-    # O frontend sobe depois que o backend estiver pronto
     depends_on:
       - back
     environment:
@@ -62,9 +61,6 @@ services:
     ports:
       - "3000:3000"
 
-# ============================================================
-# 💾  VOLUMES — Onde os dados do MySQL ficam salvos no seu PC
-# ============================================================
 volumes:
   tcc_mysql_data:
     driver: local

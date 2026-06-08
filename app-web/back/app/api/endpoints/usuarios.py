@@ -8,7 +8,6 @@ from app.crud import crud_usuario
 router = APIRouter()
 allow_admin = RoleChecker(["ADMIN"])
 
-# ─── Endpoints de auto-gestão (qualquer usuário autenticado) ───
 
 @router.get("/me", response_model=UsuarioResponse)
 def obter_usuario_atual(
@@ -24,18 +23,14 @@ def atualizar_usuario_atual(
     current_user: Usuario = Depends(get_current_user)
 ):
     """Permite que o usuário logado atualize apenas seus próprios dados (nome, email, senha)."""
-    # Verifica se o novo e-mail já está em uso por outro usuário
     if usuario_in.email and usuario_in.email != current_user.email:
         existente = crud_usuario.get_usuario_by_email(db, email=usuario_in.email)
         if existente:
             raise HTTPException(status_code=400, detail="Este e-mail já está em uso por outro usuário.")
 
-    # Converte UsuarioSelfUpdate para UsuarioUpdate (sem role)
     update_data = UsuarioUpdate(**usuario_in.model_dump(exclude_unset=True))
     usuario = crud_usuario.update_usuario(db=db, usuario_id=current_user.id, usuario_in=update_data)
     return usuario
-
-# ─── Endpoints administrativos (somente ADMIN) ───
 
 @router.post("/", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
 def criar_usuario(

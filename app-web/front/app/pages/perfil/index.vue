@@ -115,7 +115,6 @@ definePageMeta({
 
 const { showSnackbar } = useSnackbar();
 
-// Estado
 const isLoadingData = ref(true);
 const isSaving = ref(false);
 const isFormValid = ref(false);
@@ -131,14 +130,12 @@ const form = ref<PerfilForm>({
 
 const confirmSenha = ref("");
 
-// Dados originais para restauração
 const originalData = ref<PerfilForm>({
   nome: "",
   email: "",
   senha: "",
 });
 
-// Label legível para o role
 const roleLabel = computed(() => {
   const map: Record<string, string> = {
     ADMIN: "Administrador",
@@ -147,7 +144,6 @@ const roleLabel = computed(() => {
   return map[currentRole.value] || currentRole.value;
 });
 
-// Regras de validação
 const rules = {
   required: (v: string) => !!v || "Campo obrigatório",
   email: (v: string) => /.+@.+\..+/.test(v) || "E-mail inválido",
@@ -158,7 +154,6 @@ const rules = {
 const passwordMatchRule = (v: string) =>
   v === form.value.senha || "As senhas não coincidem";
 
-// Carrega os dados ao montar
 const loadPerfil = async () => {
   isLoadingData.value = true;
   try {
@@ -168,7 +163,6 @@ const loadPerfil = async () => {
     form.value.senha = "";
     currentRole.value = data.role;
 
-    // Salva cópia para restauração
     originalData.value = {
       nome: data.nome,
       email: data.email,
@@ -187,11 +181,9 @@ const loadPerfil = async () => {
   }
 };
 
-// Submissão
 const handleSubmit = async () => {
   if (!isFormValid.value) return;
 
-  // Valida confirmação de senha se preenchida
   if (form.value.senha && form.value.senha !== confirmSenha.value) {
     showSnackbar({ message: "As senhas não coincidem.", color: "warning" });
     return;
@@ -201,7 +193,6 @@ const handleSubmit = async () => {
   try {
     const payload: Partial<PerfilForm> = {};
 
-    // Envia apenas campos alterados
     if (form.value.nome !== originalData.value.nome) {
       payload.nome = form.value.nome;
     }
@@ -212,7 +203,6 @@ const handleSubmit = async () => {
       payload.senha = form.value.senha;
     }
 
-    // Se nenhum campo mudou
     if (Object.keys(payload).length === 0) {
       showSnackbar({ message: "Nenhuma alteração detectada.", color: "info" });
       isSaving.value = false;
@@ -221,7 +211,6 @@ const handleSubmit = async () => {
 
     const updated = await perfilService.atualizarMeusDados(payload);
 
-    // Atualiza o cookie user_data com os novos dados
     const userCookie = useCookie("user_data", { maxAge: 60 * 60 * 24 * 7 });
     userCookie.value = {
       id: updated.id,
@@ -230,7 +219,6 @@ const handleSubmit = async () => {
       role: updated.role,
     } as any;
 
-    // Atualiza dados originais
     originalData.value = {
       nome: updated.nome,
       email: updated.email,
@@ -256,7 +244,6 @@ const handleSubmit = async () => {
   }
 };
 
-// Restaurar dados originais
 const resetForm = () => {
   form.value = { ...originalData.value };
   confirmSenha.value = "";

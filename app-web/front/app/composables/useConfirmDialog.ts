@@ -7,8 +7,6 @@ export interface ConfirmDialogOptions {
   confirmIcon?: string
 }
 
-// Armazena a função resolve da Promise no escopo do módulo.
-// Como só existe um ConfirmDialog ativo por vez, isso é seguro.
 let resolvePromise: ((value: boolean) => void) | null = null
 
 export const useConfirmDialog = () => {
@@ -20,16 +18,6 @@ export const useConfirmDialog = () => {
   const confirmColor = useState<string>('confirm-dialog-confirm-color', () => 'error')
   const confirmIcon = useState<string>('confirm-dialog-confirm-icon', () => 'mdi-check')
 
-  /**
-   * Abre o dialog de confirmação e retorna uma Promise que resolve
-   * com `true` se o usuário confirmar, ou `false` se cancelar.
-   *
-   * Uso:
-   * ```ts
-   * const decision = await confirm({ message: 'Tem certeza?' })
-   * if (!decision) return
-   * ```
-   */
   const confirm = (options: ConfirmDialogOptions): Promise<boolean> => {
     title.value = options.title || 'Confirmação'
     message.value = options.message

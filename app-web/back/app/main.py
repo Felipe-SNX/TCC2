@@ -8,16 +8,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configuração de CORS (importante para o Nuxt e Unity conseguirem acessar)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Atenção: Em produção, substitua "*" pelos domínios reais (ex: "http://localhost:3000")
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Inclui todas as rotas definidas no api_router
 app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")

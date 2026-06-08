@@ -11,7 +11,6 @@ def get_paciente_by_email(db: Session, email: str):
 
 def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None):
     query = db.query(Paciente)
-    # Psicólogo só enxerga os pacientes que ele criou (campo created_by)
     if user_role == 'PSICOLOGO' and user_id:
         query = query.filter(Paciente.created_by == user_id)
     return query

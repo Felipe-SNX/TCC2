@@ -1,9 +1,5 @@
 <template>
   <v-container class="py-6">
-    <!-- 
-      Componente da tabela, sendo puramente "dummy". 
-      A lógica é toda controlada pelo Container Pai 
-    -->
     <UsuariosTable
       :items="usuarios"
       :total-items="total"
@@ -16,10 +12,6 @@
       @change-role="handleRoleChange"
     />
 
-    <!-- 
-      Modal de criação/edição, também puramente "dummy".
-      Apenas exibe o formulário e emite os dados preenchidos via 'save'.
-    -->
     <UsuariosFormDialog
       v-model="dialogOpen"
       :usuario="selectedUsuario"
@@ -43,13 +35,11 @@ definePageMeta({
 const { showSnackbar } = useSnackbar();
 const { confirm } = useConfirmDialog();
 
-// Estado da tabela
 const usuarios = ref([]);
 const total = ref(0);
 const isLoading = ref(false);
 const currentOptions = ref({ page: 1, itemsPerPage: 25 });
 
-// Estado do modal
 const dialogOpen = ref(false);
 const selectedUsuario = ref<any | null>(null);
 const isSaving = ref(false);
@@ -99,7 +89,6 @@ const handleSave = async (formData: UsuarioForm) => {
   isSaving.value = true;
   try {
     if (selectedUsuario.value) {
-      // Edição: remove senha vazia para não enviar ao backend
       const payload: Partial<UsuarioForm> = { ...formData };
       if (!payload.senha) delete payload.senha;
       await usuariosService.atualizar(selectedUsuario.value.id, payload);
@@ -191,7 +180,6 @@ const handleRoleChange = async (usuario: any, newRole: string) => {
       message: detail || "Falha ao alterar perfil do usuário.",
       color: "error",
     });
-    // Recarrega para voltar ao valor anterior em caso de erro
     await fetchUsuarios(currentOptions.value);
   }
 };

@@ -12,7 +12,6 @@ class RespostaBase(BaseModel):
 class RespostaCreate(RespostaBase):
     pass
 
-# Schema específico para receber os dados do Jogo Unity
 class RespostaGameCreate(BaseModel):
     currentLevel: str
     time: float

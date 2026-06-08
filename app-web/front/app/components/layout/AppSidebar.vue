@@ -47,7 +47,6 @@
       ></v-list-item>
     </v-list>
 
-    <!-- Slot append para fixar o botão de sair no fundo -->
     <template v-slot:append>
       <v-divider></v-divider>
       <v-list density="compact" nav>
@@ -81,15 +80,12 @@ const userCookie = useCookie<{
 const userName = computed(() => userCookie.value?.nome || "Usuário");
 const userEmail = computed(() => userCookie.value?.email || "");
 
-// Inicialização do tema baseada no localStorage
 onMounted(() => {
   const savedTheme = localStorage.getItem("isDarkTheme");
   
   if (savedTheme === null) {
-    // Se não existir, padrão é escuro (true)
     setTheme(true);
   } else {
-    // Se existir, carrega o valor salvo
     setTheme(savedTheme === "true");
   }
 });
