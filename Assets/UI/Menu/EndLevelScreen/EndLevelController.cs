@@ -34,11 +34,11 @@ public class EndLevelController : MonoBehaviour
             if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetTriesLevel();
         }
 
-        if (btnReset != null) btnReset.clicked += ReiniciarFase;
-        if (btnVoltarMenu != null) btnVoltarMenu.clicked += VoltarAoMenu;
+        if (btnReset != null) btnReset.clicked += RetryLevel;
+        if (btnVoltarMenu != null) btnVoltarMenu.clicked += BackToMenu;
     }
 
-    private void ReiniciarFase()
+    private void RetryLevel()
     {
         if (MetricsManager.Instance != null)
         {
@@ -49,7 +49,7 @@ public class EndLevelController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void VoltarAoMenu()
+    private void BackToMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main_Menu"); 
@@ -57,7 +57,7 @@ public class EndLevelController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (btnReset != null) btnReset.clicked -= ReiniciarFase;
-        if (btnVoltarMenu != null) btnVoltarMenu.clicked -= VoltarAoMenu;
+        if (btnReset != null) btnReset.clicked -= RetryLevel;
+        if (btnVoltarMenu != null) btnVoltarMenu.clicked -= BackToMenu;
     }
 }
