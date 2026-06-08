@@ -223,6 +223,7 @@ def seed_respostas(db):
                     time=round(random.uniform(20.0, 120.0), 1),
                     tries=random.choices([1, 2, 3], weights=[80, 15, 5])[0],
                     response=resposta_para_level(level),
+                    colectables=random.randint(0, 6),
                     # Cada nível é jogado com ~5 minutos de intervalo dentro da sessão
                     created_at=data_base + timedelta(minutes=j * 5),
                 )
