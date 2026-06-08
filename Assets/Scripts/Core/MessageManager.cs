@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class MessageManager : MonoBehaviour
 {
-    public static MessageManager Instance { get; private set; }
+    public static MessageManager Instance;
 
-    [SerializeField] private List<string> collectedParts = new List<string>();
+    private List<MessageFragment> collectedFragments = new List<MessageFragment>();
 
     private void Awake()
     {
@@ -17,37 +17,68 @@ public class MessageManager : MonoBehaviour
 
         Instance = this;
 
-        Debug.Log("Instance definido corretamente"); 
+        Debug.Log("MessageManager inicializado.");
     }
 
-    public void Collect(string part)
+    public void CollectFragment(MessageFragment fragment)
     {
-        if (string.IsNullOrEmpty(part)) return;
-
-        if (!collectedParts.Contains(part))
+        if (fragment == null)
         {
-            collectedParts.Add(part);
+            Debug.LogWarning("Fragmento nulo.");
+            return;
         }
 
-        if (UIManager.Instance != null)
+        if (string.IsNullOrEmpty(fragment.text))
         {
-            UIManager.Instance.ShowMessage(part);
+            Debug.LogWarning("Texto do fragmento vazio.");
+            return;
         }
-        else
+
+        if (!collectedFragments.Exists(f => f.correctIndex == fragment.correctIndex))
         {
-            Debug.LogWarning("UIManager não encontrado!");
+            collectedFragments.Add(fragment);
+
+            Debug.Log("Fragmento coletado: " + fragment.text);
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.ShowMessage(fragment.text);
+            }
+            else
+            {
+                Debug.LogWarning("UIManager não encontrado na cena.");
+            }
         }
+    }
+
+    public List<MessageFragment> GetCollectedFragments()
+    {
+        return collectedFragments;
+    }
+
+    public bool HasAllFragments(int totalFragments)
+    {
+        return collectedFragments.Count >= totalFragments;
     }
 
     public string GetFullMessage()
     {
-        // Une as partes coletadas em um único texto formatado
-        return string.Join("\n", collectedParts); 
+        List<MessageFragment> orderedFragments = new List<MessageFragment>(collectedFragments);
+
+        orderedFragments.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
+
+        List<string> parts = new List<string>();
+
+        foreach (MessageFragment fragment in orderedFragments)
+        {
+            parts.Add(fragment.text);
+        }
+
+        return string.Join(" ", parts);
     }
 
-    // Método para limpar as mensagens ao reiniciar o jogo ou fase
-    public void ClearMessages()
+    public void ClearFragments()
     {
-        collectedParts.Clear();
+        collectedFragments.Clear();
     }
 }
