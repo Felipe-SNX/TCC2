@@ -11,6 +11,14 @@ public class LevelSelectionController : MonoBehaviour, IMenuPopup
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
+        root.schedule.Execute(() => {
+            var elementoFocado = root.panel?.focusController?.focusedElement as VisualElement;
+            if (elementoFocado != null)
+            {
+                elementoFocado.Blur();
+            }
+        }).StartingIn(10);
+
         Button btnVerde = root.Q<Button>("btn-fase-verde");
         Button btnVermelha = root.Q<Button>("btn-fase-vermelha");
         Button btnAmarela = root.Q<Button>("btn-fase-amarela");
