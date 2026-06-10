@@ -62,7 +62,6 @@ const getEmotionText = (value: number) => {
 };
 
 const chartData = computed<ChartData<"line">>(() => {
-  // Ordena por data (mais antigos primeiro para o gráfico ir da esquerda para direita)
   const sortedItems = [...props.items].sort((a, b) => {
     return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
   });
@@ -75,14 +74,14 @@ const chartData = computed<ChartData<"line">>(() => {
     datasets: [
       {
         label: "Estado Emocional",
-        backgroundColor: "rgba(33, 150, 243, 0.2)", // Primary color with opacity
+        backgroundColor: "rgba(33, 150, 243, 0.2)",
         borderColor: "#2196F3",
         pointBackgroundColor: "#2196F3",
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "#2196F3",
         borderWidth: 2,
-        tension: 0.4, // Suaviza a linha (curva)
+        tension: 0.4,
         fill: true,
         data: dataPoints,
       },
@@ -107,7 +106,7 @@ const chartOptions = computed<ChartOptions<"line">>(() => ({
   },
   plugins: {
     legend: {
-      display: false, // Esconde a legenda porque só tem 1 linha
+      display: false,
     },
     tooltip: {
       callbacks: {

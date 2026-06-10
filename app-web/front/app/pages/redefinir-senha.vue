@@ -84,7 +84,6 @@ const formRef = ref<any>(null);
 const novaSenha = ref("");
 const confirmSenha = ref("");
 
-// Obtém o token da query string
 const token = computed(() => (route.query.token as string) || "");
 
 const senhaRules = [
@@ -97,7 +96,6 @@ const confirmSenhaRules = [
   (v: string) => v === novaSenha.value || "As senhas não coincidem.",
 ];
 
-// Verifica se o token está presente
 onMounted(() => {
   if (!token.value) {
     showSnackbar({

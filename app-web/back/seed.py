@@ -4,8 +4,13 @@ seed.py — Seed centralizado do banco de dados.
 Ordem de execução:
   1. Usuários  (ADMIN e PSICOLOGO)
   2. Pacientes (com PIN único de 6 dígitos)
-  3. Perguntas
-  4. Respostas (20-30 respostas falsas por paciente, últimos 30 dias)
+  3. Respostas (séries de sessões por paciente, últimos 30 dias)
+
+Modelo de respostas:
+  - Cada paciente realiza entre 5 e 10 sessões nos últimos 30 dias.
+  - Cada sessão gera 3 respostas (uma por cor: vermelho, verde, amarelo).
+  - A distribuição de respostas por cor é tendenciosa para simular
+    efeitos reais da cromoterapia (ex: verde tende a ser mais calmante).
 """
 
 import sys
@@ -18,30 +23,53 @@ from datetime import datetime, timedelta
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from app.db.session import SessionLocal
-from app.models.schema import Usuario, Paciente, PacientePsicologo, Pergunta, Resposta
+from app.models.schema import Usuario, Paciente, Resposta
 from app.core.security import get_password_hash
+
+
+# ─────────────────────────────────────────────
+# Configuração
+# ─────────────────────────────────────────────
+
+# Fases do jogo (Levels correspondentes às cores) e seus pesos de resposta
+# Distribui respostas de forma tendenciosa por nível para simular efeitos clínicos
+DISTRIBUICAO_POR_LEVEL: dict[str, list[int]] = {
+    "Level_1":  [1, 1, 2, 2, 3, 3, 4, 5, 5, 5],  # vermelho: estimulante/energético
+    "Level_2":  [2, 3, 3, 4, 4, 4, 5, 5, 5, 5],  # verde: calmante
+    "Level_3":  [1, 2, 2, 3, 3, 3, 4, 4, 5, 5],  # amarelo: alegre/neutro
+}
+
+LEVELS = list(DISTRIBUICAO_POR_LEVEL.keys())
 
 
 # ─────────────────────────────────────────────
 # Helpers
 # ─────────────────────────────────────────────
 
-CORES = [
-    "vermelho", "verde", "amarelo"
-]
+def data_sessao_aleatoria(num_sessao: int, total_sessoes: int) -> datetime:
+    """
+    Distribui as sessões de forma espaçada nos últimos 30 dias.
+    A sessão mais antiga fica no dia 29, a mais recente no dia 0.
+    """
+    # Espaça uniformemente com pequena variação aleatória (±1 dia)
+    passo = 30 / max(total_sessoes, 1)
+    dias_atras = int(passo * (total_sessoes - num_sessao)) + random.randint(-1, 1)
+    dias_atras = max(0, min(29, dias_atras))
+    hora = timedelta(
+        hours=random.randint(8, 18),
+        minutes=random.randint(0, 59),
+    )
+    return datetime.utcnow() - timedelta(days=dias_atras) + hora - timedelta(hours=datetime.utcnow().hour)
 
-def data_aleatoria_ultimos_30_dias() -> datetime:
-    """Retorna um datetime aleatório dentro dos últimos 30 dias."""
-    dias_atras = random.randint(0, 29)
-    segundos_atras = random.randint(0, 86399)  # 0 a 23h59m59s
-    return datetime.utcnow() - timedelta(days=dias_atras, seconds=segundos_atras)
+def resposta_para_level(level: str) -> int:
+    """Retorna um valor de resposta tendencioso com base no level."""
+    return random.choice(DISTRIBUICAO_POR_LEVEL[level])
 
 def gerar_pin_unico(db) -> str:
     """Gera um PIN numérico de 6 dígitos único na tabela de pacientes."""
     while True:
         pin = "".join(random.choices(string.digits, k=6))
-        existe = db.query(Paciente).filter(Paciente.pin == pin).first()
-        if not existe:
+        if not db.query(Paciente).filter(Paciente.pin == pin).first():
             return pin
 
 
@@ -50,7 +78,7 @@ def gerar_pin_unico(db) -> str:
 # ─────────────────────────────────────────────
 
 def seed_usuarios(db):
-    print("\n📋 [1/4] Criando usuários...")
+    print("\n📋 [1/3] Criando usuários...")
 
     users_to_create = [
         {
@@ -60,7 +88,7 @@ def seed_usuarios(db):
             "senha": "123",
         },
         {
-            "nome": "Psicólogo",
+            "nome": "Dra. Ana Paula",
             "email": "psico@psico.com",
             "role": "PSICOLOGO",
             "senha": "123",
@@ -91,7 +119,7 @@ def seed_usuarios(db):
 # ─────────────────────────────────────────────
 
 def seed_pacientes(db):
-    print("\n👥 [2/4] Criando pacientes...")
+    print("\n👥 [2/3] Criando pacientes...")
 
     psicologos = db.query(Usuario).filter(Usuario.role == "PSICOLOGO").all()
     if not psicologos:
@@ -130,7 +158,7 @@ def seed_pacientes(db):
     total_criado = 0
     for psico in psicologos:
         print(f"  → Psicólogo: {psico.nome} ({psico.email})")
-        for _ in range(40):
+        for _ in range(15):
             sexo = random.choice(["M", "F"])
             nome = random.choice(nomes_masculinos if sexo == "M" else nomes_femininos)
             sobrenome = f"{random.choice(sobrenomes)} {random.choice(sobrenomes)}"
@@ -146,7 +174,7 @@ def seed_pacientes(db):
 
             novo_paciente = Paciente(
                 nome=nome_completo,
-                idade=random.randint(6, 75),
+                idade=random.randint(8, 70),
                 email=email,
                 pin=pin,
                 observacoes=random.choice(observacoes_templates),
@@ -154,13 +182,7 @@ def seed_pacientes(db):
                 updated_by=psico.id,
             )
             db.add(novo_paciente)
-            db.flush()  # gera o ID antes de criar a associação
-
-            relacao = PacientePsicologo(
-                id_paciente=novo_paciente.id,
-                id_usuario=psico.id,
-            )
-            db.add(relacao)
+            db.flush()  # gera o ID antes de usar em respostas
             total_criado += 1
 
     db.commit()
@@ -168,86 +190,18 @@ def seed_pacientes(db):
 
 
 # ─────────────────────────────────────────────
-# 3. Perguntas
-# ─────────────────────────────────────────────
-
-def seed_perguntas(db):
-    print("\n❓ [3/4] Criando perguntas...")
-
-    psicologos = db.query(Usuario).filter(Usuario.role == "PSICOLOGO").all()
-    if not psicologos:
-        print("  ❌ Nenhum psicólogo encontrado — pulando criação de perguntas.")
-        return
-
-    perguntas_textos = [
-        "Como você se sente após observar a cor?",
-        "Qual a intensidade da sensação de calma ao ver a cor?",
-        "A cor aumenta sua energia?",
-        "A cor melhora seu humor?",
-        "A cor traz sensação de criatividade?",
-        "Como a cor influencia seu estado de alerta?",
-        "A cor gera sensação de leveza?",
-        "A cor provoca sensação de introspecção?",
-        "A cor tem efeito relaxante?",
-        "A cor desperta sentimentos de tranquilidade?",
-        "A cor aumenta sua motivação?",
-        "A cor reduz seu nível de estresse?",
-        "A cor traz sensação de estabilidade?",
-        "A cor favorece a meditação?",
-        "A cor aumenta a clareza mental?",
-        "A cor afeta seu humor positivamente?",
-        "A cor eleva sua criatividade?",
-        "A cor influencia sua percepção de tempo?",
-        "A cor ajuda na concentração?",
-        "A cor reduz ansiedade?",
-    ]
-
-    alternativas_padrao = [
-        {"texto": "Muito negativo", "valor": 1},
-        {"texto": "Negativo",       "valor": 2},
-        {"texto": "Neutro",         "valor": 3},
-        {"texto": "Positivo",       "valor": 4},
-        {"texto": "Muito positivo", "valor": 5},
-    ]
-
-    total_criado = 0
-    for texto in perguntas_textos:
-        # Verifica se a pergunta já existe (evita duplicatas em re-execuções)
-        if db.query(Pergunta).filter(Pergunta.pergunta == texto).first():
-            print(f"  ⚠️  Pergunta já existe — pulando: \"{texto[:50]}...\"")
-            continue
-
-        psico = random.choice(psicologos)
-        nova_pergunta = Pergunta(
-            pergunta=texto,
-            alternativas=alternativas_padrao,
-            created_by=psico.id,
-            updated_by=psico.id,
-        )
-        db.add(nova_pergunta)
-        total_criado += 1
-
-    db.commit()
-    print(f"  ✅ {total_criado} perguntas criadas com sucesso.")
-
-
-# ─────────────────────────────────────────────
-# 4. Respostas
+# 3. Respostas
 # ─────────────────────────────────────────────
 
 def seed_respostas(db):
-    print("\n📊 [4/4] Criando respostas falsas para os pacientes...")
+    print("\n📊 [3/3] Criando respostas de sessões para os pacientes...")
 
     pacientes = db.query(Paciente).all()
     if not pacientes:
         print("  ❌ Nenhum paciente encontrado — pulando criação de respostas.")
         return
 
-    perguntas = db.query(Pergunta).all()
-    if not perguntas:
-        print("  ⚠️  Nenhuma pergunta encontrada — respostas serão criadas sem id_pergunta.")
-
-    # Verifica se já existem respostas para não duplicar em re-execuções
+    # Evita duplicar em re-execuções
     total_existente = db.query(Resposta).count()
     if total_existente > 0:
         print(f"  ⚠️  Já existem {total_existente} respostas no banco — pulando.")
@@ -255,24 +209,31 @@ def seed_respostas(db):
 
     total_criado = 0
     for paciente in pacientes:
-        qtd = random.randint(20, 30)
-        for _ in range(qtd):
-            pergunta = random.choice(perguntas) if perguntas else None
-            nova_resposta = Resposta(
-                id_paciente=paciente.id,
-                id_pergunta=pergunta.id if pergunta else None,
-                resposta=random.randint(1, 5),
-                cor=random.choice(CORES),
-                created_at=data_aleatoria_ultimos_30_dias(),
-            )
-            db.add(nova_resposta)
-            total_criado += 1
+        num_sessoes = random.randint(5, 10)
 
-        # Flush em lote para não sobrecarregar a sessão
+        for i in range(num_sessoes):
+            # Cada sessão ocorre em um dia específico
+            data_base = data_sessao_aleatoria(i, num_sessoes)
+
+            # Cada sessão expõe o paciente aos 3 níveis, nessa ordem
+            for j, level in enumerate(LEVELS):
+                nova_resposta = Resposta(
+                    id_paciente=paciente.id,
+                    currentLevel=level,
+                    time=round(random.uniform(20.0, 120.0), 1),
+                    tries=random.choices([1, 2, 3], weights=[80, 15, 5])[0],
+                    response=resposta_para_level(level),
+                    colectables=random.randint(0, 6),
+                    # Cada nível é jogado com ~5 minutos de intervalo dentro da sessão
+                    created_at=data_base + timedelta(minutes=j * 5),
+                )
+                db.add(nova_resposta)
+                total_criado += 1
+
         db.flush()
 
     db.commit()
-    print(f"  ✅ {total_criado} respostas criadas com sucesso.")
+    print(f"  ✅ {total_criado} respostas criadas em {sum(random.randint(5,10) for _ in pacientes)} sessões.")
 
 
 # ─────────────────────────────────────────────
@@ -288,7 +249,6 @@ def run_seed():
     try:
         seed_usuarios(db)
         seed_pacientes(db)
-        seed_perguntas(db)
         seed_respostas(db)
     except Exception as e:
         db.rollback()

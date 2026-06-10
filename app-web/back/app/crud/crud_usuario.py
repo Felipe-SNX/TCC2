@@ -22,7 +22,7 @@ def create_usuario(db: Session, usuario: UsuarioCreate):
         email=usuario.email,
         role=usuario.role,
         senha=hashed_password,
-        ativo=True  # Criado por admin → ativo imediatamente
+        ativo=True
     )
     db.add(db_usuario)
     db.commit()

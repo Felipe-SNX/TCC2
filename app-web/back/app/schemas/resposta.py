@@ -1,29 +1,25 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from datetime import datetime
-from typing import Optional
 
 class RespostaBase(BaseModel):
     id_paciente: str
-    resposta: int
-    cor: Optional[str] = None
-    id_pergunta: Optional[str] = None
+    currentLevel: str
+    time: float = Field(ge=0.0)
+    tries: int = Field(ge=0)
+    response: int = Field(ge=1, le=5)
+    colectables: int = Field(ge=0)
 
 class RespostaCreate(RespostaBase):
     pass
 
-# Schema específico para receber os dados do Jogo Unity
 class RespostaGameCreate(BaseModel):
-    id_paciente: str
-    id_pergunta: str
-    resposta: int
-    cor: str
-
-class CredenciaisPaciente(BaseModel):
-    email: str
-    pin: str
-
-class CredenciaisPacienteResponse(BaseModel):
-    id_paciente: str
+    email: EmailStr
+    pin: str = Field(min_length=6, max_length=6)
+    currentLevel: str
+    time: float = Field(ge=0.0)
+    tries: int = Field(ge=0)
+    response: int = Field(ge=1, le=5, description="Estado emocional do paciente (1 a 5)")
+    colectables: int = Field(ge=0, description="Quantidade de coletáveis obtidos")
 
 class RespostaResponse(RespostaBase):
     id: str
@@ -31,7 +27,3 @@ class RespostaResponse(RespostaBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-class RespostaPerguntaCreate(BaseModel):
-    id_paciente: str
-    id_pergunta: str
-    resposta: int

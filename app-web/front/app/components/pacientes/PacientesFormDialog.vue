@@ -127,7 +127,6 @@ const rules = {
   idade: (v: number) => (v !== null && v > 0 && v <= 150) || 'Idade inválida'
 }
 
-// Observa mudanças no dialog e no paciente para preencher/limpar o form
 watch(() => props.modelValue, (open) => {
   if (open && props.paciente) {
     form.value = {

@@ -39,11 +39,9 @@ const handleLogin = async (credentials: {
       },
     );
 
-    // Salva o token e os dados do usuário (o useCookie gerencia automaticamente JSON)
     tokenCookie.value = response.access_token;
     userCookie.value = response.user;
 
-    // Redireciona com base no papel (role) do usuário
     showSnackbar({ message: "Login realizado com sucesso!", color: "success" });
 
     if (response.user.role === "ADMIN") {

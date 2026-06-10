@@ -59,7 +59,10 @@
     </v-card>
 
     <!-- Tabela de Histórico -->
-    <DashboardHistoricoRespostasTable :items="respostasFiltradas" :loading="isLoading" />
+    <DashboardHistoricoRespostasTable
+      :items="respostasFiltradas"
+      :loading="isLoading"
+    />
   </v-container>
 </template>
 
