@@ -1,105 +1,100 @@
 <template>
   <v-row dense>
     <!-- Total de Sessões -->
-    <v-col cols="12" sm="6" md="4" lg>
+    <v-col cols="12" sm="6" lg>
       <v-card
         rounded="lg"
-        variant="tonal"
-        color="primary"
-        class="pa-4"
+        variant="outlined"
+        class="pa-5"
         elevation="0"
       >
-        <div class="d-flex align-center justify-space-between mb-3">
-          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Total de Sessões
+        <div class="d-flex align-center justify-space-between mb-4">
+          <v-icon color="primary" size="22">mdi-gamepad-variant-outline</v-icon>
+          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase letter-spacing-wide">
+            Sessões
           </span>
-          <v-icon color="primary" size="20">mdi-gamepad-variant-outline</v-icon>
         </div>
-        <div class="text-h4 font-weight-bold">{{ totalSessoes }}</div>
-        <div class="text-caption text-medium-emphasis mt-1">registros no período</div>
+        <div class="text-h4 font-weight-bold mb-1">{{ totalSessoes }}</div>
+        <div class="text-caption text-medium-emphasis">registros no período</div>
       </v-card>
     </v-col>
 
     <!-- Resposta Emocional Média -->
-    <v-col cols="12" sm="6" md="4" lg>
+    <v-col cols="12" sm="6" lg>
       <v-card
         rounded="lg"
-        variant="tonal"
-        :color="corEmocional"
-        class="pa-4"
+        variant="outlined"
+        class="pa-5"
         elevation="0"
       >
-        <div class="d-flex align-center justify-space-between mb-3">
+        <div class="d-flex align-center justify-space-between mb-4">
+          <v-icon color="primary" size="22">mdi-emoticon-outline</v-icon>
           <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Resposta Emocional Média
+            Humor Médio
           </span>
-          <v-icon :color="corEmocional" size="20">mdi-emoticon-outline</v-icon>
         </div>
-        <div class="d-flex align-center ga-2">
+        <div class="d-flex align-center ga-2 mb-1">
           <span class="text-h4 font-weight-bold">{{ mediaResposta }}</span>
-          <span class="text-h5">{{ emojiEmocional }}</span>
+          <span style="font-size: 1.4rem; line-height: 1;">{{ emojiEmocional }}</span>
         </div>
-        <div class="text-caption text-medium-emphasis mt-1">{{ labelEmocional }}</div>
+        <div class="text-caption text-medium-emphasis">{{ labelEmocional }}</div>
       </v-card>
     </v-col>
 
     <!-- Tempo Médio por Sessão -->
-    <v-col cols="12" sm="6" md="4" lg>
+    <v-col cols="12" sm="6" lg>
       <v-card
         rounded="lg"
-        variant="tonal"
-        color="secondary"
-        class="pa-4"
+        variant="outlined"
+        class="pa-5"
         elevation="0"
       >
-        <div class="d-flex align-center justify-space-between mb-3">
+        <div class="d-flex align-center justify-space-between mb-4">
+          <v-icon color="primary" size="22">mdi-timer-outline</v-icon>
           <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
             Tempo Médio
           </span>
-          <v-icon color="secondary" size="20">mdi-timer-outline</v-icon>
         </div>
-        <div class="text-h4 font-weight-bold">{{ tempoMedio }}</div>
-        <div class="text-caption text-medium-emphasis mt-1">por sessão</div>
+        <div class="text-h4 font-weight-bold mb-1">{{ tempoMedio }}</div>
+        <div class="text-caption text-medium-emphasis">por sessão</div>
       </v-card>
     </v-col>
 
     <!-- Colecionáveis Totais -->
-    <v-col cols="12" sm="6" md="4" lg>
+    <v-col cols="12" sm="6" lg>
       <v-card
         rounded="lg"
-        variant="tonal"
-        color="warning"
-        class="pa-4"
+        variant="outlined"
+        class="pa-5"
         elevation="0"
       >
-        <div class="d-flex align-center justify-space-between mb-3">
+        <div class="d-flex align-center justify-space-between mb-4">
+          <v-icon color="primary" size="22">mdi-star-outline</v-icon>
           <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
             Colecionáveis
           </span>
-          <v-icon color="warning" size="20">mdi-star-outline</v-icon>
         </div>
-        <div class="text-h4 font-weight-bold">{{ totalColectables }}</div>
-        <div class="text-caption text-medium-emphasis mt-1">coletados no período</div>
+        <div class="text-h4 font-weight-bold mb-1">{{ totalColectables }}</div>
+        <div class="text-caption text-medium-emphasis">coletados no período</div>
       </v-card>
     </v-col>
 
     <!-- Nível Mais Frequente -->
-    <v-col cols="12" sm="6" md="4" lg>
+    <v-col cols="12" sm="6" lg>
       <v-card
         rounded="lg"
-        variant="tonal"
-        color="info"
-        class="pa-4"
+        variant="outlined"
+        class="pa-5"
         elevation="0"
       >
-        <div class="d-flex align-center justify-space-between mb-3">
+        <div class="d-flex align-center justify-space-between mb-4">
+          <v-icon color="primary" size="22">mdi-layers-outline</v-icon>
           <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Nível Mais Frequente
+            Nível Principal
           </span>
-          <v-icon color="info" size="20">mdi-layers-outline</v-icon>
         </div>
-        <div class="text-h4 font-weight-bold">{{ nivelFrequente }}</div>
-        <div class="text-caption text-medium-emphasis mt-1">nível com mais sessões</div>
+        <div class="text-h4 font-weight-bold mb-1">{{ nivelFrequente }}</div>
+        <div class="text-caption text-medium-emphasis">com mais sessões</div>
       </v-card>
     </v-col>
   </v-row>
@@ -122,22 +117,17 @@ const props = defineProps<{
 
 const totalSessoes = computed(() => props.items.length);
 
-const mediaResposta = computed(() => {
-  if (!props.items.length) return "–";
-  const avg = props.items.reduce((acc, r) => acc + r.response, 0) / props.items.length;
-  return avg.toFixed(1);
+const avgResponse = computed(() => {
+  if (!props.items.length) return 0;
+  return props.items.reduce((acc, r) => acc + r.response, 0) / props.items.length;
 });
 
-const corEmocional = computed(() => {
-  const avg = props.items.reduce((acc, r) => acc + r.response, 0) / (props.items.length || 1);
-  if (avg >= 4.5) return "success";
-  if (avg >= 3.5) return "success";
-  if (avg >= 2.5) return "warning";
-  return "error";
-});
+const mediaResposta = computed(() =>
+  props.items.length ? avgResponse.value.toFixed(1) : "–"
+);
 
 const emojiEmocional = computed(() => {
-  const avg = props.items.reduce((acc, r) => acc + r.response, 0) / (props.items.length || 1);
+  const avg = avgResponse.value;
   if (avg >= 4.5) return "😄";
   if (avg >= 3.5) return "🙂";
   if (avg >= 2.5) return "😐";
@@ -146,7 +136,7 @@ const emojiEmocional = computed(() => {
 });
 
 const labelEmocional = computed(() => {
-  const avg = props.items.reduce((acc, r) => acc + r.response, 0) / (props.items.length || 1);
+  const avg = avgResponse.value;
   if (avg >= 4.5) return "Muito Feliz";
   if (avg >= 3.5) return "Feliz";
   if (avg >= 2.5) return "Neutro";
@@ -175,7 +165,6 @@ const nivelFrequente = computed(() => {
     freq[r.currentLevel] = (freq[r.currentLevel] || 0) + 1;
   }
   const nivel = Object.entries(freq).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "–";
-  // Formata "Level_3" → "Level 3"
   return nivel.replace("_", " ");
 });
 </script>
