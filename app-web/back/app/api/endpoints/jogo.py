@@ -5,7 +5,7 @@ from app.api.dependencies import get_db
 from app.schemas.resposta import RespostaGameCreate, RespostaCreate
 from app.crud.crud_resposta import create_resposta
 from app.models.schema import Paciente
-from app.main import limiter
+from app.core.limiter import limiter
 
 logger = logging.getLogger(__name__)
 

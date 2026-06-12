@@ -36,18 +36,27 @@ echo ""
 echo "🗑️  [3/5] Removendo containers..."
 sudo docker rm -f tcc_front tcc_back tcc_db 2>/dev/null || echo "  Containers já removidos ou inexistentes."
 
-# 4. Remover volume do banco e rede
+# 4. Remover volume do banco, containers parados e redes
 echo ""
-echo "🧹 [4/5] Limpando volumes e redes..."
+echo "🧹 [4/5] Limpando volumes, containers dangling e redes..."
 
 docker volume rm app-web_tcc_mysql_data 2>/dev/null && echo "  Volume 'app-web_tcc_mysql_data' removido." || echo "  Volume não encontrado ou já removido."
+docker container prune -f && echo "  Containers parados/dangling removidos."
 docker network prune -f && echo "  Redes não utilizadas removidas."
 
 # 5. Rebuild e subir tudo do zero
+# Detecta automaticamente se o plugin docker compose v2 está disponível.
+# Se não estiver, usa o docker-compose v1 (a limpeza robusta acima já evita o bug ContainerConfig).
 echo ""
-echo "🚀 [5/5] Reconstruindo e subindo containers..."
-docker-compose build --no-cache
-docker-compose up
+if docker compose version &>/dev/null; then
+    echo "🚀 [5/5] Reconstruindo containers (Docker Compose v2 - plugin)..."
+    docker compose build --no-cache
+    docker compose up
+else
+    echo "🚀 [5/5] Reconstruindo containers (docker-compose v1)..."
+    docker-compose build --no-cache
+    docker-compose up
+fi
 
 echo ""
 echo "✅ Rebuild concluído!"
