@@ -4,9 +4,9 @@
     <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
-        variant="outlined"
+        variant="elevated"
         class="pa-4 w-100"
-        elevation="0"
+        elevation="2"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-gamepad-variant-outline</v-icon>
@@ -21,9 +21,9 @@
     <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
-        variant="outlined"
+        variant="elevated"
         class="pa-4 w-100"
-        elevation="0"
+        elevation="2"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-emoticon-outline</v-icon>
@@ -41,9 +41,9 @@
     <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
-        variant="outlined"
+        variant="elevated"
         class="pa-4 w-100"
-        elevation="0"
+        elevation="2"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-timer-outline</v-icon>
@@ -58,9 +58,9 @@
     <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
-        variant="outlined"
+        variant="elevated"
         class="pa-4 w-100"
-        elevation="0"
+        elevation="2"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-star-outline</v-icon>
@@ -75,9 +75,9 @@
     <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
-        variant="outlined"
+        variant="elevated"
         class="pa-4 w-100"
-        elevation="0"
+        elevation="2"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-layers-outline</v-icon>
