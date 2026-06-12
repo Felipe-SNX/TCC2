@@ -64,25 +64,3 @@ services:
 volumes:
   tcc_mysql_data:
     driver: local
-
-
-
-# removendo tudo a força:
-
-# # 1. Descobrir o número do processo (PID) real de cada container no sistema
-# PID_FRONT=$(sudo docker inspect -f '{{.State.Pid}}' tcc_front)
-# PID_BACK=$(sudo docker inspect -f '{{.State.Pid}}' tcc_back)
-# PID_DB=$(sudo docker inspect -f '{{.State.Pid}}' tcc_db)
-# echo "PIDs encontrados -> Front: $PID_FRONT | Back: $PID_BACK | DB: $PID_DB"
-# # 2. Matar os processos à força sem perguntar pro Docker
-# sudo kill -9 $PID_FRONT $PID_BACK $PID_DB
-# # 3. Limpar a sujeira (agora o Docker deve conseguir remover, pois eles já morreram)
-# sudo docker rm -f tcc_front tcc_back tcc_db
-
-# # Remove o volume do banco de dados antigo e reconstroi td denovo:
-# docker volume rm app-web_tcc_mysql_data
-# # Remove a rede
-# docker network prune -f
-# # (Opcional) Tentar subir novamente
-# docker-compose build --no-cache
-# docker-compose up
