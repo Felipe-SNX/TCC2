@@ -1,18 +1,16 @@
 <template>
-  <v-row dense>
+  <v-row align="stretch">
     <!-- Total de Sessões -->
-    <v-col cols="12" sm="6" lg>
+    <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
         variant="outlined"
-        class="pa-5"
+        class="pa-4 w-100"
         elevation="0"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-gamepad-variant-outline</v-icon>
-          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase letter-spacing-wide">
-            Sessões
-          </span>
+          <span class="text-overline text-medium-emphasis text-no-wrap">Sessões</span>
         </div>
         <div class="text-h4 font-weight-bold mb-1">{{ totalSessoes }}</div>
         <div class="text-caption text-medium-emphasis">registros no período</div>
@@ -20,18 +18,16 @@
     </v-col>
 
     <!-- Resposta Emocional Média -->
-    <v-col cols="12" sm="6" lg>
+    <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
         variant="outlined"
-        class="pa-5"
+        class="pa-4 w-100"
         elevation="0"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-emoticon-outline</v-icon>
-          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Humor Médio
-          </span>
+          <span class="text-overline text-medium-emphasis text-no-wrap">Humor Médio</span>
         </div>
         <div class="d-flex align-center ga-2 mb-1">
           <span class="text-h4 font-weight-bold">{{ mediaResposta }}</span>
@@ -42,18 +38,16 @@
     </v-col>
 
     <!-- Tempo Médio por Sessão -->
-    <v-col cols="12" sm="6" lg>
+    <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
         variant="outlined"
-        class="pa-5"
+        class="pa-4 w-100"
         elevation="0"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-timer-outline</v-icon>
-          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Tempo Médio
-          </span>
+          <span class="text-overline text-medium-emphasis text-no-wrap">Tempo Médio</span>
         </div>
         <div class="text-h4 font-weight-bold mb-1">{{ tempoMedio }}</div>
         <div class="text-caption text-medium-emphasis">por sessão</div>
@@ -61,18 +55,16 @@
     </v-col>
 
     <!-- Colecionáveis Totais -->
-    <v-col cols="12" sm="6" lg>
+    <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
         variant="outlined"
-        class="pa-5"
+        class="pa-4 w-100"
         elevation="0"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-star-outline</v-icon>
-          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Colecionáveis
-          </span>
+          <span class="text-overline text-medium-emphasis text-no-wrap">Colecionáveis</span>
         </div>
         <div class="text-h4 font-weight-bold mb-1">{{ totalColectables }}</div>
         <div class="text-caption text-medium-emphasis">coletados no período</div>
@@ -80,18 +72,16 @@
     </v-col>
 
     <!-- Nível Mais Frequente -->
-    <v-col cols="12" sm="6" lg>
+    <v-col cols="12" sm="6" lg class="d-flex">
       <v-card
         rounded="lg"
         variant="outlined"
-        class="pa-5"
+        class="pa-4 w-100"
         elevation="0"
       >
         <div class="d-flex align-center justify-space-between mb-4">
           <v-icon color="primary" size="22">mdi-layers-outline</v-icon>
-          <span class="text-caption text-medium-emphasis font-weight-medium text-uppercase">
-            Nível Principal
-          </span>
+          <span class="text-overline text-medium-emphasis text-no-wrap">Nível Principal</span>
         </div>
         <div class="text-h4 font-weight-bold mb-1">{{ nivelFrequente }}</div>
         <div class="text-caption text-medium-emphasis">com mais sessões</div>
