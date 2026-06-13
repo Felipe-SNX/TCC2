@@ -53,13 +53,19 @@
       </v-col>
     </v-row>
 
+    <!-- KPIs -->
+    <DashboardKpiCards :items="respostasFiltradas" class="mb-6" />
+
     <!-- Gráfico de Respostas -->
     <v-card class="mb-6 pa-4 rounded-lg bg-surface-light border elevation-0">
       <DashboardRespostasChart :items="respostasFiltradas" />
     </v-card>
 
     <!-- Tabela de Histórico -->
-    <DashboardHistoricoRespostasTable :items="respostasFiltradas" :loading="isLoading" />
+    <DashboardHistoricoRespostasTable
+      :items="respostasFiltradas"
+      :loading="isLoading"
+    />
   </v-container>
 </template>
 

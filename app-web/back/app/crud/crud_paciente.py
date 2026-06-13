@@ -1,6 +1,6 @@
 import random
 from sqlalchemy.orm import Session
-from app.models.schema import Paciente, PacientePsicologo
+from app.models.schema import Paciente
 from app.schemas.paciente import PacienteCreate, PacienteUpdate
 
 def get_paciente(db: Session, paciente_id: str):
@@ -12,8 +12,7 @@ def get_paciente_by_email(db: Session, email: str):
 def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None):
     query = db.query(Paciente)
     if user_role == 'PSICOLOGO' and user_id:
-        query = query.outerjoin(PacientePsicologo, PacientePsicologo.id_paciente == Paciente.id)\
-                     .filter((Paciente.created_by == user_id) | (PacientePsicologo.id_usuario == user_id))
+        query = query.filter(Paciente.created_by == user_id)
     return query
 
 def get_pacientes(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None):
@@ -29,7 +28,6 @@ def _generate_unique_pin(db: Session) -> str:
             return pin
 
 def create_paciente(db: Session, paciente: PacienteCreate, user_id: str = None):
-    # Converte o modelo Pydantic para um dicionário
     db_paciente = Paciente(**paciente.model_dump(), created_by=user_id)
     db_paciente.pin = _generate_unique_pin(db)
     db.add(db_paciente)
@@ -54,8 +52,6 @@ def delete_paciente(db: Session, paciente_id: str):
     db_paciente = db.query(Paciente).filter(Paciente.id == paciente_id).first()
     if not db_paciente:
         return False
-    # Remove vínculos na tabela de associação antes de excluir
-    db.query(PacientePsicologo).filter(PacientePsicologo.id_paciente == paciente_id).delete()
     db.delete(db_paciente)
     db.commit()
     return True

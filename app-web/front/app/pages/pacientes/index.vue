@@ -1,9 +1,5 @@
 <template>
   <v-container class="py-6">
-    <!-- 
-      Componente da tabela, sendo puramente "dummy". 
-      A lógica é toda controlada pelo Container Pai 
-    -->
     <PacientesTable
       :items="pacientes"
       :total-items="total"
@@ -16,10 +12,6 @@
       @refresh-pin="handleRefreshPin"
     />
 
-    <!-- 
-      Modal de criação/edição, também puramente "dummy".
-      Apenas exibe o formulário e emite os dados preenchidos via 'save'.
-    -->
     <PacientesFormDialog
       v-model="dialogOpen"
       :paciente="selectedPaciente"
@@ -47,13 +39,11 @@ definePageMeta({
 const { showSnackbar } = useSnackbar();
 const { confirm } = useConfirmDialog();
 
-// Estado da tabela
 const pacientes = ref([]);
 const total = ref(0);
 const isLoading = ref(false);
 const currentOptions = ref({ page: 1, itemsPerPage: 25 });
 
-// Estado do modal
 const dialogOpen = ref(false);
 const selectedPaciente = ref<any | null>(null);
 const isSaving = ref(false);

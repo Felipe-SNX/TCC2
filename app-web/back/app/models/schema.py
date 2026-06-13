@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime, Enum, JSON, Boolean
+from sqlalchemy import Column, String, Integer, Float, Text, ForeignKey, DateTime, Enum, Boolean
 from app.db.base import Base
 
 class Usuario(Base):
@@ -27,30 +27,14 @@ class Paciente(Base):
     created_by = Column(String(36), ForeignKey("usuarios.id"))
     updated_by = Column(String(36), ForeignKey("usuarios.id"))
 
-class PacientePsicologo(Base):
-    __tablename__ = "paciente_psicologo"
-    
-    id_paciente = Column(String(36), ForeignKey("pacientes.id"), primary_key=True)
-    id_usuario = Column(String(36), ForeignKey("usuarios.id"), primary_key=True)
-
-class Pergunta(Base):
-    __tablename__ = "perguntas"
-    
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    pergunta = Column(String(255), nullable=False)
-    alternativas = Column(JSON, nullable=False)
-    ativo = Column(Boolean, nullable=False, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    created_by = Column(String(36), ForeignKey("usuarios.id"))
-    updated_by = Column(String(36), ForeignKey("usuarios.id"))
-
 class Resposta(Base):
     __tablename__ = "respostas"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     id_paciente = Column(String(36), ForeignKey("pacientes.id"), nullable=False)
-    id_pergunta = Column(String(36), ForeignKey("perguntas.id"), nullable=True)
-    resposta = Column(Integer, nullable=False)
-    cor = Column(String(50), nullable=True)
+    currentLevel = Column(String(50), nullable=False)
+    time = Column(Float, nullable=False)
+    tries = Column(Integer, nullable=False)
+    response = Column(Integer, nullable=False)
+    colectables = Column(Integer, nullable=False, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
