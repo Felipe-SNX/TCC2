@@ -35,6 +35,14 @@ public class PauseController : MonoBehaviour
         controles.Player.Pause.performed += ctx => AlternarPause();
     }
 
+    void Start()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ConnectButtons(root);
+        }
+    }
+
     private void OnEnable()
     {
         controles.Enable(); // Liga os controles

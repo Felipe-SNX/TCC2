@@ -805,6 +805,10 @@ PrefabInstance:
       propertyPath: musicVolume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: buttonClickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: df0ea5a2a24b625488fdc3ba4126cd40, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

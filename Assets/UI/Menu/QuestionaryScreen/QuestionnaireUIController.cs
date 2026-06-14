@@ -15,10 +15,12 @@ public class QuestionnaireUIController : MonoBehaviour
     private SliderInt q1Slider;
     private Button submitButton;
 
+    private VisualElement root;
+
     private void OnEnable()
     {
         uiDocument = GetComponent<UIDocument>();
-        var root = uiDocument.rootVisualElement;
+        root = uiDocument.rootVisualElement;
 
         inputEmail = root.Q<TextField>("input_email");
         inputPin = root.Q<TextField>("input_pin");
@@ -37,9 +39,27 @@ public class QuestionnaireUIController : MonoBehaviour
             });
         }
 
+        if (inputEmail != null)
+        {
+            // Verifica se a chave "EmailUsuario" já existe salva na máquina
+            if (PlayerPrefs.HasKey("EmailUsuario"))
+            {
+                // Injeta o valor salvo direto no campo de texto
+                inputEmail.value = PlayerPrefs.GetString("EmailUsuario");
+            }
+        }
+
         if (submitButton != null)
         {
             submitButton.clicked += ValidateAndSubmit;
+        }
+    }
+
+    void Start()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ConnectButtons(root);
         }
     }
 
@@ -78,6 +98,10 @@ public class QuestionnaireUIController : MonoBehaviour
         string emailFinal = inputEmail.text;
         int pinFinal = int.Parse(inputPin.text);
         int scoreCor = q1Slider.value;
+
+        PlayerPrefs.SetString("EmailUsuario", emailFinal);
+        PlayerPrefs.Save();  
+        Debug.Log("[SISTEMA] E-mail salvo localmente: " + emailFinal);
 
         if (MetricsManager.Instance != null)
         {

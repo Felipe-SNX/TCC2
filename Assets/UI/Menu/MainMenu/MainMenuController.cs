@@ -34,6 +34,7 @@ public class MainMenuController : MonoBehaviour, IMenuPopup
     {
         if (AudioManager.Instance != null)
         {
+            AudioManager.Instance.ConnectButtons(root);
             AudioManager.Instance.PlayMenuMusic();
         }
     }
