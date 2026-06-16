@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Style src="QuestionnaireUI.uss" />
+    
+    <ui:VisualElement name="screen-overlay" class="tela-cheia">
+        
+        <ui:VisualElement name="survey-container" class="banner-anuncio">
+            
+            <ui:Label text="Fase Completada" class="titulo" />
+            <ui:Label text="Sua avaliação nos ajuda a entender o impacto das cores!" class="texto-fase" style="font-size: 22px; color: #D6D0B9; margin-bottom: 20px;" />
+
+            <ui:VisualElement class="input-group">
+                <ui:Label text="Seu E-mail:" class="label-input" />
+                <ui:TextField name="input_email" class="custom-input" />
+                <ui:Label name="lbl_erro_email" text="* Digite um e-mail válido com @" class="erro-texto" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="input-group">
+                <ui:Label text="Seu PIN (Apenas números):" class="label-input" />
+                <ui:TextField name="input_pin" max-length="6" class="custom-input" />
+                <ui:Label name="lbl_erro_pin" text="* O PIN deve conter apenas números" class="erro-texto" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="question-group">
+                <ui:Label name="lbl_question_1" text="Como você está se sentindo após completar as plataformas e cores desta fase?" class="texto-fase" style="margin-bottom: 10px;" />
+                
+                <ui:VisualElement class="slider-row">
+                    <ui:SliderInt name="slider_q1" low-value="1" high-value="5" value="3" class="custom-slider" />
+                    <ui:Label name="lbl_valor_q1" text="3" class="slider-value-right" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="escala-legendas">
+                    <ui:Label text="1 - Muito Negativo" class="legenda-texto" />
+                    <ui:Label text="5 - Muito Positivo" class="legenda-texto" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Button name="btn_submit" text="Enviar respostas" class="botao" />
+            
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

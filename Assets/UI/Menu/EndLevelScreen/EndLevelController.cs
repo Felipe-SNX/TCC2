@@ -18,38 +18,40 @@ public class EndLevelController : MonoBehaviour
         var txtNomeFase = root.Q<Label>("txt-nome-fase");
         var txtTempoTotal = root.Q<Label>("txt-tempo-total");
         var txtTentativas = root.Q<Label>("txt-tentativas");
+        var txtColetaveis = root.Q<Label>("txt-coletaveis");
         
         btnReset = root.Q<Button>("btn-reset");
         btnVoltarMenu = root.Q<Button>("btn-voltar-menu");
 
         if (MetricsManager.Instance != null)
         {
-            float tempo = MetricsManager.Instance.GetTempoTotalFase(); 
+            float tempo = MetricsManager.Instance.GetTimeLevel(); 
             int minutos = Mathf.FloorToInt(tempo / 60F);
             int segundos = Mathf.FloorToInt(tempo - minutos * 60);
             string tempoFormatado = string.Format("{0:00}:{1:00}", minutos, segundos);
 
-            if (txtNomeFase != null) txtNomeFase.text = MetricsManager.Instance.GetNomeFase(); 
+            if (txtNomeFase != null) txtNomeFase.text = MetricsManager.Instance.GetNameLevel(); 
             if (txtTempoTotal != null) txtTempoTotal.text = "Tempo: " + tempoFormatado;
-            if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetNumeroTentativasFase();
+            if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetTriesLevel();
+            if (txtColetaveis != null) txtColetaveis.text = "Número de Coletáveis obtidos: " + MetricsManager.Instance.GetCollectiblesCount();
         }
 
-        if (btnReset != null) btnReset.clicked += ReiniciarFase;
-        if (btnVoltarMenu != null) btnVoltarMenu.clicked += VoltarAoMenu;
+        if (btnReset != null) btnReset.clicked += RetryLevel;
+        if (btnVoltarMenu != null) btnVoltarMenu.clicked += BackToMenu;
     }
 
-    private void ReiniciarFase()
+    private void RetryLevel()
     {
         if (MetricsManager.Instance != null)
         {
-            MetricsManager.Instance.RegistrarTentativas(); 
+            MetricsManager.Instance.CountTries(); 
         }
         
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void VoltarAoMenu()
+    private void BackToMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main_Menu"); 
@@ -57,7 +59,7 @@ public class EndLevelController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (btnReset != null) btnReset.clicked -= ReiniciarFase;
-        if (btnVoltarMenu != null) btnVoltarMenu.clicked -= VoltarAoMenu;
+        if (btnReset != null) btnReset.clicked -= RetryLevel;
+        if (btnVoltarMenu != null) btnVoltarMenu.clicked -= BackToMenu;
     }
 }

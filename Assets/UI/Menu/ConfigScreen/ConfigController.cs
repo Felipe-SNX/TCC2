@@ -11,6 +11,8 @@ public class ConfigController : MonoBehaviour, IMenuPopup
     public ConfigControlsView viewControles;
     public ConfigGraphicsView viewGraficos;
     
+    private VisualElement root;
+
     private Label tituloAba;
     private VisualElement conteudoAudio;
     private VisualElement conteudoControles;
@@ -21,7 +23,7 @@ public class ConfigController : MonoBehaviour, IMenuPopup
 
     private void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
         tituloAba = root.Q<Label>("titulo-aba");
         conteudoAudio = root.Q<VisualElement>("conteudo-audio");
@@ -50,6 +52,14 @@ public class ConfigController : MonoBehaviour, IMenuPopup
         if (btnVoltar != null) btnVoltar.clicked += FecharTela; 
 
         MostrarAbaAudio();
+    }
+
+    void Start()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ConnectButtons(root);
+        }
     }
 
     private void FecharTela()

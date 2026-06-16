@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 7989557277322522341}
   - component: {fileID: 1169247444371806049}
   - component: {fileID: 8843400523744611672}
+  - component: {fileID: 6998609576906521058}
   m_Layer: 8
   m_Name: PF_Player
   m_TagString: Player
@@ -302,6 +303,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   wallSlidingSpeed: 2
+--- !u!95 &6998609576906521058
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6569261742038726068}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b09e60546065cf9448b36ebb7f759a91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7460226142078384286
 GameObject:
   m_ObjectHideFlags: 0

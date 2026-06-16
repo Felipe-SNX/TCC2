@@ -10,7 +10,6 @@
         <ui:ScrollView mode="Horizontal" horizontal-scroller-visibility="Hidden" class="carrossel-fases">
             
             <ui:VisualElement class="bandeja-fases">
-                <!-- Fase 1 -->
                 <ui:Button name="btn-fase-verde" class="cartao-fase tema-verde" focusable="true">
                     <ui:VisualElement class="frente-cartao">
                         <ui:VisualElement class="cor-preenchimento" />
@@ -18,7 +17,6 @@
                     </ui:VisualElement>
                 </ui:Button>
 
-                <!-- Fase 2 -->
                 <ui:Button name="btn-fase-vermelha" class="cartao-fase tema-vermelho" focusable="true">
                     <ui:VisualElement class="frente-cartao">
                         <ui:VisualElement class="cor-preenchimento" />
@@ -26,7 +24,6 @@
                     </ui:VisualElement>
                 </ui:Button>
 
-                <!-- Fase 3 -->
                 <ui:Button name="btn-fase-amarela" class="cartao-fase tema-amarelo" focusable="true">
                     <ui:VisualElement class="frente-cartao">
                         <ui:VisualElement class="cor-preenchimento" />

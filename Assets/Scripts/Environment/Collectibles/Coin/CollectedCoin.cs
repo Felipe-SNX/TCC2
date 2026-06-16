@@ -38,15 +38,16 @@ namespace CoinSystem
         {
             if (other.CompareTag("Player"))
             {
-
-                // Play sound and particle effects
-                audioSource.PlayOneShot(coinSound);
+                if (audioSource != null && coinSound != null)
+                    audioSource.PlayOneShot(coinSound);
+                    
                 CreateCoinParticule(transform.position);
 
-                // Add coins to the player
-                Coin.instance.AddCoins(coinsToGive);
+                if (MetricsManager.Instance != null)
+                {
+                    MetricsManager.Instance.RegisterCollectible();
+                }
 
-                // Handle collection
                 Collect();
             }
         }
@@ -59,7 +60,7 @@ namespace CoinSystem
             if (coinCollider != null)
                 coinCollider.enabled = false;
 
-            // Destroy the coin after a short delay
+            // Destroy the coin after a short delay to let the sound finish
             StartCoroutine(DestroyAfterDelay(1f));
         }
 
@@ -71,10 +72,13 @@ namespace CoinSystem
 
         private void CreateCoinParticule(Vector2 position)
         {
-            // Set the particle system's position to the coin's position and play it
-            Vector3 particlePosition = new Vector3(position.x, position.y, 0f);
-            CoinParticule.transform.position = particlePosition;
-            CoinParticule.Play();
+            if (CoinParticule != null)
+            {
+                // Set the particle system's position to the coin's position and play it
+                Vector3 particlePosition = new Vector3(position.x, position.y, 0f);
+                CoinParticule.transform.position = particlePosition;
+                CoinParticule.Play();
+            }
         }
     }
 }

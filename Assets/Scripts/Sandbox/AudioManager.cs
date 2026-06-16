@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UIElements;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip menuMusic;
     public AudioClip levelMusic;
     public AudioClip pauseMusic;
+    public AudioClip buttonClickSound;
 
     [Header("Audio Source")]
     public AudioSource musicSource;
@@ -67,6 +69,14 @@ public class AudioManager : MonoBehaviour
     public void PlayPauseMusic()
     {
         PlayMusic(pauseMusic);
+    }
+
+    public void PlayButtonClick(AudioClip clip)
+    {
+        if (clip != null && musicSource != null)
+        {
+            musicSource.PlayOneShot(clip);
+        }
     }
 
     private void PlayMusic(AudioClip clip)
@@ -141,5 +151,17 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.Stop();
         currentClip = null;
+    }
+
+    public void ConnectButtons(VisualElement tela)
+    {
+        if (tela == null || tela == null) return;
+
+        var todosOsBotoes = tela.Query<Button>().ToList();
+
+        foreach (var botao in todosOsBotoes)
+        {
+            botao.clicked += () => PlayButtonClick(buttonClickSound);
+        }
     }
 }
