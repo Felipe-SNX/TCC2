@@ -28,7 +28,6 @@ public class FinishFlag : MonoBehaviour
         if (PlayerState.Instance != null)
         {
             PlayerState.Instance.PauseMovement();
-            Time.timeScale = 0f; 
         }
 
         Rigidbody2D rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
