@@ -132,7 +132,6 @@ const rules = {
   minLength: (v: string) => v.length >= 6 || 'Mínimo de 6 caracteres'
 }
 
-// Observa mudanças no dialog e no usuario para preencher/limpar o form
 watch(() => props.modelValue, (open) => {
   if (open && props.usuario) {
     form.value = {

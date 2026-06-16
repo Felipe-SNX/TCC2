@@ -2,14 +2,13 @@ import { createVuetify, type ThemeDefinition } from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
-// Definição do Tema Claro (Light)
 const lightTheme: ThemeDefinition = {
   dark: false,
   colors: {
-    primary: '#673AB7', // Roxo Profundo - Calma e Espiritualidade
-    secondary: '#00BFA5', // Teal - Equilíbrio e Renovação
-    accent: '#FFD600',    // Amarelo - Energia e Foco
-    background: '#F4F7F6', // Cinza muito claro, quase branco
+    primary: '#673AB7',
+    secondary: '#00BFA5',
+    accent: '#FFD600',
+    background: '#F4F7F6',
     surface: '#FFFFFF',
     error: '#FF5252',
     info: '#2196F3',
@@ -22,13 +21,12 @@ const lightTheme: ThemeDefinition = {
   },
 }
 
-// Definição do Tema Escuro (Dark) - Focado em alto contraste e conforto visual
 const darkTheme: ThemeDefinition = {
   dark: true,
   colors: {
-    primary: '#9575CD',   // Roxo Suave - Melhor visibilidade no dark mode
-    secondary: '#1DE9B6', // Teal Vibrante
-    accent: '#FFFF00',    // Amarelo Vibrante
+    primary: '#9575CD',
+    secondary: '#1DE9B6',
+    accent: '#FFFF00',
     background: '#121212',
     surface: '#1E1E1E',
     error: '#FF8A80',
@@ -46,7 +44,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
     ssr: true,
     theme: {
-      defaultTheme: 'light', // Definindo como light por padrão, mas permitindo troca
+      defaultTheme: 'light',
       themes: {
         light: lightTheme,
         dark: darkTheme,

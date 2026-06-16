@@ -74,7 +74,6 @@ const enviado = ref(false);
 const formRef = ref<any>(null);
 const email = ref("");
 
-// TODO: olha rules solta auqui
 const emailRules = [
   (v: string) => !!v || "O e-mail é obrigatório.",
   (v: string) => /.+@.+\..+/.test(v) || "Insira um e-mail válido.",
@@ -93,7 +92,6 @@ const handleSubmit = async () => {
       body: { email: email.value },
     });
   } catch (error: any) {
-    // Mesmo em caso de erro de rede, exibimos a mensagem para não revelar informações
     console.error("Erro ao solicitar redefinição:", error);
   } finally {
     isLoading.value = false;

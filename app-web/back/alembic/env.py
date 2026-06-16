@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 # 2. Importa a Base e todas as tabelas para o autogenerate mapeá-las
 from app.db.base import Base
-from app.models.schema import Usuario, Paciente, PacientePsicologo, Pergunta, Resposta
+from app.models.schema import Usuario, Paciente, Resposta
 
 # 3. Força a leitura do arquivo .env a partir da raiz do backend
 env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')

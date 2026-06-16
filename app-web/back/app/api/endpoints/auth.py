@@ -33,7 +33,6 @@ def login_for_access_token(login_data: LoginSchema, db: Session = Depends(get_db
             detail="Acesso negado. Apenas psicólogos e administradores podem acessar este painel.",
         )
 
-    # Verifica se a conta está ativa
     if not usuario.ativo:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -73,8 +72,6 @@ def esqueci_senha(data: EsqueciSenhaSchema, db: Session = Depends(get_db)):
 
     if usuario:
         reset_token = create_password_reset_token(email=usuario.email)
-        # TODO: Enviar email com o link de redefinição de senha contendo o token.
-        # Exemplo de link: f"{FRONTEND_URL}/redefinir-senha?token={reset_token}"
         print(f"[DEBUG] Token de redefinição para {usuario.email}: {reset_token}")
 
     return JSONResponse(
