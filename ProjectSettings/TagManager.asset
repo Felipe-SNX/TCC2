@@ -41,23 +41,26 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: FarBackground
+    uniqueID: 2639614751
+    locked: 0
   - name: Background
     uniqueID: 97591931
     locked: 0
-  - name: Tutorial
-    uniqueID: 2639614751
+  - name: Player
+    uniqueID: 1214484393
     locked: 0
-  - name: Gameplay
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Foreground
     uniqueID: 2479471619
     locked: 0
-  - name: Player
+  - name: NearForeground
     uniqueID: 1894412481
     locked: 0
   - name: UI
     uniqueID: 169201565
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0
   m_RenderingLayers:
   - Default
