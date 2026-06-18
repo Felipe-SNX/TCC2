@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="EpilepsyScreen.uss" />
+
+    <ui:VisualElement class="tela-preta centralizar">
+        
+        <ui:Label text="AVISO DE SAÚDE E SEGURANÇA" class="titulo-aviso" />
+        
+        <ui:Label text="Uma porcentagem muito pequena de pessoas pode sofrer uma convulsão ao ser exposta a certas imagens visuais, incluindo luzes piscantes ou padrões que podem aparecer em videogames. Mesmo pessoas que não têm histórico de convulsões ou epilepsia podem ter uma condição não diagnosticada que pode causar essas 'convulsões epilépticas fotossensíveis' ao jogar.&#10;&#10;Se você ou algum de seus parentes tem histórico de convulsões ou epilepsia, consulte um médico antes de jogar." class="texto-aviso" />
+        
+    </ui:VisualElement>
+
+</ui:UXML>

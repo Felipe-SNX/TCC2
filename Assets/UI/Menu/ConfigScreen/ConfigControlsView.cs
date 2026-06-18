@@ -10,6 +10,9 @@ public class ConfigControlsView
         root = container;
         root.Clear(); 
 
+        // Adiciona um pequeno respiro no topo do ScrollView
+        root.style.paddingTop = 15;
+
         GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentação", true);
 
         // Linhas normais para as teclas individuais
@@ -20,31 +23,36 @@ public class ConfigControlsView
     }
 
     private void GerarLinha(Sprite icone, string acao, bool ehLargo)
-        {
-            if (icone == null) return;
+    {
+        if (icone == null) return;
 
-            VisualElement linha = new VisualElement();
-            linha.AddToClassList("linha-controle");
+        VisualElement linha = new VisualElement();
+        linha.AddToClassList("linha-controle");
 
-            Label labelAcao = new Label(acao);
-            labelAcao.AddToClassList("texto-acao");
+        // Reutilizamos a classe "labels" que criamos para o Áudio, mantendo o alinhamento perfeito
+        Label labelAcao = new Label(acao);
+        labelAcao.AddToClassList("labels"); 
 
-            VisualElement wrapperDireita = new VisualElement();
-            wrapperDireita.AddToClassList("tecla-wrapper-direita");
+        VisualElement wrapperDireita = new VisualElement();
+        wrapperDireita.AddToClassList("tecla-wrapper-direita");
 
-            VisualElement iconeElement = new VisualElement();
-            if (ehLargo)
-                iconeElement.AddToClassList("tecla-container-larga");
-            else
-                iconeElement.AddToClassList("tecla-container");
+        VisualElement iconeElement = new VisualElement();
+        
+        if (ehLargo)
+            iconeElement.AddToClassList("tecla-container-larga");
+        else
+            iconeElement.AddToClassList("tecla-container");
 
+        // --- INTEGRAÇÃO COM O VISUAL NEON ---
+        iconeElement.AddToClassList("tecla-neon"); // Dá o fundo transparente e a borda
+        iconeElement.AddToClassList("icone-cromatico"); // Tag para o script principal animar a cor do ícone!
 
-            iconeElement.style.backgroundImage = new StyleBackground(icone);
+        iconeElement.style.backgroundImage = new StyleBackground(icone);
 
-            linha.Add(labelAcao);         
-            wrapperDireita.Add(iconeElement); 
-            linha.Add(wrapperDireita);
+        linha.Add(labelAcao);         
+        wrapperDireita.Add(iconeElement); 
+        linha.Add(wrapperDireita);
 
-            root.Add(linha);
-        }
+        root.Add(linha);
+    }
 }

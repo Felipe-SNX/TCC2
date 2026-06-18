@@ -63,8 +63,6 @@ public class ConfigGraphicsView
         if (drp == null) return;
 
         drp.choices = new List<string> { "Tela Cheia", "Janela" };
-        
-        // Define o valor inicial baseado no estado atual
         drp.value = Screen.fullScreen ? "Tela Cheia" : "Janela";
 
         drp.RegisterValueChangedCallback(evt => {
@@ -80,12 +78,8 @@ public class ConfigGraphicsView
         DropdownField drp = root.Q<DropdownField>("drp-qualidade");
         if (drp == null) return;
 
-        // Pega automaticamente os nomes das qualidades do Project Settings da Unity
-        // Ex: "Baixa", "Média", "Alta"
         List<string> qualidades = new List<string>(QualitySettings.names);
         drp.choices = qualidades;
-
-        // Define o índice atual
         drp.index = QualitySettings.GetQualityLevel();
 
         drp.RegisterValueChangedCallback(evt => {

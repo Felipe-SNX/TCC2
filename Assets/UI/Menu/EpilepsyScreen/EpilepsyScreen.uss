@@ -1,0 +1,27 @@
+.tela-preta {
+    flex-grow: 1;
+    background-color: rgb(0, 0, 0); 
+    padding: 100px;
+}
+
+.centralizar {
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-aviso {
+    font-size: 50px;
+    color: rgb(255, 100, 100); 
+    -unity-font-style: bold;
+    margin-bottom: 40px;
+    -unity-text-align: middle-center;
+}
+
+.texto-aviso {
+    font-size: 30px;
+    color: rgb(200, 200, 200); 
+    white-space: normal; 
+    width: 60%; 
+    -unity-text-align: upper-center;
+    line-height: 45px;
+}
