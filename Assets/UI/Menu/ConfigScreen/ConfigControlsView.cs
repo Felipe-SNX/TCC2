@@ -43,7 +43,6 @@ public class ConfigControlsView
         else
             iconeElement.AddToClassList("tecla-container");
 
-        // --- INTEGRAÇÃO COM O VISUAL NEON ---
         iconeElement.AddToClassList("tecla-neon"); // Dá o fundo transparente e a borda
         iconeElement.AddToClassList("icone-cromatico"); // Tag para o script principal animar a cor do ícone!
 
