@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Platformer.Environment.BackgroundConfig
   backgroundSize: {x: 110000, y: 10000, z: 10}
   colors:
-  - {r: 0.032334495, g: 0.4339623, b: 0, a: 1}
-  - {r: 0.21091036, g: 0.7924528, b: 0.15325737, a: 1}
-  - {r: 0.08928567, g: 1, b: 0, a: 1}
-  colorTransitionDuration: 5
-  transitionSmoothness: 0.5
+  - {r: 0, g: 1, b: 0.52542996, a: 1}
+  - {r: 0.094890416, g: 1, b: 0, a: 1}
+  - {r: 0.7611358, g: 1, b: 0, a: 1}
+  colorTransitionDuration: 2
+  transitionSmoothness: 1
   sortingOrder: -100
   sortingLayerName: Background
