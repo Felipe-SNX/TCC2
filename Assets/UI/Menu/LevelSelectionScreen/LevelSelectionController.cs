@@ -7,10 +7,22 @@ public class LevelSelectionController : MonoBehaviour, IMenuPopup
 {
     public Action AoFechar { get; set; }
 
+    [Header("Animação de Carregamento")]
+    public float velocidadePreenchimento = 50f; 
+    private float progressoPreenchimento = 0f;
+    
+    private VisualElement root;
+    private VisualElement mascaraTitulo;
+
     private void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
+        progressoPreenchimento = 0f;
+        mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
+        if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
+
+        // Limpa o foco inicial por segurança
         root.schedule.Execute(() => {
             var elementoFocado = root.panel?.focusController?.focusedElement as VisualElement;
             if (elementoFocado != null)
@@ -31,6 +43,25 @@ public class LevelSelectionController : MonoBehaviour, IMenuPopup
         btnVerde?.RegisterCallback<GeometryChangedEvent>(evt => btnVerde.Focus());
 
         if (btnVoltar != null) btnVoltar.clicked += FecharTela;
+    }
+
+    void Start()
+    {
+        if (AudioManager.Instance != null && root != null)
+        {
+            AudioManager.Instance.ConnectButtons(root);
+        }
+    }
+
+    private void Update()
+    {
+        if (root == null || root.style.display == DisplayStyle.None) return;
+
+        if (mascaraTitulo != null && progressoPreenchimento < 100f)
+        {
+            progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
+            mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));
+        }
     }
 
     private void ConfigurarBotao(Button botao, Action acao)
