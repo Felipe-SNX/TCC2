@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5158680974251123547}
   - component: {fileID: 6165520831243596373}
   - component: {fileID: 5740759673407459275}
+  - component: {fileID: 3831191990208751401}
   m_Layer: 0
   m_Name: Coin Built-in
   m_TagString: Untagged
@@ -246,3 +247,15 @@ MonoBehaviour:
   audioSource: {fileID: 6165520831243596373}
   moveSpeed: 2
   originalY: 0
+--- !u!114 &3831191990208751401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8657959380833974309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fb19ea0602f6f459d00a6ca50ad988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloatingEffect
