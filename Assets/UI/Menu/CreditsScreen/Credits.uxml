@@ -5,25 +5,65 @@
 
     <ui:VisualElement class="tela-inteira">
         
-        <ui:Label text="Créditos" class="titulo-creditos" />
-
-        <ui:VisualElement class="container-equipe">
-            
-            <ui:Label text="Level Design e Programação" class="texto-cargo" />
-            <ui:Label text="Carlos Eduardo" class="texto-nome cor-verde" />
-
-            <ui:Label text="Programação e UI" class="texto-cargo" />
-            <ui:Label text="Felipe Eduardo" class="texto-nome cor-amarela" />
-
-            <ui:Label text="Arte e Level Design" class="texto-cargo" />
-            <ui:Label text="Luiz Bussolo" class="texto-nome cor-vermelha" />
-
-            <ui:Label text="Programação e UI" class="texto-cargo" />
-            <ui:Label text="Rodolfo" class="texto-nome cor-azul" />
-
+        <ui:VisualElement class="titulo-container">
+            <ui:Label text="Créditos" class="titulo-tela titulo-cinza" />
+            <ui:VisualElement name="mascara-titulo" class="mascara">
+                <ui:Label name="titulo-frente" text="Créditos" class="titulo-tela colorido" />
+            </ui:VisualElement>
         </ui:VisualElement>
 
-        <ui:Button name="btn-voltar" text="Voltar" class="botao-voltar" />
+        <ui:ScrollView name="janela-rolagem" class="janela-rolagem" vertical-scroller-visibility="Auto">
+            
+            <ui:VisualElement name="conteudo-rolagem" class="conteudo-rolagem">
+                
+                <ui:Label text="EQUIPE PRINCIPAL" class="categoria-header" />
+                
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Level Design e Programação" class="texto-cargo" />
+                    <ui:Label text="Carlos Eduardo" class="texto-nome cor-verde" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Programação e UI" class="texto-cargo" />
+                    <ui:Label text="Felipe Eduardo" class="texto-nome cor-amarela" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Arte e Level Design" class="texto-cargo" />
+                    <ui:Label text="Luiz Bussolo" class="texto-nome cor-vermelha" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Programação e UI" class="texto-cargo" />
+                    <ui:Label text="Rodolfo" class="texto-nome cor-azul" />
+                </ui:VisualElement>
+
+
+                <ui:Label text="TRILHA SONORA E SFX" class="categoria-header" />
+                
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Efeitos Sonoros Adicionais" class="texto-cargo" />
+                    <ui:Label text="Nome do Asset / Criador (Licença CC)" class="texto-asset" />
+                </ui:VisualElement>
+
+
+                <ui:Label text="ASSETS VISUAIS E FONTES" class="categoria-header" />
+                
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Tipografia do Menu" class="texto-cargo" />
+                    <ui:Label text="Nome da Fonte / Distribuidor" class="texto-asset" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="espacador-fim" />
+
+            </ui:VisualElement>
+            
+        </ui:ScrollView>
+
+        <ui:Button name="btn-voltar" class="botao-menu botao-voltar">
+            <ui:Label text="Voltar" class="texto-botao" picking-mode="Ignore" />
+            <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+        </ui:Button>
 
     </ui:VisualElement>
 

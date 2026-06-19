@@ -1,0 +1,53 @@
+.tela-inteira {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0); 
+}
+
+.centralizar {
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-container {
+    position: relative;
+    height: 150px;
+    margin-bottom: 50px;
+}
+
+.titulo-jogo {
+    font-size: 140px; 
+    -unity-font-style: bold;
+    white-space: nowrap;
+}
+
+.titulo-cinza { color: #444444; }
+
+.mascara {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 0%; 
+    overflow: hidden;
+}
+
+.colorido {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+
+.prompt {
+    font-size: 30px;
+    color: #CCCCCC;
+    margin-top: 100px;
+    -unity-font-style: bold;
+}
+
+.linha-horizontal {
+    position: absolute;
+    bottom: 20%;
+    height: 2px;
+    width: 0%;
+    background-color: white;
+    opacity: 0.3;
+}

@@ -16,9 +16,9 @@ public class ConfigAudioView
     {
         root = container;
         
-        sliderMaster = ConfigurarSliderCompleto("slider-master", "txt-valor-master");
-        sliderSFX = ConfigurarSliderCompleto("slider-som", "txt-valor-som");
-        sliderMusica = ConfigurarSliderCompleto("slider-musica", "txt-valor-musica");
+        sliderMaster = ConfigurarSliderCompleto("slider-master", "txt-valor-master", "cor-master");
+        sliderSFX = ConfigurarSliderCompleto("slider-som", "txt-valor-som", "cor-sfx");
+        sliderMusica = ConfigurarSliderCompleto("slider-musica", "txt-valor-musica", "cor-musica");
 
         if (sliderMaster != null)
         {
@@ -81,14 +81,14 @@ public class ConfigAudioView
         if (fillElement != null) UpdateFill(slider, fillElement);
     }
 
-    private Slider ConfigurarSliderCompleto(string nomeSlider, string nomeLabel)
+    private Slider ConfigurarSliderCompleto(string nomeSlider, string nomeLabel, string corClasse)
     {
         Slider slider = root.Q<Slider>(nomeSlider);
         Label label = root.Q<Label>(nomeLabel);
 
         if (slider != null)
         {
-            adicionarRastroSlider(slider);
+            adicionarRastroSlider(slider, corClasse);
 
             if (label != null)
             {
@@ -102,19 +102,18 @@ public class ConfigAudioView
         return slider;
     }
 
-    private void adicionarRastroSlider(Slider slider)
+    private void adicionarRastroSlider(Slider slider, string corClasse)
     {
         if (slider != null)
         {
             var tracker = slider.Q<VisualElement>(className: "unity-base-slider__tracker");
-
             if (tracker != null)
             {
-                var fillElement = new VisualElement
-                {
-                    name = "slider-fill"
-                };
+                var fillElement = new VisualElement { name = "slider-fill" };
+                
                 fillElement.AddToClassList("meu-slider-rastro");
+                fillElement.AddToClassList(corClasse); // Aplica a cor específica (verde, azul ou amarelo)
+                fillElement.AddToClassList("elemento-pulsante"); // Tag para o script principal piscar
 
                 tracker.Add(fillElement);
 

@@ -5,29 +5,35 @@
 
     <ui:VisualElement class="tela-inteira">
         
-        <ui:Label text="Seleção de Fases" class="titulo-tela" />
+        <ui:VisualElement class="titulo-container">
+            <ui:Label text="Seleção de Fases" class="titulo-tela titulo-cinza" />
+            <ui:VisualElement name="mascara-titulo" class="mascara">
+                <ui:Label name="titulo-frente" text="Seleção de Fases" class="titulo-tela colorido" />
+            </ui:VisualElement>
+        </ui:VisualElement>
 
         <ui:ScrollView mode="Horizontal" horizontal-scroller-visibility="Hidden" class="carrossel-fases">
             
             <ui:VisualElement class="bandeja-fases">
+                
                 <ui:Button name="btn-fase-verde" class="cartao-fase tema-verde" focusable="true">
-                    <ui:VisualElement class="frente-cartao">
-                        <ui:VisualElement class="cor-preenchimento" />
-                        <ui:Label text="Fase Verde" class="texto-fase" />
+                    <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
+                        <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
+                        <ui:Label text="Fase Verde" class="texto-fase" picking-mode="Ignore" />
                     </ui:VisualElement>
                 </ui:Button>
 
                 <ui:Button name="btn-fase-vermelha" class="cartao-fase tema-vermelho" focusable="true">
-                    <ui:VisualElement class="frente-cartao">
-                        <ui:VisualElement class="cor-preenchimento" />
-                        <ui:Label text="Fase Vermelha" class="texto-fase" />
+                    <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
+                        <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
+                        <ui:Label text="Fase Vermelha" class="texto-fase" picking-mode="Ignore" />
                     </ui:VisualElement>
                 </ui:Button>
 
                 <ui:Button name="btn-fase-amarela" class="cartao-fase tema-amarelo" focusable="true">
-                    <ui:VisualElement class="frente-cartao">
-                        <ui:VisualElement class="cor-preenchimento" />
-                        <ui:Label text="Fase Amarela" class="texto-fase" />
+                    <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
+                        <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
+                        <ui:Label text="Fase Amarela" class="texto-fase" picking-mode="Ignore" />
                     </ui:VisualElement>
                 </ui:Button>
 
@@ -35,7 +41,10 @@
             
         </ui:ScrollView>
 
-        <ui:Button name="btn-voltar" text="Voltar" class="botao-voltar" />
+        <ui:Button name="btn-voltar" class="botao-menu botao-voltar">
+            <ui:Label text="Voltar" class="texto-botao" picking-mode="Ignore" />
+            <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+        </ui:Button>
 
     </ui:VisualElement>
 

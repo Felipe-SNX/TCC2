@@ -3385,6 +3385,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3510,6 +3511,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f7e1e1bf29e0543b16b36aba8268b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraMenuScroll
+  velocidade: 2
+  limiteY: 50
 --- !u!1001 &567146737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54289,6 +54304,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1188208746
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 83.65386
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.08738
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261431865743021151, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108588641845801454, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: m_Name
+      value: EpilepsyScreen
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
 --- !u!1 &1284621056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8721250443115494181, guid: ba6e395d78ac67646888a23595341ee3, type: 3}
@@ -80061,6 +80133,52 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1381800255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1381800257}
+  - component: {fileID: 1381800256}
+  m_Layer: 7
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1381800256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381800255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f1e2f6ba706c84da180832c81044db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Environment.BackgroundManager
+  config: {fileID: 11400000, guid: 833432190f3532e4a9d83259c5b4b03b, type: 2}
+  progressionSpeed: 1
+--- !u!4 &1381800257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381800255}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1660519598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4329630142996286041, guid: c20222e7cf614d34ea42dbc5b0aa842c, type: 3}
@@ -80632,6 +80750,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1845280310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 83.65386
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.08738
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004421771827048845, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314440703811561224, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: m_Name
+      value: StartScreen_UI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
 --- !u!1 &1884835614
 GameObject:
   m_ObjectHideFlags: 0
@@ -80649,7 +80824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1884835615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80703,6 +80878,8 @@ MonoBehaviour:
   objetoConfiguracoes: {fileID: 1660519598}
   objetoSelecaoFases: {fileID: 1310230131}
   objetoCreditos: {fileID: 1284621056}
+  velocidadeTrocaDeCor: 1.5
+  velocidadePreenchimento: 45
 --- !u!1 &1916819399
 GameObject:
   m_ObjectHideFlags: 0
@@ -81187,9 +81364,12 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 387293970}
   - {fileID: 2139269342}
+  - {fileID: 1381800257}
   - {fileID: 1884835616}
   - {fileID: 567146737}
   - {fileID: 449337650}
   - {fileID: 350119230}
   - {fileID: 6132793095189284959}
   - {fileID: 883127344460121198}
+  - {fileID: 1188208746}
+  - {fileID: 1845280310}
