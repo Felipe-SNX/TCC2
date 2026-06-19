@@ -1,59 +1,81 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LoadingController : MonoBehaviour
 {
+    private VisualElement root;
+    private VisualElement mascaraTitulo;
     private VisualElement barraPreenchimento;
-    private Label txtPorcentagem;
-    private bool carregamentoConcluido = false;
+    private Label promptText;
+
+    private AsyncOperation operacaoCarregamento;
+    private bool carregamentoCompleto = false;
 
     private void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
+
+        mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
         barraPreenchimento = root.Q<VisualElement>("barra-preenchimento");
-        txtPorcentagem = root.Q<Label>("txt-porcentagem");
+        promptText = root.Q<Label>("prompt-text");
 
-        string cenaAlvo = string.IsNullOrEmpty(GlobalData.nextScene) ? "Map_Green" : GlobalData.nextScene;
+        if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
+        if (barraPreenchimento != null) barraPreenchimento.style.width = Length.Percent(0);
+        if (promptText != null) promptText.AddToClassList("oculto");
 
-        StartCoroutine(CarregarCenaAsync(cenaAlvo));
+        StartCoroutine(CarregarCenaAssincronamente(GlobalData.nextScene));
     }
 
-    private IEnumerator CarregarCenaAsync(string nomeCena)
+    private void Update()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
-        
-        AsyncOperation operacao = SceneManager.LoadSceneAsync(nomeCena);
-        operacao.allowSceneActivation = false;
+        if (root == null || root.style.display == DisplayStyle.None) return;
 
-        while (!operacao.isDone)
+        if (carregamentoCompleto && promptText != null)
         {
-            float progresso = Mathf.Clamp01(operacao.progress / 0.9f);
-            
-            if (operacao.progress < 0.9f)
+            float alpha = (Mathf.Sin(Time.time * 4f) + 1f) / 2f; 
+            promptText.style.opacity = Mathf.Lerp(0.3f, 1f, alpha);
+
+            if (Input.anyKeyDown)
             {
-                barraPreenchimento.style.width = Length.Percent(progresso * 100);
-                txtPorcentagem.text = Mathf.RoundToInt(progresso * 100) + "%";
+                FinalizarCarregamento();
             }
-            else
-            {
-                barraPreenchimento.style.width = Length.Percent(100);
-                txtPorcentagem.text = "PRESSIONE QUALQUER TECLA";
-
-                if (!carregamentoConcluido)
-                {
-                    yield return new WaitForSecondsRealtime(0.1f);
-                    carregamentoConcluido = true;
-                }
-
-                if (carregamentoConcluido && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
-                {
-                    operacao.allowSceneActivation = true;
-                }
-            }
-
-            yield return null;
         }
+    }
+
+    private IEnumerator CarregarCenaAssincronamente(string nomeCena)
+    {
+        yield return new WaitForSeconds((float)0.5); 
+
+        operacaoCarregamento = SceneManager.LoadSceneAsync(nomeCena);
+        
+        // Impede que a cena ligue automaticamente quando chegar em 100%
+        operacaoCarregamento.allowSceneActivation = false; 
+
+        while (!operacaoCarregamento.isDone)
+        {
+            float progresso = Mathf.Clamp01(operacaoCarregamento.progress / 0.9f);
+            
+            float porcentagem = progresso * 100f;
+            if (barraPreenchimento != null) barraPreenchimento.style.width = Length.Percent(porcentagem);
+            if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(porcentagem);
+
+            if (operacaoCarregamento.progress >= 0.9f)
+            {
+                carregamentoCompleto = true;
+                
+                if (promptText != null) promptText.RemoveFromClassList("oculto");
+                
+                yield break; 
+            }
+
+            yield return null; 
+        }
+    }
+
+    private void FinalizarCarregamento()
+    {
+        if (operacaoCarregamento != null) operacaoCarregamento.allowSceneActivation = true;
     }
 }
