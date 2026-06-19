@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
->
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    
     <Style src="EndLevel.uss" />
 
     <ui:VisualElement class="tela-cheia">
         
-        <ui:VisualElement class="banner-anuncio">
+        <ui:VisualElement class="painel-vidro">
             
-            <ui:Label name="txt-nome-fase" text="Nome da Fase" class="titulo" />
-            
-            <ui:Label name="txt-tempo-total" text="Tempo Total: 00:00" class="texto-fase" />
-            <ui:Label name="txt-tentativas" text="Número de Tentativas: 0" class="texto-fase" />
-            <ui:Label name="txt-coletaveis" text="Número de Coletáveis obtidos: 0" class="texto-fase" />
+            <ui:VisualElement class="titulo-container">
+                <ui:Label name="txt-nome-fase" text="Nome da Fase" class="titulo titulo-cinza" />
+                <ui:VisualElement name="mascara-titulo" class="mascara">
+                    <ui:Label text="Nome da Fase" class="titulo colorido" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Label name="txt-tempo-total" text="Tempo Total: 00:00" class="texto-stats" />
+            <ui:Label name="txt-tentativas" text="Tentativas: 0" class="texto-stats" />
+            <ui:Label name="txt-coletaveis" text="Coletáveis: 0" class="texto-stats" />
             
             <ui:VisualElement class="container-botoes">
-                <ui:Button name="btn-reset" text="Reiniciar Fase" class="botao" />
-                <ui:Button name="btn-voltar-menu" text="Voltar a seleção de fase" class="botao" />
+                <ui:Button name="btn-reset" class="botao-menu">
+                    <ui:Label text="Reiniciar Fase" class="texto-botao" picking-mode="Ignore" />
+                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                </ui:Button>
+                
+                <ui:Button name="btn-voltar-menu" class="botao-menu">
+                    <ui:Label text="Voltar ao Menu" class="texto-botao" picking-mode="Ignore" />
+                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                </ui:Button>
             </ui:VisualElement>
 
         </ui:VisualElement>

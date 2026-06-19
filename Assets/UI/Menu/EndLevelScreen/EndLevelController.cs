@@ -5,61 +5,47 @@ using UnityEngine.SceneManagement;
 public class EndLevelController : MonoBehaviour
 {
     private VisualElement root;
-    private Button btnReset;
-    private Button btnVoltarMenu;
+    private VisualElement mascaraTitulo;
+    private float progressoPreenchimento = 0f;
+    [SerializeField] private float velocidadePreenchimento = 50f;
 
     private void OnEnable()
     {
-        var uiDocument = GetComponent<UIDocument>();
-        if (uiDocument == null) return;
-        
-        root = uiDocument.rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
+        mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
 
+        // Preenche dados
         var txtNomeFase = root.Q<Label>("txt-nome-fase");
         var txtTempoTotal = root.Q<Label>("txt-tempo-total");
         var txtTentativas = root.Q<Label>("txt-tentativas");
         var txtColetaveis = root.Q<Label>("txt-coletaveis");
         
-        btnReset = root.Q<Button>("btn-reset");
-        btnVoltarMenu = root.Q<Button>("btn-voltar-menu");
-
         if (MetricsManager.Instance != null)
         {
             float tempo = MetricsManager.Instance.GetTimeLevel(); 
-            int minutos = Mathf.FloorToInt(tempo / 60F);
-            int segundos = Mathf.FloorToInt(tempo - minutos * 60);
-            string tempoFormatado = string.Format("{0:00}:{1:00}", minutos, segundos);
+            string tempoFormatado = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(tempo / 60F), Mathf.FloorToInt(tempo % 60));
 
             if (txtNomeFase != null) txtNomeFase.text = MetricsManager.Instance.GetNameLevel(); 
             if (txtTempoTotal != null) txtTempoTotal.text = "Tempo: " + tempoFormatado;
             if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetTriesLevel();
-            if (txtColetaveis != null) txtColetaveis.text = "Número de Coletáveis obtidos: " + MetricsManager.Instance.GetCollectiblesCount();
+            if (txtColetaveis != null) txtColetaveis.text = "Coletáveis: " + MetricsManager.Instance.GetCollectiblesCount();
         }
 
-        if (btnReset != null) btnReset.clicked += RetryLevel;
-        if (btnVoltarMenu != null) btnVoltarMenu.clicked += BackToMenu;
+        root.Q<Button>("btn-reset").clicked += RetryLevel;
+        root.Q<Button>("btn-voltar-menu").clicked += BackToMenu;
+
+        progressoPreenchimento = 0f;
     }
 
-    private void RetryLevel()
+    private void Update()
     {
-        if (MetricsManager.Instance != null)
+        if (mascaraTitulo != null && progressoPreenchimento < 100f)
         {
-            MetricsManager.Instance.CountTries(); 
+            progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
+            mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));
         }
-        
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void BackToMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Main_Menu"); 
-    }
-
-    private void OnDisable()
-    {
-        if (btnReset != null) btnReset.clicked -= RetryLevel;
-        if (btnVoltarMenu != null) btnVoltarMenu.clicked -= BackToMenu;
-    }
+    private void RetryLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    private void BackToMenu() => SceneManager.LoadScene("Main_Menu");
 }
