@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &4856762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6314440703811561224, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+  m_PrefabInstance: {fileID: 1845280310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &106392134
 GameObject:
   m_ObjectHideFlags: 0
@@ -54352,6 +54357,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4160939808028404145, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
+      propertyPath: objectStartScreen
+      value: 
+      objectReference: {fileID: 4856762}
     - target: {fileID: 6108588641845801454, guid: da98f3f1d3e1c4448962f25ea7080a46, type: 3}
       propertyPath: m_Name
       value: EpilepsyScreen
@@ -80798,6 +80807,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4853871082889623799, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
+      propertyPath: mainMenuObject
+      value: 
+      objectReference: {fileID: 1884835614}
     - target: {fileID: 6314440703811561224, guid: 65b552cb2a4efed4b94ef95bcdff1281, type: 3}
       propertyPath: m_Name
       value: StartScreen_UI

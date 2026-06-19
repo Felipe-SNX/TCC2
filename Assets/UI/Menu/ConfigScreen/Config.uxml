@@ -17,25 +17,27 @@
             <ui:VisualElement class="layout-duas-colunas">
                 
                 <ui:VisualElement class="sidebar">
-                    <ui:Button name="btn-aba-audio" class="botao-menu">
+    
+                    <ui:Button name="btn-aba-audio" class="botao-menu aba-ativa">
                         <ui:Label text="Áudio" class="texto-botao" picking-mode="Ignore" />
                         <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
                     </ui:Button>
+
                     <ui:Button name="btn-aba-controles" class="botao-menu">
                         <ui:Label text="Controles" class="texto-botao" picking-mode="Ignore" />
                         <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
                     </ui:Button>
+
                     <ui:Button name="btn-aba-graficos" class="botao-menu">
                         <ui:Label text="Gráficos" class="texto-botao" picking-mode="Ignore" />
                         <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
                     </ui:Button>
-                    
-                    <ui:VisualElement style="flex-grow: 1;" /> 
-                    
-                    <ui:Button name="btn-voltar" class="botao-menu">
+
+                    <ui:Button name="btn-voltar" class="botao-menu ancora-fundo">
                         <ui:Label text="Voltar" class="texto-botao" picking-mode="Ignore" />
                         <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
                     </ui:Button>
+
                 </ui:VisualElement>
 
                 <ui:VisualElement class="painel-conteudo">

@@ -32,13 +32,11 @@ public class ConfigController : MonoBehaviour, IMenuPopup
     private VisualElement mascaraTitulo;
     private List<VisualElement> elementosOpacidade = new List<VisualElement>();
     private List<VisualElement> bordasGraficos = new List<VisualElement>();
-    private List<VisualElement> linhasBotoes = new List<VisualElement>();
-
+    
     private void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        // 1. Buscando Elementos Base
         tituloAba = root.Q<Label>("titulo-aba");
         conteudoAudio = root.Q<VisualElement>("conteudo-audio");
         conteudoControles = root.Q<VisualElement>("conteudo-controles");
@@ -46,7 +44,6 @@ public class ConfigController : MonoBehaviour, IMenuPopup
 
         ScrollView listaControles = root.Q<ScrollView>("lista-controles-container");
 
-        // 2. Inicializando Sub-Views
         if (viewControles != null && listaControles != null)
         {
             viewControles.Inicializar(listaControles);
@@ -61,13 +58,11 @@ public class ConfigController : MonoBehaviour, IMenuPopup
         if (viewControles != null && conteudoControles != null) viewControles.Inicializar(conteudoControles);
         if (viewGraficos != null && conteudoGraficos != null) viewGraficos.Inicializar(conteudoGraficos);
 
-        // 3. Configurando Eventos de Clique
         if (btnAudio != null) btnAudio.clicked += MostrarAbaAudio;
         if (btnControles != null) btnControles.clicked += MostrarAbaControles;
         if (btnGraficos != null) btnGraficos.clicked += MostrarAbaGraficos;
         if (btnVoltar != null) btnVoltar.clicked += FecharTela; 
 
-        // 4. Preparando Elementos para Animação Pulsante
         ConfigurarAnimacaoCromatica();
 
         MostrarAbaAudio();
@@ -78,7 +73,6 @@ public class ConfigController : MonoBehaviour, IMenuPopup
 
     void Start()
     {
-        // Mantendo a arquitetura do Singleton intacta conforme suas prioridades técnicas
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.ConnectButtons(root);
@@ -89,43 +83,29 @@ public class ConfigController : MonoBehaviour, IMenuPopup
     {
         if (root == null || root.style.display == DisplayStyle.None) return;
 
-        // Cria uma onda matemática suave que oscila entre 0 e 1
         float pulso = (Mathf.Sin(Time.time * velocidadePulso) + 1f) / 2f; 
         
-        // Limita a opacidade para que os elementos não sumam completamente
         float opacidadeForte = Mathf.Lerp(0.4f, 1f, pulso);
         float opacidadeFraca = Mathf.Lerp(0.2f, 0.8f, pulso);
 
-        // 1. Pisca a opacidade dos Sliders (a cor já foi definida no CSS/Sub-View)
         foreach (var el in elementosOpacidade)
         {
             if (el != null) el.style.opacity = opacidadeForte;
         }
 
-        // 2. Pisca as linhas dos botões selecionados (Fixo em Vermelho)
-        Color vermelhoPulso = new Color(1f, 0.2f, 0.2f, opacidadeForte);
-        foreach (var linha in linhasBotoes)
-        {
-            if (linha != null) linha.style.backgroundColor = vermelhoPulso;
-        }
-
-        // 3. Pisca as bordas dos Dropdowns de Gráficos (Fixo em Ciano)
         Color cianoPulso = new Color(0f, 1f, 1f, opacidadeFraca);
         foreach (var borda in bordasGraficos)
         {
             if (borda != null) 
             {
-                // Alterado para modificar estritamente a borda inferior, preservando o estilo limpo
                 borda.style.borderBottomColor = cianoPulso;
                 
-                // Garante que as outras direções permaneçam transparentes/zeradas
                 borda.style.borderTopColor = Color.clear;
                 borda.style.borderLeftColor = Color.clear;
                 borda.style.borderRightColor = Color.clear;
             }
         }
 
-        // 4. Máscara do título "Configurações"
         if (mascaraTitulo != null && progressoPreenchimento < 100f)
         {
             progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
@@ -137,10 +117,8 @@ public class ConfigController : MonoBehaviour, IMenuPopup
     {
         mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
 
-        // Busca apenas as tags puras que definem O QUE vai piscar, sem se importar com a cor
         elementosOpacidade = root.Query<VisualElement>(className: "elemento-pulsante").ToList();
         bordasGraficos = root.Query<VisualElement>(className: "borda-cromatica").ToList();
-        linhasBotoes = root.Query<VisualElement>("linha-inferior").ToList();
     }
 
     private void FecharTela()
@@ -154,7 +132,7 @@ public class ConfigController : MonoBehaviour, IMenuPopup
         EsconderAbas();
         tituloAba.text = "Áudio";
         conteudoAudio.style.display = DisplayStyle.Flex;
-        btnAudio.AddToClassList("botao-ativo");
+        btnAudio.AddToClassList("aba-ativa"); 
     }
 
     private void MostrarAbaControles()
@@ -162,7 +140,7 @@ public class ConfigController : MonoBehaviour, IMenuPopup
         EsconderAbas();
         tituloAba.text = "Controles";
         conteudoControles.style.display = DisplayStyle.Flex;
-        btnControles.AddToClassList("botao-ativo");
+        btnControles.AddToClassList("aba-ativa"); 
     }
 
     private void MostrarAbaGraficos()
@@ -170,7 +148,7 @@ public class ConfigController : MonoBehaviour, IMenuPopup
         EsconderAbas();
         tituloAba.text = "Gráficos";
         conteudoGraficos.style.display = DisplayStyle.Flex;
-        btnGraficos.AddToClassList("botao-ativo");
+        btnGraficos.AddToClassList("aba-ativa"); 
     }
 
     private void EsconderAbas()
@@ -179,8 +157,8 @@ public class ConfigController : MonoBehaviour, IMenuPopup
         conteudoControles.style.display = DisplayStyle.None;
         conteudoGraficos.style.display = DisplayStyle.None;
 
-        btnGraficos.RemoveFromClassList("botao-ativo");
-        btnControles.RemoveFromClassList("botao-ativo");
-        btnAudio.RemoveFromClassList("botao-ativo");
+        btnGraficos.RemoveFromClassList("aba-ativa"); 
+        btnControles.RemoveFromClassList("aba-ativa"); 
+        btnAudio.RemoveFromClassList("aba-ativa"); 
     }
 }

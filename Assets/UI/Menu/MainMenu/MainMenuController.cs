@@ -12,26 +12,39 @@ public class MainMenuController : MonoBehaviour, IMenuPopup
     [SerializeField] private GameObject objetoSelecaoFases;
     [SerializeField] private GameObject objetoCreditos;
     
-    [Header("Configurações de Cor")]
-    public float velocidadeTrocaDeCor = 1.5f;
-    public float velocidadePreenchimento = 45f;
+    [Header("Configurações de Cor e Animação")]
+    public float velocidadeTrocaDeCor = 0.4f; 
+    public float velocidadePreenchimento = 50f;
     
     private Button btnJogar;
     private VisualElement root;
 
     private VisualElement mascaraTitulo;
     private Label tituloColorido;
-    private List<VisualElement> linhasBotoes = new List<VisualElement>();
+    
     private Color[] paleta = new Color[] { Color.green, Color.blue, Color.yellow, Color.red };
     private int indiceCorAtual = 0;
     private float progressoTransicaoCor = 0f;
+    
     private float progressoPreenchimento = 0f;
+    private bool tituloCarregado = false; 
 
     private void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        // Configuração de Navegação e Cliques
+        var telaPrincipal = root.Q<VisualElement>("painel-principal");
+        var containerBotoes = root.Q<VisualElement>(className: "container-botoes");
+
+        if (telaPrincipal != null) telaPrincipal.AddToClassList("tela-escondida");
+        if (containerBotoes != null) containerBotoes.AddToClassList("botoes-escondidos");
+
+        root.schedule.Execute(() => {
+            if (telaPrincipal != null) telaPrincipal.RemoveFromClassList("tela-escondida");
+            if (containerBotoes != null) containerBotoes.RemoveFromClassList("botoes-escondidos");
+        }).StartingIn(50);
+
+        // --- NAVEGAÇÃO E BOTÕES ---
         Button btnOpcoes = root.Q<Button>("btn-opcoes");
         Button btnCreditos = root.Q<Button>("btn-creditos");
         btnJogar = root.Q<Button>("btn-jogar");
@@ -46,20 +59,12 @@ public class MainMenuController : MonoBehaviour, IMenuPopup
         if (btnOpcoes != null) btnOpcoes.clicked += () => AbrirTela(objetoConfiguracoes);
         if (btnSair != null) btnSair.clicked += SairDoJogo;
 
-        // Configuração das Referências de Animação
         mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
         tituloColorido = root.Q<Label>("titulo-frente");
 
-        linhasBotoes.Clear();
-        var todosBotoes = root.Query<Button>().ToList();
-        foreach (var btn in todosBotoes)
-        {
-            var linha = btn.Q<VisualElement>("linha-inferior");
-            if (linha != null)
-            {
-                linhasBotoes.Add(linha);
-            }
-        }
+        progressoPreenchimento = 0f;
+        tituloCarregado = false;
+        if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
     }
 
     void Start()
@@ -73,11 +78,9 @@ public class MainMenuController : MonoBehaviour, IMenuPopup
 
     private void Update()
     {
-        // Só executa as animações se a tela principal estiver visível
         if (root == null || root.style.display == DisplayStyle.None) return;
 
         progressoTransicaoCor += Time.deltaTime * velocidadeTrocaDeCor;
-        
         if (progressoTransicaoCor >= 1f)
         {
             progressoTransicaoCor = 0f;
@@ -88,21 +91,16 @@ public class MainMenuController : MonoBehaviour, IMenuPopup
         Color corMisturada = Color.Lerp(paleta[indiceCorAtual], paleta[proximoIndice], progressoTransicaoCor);
 
         if (tituloColorido != null) tituloColorido.style.color = corMisturada;
-        foreach (var linha in linhasBotoes)
-        {
-            linha.style.backgroundColor = corMisturada;
-        }
 
-        if (mascaraTitulo != null)
+        if(!tituloCarregado && mascaraTitulo != null)
         {
             progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
-            
-            if (progressoPreenchimento > 120f) 
-            {
-                progressoPreenchimento = 0f; 
-            }
-
             mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));
+
+            if (progressoPreenchimento >= 100f)
+            {
+                tituloCarregado = true;
+            }
         }
     }
 

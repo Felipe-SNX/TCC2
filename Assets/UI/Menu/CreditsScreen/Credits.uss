@@ -31,6 +31,12 @@
     margin-bottom: 20px;
 }
 
+.janela-rolagem .unity-scroller--vertical {
+    position: absolute;
+    right: -20px; 
+    height: 100%;
+}
+
 .conteudo-rolagem {
     align-items: center;
     width: 100%;

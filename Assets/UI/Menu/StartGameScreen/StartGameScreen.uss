@@ -1,53 +1,49 @@
 .tela-inteira {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0); 
-}
-
-.centralizar {
-    justify-content: center;
     align-items: center;
+    justify-content: center; 
+    background-color: transparent; 
 }
 
 .titulo-container {
     position: relative;
-    height: 150px;
-    margin-bottom: 50px;
+    align-self: center; 
 }
 
-.titulo-jogo {
-    font-size: 140px; 
+.titulo-fundo {
+    font-size: 120px; 
+    color: #444444; 
     -unity-font-style: bold;
+    margin: 0;
+    padding: 0;
     white-space: nowrap;
 }
 
-.titulo-cinza { color: #444444; }
-
 .mascara {
     position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 0%; 
-    overflow: hidden;
-}
-
-.colorido {
-    position: absolute;
+    top: 0;
     left: 0;
-    width: 100%;
+    bottom: 0;
+    width: 0%; 
+    overflow: hidden; 
 }
 
-
-.prompt {
-    font-size: 30px;
-    color: #CCCCCC;
-    margin-top: 100px;
+.titulo-frente {
+    font-size: 120px; 
     -unity-font-style: bold;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap; 
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.linha-horizontal {
-    position: absolute;
-    bottom: 20%;
-    height: 2px;
-    width: 0%;
-    background-color: white;
-    opacity: 0.3;
+.prompt-text {
+    font-size: 45px;
+    color: #DDDDDD;
+    margin-top: 80px; 
+    letter-spacing: 5px;
+    -unity-font-style: bold;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
 }

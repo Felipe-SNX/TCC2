@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    
     <Style src="StartGameScreen.uss" />
 
-    <ui:VisualElement class="tela-inteira centralizar">
+    <ui:VisualElement class="tela-inteira">
+        
         <ui:VisualElement class="titulo-container">
-            <ui:Label text="Nome do Jogo" class="titulo-jogo titulo-cinza" />
+            
+            <ui:Label text="Nome do Jogo" class="titulo-fundo" />
+            
             <ui:VisualElement name="mascara-titulo" class="mascara">
-                <ui:Label name="titulo-frente" text="Nome do Jogo" class="titulo-jogo colorido" />
+                
+                <ui:Label name="titulo-frente" text="Nome do Jogo" class="titulo-frente" />
+                
             </ui:VisualElement>
+            
         </ui:VisualElement>
 
-        <ui:Label name="prompt-text" text="Pressione qualquer tecla para começar" class="prompt" />
-        
-        <ui:VisualElement name="linha-decorativa" class="linha-horizontal" />
+        <ui:Label name="prompt-text" text="Pressione qualquer tecla para começar" class="prompt-text" />
+
     </ui:VisualElement>
+
 </ui:UXML>

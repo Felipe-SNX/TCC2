@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 public class ConfigControlsView
 {
     private VisualElement root;
+    
     public void Inicializar(VisualElement container)
     {
         root = container;
@@ -29,7 +30,6 @@ public class ConfigControlsView
         VisualElement linha = new VisualElement();
         linha.AddToClassList("linha-controle");
 
-        // Reutilizamos a classe "labels" que criamos para o Áudio, mantendo o alinhamento perfeito
         Label labelAcao = new Label(acao);
         labelAcao.AddToClassList("labels"); 
 
@@ -38,17 +38,22 @@ public class ConfigControlsView
 
         VisualElement iconeElement = new VisualElement();
         
+        iconeElement.style.width = ehLargo ? 140 : 50;
+        iconeElement.style.height = 50;
+        iconeElement.style.flexShrink = 0; 
+        iconeElement.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit; 
+
         if (ehLargo)
             iconeElement.AddToClassList("tecla-container-larga");
         else
             iconeElement.AddToClassList("tecla-container");
 
-        iconeElement.AddToClassList("tecla-neon"); // Dá o fundo transparente e a borda
-        iconeElement.AddToClassList("icone-cromatico"); // Tag para o script principal animar a cor do ícone!
+        iconeElement.AddToClassList("tecla-neon"); 
+        iconeElement.AddToClassList("icone-cromatico"); 
 
         iconeElement.style.backgroundImage = new StyleBackground(icone);
 
-        linha.Add(labelAcao);         
+        linha.Add(labelAcao);        
         wrapperDireita.Add(iconeElement); 
         linha.Add(wrapperDireita);
 
