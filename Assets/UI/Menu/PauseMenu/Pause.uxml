@@ -5,12 +5,39 @@
 
     <ui:VisualElement class="tela-pause-fundo">
         
-        <ui:Label text="Pausado" class="titulo-pause" />
+        <ui:VisualElement class="painel-vidro">
+            
+            <ui:VisualElement class="titulo-container">
+                <ui:Label text="PAUSADO" class="titulo-tela titulo-cinza" />
+                <ui:VisualElement name="mascara-titulo" class="mascara">
+                    <ui:Label text="PAUSADO" class="titulo-tela colorido" />
+                </ui:VisualElement>
+            </ui:VisualElement>
 
-        <ui:Button name="btn-retomar" text="Retomar" class="botao-pause" />
-        <ui:Button name="btn-reset" text="Reiniciar Fase" class="botao-pause" />
-        <ui:Button name="btn-config" text="Configurações" class="botao-pause" />
-        <ui:Button name="btn-menu" text="Voltar ao Menu Principal" class="botao-pause" />
+            <ui:VisualElement class="container-botoes">
+                
+                <ui:Button name="btn-retomar" class="botao-menu">
+                    <ui:Label text="Retomar" class="texto-botao" picking-mode="Ignore" />
+                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                </ui:Button>
+
+                <ui:Button name="btn-reset" class="botao-menu">
+                    <ui:Label text="Reiniciar Fase" class="texto-botao" picking-mode="Ignore" />
+                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                </ui:Button>
+
+                <ui:Button name="btn-config" class="botao-menu">
+                    <ui:Label text="Configurações" class="texto-botao" picking-mode="Ignore" />
+                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                </ui:Button>
+
+                <ui:Button name="btn-menu" class="botao-menu">
+                    <ui:Label text="Menu Principal" class="texto-botao" picking-mode="Ignore" />
+                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                </ui:Button>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
 
     </ui:VisualElement>
 

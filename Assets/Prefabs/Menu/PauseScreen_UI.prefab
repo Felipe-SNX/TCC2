@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: fabc9c841a9c2434697416eab4421021, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 1a3bcd3d583b4384c9eac4bb7a04d491, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 633f416cfc8cd324f96f412f83fffa76, type: 3}
   m_SortingOrder: 10
@@ -68,4 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab5207f082852d428ec5ac3905a6414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorPause
-  objetoConfiguracoes: {fileID: 0}
+  objetoConfiguracoes: {fileID: 4329630142996286041, guid: c20222e7cf614d34ea42dbc5b0aa842c, type: 3}
+  velocidadePreenchimento: 50

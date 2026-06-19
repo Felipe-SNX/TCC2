@@ -21,6 +21,11 @@ public class PauseController : MonoBehaviour
     private Button btnMenu;
     private InputSystem_Actions controles;
 
+    [Header("Animação do Título")]
+    public float velocidadePreenchimento = 50f;
+    private float progressoPreenchimento = 0f;
+    private VisualElement mascaraTitulo;
+
     private void Awake()
     {
         if (Instancia != null && Instancia != this)
@@ -31,13 +36,12 @@ public class PauseController : MonoBehaviour
         Instancia = this;
 
         controles = new InputSystem_Actions();
-        
         controles.Player.Pause.performed += ctx => AlternarPause();
     }
 
     void Start()
     {
-        if (AudioManager.Instance != null)
+        if (AudioManager.Instance != null && root != null)
         {
             AudioManager.Instance.ConnectButtons(root);
         }
@@ -45,7 +49,7 @@ public class PauseController : MonoBehaviour
 
     private void OnEnable()
     {
-        controles.Enable(); // Liga os controles
+        controles.Enable();
 
         root = GetComponent<UIDocument>().rootVisualElement;
         
@@ -53,6 +57,8 @@ public class PauseController : MonoBehaviour
         btnReset = root.Q<Button>("btn-reset");
         btnConfig = root.Q<Button>("btn-config");
         btnMenu = root.Q<Button>("btn-menu");
+
+        mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
 
         ConfigurarBotao(btnRetomar, RetomarJogo);
         ConfigurarBotao(btnReset, ReiniciarFase);
@@ -64,22 +70,32 @@ public class PauseController : MonoBehaviour
 
     private void OnDisable()
     {
-        controles.Disable(); // Desliga os controles
-        
+        controles.Disable();
         if (btnReset != null) btnReset.clicked -= ReiniciarFase;
+    }
+
+    private void Update()
+    {
+        // Só executa a animação se a tela de pause estiver aberta
+        if (root == null || root.style.display == DisplayStyle.None) return;
+
+        if (mascaraTitulo != null && progressoPreenchimento < 100f)
+        {
+            progressoPreenchimento += Time.unscaledDeltaTime * velocidadePreenchimento;
+            mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));
+        }
     }
 
     private void ConfigurarBotao(Button botao, Action acao)
     {
         if (botao == null) return;
-        
         botao.clicked += acao;
         botao.RegisterCallback<NavigationSubmitEvent>(evt => acao.Invoke());
     }
 
     private IEnumerator FocarAposDesenhar(Button botao)
     {
-        yield return new WaitForSecondsRealtime(0.05f);
+        yield return new WaitForSecondsRealtime(0.05f); // Use Realtime pois o tempo está pausado
         
         if (botao != null)
         {
@@ -87,7 +103,6 @@ public class PauseController : MonoBehaviour
             {
                 EventSystem.current.SetSelectedGameObject(this.gameObject);
             }
-
             botao.Focus();
         }
     }
@@ -109,16 +124,14 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 0f; 
         root.style.display = DisplayStyle.Flex; 
 
+        // Zera o título para animar de novo toda vez que pausar
+        progressoPreenchimento = 0f;
+        if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
+
         if (btnRetomar != null)
         {
             StartCoroutine(FocarAposDesenhar(btnRetomar));
         }
-    }
-
-    private void DefinirFocoInicial(GeometryChangedEvent evt)
-    {
-        btnRetomar.Focus();
-        btnRetomar.UnregisterCallback<GeometryChangedEvent>(DefinirFocoInicial);
     }
 
     private void RetomarJogo()
@@ -136,10 +149,8 @@ public class PauseController : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-
         string nomeCenaAtual = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(nomeCenaAtual);
-        
         Debug.Log($"[PAUSE] Fase {nomeCenaAtual} reiniciada. Tentativa computada nas métricas!");
     }
 
@@ -154,7 +165,6 @@ public class PauseController : MonoBehaviour
             {
                 scriptConfig.AoFechar = () => { 
                     root.style.display = DisplayStyle.Flex; 
-                    
                     if (btnConfig != null) 
                     {
                         StartCoroutine(FocarAposDesenhar(btnConfig));
