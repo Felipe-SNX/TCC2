@@ -1,14 +1,44 @@
 .tela-inteira {
     flex-grow: 1;
-    padding: 120px; 
+    padding: 120px;
+    background-color: transparent; 
+    align-items: center;    
+}
+
+.titulo-container {
+    margin-bottom: 200px;
+    position: relative;
+    height: 120px; 
+    flex-grow: 0;
 }
 
 .titulo-jogo {
-    font-size: 110px; 
-    color: white;
+    font-size: 110px;
     -unity-font-style: bold;
-    margin-bottom: 200px; 
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5); 
+    margin: 0;
+    padding: 0;
+    white-space: nowrap; 
+    -unity-text-align: middle-center; 
+}
+
+.titulo-cinza {
+    color: #444444; 
+}
+
+.mascara {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0%; 
+    overflow: hidden;
+}
+
+.colorido {
+    color: white; 
+    position: absolute; 
+    left: 0;
+    width: 100%; 
 }
 
 .area-central {
@@ -18,37 +48,43 @@
 }
 
 .container-botoes {
-    width: 450px; 
+    width: 350px; 
 }
 
 .botao-menu {
-    font-size: 45px; 
-    color: black;
-    background-color: #FDF9EB; 
-    padding: 20px 30px; 
-    margin-bottom: 24px; 
-    border-radius: 24px;
-    border-left-width: 12px;
-    border-bottom-width: 8px;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-color: #D6D0B9; 
-    
-    -unity-font-style: bold;
-    -unity-text-align: middle-center;
-    transition-duration: 0.15s;
+    background-color: transparent; 
+    border-width: 0; 
+    padding: 0; 
+    margin-bottom: 25px; 
+    align-items: flex-start; 
+    transition-duration: 0.2s;
 }
 
-.botao-menu:hover,
-.botao-menu:focus {
-    background-color: #FFFFFF;
+.texto-botao {
+    font-size: 45px; 
+    color: #888888; 
+    -unity-font-style: bold;
+    padding-bottom: 5px;
+    transition-duration: 0.2s;
+}
+
+.linha-inferior {
+    height: 6px;
+    width: 0%; 
+    background-color: white; 
+    transition-property: width;
+    transition-duration: 0.3s; 
+}
+
+/* Animações de Hover / Focus */
+.botao-menu:hover .texto-botao,
+.botao-menu:focus .texto-botao {
+    color: #FFFFFF;
     translate: 10px 0; 
 }
 
-.painel {
-    flex-grow: 1; 
-}
-
-.painel-escondido {
-    display: none; 
+.botao-menu:hover .linha-inferior,
+.botao-menu:focus .linha-inferior {
+    width: 100%; 
+    translate: 10px 0;
 }
