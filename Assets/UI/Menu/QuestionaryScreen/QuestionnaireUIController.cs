@@ -6,6 +6,10 @@ public class QuestionnaireUIController : MonoBehaviour
 {
     [Header("Fluxo de Telas")]
     [SerializeField] private GameObject resultScreen;
+    private VisualElement mascaraTitulo;
+    private float progressoPreenchimento = 0f;
+    [SerializeField] private float velocidadePreenchimento = 50f;
+
     private UIDocument uiDocument;
     private TextField inputEmail;
     private TextField inputPin;
@@ -14,6 +18,7 @@ public class QuestionnaireUIController : MonoBehaviour
     private Label q1ValorLabel;
     private SliderInt q1Slider;
     private Button submitButton;
+    private Button skipButton;
 
     private VisualElement root;
 
@@ -21,6 +26,8 @@ public class QuestionnaireUIController : MonoBehaviour
     {
         uiDocument = GetComponent<UIDocument>();
         root = uiDocument.rootVisualElement;
+        mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
+        progressoPreenchimento = 0f;
 
         inputEmail = root.Q<TextField>("input_email");
         inputPin = root.Q<TextField>("input_pin");
@@ -30,6 +37,7 @@ public class QuestionnaireUIController : MonoBehaviour
         q1ValorLabel = root.Q<Label>("lbl_valor_q1");
         q1Slider = root.Q<SliderInt>("slider_q1");
         submitButton = root.Q<Button>("btn_submit");
+        skipButton = root.Q<Button>("btn_skip");
 
         // Atualiza o valor do texto ao arrastar o slider
         if (q1Slider != null && q1ValorLabel != null)
@@ -53,6 +61,11 @@ public class QuestionnaireUIController : MonoBehaviour
         {
             submitButton.clicked += ValidateAndSubmit;
         }
+
+        if (skipButton != null)
+        {
+            skipButton.clicked += SkipQuestionnaire;
+        }
     }
 
     void Start()
@@ -60,6 +73,15 @@ public class QuestionnaireUIController : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.ConnectButtons(root);
+        }
+    }
+
+    private void Update()
+    {
+        if (mascaraTitulo != null && progressoPreenchimento < 100f)
+        {
+            progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
+            mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));
         }
     }
 
@@ -116,9 +138,21 @@ public class QuestionnaireUIController : MonoBehaviour
         }
     }
 
+    private void SkipQuestionnaire()
+    {
+        Debug.Log("[SISTEMA] Usuário pulou o questionário.");
+        
+        // Deixa o objeto inativo e segue para a tela de resultado
+        gameObject.SetActive(false);
+        if (resultScreen != null)
+        {
+            resultScreen.SetActive(true);
+        }
+    }
+
     private void OnDisable()
     {
-        if (submitButton != null)
-            submitButton.clicked -= ValidateAndSubmit;
+        if (submitButton != null) submitButton.clicked -= ValidateAndSubmit;
+        if (skipButton != null) skipButton.clicked -= SkipQuestionnaire;
     }
 }

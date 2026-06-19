@@ -15,9 +15,13 @@
 }
 
 .titulo-container { position: relative; height: 100px; margin-bottom: 30px; }
+
 .titulo { font-size: 70px; -unity-font-style: bold; margin: 0; white-space: nowrap; }
+
 .titulo-cinza { color: #444444; }
+
 .mascara { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; overflow: hidden; }
+
 .colorido { 
     color: #00FFFF; position: absolute; left: 0; top: 0; 
     text-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5); 
@@ -30,21 +34,25 @@
 }
 
 .container-botoes { width: 100%; align-items: center; margin-top: 30px; }
+
 .botao-menu {
     align-self: center; margin-bottom: 25px;
     background-color: transparent; border-width: 0; padding: 0;
     position: relative;
 }
+
 .texto-botao {
     font-size: 40px; color: #888888;
     -unity-font-style: bold; padding-bottom: 5px;
     transition-duration: 0.2s;
 }
+
 .linha-inferior {
     position: absolute; bottom: -5px; left: 0; right: 0;
     height: 6px; background-color: #FF3333;
     scale: 0 1; transform-origin: center;
     transition-property: scale; transition-duration: 0.2s;
 }
-.botao-menu:hover .texto-botao, .botao-menu:focus .texto-botao { color: #FFFFFF; }
-.botao-menu:hover .linha-inferior, .botao-menu:focus .linha-inferior { scale: 1 1; }
+
+.botao-menu:hover .texto-botao { color: #FFFFFF; }
+.botao-menu:hover .linha-inferior { scale: 1 1; }
