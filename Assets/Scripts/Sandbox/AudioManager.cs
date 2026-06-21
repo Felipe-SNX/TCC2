@@ -6,8 +6,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-    [Header("Audio Mixer Central")]
-    public AudioMixer meuMixer;
+    private const string KEY_VOLUME_MASTER = "VolumeMaster";
+    private const string KEY_VOLUME_MUSICA = "VolumeMusica";
+    private const string KEY_VOLUME_SFX = "VolumeSFX";
 
     [Header("Music Clips")]
     public AudioClip menuMusic;
@@ -15,14 +16,28 @@ public class AudioManager : MonoBehaviour
     public AudioClip pauseMusic;
     public AudioClip buttonClickSound;
 
-    [Header("Audio Source")]
+    [Header("SFX Clips")]
+    public AudioClip walkGrassSFX;
+    public AudioClip fallWaterSFX;
+    public AudioClip walkWaterSFX;
+    public AudioClip collectWaterSFX;
+    public AudioClip climbVineSFX;
+    public AudioClip jumpSFX;
+    public AudioClip collectMessageSFX;
+    public AudioClip endPhaseSFX;
+
+    [Header("Audio Sources")]
     public AudioSource musicSource;
+    public AudioSource sfxSource;
+    public AudioSource loopSfxSource;
 
     [Header("Volume")]
-    [Range(0f, 1f)]
-    public float musicVolume = 0.1f;
+    [Range(0f, 1f)] public float masterVolume = 0.5f;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+    [Range(0f, 1f)] public float sfxVolume = 0.8f;
 
-    private AudioClip currentClip;
+    private AudioClip currentMusic;
+    private AudioClip currentLoopSFX;
 
     private void Awake()
     {
@@ -40,20 +55,30 @@ public class AudioManager : MonoBehaviour
             musicSource = gameObject.AddComponent<AudioSource>();
         }
 
+        if (sfxSource == null)
+        {
+            sfxSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (loopSfxSource == null)
+        {
+            loopSfxSource = gameObject.AddComponent<AudioSource>();
+        }
+
         musicSource.loop = true;
         musicSource.playOnAwake = false;
-        musicSource.volume = 1f;
-    }
 
-    private void Start()
-    {
-        float savedMasterVolume = PlayerPrefs.GetFloat("VolumeMaster", 1f);
-        float savedSFXVolume = PlayerPrefs.GetFloat("VolumeSFX", 1f);
-        float savedMusicVolume = PlayerPrefs.GetFloat("VolumeMusica", 1f);
+        sfxSource.loop = false;
+        sfxSource.playOnAwake = false;
 
-        SetMasterVolume(savedMasterVolume);
-        SetSFXVolume(savedSFXVolume);
-        SetMusicVolume(savedMusicVolume);
+        loopSfxSource.loop = true;
+        loopSfxSource.playOnAwake = false;
+
+        masterVolume = PlayerPrefs.GetFloat(KEY_VOLUME_MASTER, 50f) / 100f;
+        musicVolume = PlayerPrefs.GetFloat(KEY_VOLUME_MUSICA, 50f) / 100f;
+        sfxVolume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 80f) / 100f;
+
+        ApplyVolumes();
     }
 
     public void PlayMenuMusic()
@@ -83,74 +108,172 @@ public class AudioManager : MonoBehaviour
     {
         if (clip == null)
         {
-            Debug.LogWarning("AudioClip não configurado no AudioManager.");
+            Debug.LogWarning("Music clip não configurado.");
             return;
         }
 
-        if (currentClip == clip)
+        if (currentMusic == clip && musicSource.isPlaying)
             return;
 
-        currentClip = clip;
+        currentMusic = clip;
         musicSource.clip = clip;
-        musicSource.volume = musicVolume;
+        ApplyVolumes();
         musicSource.Play();
-    }
-
-    public void SetMasterVolume(float volume)
-    {
-        float db = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
-        
-        if (meuMixer != null)
-        {
-            meuMixer.SetFloat("MasterVol", db); 
-        }
-
-        PlayerPrefs.SetFloat("VolumeMaster", volume);
-    }
-
-    public void SetMusicVolume(float volume)
-    {
-        float db = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
-        
-        if (meuMixer != null)
-        {
-            meuMixer.SetFloat("MusicaVol", db); 
-        }
-
-        PlayerPrefs.SetFloat("VolumeMusica", volume);
-    }
-
-    public void SetSFXVolume(float volume)
-    {
-        float db = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
-        
-        if (meuMixer != null)
-        {
-            meuMixer.SetFloat("SFXVol", db); 
-        }
-
-        PlayerPrefs.SetFloat("VolumeSFX", volume);
-    }
-
-    public float GetMasterVolume()
-    {
-        return PlayerPrefs.GetFloat("VolumeMaster", 1f);
-    }
-
-    public float GetSFXVolume()
-    {
-        return PlayerPrefs.GetFloat("VolumeSFX", 1f);
-    }
-
-    public float GetMusicVolume()
-    {
-        return PlayerPrefs.GetFloat("VolumeMusica", 1f);
     }
 
     public void StopMusic()
     {
         musicSource.Stop();
-        currentClip = null;
+        currentMusic = null;
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("SFX clip não configurado.");
+            return;
+        }
+
+        sfxSource.PlayOneShot(clip, sfxVolume * masterVolume);
+    }
+
+    public void PlayLoopSFX(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("Loop SFX clip não configurado.");
+            return;
+        }
+
+        if (currentLoopSFX == clip && loopSfxSource.isPlaying)
+            return;
+
+        currentLoopSFX = clip;
+        loopSfxSource.clip = clip;
+        ApplyVolumes();
+        loopSfxSource.Play();
+    }
+
+    public void StopLoopSFX(AudioClip clip)
+    {
+        if (clip == null)
+            return;
+
+        if (loopSfxSource.clip == clip)
+        {
+            loopSfxSource.Stop();
+            currentLoopSFX = null;
+        }
+    }
+
+    public void StopAnyLoopSFX()
+    {
+        loopSfxSource.Stop();
+        currentLoopSFX = null;
+    }
+
+    public void PlayWalkGrass()
+    {
+        PlayLoopSFX(walkGrassSFX);
+    }
+
+    public void StopWalkGrass()
+    {
+        StopLoopSFX(walkGrassSFX);
+    }
+
+    public void PlayWalkWater()
+    {
+        PlayLoopSFX(walkWaterSFX);
+    }
+
+    public void StopWalkWater()
+    {
+        StopLoopSFX(walkWaterSFX);
+    }
+
+    public void PlayClimbVine()
+    {
+        PlayLoopSFX(climbVineSFX);
+    }
+
+    public void StopClimbVine()
+    {
+        StopLoopSFX(climbVineSFX);
+    }
+
+    public void PlayFallWater()
+    {
+        PlaySFX(fallWaterSFX);
+    }
+
+    public void PlayCollectWater()
+    {
+        PlaySFX(collectWaterSFX);
+    }
+
+    public void PlayJump()
+    {
+        PlaySFX(jumpSFX);
+    }
+
+    public void PlayCollectMessage()
+    {
+        PlaySFX(collectMessageSFX);
+    }
+
+    public void PlayEndPhase()
+    {
+        PlaySFX(endPhaseSFX);
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = Mathf.Clamp01(volume);
+
+        PlayerPrefs.SetFloat(KEY_VOLUME_MASTER, masterVolume * 100f);
+        PlayerPrefs.Save();
+
+        ApplyVolumes();
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        musicVolume = Mathf.Clamp01(volume);
+
+        PlayerPrefs.SetFloat(KEY_VOLUME_MUSICA, musicVolume * 100f);
+        PlayerPrefs.Save();
+
+        ApplyVolumes();
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxVolume = Mathf.Clamp01(volume);
+
+        PlayerPrefs.SetFloat(KEY_VOLUME_SFX, sfxVolume * 100f);
+        PlayerPrefs.Save();
+
+        ApplyVolumes();
+    }
+
+    private void ApplyVolumes()
+    {
+        if (musicSource != null)
+        {
+            musicSource.volume = musicVolume * masterVolume;
+        }
+
+        if (sfxSource != null)
+        {
+            sfxSource.volume = sfxVolume * masterVolume;
+        }
+
+        if (loopSfxSource != null)
+        {
+            loopSfxSource.volume = sfxVolume * masterVolume;
+        }
     }
 
     public void ConnectButtons(VisualElement tela)

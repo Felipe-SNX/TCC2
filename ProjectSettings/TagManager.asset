@@ -7,6 +7,8 @@ TagManager:
   - OneWayPlatform
   - ClimbableWall
   - Ladder
+  - WaterArea
+  - VineArea
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - ClimbableWall
   - Background
   - Player
-  - 
-  - 
+  - VineArea
+  - WaterArea
   - 
   - 
   - 

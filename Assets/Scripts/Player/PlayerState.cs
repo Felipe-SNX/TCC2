@@ -55,21 +55,17 @@ public class PlayerState : MonoBehaviour
 
     public bool UseWater()
     {
-        if (hasWater)
+        if (!hasWater)
+            return false;
+
+        hasWater = false;
+
+        if (AbilityPulseEffect.Instance != null)
         {
-            hasWater = false;
-            Debug.Log("Player usou água!");
-            if (hasWater && sr != null)
-            {
-                sr.color = Color.blue;
-            } else {
-                sr.color = Color.red;
-            }
-            return true;
+            AbilityPulseEffect.Instance.PlayPulse(Color.green);
         }
 
-        Debug.Log("O jogador não possui água.");
-        return false;
+        return true;
     }
 
     public void PauseMovement()

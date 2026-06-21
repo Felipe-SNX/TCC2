@@ -1,40 +1,64 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Configurações")]
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpForce = 12f;
-    [SerializeField] private float jumpCutMultiplier = 0.5f; // Controla altura do pulo
-    
+    [SerializeField] private float jumpCutMultiplier = 0.5f;
+
     [Header("Detecção de Chão")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Detecção de Áreas")]
+    [SerializeField] private LayerMask vineAreaLayer;
+    [SerializeField] private float areaCheckRadius = 0.25f;
+
+    [Header("Áudio de Movimento")]
+    [SerializeField] private float movementAudioStopDelay = 0.12f;
+
+    private enum MovementAudioState
+    {
+        None,
+        Grass,
+        Water,
+        Vine
+    }
+
+    private MovementAudioState currentMovementAudio = MovementAudioState.None;
+    private float lastMovementAudioTime;
+
     private Collider2D playerCollider;
     private Collider2D currentPlatform;
     private Animator anim;
     private Rigidbody2D rb;
+
     private float moveInput;
     private float verticalInput;
     private float defaultGravity;
 
-    // Parâmetros Expostos
+    private bool isInWaterArea = false;
+    private bool isInVineArea = false;
+
+    private int waterAreaContacts = 0;
+    private int vineAreaContacts = 0;
+
     public float MoveInput => moveInput;
     public float DefaultGravity => defaultGravity;
     public float VerticalInput => verticalInput;
     public float Speed => speed;
 
-    // Outros Componentes
     private PlayerClimb playerClimbScript;
     private InputSystem_Actions controls;
     private PlayerWallSlide wallSlideScript;
     private PlayerWallJump wallJumpScript;
 
-    void Awake() 
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -42,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         defaultGravity = rb.gravityScale;
 
         controls = new InputSystem_Actions();
+
         wallSlideScript = GetComponent<PlayerWallSlide>();
         wallJumpScript = GetComponent<PlayerWallJump>();
         playerClimbScript = GetComponent<PlayerClimb>();
@@ -57,63 +82,83 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        controls.Disable();
+        StopMovementAudio();
+
+        if (controls != null)
+        {
+            controls.Disable();
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        // Se alguma mecânica pausar o movimento, ignora o resto
-        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused)
+        {
+            StopMovementAudio();
+            return;
+        }
 
         Vector2 direction = controls.Player.Move.ReadValue<Vector2>();
-        
+
         moveInput = direction.x;
         verticalInput = direction.y;
 
-        FlipSprite();
+        ValidateAreaStates();
 
+        FlipSprite();
         UpdateAnimations();
+        HandleMovementAudio();
+    }
+
+    private void FixedUpdate()
+    {
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused)
+        {
+            StopMovementAudio();
+            return;
+        }
+
+        HandleMovement();
     }
 
     private void UpdateAnimations()
     {
-        if (anim == null) return;
+        if (anim == null)
+            return;
 
         anim.SetFloat("velocityX", Mathf.Abs(rb.linearVelocity.x));
-
         anim.SetFloat("velocityY", rb.linearVelocity.y);
-
         anim.SetBool("grounded", IsGrounded());
     }
 
     private void TryJump()
     {
-        // Trava de pause e de Wall Jump
-        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
-        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused)
+            return;
 
-        // Descer Plataforma
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping)
+            return;
+
         if (verticalInput < -0.5f && currentPlatform != null)
         {
             StartCoroutine(FallThroughPlatform());
-            return; 
+            return;
         }
 
-        // Pulo na Planta
         if (playerClimbScript != null && playerClimbScript.IsClimbing)
         {
             playerClimbScript.PlantJump();
+            PlayJumpAudio();
             return;
         }
 
-        // Wall Jump
-        if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled() && wallJumpScript != null) 
+        if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled() && wallJumpScript != null)
         {
             wallJumpScript.ExecuteJump();
+            PlayJumpAudio();
             return;
         }
 
-        // Pulo Normal 
         if (IsGrounded())
         {
             Jump();
@@ -122,55 +167,175 @@ public class PlayerMovement : MonoBehaviour
 
     private void CancelJump()
     {
-        // Só aplica o freio se o personagem estiver ativamente subindo no ar.
-        // Se ele já estiver caindo (y < 0), soltar o botão não deve afetar a gravidade.
         if (rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
         }
     }
 
-    void FixedUpdate()
-    {
-        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
-        HandleMovement();
-    }
-
     private void HandleMovement()
     {
-        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
-        if (playerClimbScript != null && playerClimbScript.IsClimbing) return;
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping)
+            return;
+
+        if (playerClimbScript != null && playerClimbScript.IsClimbing)
+            return;
 
         rb.gravityScale = defaultGravity;
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
     }
 
-    private void Jump() => rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-    public void AddJumpForce() => Jump();
-    public bool IsGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-  private void FlipSprite()
+    private void Jump()
     {
-        // Não realiza no WallJump, pois em pulos consecutivos ele precisa estar virado contra a parede sempre
-        if (wallJumpScript != null && wallJumpScript.IsWallJumping) return;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        PlayJumpAudio();
+    }
+
+    private void PlayJumpAudio()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayJump();
+        }
+    }
+
+    private void HandleMovementAudio()
+    {
+        if (AudioManager.Instance == null || rb == null)
+            return;
+
+        bool grounded = IsGrounded();
+        bool isClimbing = playerClimbScript != null && playerClimbScript.IsClimbing;
+
+        bool isMovingHorizontal =
+            Mathf.Abs(moveInput) > 0.1f ||
+            Mathf.Abs(rb.linearVelocity.x) > 0.15f;
+
+        bool isMovingVertical =
+            Mathf.Abs(verticalInput) > 0.1f ||
+            Mathf.Abs(rb.linearVelocity.y) > 0.15f;
+
+        if (isClimbing || isInVineArea)
+        {
+            if (isMovingVertical)
+            {
+                lastMovementAudioTime = Time.time;
+                SetMovementAudio(MovementAudioState.Vine);
+            }
+            else if (Time.time - lastMovementAudioTime >= movementAudioStopDelay)
+            {
+                SetMovementAudio(MovementAudioState.None);
+            }
+
+            return;
+        }
+
+        if (currentMovementAudio == MovementAudioState.Vine)
+        {
+            SetMovementAudio(MovementAudioState.None);
+        }
+
+        if (isInWaterArea)
+        {
+            if (isMovingHorizontal)
+            {
+                lastMovementAudioTime = Time.time;
+                SetMovementAudio(MovementAudioState.Water);
+            }
+            else if (Time.time - lastMovementAudioTime >= movementAudioStopDelay)
+            {
+                SetMovementAudio(MovementAudioState.None);
+            }
+
+            return;
+        }
+
+        if (grounded && isMovingHorizontal)
+        {
+            lastMovementAudioTime = Time.time;
+            SetMovementAudio(MovementAudioState.Grass);
+            return;
+        }
+
+        if (Time.time - lastMovementAudioTime >= movementAudioStopDelay)
+        {
+            SetMovementAudio(MovementAudioState.None);
+        }
+    }
+
+    private void SetMovementAudio(MovementAudioState newState)
+    {
+        if (AudioManager.Instance == null)
+            return;
+
+        if (currentMovementAudio == newState)
+            return;
+
+        AudioManager.Instance.StopWalkGrass();
+        AudioManager.Instance.StopWalkWater();
+        AudioManager.Instance.StopClimbVine();
+
+        currentMovementAudio = newState;
+
+        switch (newState)
+        {
+            case MovementAudioState.Grass:
+                AudioManager.Instance.PlayWalkGrass();
+                break;
+
+            case MovementAudioState.Water:
+                AudioManager.Instance.PlayWalkWater();
+                break;
+
+            case MovementAudioState.Vine:
+                AudioManager.Instance.PlayClimbVine();
+                break;
+
+            case MovementAudioState.None:
+                break;
+        }
+    }
+
+    private void StopMovementAudio()
+    {
+        if (AudioManager.Instance == null)
+            return;
+
+        AudioManager.Instance.StopWalkGrass();
+        AudioManager.Instance.StopWalkWater();
+        AudioManager.Instance.StopClimbVine();
+
+        currentMovementAudio = MovementAudioState.None;
+    }
+
+    public void AddJumpForce()
+    {
+        Jump();
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void FlipSprite()
+    {
+        if (wallJumpScript != null && wallJumpScript.IsWallJumping)
+            return;
 
         Vector3 escala = transform.localScale;
 
-        if (moveInput > 0.1f) 
+        if (moveInput > 0.1f)
         {
-            // Pega o valor puro e garante que é POSITIVO (Olha para a direita)
             escala.x = Mathf.Abs(escala.x);
         }
-        else if (moveInput < -0.1f) 
+        else if (moveInput < -0.1f)
         {
-            // Pega o valor puro e garante que é NEGATIVO (Olha para a esquerda)
             escala.x = -Mathf.Abs(escala.x);
         }
 
         transform.localScale = escala;
     }
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -188,18 +353,93 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Trigger detectado: " + other.gameObject.name + " | Tag: " + other.tag);
+
+        if (other.CompareTag("WaterArea"))
+        {
+            waterAreaContacts++;
+            isInWaterArea = waterAreaContacts > 0;
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayFallWater();
+            }
+
+            Debug.Log("Entrou na área da água. Contatos: " + waterAreaContacts);
+        }
+
+        if (other.CompareTag("VineArea"))
+        {
+            vineAreaContacts++;
+            isInVineArea = vineAreaContacts > 0;
+
+            Debug.Log("Entrou na área da trepadeira. Contatos: " + vineAreaContacts);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("WaterArea"))
+        {
+            waterAreaContacts--;
+            waterAreaContacts = Mathf.Max(0, waterAreaContacts);
+
+            isInWaterArea = waterAreaContacts > 0;
+
+            if (!isInWaterArea && currentMovementAudio == MovementAudioState.Water)
+            {
+                SetMovementAudio(MovementAudioState.None);
+            }
+
+            Debug.Log("Saiu da área da água. Contatos: " + waterAreaContacts);
+        }
+
+        if (other.CompareTag("VineArea"))
+        {
+            vineAreaContacts--;
+            vineAreaContacts = Mathf.Max(0, vineAreaContacts);
+
+            isInVineArea = vineAreaContacts > 0;
+
+            if (!isInVineArea && currentMovementAudio == MovementAudioState.Vine)
+            {
+                SetMovementAudio(MovementAudioState.None);
+            }
+
+            Debug.Log("Saiu da área da trepadeira. Contatos: " + vineAreaContacts);
+        }
+    }
+
+    private void ValidateAreaStates()
+    {
+        bool touchingVineArea = Physics2D.OverlapCircle(transform.position, areaCheckRadius, vineAreaLayer);
+
+        if (!touchingVineArea && isInVineArea)
+        {
+            vineAreaContacts = 0;
+            isInVineArea = false;
+
+            if (currentMovementAudio == MovementAudioState.Vine)
+            {
+                SetMovementAudio(MovementAudioState.None);
+            }
+
+            Debug.Log("Saiu da área da trepadeira por validação.");
+        }
+    }
+
     private IEnumerator FallThroughPlatform()
     {
-        // Salva a plataforma para poder ligar a colisão dela depois
         Collider2D platformToIgnore = currentPlatform;
 
         if (playerCollider != null && platformToIgnore != null)
         {
-            // Ignora a colisão para permitir o jogador passar
             Physics2D.IgnoreCollision(playerCollider, platformToIgnore, true);
-            // Tempo de espera para religar a colisão
+
             yield return new WaitForSeconds(0.4f);
-            // Liga a colisão novamente
+
             Physics2D.IgnoreCollision(playerCollider, platformToIgnore, false);
         }
     }
