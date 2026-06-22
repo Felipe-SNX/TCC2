@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlantLogic : MonoBehaviour
@@ -8,27 +9,29 @@ public class PlantLogic : MonoBehaviour
         Horizontal
     }
 
-    [Header("Configurações de Crescimento")]
-    [SerializeField] private Sprite grownSprite;
+    [Header("Crescimento")]
     [SerializeField] private GrowthDirection growthDirection = GrowthDirection.Vertical;
-    
-    private Animator animator;
-    private SpriteRenderer sr;
-    private Collider2D plantCollider;
-    private bool isGrown = false;
+    [SerializeField] private SpriteRenderer bodyRenderer;
+    [SerializeField] private BoxCollider2D climbCollider;
+    [SerializeField] private float maxSize = 6f;
+    [SerializeField] private float growSpeed = 3f;
+    [SerializeField] private ParticleSystem growthParticles;
+    [SerializeField] private PlantGlow plantGlow;
 
-    private bool playerContact = false;
+    private bool isGrown;
+    private bool isGrowing;
+    private bool playerContact;
+
     private InputSystem_Actions controls;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
-        plantCollider = GetComponent<Collider2D>();
-
         controls = new InputSystem_Actions();
-        
-        controls.Player.Interact.performed += context => TentarCrescerPlanta();
+
+        controls.Player.Interact.performed += ctx =>
+        {
+            TentarCrescerPlanta();
+        };
     }
 
     private void OnEnable()
@@ -41,34 +44,141 @@ public class PlantLogic : MonoBehaviour
         controls.Disable();
     }
 
-    private void TentarCrescerPlanta()
-    {        
-        if (!playerContact || isGrown) return;
-        PlayerMovement movimento = FindAnyObjectByType<PlayerMovement>();
-        
-        if (!movimento.IsGrounded())
+    void TentarCrescerPlanta()
+    {
+        if (!playerContact) return;
+        if (isGrown || isGrowing) return;
+
+        PlayerMovement movimento =
+            FindAnyObjectByType<PlayerMovement>();
+
+        if (movimento != null &&
+            !movimento.IsGrounded())
         {
-            Debug.Log("Você precisa estar no chão para usar a água");
+            Debug.Log(
+                "Você precisa estar no chão para usar a água"
+            );
+
             return;
         }
 
-        if (PlayerState.Instance != null)
+        if (PlayerState.Instance != null &&
+            PlayerState.Instance.UseWater())
         {
-            if (PlayerState.Instance.UseWater())
+            if(plantGlow != null)
+                plantGlow.DisableGlow();
+
+            StartCoroutine(Grow());
+        }
+        else
+        {
+            if(UIManager.Instance != null)
             {
-                Grow();
-            } 
-            else 
-            {
-                if (UIManager.Instance != null)
-                    UIManager.Instance.ShowMessage("Você precisa de água para esta planta.");
+                UIManager.Instance.ShowMessage(
+                    "Você precisa de água para esta planta."
+                );
             }
+        }
+    }
+
+    IEnumerator Grow()
+{
+    isGrowing = true;
+
+
+    if(growthParticles != null)
+        growthParticles.Play();
+
+
+    Vector2 size = bodyRenderer.size;
+
+
+    while(size.y < maxSize)
+    {
+        size.y +=
+            growSpeed * Time.deltaTime;
+
+
+        if(size.y > maxSize)
+            size.y = maxSize;
+
+
+        bodyRenderer.size = size;
+
+
+        AtualizarCollider(size.y);
+
+
+        yield return null;
+    }
+
+
+    if(growthParticles != null)
+    {
+        growthParticles.Stop(
+            true,
+            ParticleSystemStopBehavior.StopEmitting
+        );
+    }
+
+
+    isGrowing = false;
+    isGrown = true;
+
+
+    FinalizarCrescimento();
+
+
+    Debug.Log("A planta cresceu!");
+}
+
+    void AtualizarCollider(float height)
+    {
+        if(!climbCollider) return;
+
+
+        climbCollider.size =
+        new Vector2(
+            climbCollider.size.x,
+            height
+        );
+
+
+        // mantém o pé da planta fixo
+        climbCollider.offset =
+        new Vector2(
+            climbCollider.offset.x,
+            height / 2f
+        );
+    }
+
+    void FinalizarCrescimento()
+    {
+        if(!climbCollider) return;
+
+
+        if(growthDirection ==
+           GrowthDirection.Vertical)
+        {
+            climbCollider.gameObject.tag =
+                "Ladder";
+        }
+
+
+        if(growthDirection ==
+           GrowthDirection.Horizontal)
+        {
+            climbCollider.isTrigger = false;
+
+
+            climbCollider.gameObject.layer =
+                LayerMask.NameToLayer("Ground");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
             playerContact = true;
         }
@@ -76,43 +186,9 @@ public class PlantLogic : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
             playerContact = false;
         }
-    }
-
-    void Grow()
-    {
-        isGrown = true;
-        
-        // Ativa animação
-        if (animator != null) animator.SetTrigger("Crescer");
-
-        // Troca o sprite se houver um definido
-        if (grownSprite != null && sr != null) sr.sprite = grownSprite;
-
-        // Altera a cor do SpriteRenderer ao crescer
-        if (sr != null)
-        {
-            sr.color = Color.green;
-        }
-        
-        // Configura a colisão com base no tipo de crescimento (vertical ou horizontal)
-        if (growthDirection == GrowthDirection.Horizontal)
-        {
-            if (plantCollider != null)
-            {
-                plantCollider.isTrigger = false; 
-                gameObject.layer = LayerMask.NameToLayer("Ground");
-            }
-        }
-        else
-        {
-            // Altera tag de colisão do sprite após crescer para o tipo vertical (Escada)
-            gameObject.tag = "Ladder";
-        }
-
-        Debug.Log("A planta cresceu!");
     }
 }

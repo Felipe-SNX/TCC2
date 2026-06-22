@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace CoinSystem
 {
@@ -18,6 +19,8 @@ namespace CoinSystem
         private SpriteRenderer spriteRenderer; // Used to hide the coin after collection
         private Collider2D coinCollider; // Used to disable collisions after collection
 
+        private Light2D lightRenderer;
+
         private void Start()
         {
             originalY = transform.position.y;
@@ -25,6 +28,7 @@ namespace CoinSystem
             // Get required components
             spriteRenderer = GetComponent<SpriteRenderer>();
             coinCollider = GetComponent<Collider2D>();
+            lightRenderer = GetComponent<Light2D>();
         }
 
         private void Update()
@@ -59,6 +63,9 @@ namespace CoinSystem
 
             if (coinCollider != null)
                 coinCollider.enabled = false;
+
+            if (lightRenderer != null)
+                lightRenderer.enabled = false;
 
             // Destroy the coin after a short delay to let the sound finish
             StartCoroutine(DestroyAfterDelay(1f));
