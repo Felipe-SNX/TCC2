@@ -12,7 +12,7 @@
     align-self: center; 
 }
 .titulo-tela { 
-    font-size: 80px; 
+    font-size: 100px; 
     -unity-font-style: bold; 
     margin: 0; 
     padding: 0; 
@@ -72,7 +72,7 @@
 
 .texto-fase {
     position: relative;
-    font-size: 65px; 
+    font-size: 80px; 
     color: #888888; 
     -unity-font-style: bold;
     -unity-text-align: middle-center;
@@ -128,7 +128,7 @@
 }
 
 .texto-botao {
-    font-size: 50px; 
+    font-size: 65px; 
     color: #888888;
     -unity-font-style: bold;
     padding-bottom: 5px;

@@ -5,7 +5,7 @@ public class MessageManager : MonoBehaviour
 {
     public static MessageManager Instance;
 
-    private List<MessageFragment> collectedFragments = new List<MessageFragment>();
+    private List<MessageFragment> collectedFragments = new();
 
     private void Awake()
     {
@@ -63,11 +63,11 @@ public class MessageManager : MonoBehaviour
 
     public string GetFullMessage()
     {
-        List<MessageFragment> orderedFragments = new List<MessageFragment>(collectedFragments);
+        List<MessageFragment> orderedFragments = new(collectedFragments);
 
         orderedFragments.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
 
-        List<string> parts = new List<string>();
+        List<string> parts = new();
 
         foreach (MessageFragment fragment in orderedFragments)
         {

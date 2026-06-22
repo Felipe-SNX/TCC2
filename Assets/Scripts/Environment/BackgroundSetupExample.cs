@@ -60,14 +60,14 @@ namespace Platformer.Examples
 
         private void CreateDefaultBackground()
         {
-            GameObject bgObject = new GameObject("Background");
+            GameObject bgObject = new("Background");
             bgObject.transform.SetPositionAndRotation(new Vector3(0, 0, 5), Quaternion.identity);
 
             BackgroundManager bgManager = bgObject.AddComponent<BackgroundManager>();
             SpriteRenderer spriteRenderer = bgObject.AddComponent<SpriteRenderer>();
 
             // Create a simple colored quad
-            Texture2D tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            Texture2D tex = new(1, 1, TextureFormat.RGBA32, false);
             tex.SetPixel(0, 0, Color.white);
             tex.Apply();
 
@@ -89,14 +89,14 @@ namespace Platformer.Examples
         /// </summary>
         public static GameObject CreateBackgroundWithTheme(string theme)
         {
-            GameObject bgObject = new GameObject("Background_" + theme);
+            GameObject bgObject = new("Background_" + theme);
             bgObject.transform.SetPositionAndRotation(new Vector3(0, 0, 5), Quaternion.identity);
 
             BackgroundManager bgManager = bgObject.AddComponent<BackgroundManager>();
             SpriteRenderer spriteRenderer = bgObject.AddComponent<SpriteRenderer>();
 
             // Create white texture
-            Texture2D tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            Texture2D tex = new(1, 1, TextureFormat.RGBA32, false);
             tex.SetPixel(0, 0, Color.white);
             tex.Apply();
 

@@ -1,101 +1,139 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class StartScreenController : MonoBehaviour
+namespace Assets.UI.Menu.StartGameScreen
 {
-    [SerializeField] private GameObject mainMenuObject; 
-    
-    private VisualElement root;
-    private VisualElement titleMask;
-    private Label coloredTitle;
-    private Label promptText;
-    
-    [Header("Cores e Carregamento")]
-    private Color[] paleta = new Color[] { Color.green, Color.blue, Color.yellow, Color.red };
-    private int currentColorIndex = 0;
-    private float timeColor = 0;
-    public float velocidadeTrocaCor = 0.4f; 
-    private float fillDuration = 0;
-    private bool tituloCarregado = false;
-
-    [Header("Transição Suave")]
-    public float velocidadeFade = 3f; 
-    private bool estaSaindo = false;
-    private float opacidadeTela = 1f;
-
-    private void OnEnable()
+    public class StartScreenController : MonoBehaviour
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
-        titleMask = root.Q<VisualElement>("mascara-titulo");
-        coloredTitle = root.Q<Label>("titulo-frente");
-        promptText = root.Q<Label>("prompt-text");
-
-        fillDuration = 0f;
-        tituloCarregado = false;
-        estaSaindo = false;
-        opacidadeTela = 1f;
+        [SerializeField] private GameObject mainMenuObject; 
         
-        if (root != null) root.style.opacity = opacidadeTela; 
-        if (titleMask != null) titleMask.style.width = Length.Percent(0);
-        if (coloredTitle != null) coloredTitle.style.opacity = 1f; 
-    }
+        private VisualElement root;
+        private VisualElement titleMask;
+        private Label coloredTitle;
+        private Label promptText;
+        
+        [Header("Cores e Carregamento")]
+        private Color[] paleta = new Color[] { Color.green, Color.blue, Color.yellow, Color.red };
+        private int currentColorIndex = 0;
+        private float timeColor = 0;
+        public float velocidadeTrocaCor = 0.4f; 
+        private float fillDuration = 0;
+        private bool tituloCarregado = false;
 
-    private void Update()
-    {
-        if (root == null) return;
+        [Header("Transição Suave")]
+        public float velocidadeFade = 3f; 
+        private bool estaSaindo = false;
+        private float opacidadeTela = 1f;
 
-        if (estaSaindo)
+        private void OnEnable()
+        {
+            root = GetComponent<UIDocument>().rootVisualElement;
+            titleMask = root.Q<VisualElement>("mascara-titulo");
+            coloredTitle = root.Q<Label>("titulo-frente");
+            promptText = root.Q<Label>("prompt-text");
+
+            fillDuration = 0f;
+            tituloCarregado = false;
+            estaSaindo = false;
+            opacidadeTela = 1f;
+            
+            if (root != null) root.style.opacity = opacidadeTela; 
+            if (titleMask != null) titleMask.style.width = Length.Percent(0);
+            if (coloredTitle != null) coloredTitle.style.opacity = 1f; 
+        }
+
+        private void Update()
+        {
+            if (root == null) return;
+
+            if (estaSaindo)
+            {
+                HandleExitTransition();
+                return;
+            }
+
+            AnimateTitleColor();
+            AnimateTitleMask();
+            AnimatePromptText();
+            CheckForInput();
+        }
+
+        private void HandleExitTransition()
         {
             opacidadeTela -= Time.deltaTime * velocidadeFade;
             root.style.opacity = opacidadeTela;
 
-            float zoom = Mathf.Lerp(1.2f, 1f, opacidadeTela); 
-            if (coloredTitle != null) coloredTitle.transform.scale = new Vector3(zoom, zoom, 1);
+            float zoom = Mathf.Lerp(1.2f, 1f, opacidadeTela);
+            if (coloredTitle != null)
+            {
+                coloredTitle.style.scale = new StyleScale(new Scale(new Vector2(zoom, zoom)));
+            }
 
             if (opacidadeTela <= 0f)
             {
                 ProsseguirParaMenu();
             }
-            return;
         }
 
-        timeColor += Time.deltaTime * velocidadeTrocaCor;
-        if (timeColor >= 1f) { timeColor = 0; currentColorIndex = (currentColorIndex + 1) % paleta.Length; }
-        
-        Color corFinal = Color.Lerp(paleta[currentColorIndex], paleta[(currentColorIndex + 1) % paleta.Length], timeColor);
-        if (coloredTitle != null) coloredTitle.style.color = corFinal;
-
-        if (!tituloCarregado)
+        private void AnimateTitleColor()
         {
-            fillDuration += Time.deltaTime * 50f; 
-            if (titleMask != null) titleMask.style.width = Length.Percent(Mathf.Clamp(fillDuration, 0, 100));
-
-            if (fillDuration >= 100f)
+            timeColor += Time.deltaTime * velocidadeTrocaCor;
+            if (timeColor >= 1f) 
+            { 
+                timeColor = 0; 
+                currentColorIndex = (currentColorIndex + 1) % paleta.Length; 
+            }
+            
+            Color corFinal = Color.Lerp(paleta[currentColorIndex], paleta[(currentColorIndex + 1) % paleta.Length], timeColor);
+            if (coloredTitle != null) 
             {
-                tituloCarregado = true;
+                coloredTitle.style.color = corFinal;
             }
         }
-        else
+
+        private void AnimateTitleMask()
         {
-            if (coloredTitle != null) coloredTitle.style.opacity = 1f; 
+            if (!tituloCarregado)
+            {
+                fillDuration += Time.deltaTime * 50f; 
+                if (titleMask != null) 
+                {
+                    titleMask.style.width = Length.Percent(Mathf.Clamp(fillDuration, 0, 100));
+                }
+
+                if (fillDuration >= 100f)
+                {
+                    tituloCarregado = true;
+                }
+            }
+            else if (coloredTitle != null)
+            {
+                coloredTitle.style.opacity = 1f; 
+            }
         }
 
-        if (promptText != null)
+        private void AnimatePromptText()
         {
-            float alpha = (Mathf.Sin(Time.time * 3f) + 1f) / 2f; 
-            promptText.style.opacity = Mathf.Lerp(0.2f, 0.8f, alpha);
+            if (promptText != null)
+            {
+                float alpha = (Mathf.Sin(Time.time * 3f) + 1f) / 2f; 
+                promptText.style.opacity = Mathf.Lerp(0.2f, 0.8f, alpha);
+            }
         }
 
-        if (Input.anyKeyDown && !estaSaindo)
+        private void CheckForInput()
         {
-            estaSaindo = true;
-            // AudioManager.Instance.PlaySFX("StartGame");
+            if (Input.anyKeyDown)
+            {
+                estaSaindo = true;
+                // AudioManager.Instance.PlaySFX("StartGame");
+            }
         }
-    }
 
-    private void ProsseguirParaMenu()
-    {
-        mainMenuObject.SetActive(true);
-        gameObject.SetActive(false);
+        private void ProsseguirParaMenu()
+        {
+            mainMenuObject.SetActive(true);
+            gameObject.SetActive(false);
+        }
     }
 }

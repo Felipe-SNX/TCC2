@@ -1,56 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:Style src="QuestionnaireUI.uss" />
-    
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/QuestionaryScreen/QuestionnaireUI.uss?fileID=7433441132597879392&amp;guid=48a10dff77b2e4248bed38683735cb62&amp;type=3#QuestionnaireUI"/>
     <ui:VisualElement name="screen-overlay" class="tela-cheia">
-        
         <ui:VisualElement name="survey-container" class="painel-vidro">
-            
             <ui:VisualElement class="titulo-container">
-                <ui:Label text="Fase Completada" class="titulo titulo-cinza" />
+                <ui:Label text="Fase Completada" class="titulo titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                 <ui:VisualElement name="mascara-titulo" class="mascara">
-                    <ui:Label text="Fase Completada" class="titulo colorido" />
+                    <ui:Label text="Fase Completada" class="titulo colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-
-            <ui:Label text="Sua avaliação nos ajuda a entender o impacto das cores!" class="desc-fase" />
-
+            <ui:Label text="Sua avaliação nos ajuda a entender o impacto das cores!" class="desc-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement class="input-group">
-                <ui:Label text="Seu E-mail:" class="label-input" />
-                <ui:TextField name="input_email" class="custom-input" />
-                <ui:Label name="lbl_erro_email" text="* Digite um e-mail válido com @" class="erro-texto" />
+                <ui:Label text="Seu E-mail:" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:TextField name="input_email" class="custom-input"/>
+                <ui:Label name="lbl_erro_email" text="* Digite um e-mail válido com @" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
-
             <ui:VisualElement class="input-group">
-                <ui:Label text="Seu PIN (Apenas números):" class="label-input" />
-                <ui:TextField name="input_pin" max-length="6" class="custom-input" />
-                <ui:Label name="lbl_erro_pin" text="* O PIN deve conter apenas números" class="erro-texto" />
+                <ui:Label text="Seu PIN (Apenas números):" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:TextField name="input_pin" max-length="6" class="custom-input"/>
+                <ui:Label name="lbl_erro_pin" text="* O PIN deve conter apenas números" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
-
-            <ui:Label name="lbl_question_1" text="Como você avalia o impacto da fase em seu estado mental?" class="texto-pergunta" />
-
+            <ui:Label name="lbl_question_1" text="Como você avalia o impacto da fase em seu estado mental?" class="texto-pergunta" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement class="slider-row">
-                <ui:SliderInt name="slider_q1" low-value="1" high-value="5" value="3" class="custom-slider" />
-                <ui:Label name="lbl_valor_q1" text="3" class="slider-value-right" />
+                <ui:SliderInt name="slider_q1" low-value="1" high-value="5" value="3" class="custom-slider"/>
+                <ui:Label name="lbl_valor_q1" text="3" class="slider-value-right" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
-
             <ui:VisualElement class="escala-legendas">
-                <ui:Label text="1 - Muito Negativo" class="legenda-texto" />
-                <ui:Label text="5 - Muito Positivo" class="legenda-texto" />
+                <ui:Label text="1 - Muito Negativo" class="legenda-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:Label text="5 - Muito Positivo" class="legenda-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
-
             <ui:VisualElement class="container-botoes">
                 <ui:Button name="btn_submit" class="botao-menu">
-                    <ui:Label text="Enviar respostas" class="texto-botao" picking-mode="Ignore" />
-                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                    <ui:Label text="Enviar respostas" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
-                
                 <ui:Button name="btn_skip" class="botao-menu">
-                    <ui:Label text="Pular preenchimento" class="texto-botao" picking-mode="Ignore" />
-                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                    <ui:Label text="Pular preenchimento" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
             </ui:VisualElement>
-
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

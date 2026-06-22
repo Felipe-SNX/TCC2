@@ -18,7 +18,7 @@
 }
 
 .titulo-tela {
-    font-size: 80px; 
+    font-size: 110px; 
     -unity-font-style: bold;
     margin: 0; padding: 0; white-space: nowrap;
 }
@@ -60,7 +60,7 @@
 }
 
 .prompt-carregamento {
-    font-size: 45px; 
+    font-size: 65px; 
     color: #FFD700; 
     -unity-font-style: bold;
     -unity-text-align: middle-center;

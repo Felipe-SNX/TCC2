@@ -8,7 +8,7 @@ namespace SceneScript
         public Transform target;
 
         [Header("Camera offset (optional)")]
-        public Vector3 offset = new Vector3(0, 0, -10);
+        public Vector3 offset = new(0, 0, -10);
         // Keeps the camera positioned correctly along the Z-axis, especially in 2D
 
         [Header("Follow smoothness")]

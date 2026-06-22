@@ -3,79 +3,82 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class LoadingController : MonoBehaviour
+namespace Assets.UI.Menu.LoadingScreen
 {
-    private VisualElement root;
-    private VisualElement mascaraTitulo;
-    private VisualElement barraPreenchimento;
-    private Label promptText;
-
-    private AsyncOperation operacaoCarregamento;
-    private bool carregamentoCompleto = false;
-
-    private void OnEnable()
+    public class LoadingController : MonoBehaviour
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        private VisualElement root;
+        private VisualElement mascaraTitulo;
+        private VisualElement barraPreenchimento;
+        private Label promptText;
 
-        mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
-        barraPreenchimento = root.Q<VisualElement>("barra-preenchimento");
-        promptText = root.Q<Label>("prompt-text");
+        private AsyncOperation operacaoCarregamento;
+        private bool carregamentoCompleto = false;
 
-        if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
-        if (barraPreenchimento != null) barraPreenchimento.style.width = Length.Percent(0);
-        if (promptText != null) promptText.AddToClassList("oculto");
-
-        StartCoroutine(CarregarCenaAssincronamente(GlobalData.nextScene));
-    }
-
-    private void Update()
-    {
-        if (root == null || root.style.display == DisplayStyle.None) return;
-
-        if (carregamentoCompleto && promptText != null)
+        private void OnEnable()
         {
-            float alpha = (Mathf.Sin(Time.time * 4f) + 1f) / 2f; 
-            promptText.style.opacity = Mathf.Lerp(0.3f, 1f, alpha);
+            root = GetComponent<UIDocument>().rootVisualElement;
 
-            if (Input.anyKeyDown)
+            mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
+            barraPreenchimento = root.Q<VisualElement>("barra-preenchimento");
+            promptText = root.Q<Label>("prompt-text");
+
+            if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
+            if (barraPreenchimento != null) barraPreenchimento.style.width = Length.Percent(0);
+            if (promptText != null) promptText.AddToClassList("oculto");
+
+            StartCoroutine(CarregarCenaAssincronamente(GlobalData.nextScene));
+        }
+
+        private void Update()
+        {
+            if (root == null || root.style.display == DisplayStyle.None) return;
+
+            if (carregamentoCompleto && promptText != null)
             {
-                FinalizarCarregamento();
+                float alpha = (Mathf.Sin(Time.time * 4f) + 1f) / 2f; 
+                promptText.style.opacity = Mathf.Lerp(0.3f, 1f, alpha);
+
+                if (Input.anyKeyDown)
+                {
+                    FinalizarCarregamento();
+                }
             }
         }
-    }
 
-    private IEnumerator CarregarCenaAssincronamente(string nomeCena)
-    {
-        yield return new WaitForSeconds((float)0.5); 
-
-        operacaoCarregamento = SceneManager.LoadSceneAsync(nomeCena);
-        
-        // Impede que a cena ligue automaticamente quando chegar em 100%
-        operacaoCarregamento.allowSceneActivation = false; 
-
-        while (!operacaoCarregamento.isDone)
+        private IEnumerator CarregarCenaAssincronamente(string nomeCena)
         {
-            float progresso = Mathf.Clamp01(operacaoCarregamento.progress / 0.9f);
+            yield return new WaitForSeconds((float)0.5); 
+
+            operacaoCarregamento = SceneManager.LoadSceneAsync(nomeCena);
             
-            float porcentagem = progresso * 100f;
-            if (barraPreenchimento != null) barraPreenchimento.style.width = Length.Percent(porcentagem);
-            if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(porcentagem);
+            // Impede que a cena ligue automaticamente quando chegar em 100%
+            operacaoCarregamento.allowSceneActivation = false; 
 
-            if (operacaoCarregamento.progress >= 0.9f)
+            while (!operacaoCarregamento.isDone)
             {
-                carregamentoCompleto = true;
+                float progresso = Mathf.Clamp01(operacaoCarregamento.progress / 0.9f);
                 
-                if (promptText != null) promptText.RemoveFromClassList("oculto");
-                
-                yield break; 
+                float porcentagem = progresso * 100f;
+                if (barraPreenchimento != null) barraPreenchimento.style.width = Length.Percent(porcentagem);
+                if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(porcentagem);
+
+                if (operacaoCarregamento.progress >= 0.9f)
+                {
+                    carregamentoCompleto = true;
+                    
+                    if (promptText != null) promptText.RemoveFromClassList("oculto");
+                    
+                    yield break; 
+                }
+
+                yield return null; 
             }
-
-            yield return null; 
         }
-    }
 
-    private void FinalizarCarregamento()
-    {
-        if (operacaoCarregamento != null) operacaoCarregamento.allowSceneActivation = true;
+        private void FinalizarCarregamento()
+        {
+            if (operacaoCarregamento != null) operacaoCarregamento.allowSceneActivation = true;
+        }
     }
 }

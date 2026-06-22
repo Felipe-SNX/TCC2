@@ -1,51 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    
-    <Style src="LevelSelection.uss" />
-
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/LevelSelectionScreen/LevelSelection.uss?fileID=7433441132597879392&amp;guid=0bb5eeb994d13974198083378b962cdd&amp;type=3#LevelSelection"/>
     <ui:VisualElement class="tela-inteira">
-        
         <ui:VisualElement class="titulo-container">
-            <ui:Label text="Seleção de Fases" class="titulo-tela titulo-cinza" />
+            <ui:Label text="Seleção de Fases" class="titulo-tela titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement name="mascara-titulo" class="mascara">
-                <ui:Label name="titulo-frente" text="Seleção de Fases" class="titulo-tela colorido" />
+                <ui:Label name="titulo-frente" text="Seleção de Fases" class="titulo-tela colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:ScrollView mode="Horizontal" horizontal-scroller-visibility="Hidden" class="carrossel-fases">
-            
             <ui:VisualElement class="bandeja-fases">
-                
-                <ui:Button name="btn-fase-verde" class="cartao-fase tema-verde" focusable="true">
-                    <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
-                        <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
-                        <ui:Label text="Fase    Verde" class="texto-fase" picking-mode="Ignore" />
+                <ui:Button name="btn-fase-verde" focusable="true" class="cartao-fase tema-verde">
+                    <ui:VisualElement picking-mode="Ignore" class="frente-cartao">
+                        <ui:VisualElement picking-mode="Ignore" class="cor-preenchimento"/>
+                        <ui:Label text="Fase    Verde" picking-mode="Ignore" class="texto-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     </ui:VisualElement>
                 </ui:Button>
-
-                <ui:Button name="btn-fase-vermelha" class="cartao-fase tema-vermelho" focusable="true">
-                    <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
-                        <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
-                        <ui:Label text="Fase Vermelha" class="texto-fase" picking-mode="Ignore" />
+                <ui:Button name="btn-fase-vermelha" focusable="true" class="cartao-fase tema-vermelho">
+                    <ui:VisualElement picking-mode="Ignore" class="frente-cartao">
+                        <ui:VisualElement picking-mode="Ignore" class="cor-preenchimento"/>
+                        <ui:Label text="Fase Vermelha" picking-mode="Ignore" class="texto-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     </ui:VisualElement>
                 </ui:Button>
-
-                <ui:Button name="btn-fase-amarela" class="cartao-fase tema-amarelo" focusable="true">
-                    <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
-                        <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
-                        <ui:Label text="Fase Amarela" class="texto-fase" picking-mode="Ignore" />
+                <ui:Button name="btn-fase-amarela" focusable="true" class="cartao-fase tema-amarelo">
+                    <ui:VisualElement picking-mode="Ignore" class="frente-cartao">
+                        <ui:VisualElement picking-mode="Ignore" class="cor-preenchimento"/>
+                        <ui:Label text="Fase Amarela" picking-mode="Ignore" class="texto-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     </ui:VisualElement>
                 </ui:Button>
-
             </ui:VisualElement>
-            
         </ui:ScrollView>
-
         <ui:Button name="btn-voltar" class="botao-menu botao-voltar">
-            <ui:Label text="Voltar" class="texto-botao" picking-mode="Ignore" />
-            <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+            <ui:Label text="Voltar" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
         </ui:Button>
-
     </ui:VisualElement>
-
 </ui:UXML>

@@ -12,7 +12,7 @@
 }
 
 .titulo-tela { 
-    font-size: 80px; 
+    font-size: 100px; 
     -unity-font-style: bold; 
     margin: 0; 
     padding: 0; 
@@ -74,7 +74,7 @@
 }
 
 .texto-botao { 
-    font-size: 35px; 
+    font-size: 60px; 
     color: #888888; 
     -unity-font-style: bold; 
     padding-bottom: 5px; 
@@ -96,6 +96,7 @@
     color: #FFFFFF; 
     translate: 10px 0; 
 }
+
 .botao-menu:hover .linha-inferior, .aba-ativa .linha-inferior { 
     background-color: #FF3333; 
     width: 100%; 
@@ -136,12 +137,14 @@
 }
 
 .labels { 
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
     font-size: 28px; 
     color: #CCCCCC; 
     width: 280px;
     padding-right: 30px; 
     -unity-font-style: bold; 
 }
+
 .valor-slider { 
     font-size: 28px; 
     color: white; 
@@ -226,7 +229,7 @@
     border-color: #ff5f5f; 
     border-radius: 10px; 
     color: #ff5f5f; 
-    font-size: 24px; 
+    font-size: 32px; 
     padding: 15px 30px; 
     -unity-font-style: bold; 
     align-self: center; 

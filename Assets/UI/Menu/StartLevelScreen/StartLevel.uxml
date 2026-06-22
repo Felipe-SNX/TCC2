@@ -1,20 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
->
-    <Style src="StartLevel.uss" />
-
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/StartLevelScreen/StartLevel.uss?fileID=7433441132597879392&amp;guid=299b0a4743fe63048a40119a990b09f8&amp;type=3#StartLevel"/>
     <ui:VisualElement class="tela-cheia">
-        
         <ui:VisualElement class="banner-anuncio">
-            
-            <ui:Label name="txt-nome-fase" text="Nome da Fase" class="texto-fase" />
-            <ui:Label name="txt-anuncio" text="Prepara" class="texto-gigante" />
-            
+            <ui:Label name="txt-nome-fase" text="Nome da Fase" class="texto-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:Label name="txt-anuncio" text="Prepara" class="texto-gigante" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
         </ui:VisualElement>
-
     </ui:VisualElement>
 </ui:UXML>

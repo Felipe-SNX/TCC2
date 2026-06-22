@@ -11,7 +11,7 @@
 }
 
 .titulo-fundo {
-    font-size: 120px; 
+    font-size: 150px; 
     color: #444444; 
     -unity-font-style: bold;
     margin: 0;
@@ -29,7 +29,7 @@
 }
 
 .titulo-frente {
-    font-size: 120px; 
+    font-size: 150px; 
     -unity-font-style: bold;
     margin: 0;
     padding: 0;
@@ -40,7 +40,7 @@
 }
 
 .prompt-text {
-    font-size: 45px;
+    font-size: 65px;
     color: #DDDDDD;
     margin-top: 80px; 
     letter-spacing: 5px;

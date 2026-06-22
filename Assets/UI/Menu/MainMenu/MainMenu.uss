@@ -19,16 +19,18 @@
 }
 
 .titulo-jogo {
-    font-size: 110px;
+    font-size: 150px;
     -unity-font-style: bold;
     margin: 0;
     padding: 0;
     white-space: nowrap; 
     -unity-text-align: middle-center; 
+    -unity-text-outline-width: 3px;   
+    -unity-text-outline-color: #000000;     
 }
 
 .titulo-cinza {
-    font-size: 120px; 
+    font-size: 160px; 
     color: #444444; 
     -unity-font-style: bold;
     margin: 0; padding: 0; white-space: nowrap;
@@ -44,7 +46,7 @@
 }
 
 .colorido {
-    font-size: 120px; 
+    font-size: 160px; 
     -unity-font-style: bold;
     margin: 0; padding: 0; white-space: nowrap; 
     position: absolute; top: 0; left: 0;
@@ -77,7 +79,7 @@
 } 
 
 .texto-botao {
-    font-size: 55px; 
+    font-size: 80px; 
     color: #888888; 
     -unity-font-style: bold;
     transition-duration: 0.2s;

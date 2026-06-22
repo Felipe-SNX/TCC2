@@ -12,7 +12,7 @@
     align-self: center; 
 }
 .titulo-tela { 
-    font-size: 80px; 
+    font-size: 100px; 
     -unity-font-style: bold; 
     margin: 0; 
     padding: 0; 
@@ -45,7 +45,7 @@
 }
 
 .categoria-header {
-    font-size: 45px;
+    font-size: 55px;
     color: rgba(0, 255, 102, 1);
     -unity-font-style: bold;
     margin-top: 70px;
@@ -60,18 +60,18 @@
 }
 
 .texto-cargo {
-    font-size: 35px; 
+    font-size: 45px; 
     color: #AAAAAA; 
     margin-bottom: 5px;
 }
 
 .texto-nome {
-    font-size: 60px; 
+    font-size: 70px; 
     -unity-font-style: bold;
 }
 
 .texto-asset {
-    font-size: 40px; 
+    font-size: 50px; 
     color: #FFFFFF;
     -unity-font-style: bold;
 }
@@ -94,7 +94,7 @@
     padding: 0;
 }
 
-.texto-botao { font-size: 50px; color: #888888; -unity-font-style: bold; padding-bottom: 5px; transition-duration: 0.2s; }
+.texto-botao { font-size: 65px; color: #888888; -unity-font-style: bold; padding-bottom: 5px; transition-duration: 0.2s; }
 .linha-inferior { height: 6px; width: 0%; background-color: #FF3333; transition-property: width, translate; transition-duration: 0.2s, 0.2s; }
 .botao-menu:hover .texto-botao, .botao-menu:focus .texto-botao { color: #FFFFFF; translate: 10px 0; }
 .botao-menu:hover .linha-inferior, .botao-menu:focus .linha-inferior { width: 100%; translate: 10px 0; }

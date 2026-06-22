@@ -1,61 +1,64 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[System.Serializable] 
-public class ConfigControlsView
+namespace Assets.UI.Menu.ConfigScreen
 {
-    private VisualElement root;
-    
-    public void Inicializar(VisualElement container)
+    [System.Serializable] 
+    public class ConfigControlsView
     {
-        root = container;
-        root.Clear(); 
-
-        // Adiciona um pequeno respiro no topo do ScrollView
-        root.style.paddingTop = 15;
-
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentação", true);
-
-        // Linhas normais para as teclas individuais
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/space"), "Pular / Saltar", false);
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/shift"), "Dash", false);
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Ação", false);
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/q"), "Descartar", false);
-    }
-
-    private void GerarLinha(Sprite icone, string acao, bool ehLargo)
-    {
-        if (icone == null) return;
-
-        VisualElement linha = new VisualElement();
-        linha.AddToClassList("linha-controle");
-
-        Label labelAcao = new Label(acao);
-        labelAcao.AddToClassList("labels"); 
-
-        VisualElement wrapperDireita = new VisualElement();
-        wrapperDireita.AddToClassList("tecla-wrapper-direita");
-
-        VisualElement iconeElement = new VisualElement();
+        private VisualElement root;
         
-        iconeElement.style.width = ehLargo ? 140 : 50;
-        iconeElement.style.height = 50;
-        iconeElement.style.flexShrink = 0; 
-        iconeElement.style.unityBackgroundScaleMode = ScaleMode.ScaleToFit; 
+        public void Inicializar(VisualElement container)
+        {
+            root = container;
+            root.Clear(); 
 
-        if (ehLargo)
-            iconeElement.AddToClassList("tecla-container-larga");
-        else
-            iconeElement.AddToClassList("tecla-container");
+            // Adiciona um pequeno respiro no topo do ScrollView
+            root.style.paddingTop = 15;
 
-        iconeElement.AddToClassList("icone-cromatico"); 
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentação", true);
 
-        iconeElement.style.backgroundImage = new StyleBackground(icone);
+            // Linhas normais para as teclas individuais
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/space"), "Pular / Saltar", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/shift"), "Dash", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Ação", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/q"), "Descartar", false);
+        }
 
-        linha.Add(labelAcao);        
-        wrapperDireita.Add(iconeElement); 
-        linha.Add(wrapperDireita);
+        private void GerarLinha(Sprite icone, string acao, bool ehLargo)
+        {
+            if (icone == null) return;
 
-        root.Add(linha);
+            VisualElement linha = new();
+            linha.AddToClassList("linha-controle");
+
+            Label labelAcao = new(acao);
+            labelAcao.AddToClassList("labels"); 
+
+            VisualElement wrapperDireita = new();
+            wrapperDireita.AddToClassList("tecla-wrapper-direita");
+
+            VisualElement iconeElement = new();
+            
+            iconeElement.style.width = ehLargo ? 140 : 50;
+            iconeElement.style.height = 50;
+            iconeElement.style.flexShrink = 0; 
+            iconeElement.style.backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain));    
+
+            if (ehLargo)
+                iconeElement.AddToClassList("tecla-container-larga");
+            else
+                iconeElement.AddToClassList("tecla-container");
+
+            iconeElement.AddToClassList("icone-cromatico"); 
+
+            iconeElement.style.backgroundImage = new StyleBackground(icone);
+
+            linha.Add(labelAcao);        
+            wrapperDireita.Add(iconeElement); 
+            linha.Add(wrapperDireita);
+
+            root.Add(linha);
+        }
     }
 }

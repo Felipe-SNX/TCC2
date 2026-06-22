@@ -172,7 +172,7 @@ namespace Platformer.Environment
 
         private Texture2D CreateSimpleTexture()
         {
-            Texture2D texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            Texture2D texture = new(1, 1, TextureFormat.RGBA32, false);
             texture.SetPixel(0, 0, Color.white);
             texture.Apply();
             return texture;

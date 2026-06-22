@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerWallJump : MonoBehaviour
 {
     [Header("Configurações do Wall Jump")]
-    [SerializeField] private Vector2 wallJumpForce = new Vector2(5f, 12f);
+    [SerializeField] private Vector2 wallJumpForce = new(5f, 12f);
     [SerializeField] private float wallJumpDuration = 0.15f;
     
     public bool IsWallJumping { get; private set; }

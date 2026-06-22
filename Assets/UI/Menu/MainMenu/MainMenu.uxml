@@ -1,44 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    
-    <Style src="MainMenu.uss" />
-
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=4ae4fbfe78272ff4799c7cea932ca772&amp;type=3#MainMenu"/>
     <ui:VisualElement name="painel-principal" class="tela-inteira">
-        
         <ui:VisualElement class="titulo-container">
-            <ui:Label text="Espectro" class="titulo-jogo titulo-cinza" />
-            
+            <ui:Label text="Espectro" class="titulo-jogo titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement name="mascara-titulo" class="mascara">
-                <ui:Label name="titulo-frente" text="Espectro" class="titulo-jogo colorido" />
+                <ui:Label name="titulo-frente" text="Espectro" class="titulo-jogo colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
         </ui:VisualElement>
-
         <ui:VisualElement class="area-central">
             <ui:VisualElement class="container-botoes">
-                
                 <ui:Button name="btn-jogar" class="botao-menu">
-                    <ui:Label text="Jogar" class="texto-botao" picking-mode="Ignore" />
-                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                    <ui:Label text="Jogar" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
-
                 <ui:Button name="btn-opcoes" class="botao-menu">
-                    <ui:Label text="Opções" class="texto-botao" picking-mode="Ignore" />
-                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                    <ui:Label text="Opções" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
-
                 <ui:Button name="btn-creditos" class="botao-menu">
-                    <ui:Label text="Créditos" class="texto-botao" picking-mode="Ignore" />
-                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                    <ui:Label text="Créditos" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
-
                 <ui:Button name="btn-sair" class="botao-menu">
-                    <ui:Label text="Sair" class="texto-botao" picking-mode="Ignore" />
-                    <ui:VisualElement name="linha-inferior" class="linha-inferior" picking-mode="Ignore" />
+                    <ui:Label text="Sair" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
-
             </ui:VisualElement>
         </ui:VisualElement>
-
     </ui:VisualElement>
-
 </ui:UXML>
