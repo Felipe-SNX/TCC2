@@ -7,6 +7,10 @@ namespace Assets.UI.Menu.LoadingScreen
 {
     public class LoadingController : MonoBehaviour
     {
+        [Header("Grids de Fundo")]
+        [SerializeField] private GameObject gridFase1;
+        [SerializeField] private GameObject gridFase2;
+
         private VisualElement root;
         private VisualElement mascaraTitulo;
         private VisualElement barraPreenchimento;
@@ -14,6 +18,18 @@ namespace Assets.UI.Menu.LoadingScreen
 
         private AsyncOperation operacaoCarregamento;
         private bool carregamentoCompleto = false;
+
+        private void Start()
+        {
+            if(gridFase1 != null && GlobalData.nextScene == "Map_Green")
+            {
+                gridFase1.SetActive(true);
+            }
+            else
+            {
+                gridFase2.SetActive(true);
+            }
+        }
 
         private void OnEnable()
         {

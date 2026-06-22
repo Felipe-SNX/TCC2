@@ -24,9 +24,10 @@
     margin: 0;
     padding: 0;
     white-space: nowrap; 
-    -unity-text-align: middle-center; 
-    -unity-text-outline-width: 3px;   
-    -unity-text-outline-color: #000000;     
+    -unity-text-align: middle-center;  
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 8px 8px 0px rgba(0, 0, 0, 0.8);  
 }
 
 .titulo-cinza {
@@ -48,8 +49,14 @@
 .colorido {
     font-size: 160px; 
     -unity-font-style: bold;
-    margin: 0; padding: 0; white-space: nowrap; 
-    position: absolute; top: 0; left: 0;
+    margin: 0; 
+    padding: 0; 
+    white-space: nowrap; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
 }
 
 .area-central {

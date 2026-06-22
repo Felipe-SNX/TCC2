@@ -11,12 +11,15 @@
 }
 
 .titulo-fundo {
-    font-size: 150px; 
+    font-size: 200px; 
     color: #444444; 
     -unity-font-style: bold;
     margin: 0;
     padding: 0;
     white-space: nowrap;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 8px 8px 0px rgba(0, 0, 0, 0.8);
 }
 
 .mascara {
@@ -29,7 +32,7 @@
 }
 
 .titulo-frente {
-    font-size: 150px; 
+    font-size: 200px; 
     -unity-font-style: bold;
     margin: 0;
     padding: 0;
@@ -37,13 +40,17 @@
     position: absolute;
     top: 0;
     left: 0;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
 }
 
 .prompt-text {
-    font-size: 65px;
+    font-size: 80px;
     color: #DDDDDD;
     margin-top: 80px; 
     letter-spacing: 5px;
     -unity-font-style: bold;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-outline-width: 3px; 
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8); 
 }
