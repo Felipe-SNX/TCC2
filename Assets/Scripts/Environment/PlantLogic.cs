@@ -244,7 +244,7 @@ public class PlantLogic : MonoBehaviour
         }
     }
 
-        void Grow()
+    /*void Grow()
     {
         isGrown = true;
 
@@ -289,5 +289,5 @@ public class PlantLogic : MonoBehaviour
         }
 
         Debug.Log("A planta cresceu!");
-    }
+    }*/
 }
