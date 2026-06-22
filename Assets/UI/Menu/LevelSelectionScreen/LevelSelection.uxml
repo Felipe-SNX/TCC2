@@ -19,7 +19,7 @@
                 <ui:Button name="btn-fase-verde" class="cartao-fase tema-verde" focusable="true">
                     <ui:VisualElement class="frente-cartao" picking-mode="Ignore">
                         <ui:VisualElement class="cor-preenchimento" picking-mode="Ignore" />
-                        <ui:Label text="Fase Verde" class="texto-fase" picking-mode="Ignore" />
+                        <ui:Label text="Fase    Verde" class="texto-fase" picking-mode="Ignore" />
                     </ui:VisualElement>
                 </ui:Button>
 

@@ -24,7 +24,7 @@
 
 .colorido { 
     color: #00FFFF; position: absolute; left: 0; top: 0; 
-    text-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5); 
+    text-shadow: 0px 0px 15px rgba(0, 255, 102, 1); 
 }
 
 .texto-stats {

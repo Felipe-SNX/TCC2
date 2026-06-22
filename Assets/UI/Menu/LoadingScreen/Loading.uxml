@@ -8,9 +8,9 @@
         <ui:VisualElement class="container-central">
 
             <ui:VisualElement class="titulo-container">
-                <ui:Label text="CARREGANDO..." class="titulo-tela titulo-cinza" />
+                <ui:Label text="CARREGANDO" class="titulo-tela titulo-cinza" />
                 <ui:VisualElement name="mascara-titulo" class="mascara">
-                    <ui:Label text="CARREGANDO..." class="titulo-tela colorido-ciano" />
+                    <ui:Label text="CARREGANDO" class="titulo-tela colorido-ciano" />
                 </ui:VisualElement>
             </ui:VisualElement>
 

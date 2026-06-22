@@ -7,11 +7,11 @@
         
         <ui:VisualElement class="titulo-container">
             
-            <ui:Label text="Nome do Jogo" class="titulo-fundo" />
+            <ui:Label text="Espectro" class="titulo-fundo" />
             
             <ui:VisualElement name="mascara-titulo" class="mascara">
                 
-                <ui:Label name="titulo-frente" text="Nome do Jogo" class="titulo-frente" />
+                <ui:Label name="titulo-frente" text="Espectro" class="titulo-frente" />
                 
             </ui:VisualElement>
             

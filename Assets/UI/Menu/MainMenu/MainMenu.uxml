@@ -6,10 +6,10 @@
     <ui:VisualElement name="painel-principal" class="tela-inteira">
         
         <ui:VisualElement class="titulo-container">
-            <ui:Label text="Nome do Jogo" class="titulo-jogo titulo-cinza" />
+            <ui:Label text="Espectro" class="titulo-jogo titulo-cinza" />
             
             <ui:VisualElement name="mascara-titulo" class="mascara">
-                <ui:Label name="titulo-frente" text="Nome do Jogo" class="titulo-jogo colorido" />
+                <ui:Label name="titulo-frente" text="Espectro" class="titulo-jogo colorido" />
             </ui:VisualElement>
         </ui:VisualElement>
 

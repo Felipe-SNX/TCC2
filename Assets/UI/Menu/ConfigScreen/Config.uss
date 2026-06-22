@@ -33,7 +33,7 @@
 }
 
 .colorido { 
-    color: #00FFFF; 
+    color: rgba(0, 255, 102, 1); 
     position: absolute; 
     top: 0; 
     left: 0; 
@@ -253,39 +253,36 @@
 
 .tecla-wrapper-direita {
     flex-grow: 1;
-    align-items: flex-end; 
-    justify-content: center;
-}
-
-.tecla-neon { 
-    border-color: #00FFFF;
+    flex-direction: row;       
+    align-items: center;       
 }
 
 .tecla-container {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px; 
-    max-width: 50px;  
-    max-height: 50px;
-    padding: 10px;
+    width: 100px; 
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px; 
+    max-width: 100px;  
+    max-height: 100px;
+    padding: 0; 
     flex-shrink: 0; 
+    margin-left: auto; 
+    margin-right: 0;
+    -unity-background-scale-mode: scale-to-fit; 
 }
 
 .tecla-container-larga {
-    width: 140px;
-    height: 50px;
-    min-width: 140px;
-    min-height: 50px;
-    max-width: 140px;
-    max-height: 50px;
-    padding: 10px;
+    width: 250px; 
+    height: 150px;
+    min-width: 250px;
+    min-height: 150px;
+    max-width: 250px;
+    max-height: 150px;
+    padding: 0; 
     flex-shrink: 0;
-}
-
-.tecla-neon:hover {
-    background-color: rgba(0, 255, 255, 0.2);
-    border-color: rgb(0, 255, 255);
+    margin-left: auto; 
+    margin-right: 0;
+    -unity-background-scale-mode: scale-to-fit; 
 }
 
 .cor-master { 

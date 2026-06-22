@@ -9,8 +9,9 @@
             
             <ui:VisualElement class="titulo-container">
                 <ui:Label name="txt-nome-fase" text="Nome da Fase" class="titulo titulo-cinza" />
+                
                 <ui:VisualElement name="mascara-titulo" class="mascara">
-                    <ui:Label text="Nome da Fase" class="titulo colorido" />
+                    <ui:Label name="txt-nome-fase-colorido" text="Nome da Fase" class="titulo colorido" />
                 </ui:VisualElement>
             </ui:VisualElement>
 

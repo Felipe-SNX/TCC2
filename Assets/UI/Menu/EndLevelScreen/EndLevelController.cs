@@ -16,6 +16,7 @@ public class EndLevelController : MonoBehaviour
 
         // Preenche dados
         var txtNomeFase = root.Q<Label>("txt-nome-fase");
+        var txtNomeFaseColorido = root.Q<Label>("txt-nome-fase-colorido");
         var txtTempoTotal = root.Q<Label>("txt-tempo-total");
         var txtTentativas = root.Q<Label>("txt-tentativas");
         var txtColetaveis = root.Q<Label>("txt-coletaveis");
@@ -25,7 +26,11 @@ public class EndLevelController : MonoBehaviour
             float tempo = MetricsManager.Instance.GetTimeLevel(); 
             string tempoFormatado = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(tempo / 60F), Mathf.FloorToInt(tempo % 60));
 
-            if (txtNomeFase != null) txtNomeFase.text = MetricsManager.Instance.GetNameLevel(); 
+            string nomeDaFaseAtual = MetricsManager.Instance.GetNameLevel();
+
+            if (txtNomeFase != null) txtNomeFase.text = nomeDaFaseAtual; 
+            if (txtNomeFaseColorido != null) txtNomeFaseColorido.text = nomeDaFaseAtual; 
+
             if (txtTempoTotal != null) txtTempoTotal.text = "Tempo: " + tempoFormatado;
             if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetTriesLevel();
             if (txtColetaveis != null) txtColetaveis.text = "Coletáveis: " + MetricsManager.Instance.GetCollectiblesCount();

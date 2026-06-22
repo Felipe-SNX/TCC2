@@ -21,7 +21,7 @@
 }
 .titulo-cinza { color: #444444; }
 .mascara { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; overflow: hidden; }
-.colorido { color: #00FFFF; position: absolute; left: 0; top: 0; }
+.colorido { color: rgba(0, 255, 102, 1); position: absolute; left: 0; top: 0; }
 
 .janela-rolagem {
     width: 70%; 
@@ -46,7 +46,7 @@
 
 .categoria-header {
     font-size: 45px;
-    color: #00FFFF;
+    color: rgba(0, 255, 102, 1);
     -unity-font-style: bold;
     margin-top: 70px;
     margin-bottom: 30px;
@@ -119,6 +119,6 @@
 }
 
 .janela-rolagem .unity-base-slider__dragger:hover {
-    background-color: rgba(0, 255, 255, 0.8);
+    background-color: rgba(0, 255, 102, 1);
     width: 10px; 
 }

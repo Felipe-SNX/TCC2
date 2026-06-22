@@ -34,7 +34,7 @@
 .colorido-ciano {
     color: #00FFFF; 
     position: absolute; left: 0; top: 0;
-    text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.7);
+    text-shadow: 0px 0px 10px rgba(0, 255, 102, 1);
 }
 
 .barra-progresso-container {
@@ -45,7 +45,7 @@
     background-color: rgba(0, 0, 0, 0.8); 
     border-radius: 20px;
     border-width: 3px; 
-    border-color: rgba(0, 255, 255, 0.5); 
+    border-color: rgba(0, 255, 102, 1); 
     margin-top: 20px;
     margin-bottom: 40px; 
     overflow: hidden; 
@@ -55,7 +55,7 @@
 .barra-preenchimento-neon {
     height: 100%;
     width: 0%; 
-    background-color: #00FFFF; 
+    background-color: rgba(0, 255, 102, 1); 
     border-radius: 16px; 
 }
 

@@ -48,7 +48,6 @@ public class ConfigControlsView
         else
             iconeElement.AddToClassList("tecla-container");
 
-        iconeElement.AddToClassList("tecla-neon"); 
         iconeElement.AddToClassList("icone-cromatico"); 
 
         iconeElement.style.backgroundImage = new StyleBackground(icone);
