@@ -148,11 +148,11 @@ namespace Assets.UI.Menu.ConfigScreen
 
                 if (label != null)
                 {
-                    label.text = Mathf.RoundToInt(slider.value / 10f).ToString();
+                    label.text = Mathf.RoundToInt(slider.value).ToString();
 
                     slider.RegisterValueChangedCallback(evt =>
                     {
-                        label.text = Mathf.RoundToInt(evt.newValue / 10f).ToString();
+                        label.text = Mathf.RoundToInt(evt.newValue).ToString();
                     });
                 }
             }
@@ -166,7 +166,7 @@ namespace Assets.UI.Menu.ConfigScreen
 
             if (label != null)
             {
-                label.text = Mathf.RoundToInt(slider.value / 10f).ToString();
+                label.text = Mathf.RoundToInt(slider.value).ToString();
             }
 
             var fillElement = slider.Q<VisualElement>("slider-fill");
