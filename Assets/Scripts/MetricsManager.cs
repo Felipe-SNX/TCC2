@@ -11,8 +11,8 @@ public class GameplayData
     public int tries;   
     public int response; 
     public string email;
-    public int pin;
-    public int collectables;
+    public string pin;
+    public int colectables;
 }
 
 public class MetricsManager : MonoBehaviour
@@ -20,7 +20,7 @@ public class MetricsManager : MonoBehaviour
     public static MetricsManager Instance;
 
     [Header("Configuração de Endpoints")]
-    [SerializeField] private string urlEndpoint = "http://localhost:8000/respostas";
+    [SerializeField] private string urlEndpoint = "http://localhost:8000/api/v1/respostas";
 
     // Variáveis internas da fase atual
     private float stopWatchLevel = 0f;
@@ -89,9 +89,9 @@ public class MetricsManager : MonoBehaviour
             time = finalTimeLevel,
             tries = finalTriesLevel,
             response = responseScore,
-            email = email,
-            pin = pin,
-            collectables = finalCollectiblesLevel
+            email = email,  
+            pin = pin.ToString(),
+            colectables = finalCollectiblesLevel
         };
 
         string jsonDados = JsonUtility.ToJson(pacoteCompleto);
