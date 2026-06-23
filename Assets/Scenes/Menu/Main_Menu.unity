@@ -412372,7 +412372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7338588849730849921, guid: e0c627a8c9d793748aad65e8c0750e0b, type: 3}
       propertyPath: urlEndpoint
-      value: http://localhost:8000/respostas
+      value: http://localhost:8000/api/v1/jogo/respostas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -20,7 +20,7 @@ public class MetricsManager : MonoBehaviour
     public static MetricsManager Instance;
 
     [Header("Configuração de Endpoints")]
-    [SerializeField] private string urlEndpoint = "http://localhost:8000/api/v1/respostas";
+    [SerializeField] private string urlEndpoint = "http://localhost:8000/api/v1/jogo/respostas";
 
     // Variáveis internas da fase atual
     private float stopWatchLevel = 0f;
