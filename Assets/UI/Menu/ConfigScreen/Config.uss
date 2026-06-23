@@ -138,7 +138,7 @@
 
 .labels { 
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
-    font-size: 28px; 
+    font-size: 42px; 
     color: #CCCCCC; 
     width: 280px;
     padding-right: 30px; 
@@ -146,7 +146,7 @@
 }
 
 .valor-slider { 
-    font-size: 28px; 
+    font-size: 42px; 
     color: white; 
     width: 60px; 
     -unity-text-align: middle-right; 
@@ -183,14 +183,28 @@
 .linha-graficos { 
     flex-direction: row; 
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 25px; 
 }
 
 .dropdown-neon { 
-    flex-grow: 1;
+    width: 550px; 
+}
+
+.dropdown-neon .unity-base-field__label {
+    width: 400px; 
+    min-width: 400px; 
+    flex-shrink: 0;
+    margin-right: 20px;
+    font-size: 42px;
+    color: #CCCCCC;
+    -unity-font-style: bold;
+    white-space: nowrap; 
 }
 
 .dropdown-neon > .unity-base-field__input {
+    flex-grow: 1; 
+    flex-shrink: 1; 
     background-color: transparent;
     border-width: 0;
     border-bottom-width: 2px;
@@ -255,36 +269,33 @@
 }
 
 .tecla-wrapper-direita {
-    flex-grow: 1;
+    width: 300px;
+    min-width: 300px; 
+    flex-grow: 0;
     flex-direction: row;       
-    align-items: center;       
+    align-items: center; 
+    justify-content: center;     
 }
 
 .tecla-container {
-    width: 100px; 
-    height: 100px;
-    min-width: 100px;
-    min-height: 100px; 
-    max-width: 100px;  
-    max-height: 100px;
+    width: 90px; 
+    height: 90px;
+    min-width: 90px; 
+    min-height: 90px; 
     padding: 0; 
+    margin: 0;
     flex-shrink: 0; 
-    margin-left: auto; 
-    margin-right: 0;
     -unity-background-scale-mode: scale-to-fit; 
 }
 
 .tecla-container-larga {
-    width: 250px; 
-    height: 150px;
-    min-width: 250px;
-    min-height: 150px;
-    max-width: 250px;
-    max-height: 150px;
+    width: 280px;      
+    height: 160px;    
+    min-width: 280px;
+    min-height: 160px;
     padding: 0; 
+    margin: 0;
     flex-shrink: 0;
-    margin-left: auto; 
-    margin-right: 0;
     -unity-background-scale-mode: scale-to-fit; 
 }
 

@@ -2,16 +2,16 @@
     <Style src="project://database/Assets/UI/Menu/ConfigScreen/Config.uss?fileID=7433441132597879392&amp;guid=9f49f3501dcb3ca4393070b6dd388e95&amp;type=3#Config"/>
     <ui:VisualElement class="tela-inteira">
         <ui:VisualElement class="titulo-container">
-            <ui:Label text="Configurações" class="titulo-tela titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:Label text="Configuracoes" class="titulo-tela titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement name="mascara-titulo" class="mascara">
-                <ui:Label name="titulo-frente" text="Configurações" class="titulo-tela colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:Label name="titulo-frente" text="Configuracoes" class="titulo-tela colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement class="painel-vidro">
             <ui:VisualElement class="layout-duas-colunas">
                 <ui:VisualElement class="sidebar">
                     <ui:Button name="btn-aba-audio" class="botao-menu aba-ativa">
-                        <ui:Label text="Áudio" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                        <ui:Label text="Audio" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                         <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                     </ui:Button>
                     <ui:Button name="btn-aba-controles" class="botao-menu">
@@ -19,7 +19,7 @@
                         <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                     </ui:Button>
                     <ui:Button name="btn-aba-graficos" class="botao-menu">
-                        <ui:Label text="Gráficos" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                        <ui:Label text="Graficos" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                         <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                     </ui:Button>
                     <ui:Button name="btn-voltar" class="botao-menu ancora-fundo">
@@ -28,7 +28,7 @@
                     </ui:Button>
                 </ui:VisualElement>
                 <ui:VisualElement class="painel-conteudo">
-                    <ui:Label name="titulo-aba" text="Áudio" class="titulo-aba" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label name="titulo-aba" text="Audio" class="titulo-aba" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     <ui:VisualElement name="conteudo-audio" class="aba-container">
                         <ui:VisualElement class="linha-slider">
                             <ui:Label text="Master" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
@@ -41,23 +41,23 @@
                             <ui:Label name="txt-valor-som" text="80" class="valor-slider" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                         </ui:VisualElement>
                         <ui:VisualElement class="linha-slider">
-                            <ui:Label text="Música" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                            <ui:Label text="Musica" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                             <ui:Slider name="slider-musica" low-value="0" high-value="100" value="60" class="meu-slider"/>
                             <ui:Label name="txt-valor-musica" text="60" class="valor-slider" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1;"/>
-                        <ui:Button name="btn-reset-audio" text="Resetar Configurações" class="botao-reset"/>
+                        <ui:Button name="btn-reset-audio" text="Resetar Configuracoes" class="botao-reset" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="conteudo-controles" class="aba-container oculta">
                         <ui:ScrollView name="lista-controles-container" class="scroll-controles">
-                            <ui:Label text="Movimentação: W A S D" class="labels" style="margin-top: 20px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
-                            <ui:Label text="Pular: Espaço" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
-                            <ui:Label text="Ação: E" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                            <ui:Label text="Movimentacao: W A S D" class="labels" style="margin-top: 20px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                            <ui:Label text="Pular: Espaco" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                            <ui:Label text="Acao: E" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                         </ui:ScrollView>
                     </ui:VisualElement>
                     <ui:VisualElement name="conteudo-graficos" class="aba-container oculta">
                         <ui:VisualElement class="linha-graficos">
-                            <ui:Label text="Resolução" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                            <ui:Label text="Resolucao" class="labels" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                             <ui:DropdownField name="drp-resolucao" class="dropdown-neon"/>
                         </ui:VisualElement>
                         <ui:VisualElement class="linha-graficos">
@@ -69,7 +69,7 @@
                             <ui:DropdownField name="drp-qualidade" class="dropdown-neon"/>
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1;"/>
-                        <ui:Button name="btn-reset-graficos" text="Resetar Configurações" class="botao-reset"/>
+                        <ui:Button name="btn-reset-graficos" text="Resetar Configuracoes" class="botao-reset" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

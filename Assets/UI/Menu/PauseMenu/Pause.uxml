@@ -18,7 +18,7 @@
                     <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
                 <ui:Button name="btn-config" class="botao-menu">
-                    <ui:Label text="Configurações" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label text="Configuracoes" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
                     <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
                 </ui:Button>
                 <ui:Button name="btn-menu" class="botao-menu">

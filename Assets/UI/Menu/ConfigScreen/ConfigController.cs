@@ -132,7 +132,7 @@ namespace Assets.UI.Menu.ConfigScreen
         private void MostrarAbaAudio()
         {
             EsconderAbas();
-            tituloAba.text = "Áudio";
+            tituloAba.text = "Audio";
             conteudoAudio.style.display = DisplayStyle.Flex;
             btnAudio.AddToClassList("aba-ativa"); 
         }
@@ -148,7 +148,7 @@ namespace Assets.UI.Menu.ConfigScreen
         private void MostrarAbaGraficos()
         {
             EsconderAbas();
-            tituloAba.text = "Gráficos";
+            tituloAba.text = "Graficos";
             conteudoGraficos.style.display = DisplayStyle.Flex;
             btnGraficos.AddToClassList("aba-ativa"); 
         }

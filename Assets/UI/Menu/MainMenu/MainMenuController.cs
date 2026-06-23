@@ -67,15 +67,6 @@ namespace Assets.UI.Menu.MainMenu
             if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
         }
 
-        void Start()
-        {
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.ConnectButtons(root);
-                AudioManager.Instance.PlayMenuMusic();
-            }
-        }
-
         private void Update()
         {
             if (root == null || root.style.display == DisplayStyle.None) return;

@@ -16,12 +16,12 @@ namespace Assets.UI.Menu.ConfigScreen
             // Adiciona um pequeno respiro no topo do ScrollView
             root.style.paddingTop = 15;
 
-            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentação", true);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentacao", true);
 
             // Linhas normais para as teclas individuais
             GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/space"), "Pular / Saltar", false);
             GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/shift"), "Dash", false);
-            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Ação", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Acao", false);
             GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/q"), "Descartar", false);
         }
 
@@ -40,18 +40,12 @@ namespace Assets.UI.Menu.ConfigScreen
 
             VisualElement iconeElement = new();
             
-            iconeElement.style.width = ehLargo ? 140 : 50;
-            iconeElement.style.height = 50;
-            iconeElement.style.flexShrink = 0; 
-            iconeElement.style.backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain));    
-
             if (ehLargo)
                 iconeElement.AddToClassList("tecla-container-larga");
             else
                 iconeElement.AddToClassList("tecla-container");
 
             iconeElement.AddToClassList("icone-cromatico"); 
-
             iconeElement.style.backgroundImage = new StyleBackground(icone);
 
             linha.Add(labelAcao);        

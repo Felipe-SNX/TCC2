@@ -10,7 +10,7 @@
 }
 
 .titulo-aviso {
-    font-size: 50px;
+    font-size: 60px;
     color: rgb(255, 100, 100); 
     -unity-font-style: bold;
     margin-bottom: 40px;
@@ -18,7 +18,7 @@
 }
 
 .texto-aviso {
-    font-size: 30px;
+    font-size: 40px;
     color: rgb(200, 200, 200); 
     white-space: normal; 
     width: 60%; 

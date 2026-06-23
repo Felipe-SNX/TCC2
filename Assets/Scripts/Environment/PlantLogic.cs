@@ -82,67 +82,65 @@ public class PlantLogic : MonoBehaviour
     }
 
     IEnumerator Grow()
-{
-    isGrowing = true;
-
-
-    if(growthParticles != null)
-        growthParticles.Play();
-
-
-    Vector2 size = bodyRenderer.size;
-
-
-    while(size.y < maxSize)
     {
-        size.y +=
-            growSpeed * Time.deltaTime;
+        isGrowing = true;
 
 
-        if(size.y > maxSize)
-            size.y = maxSize;
+        if(growthParticles != null)
+            growthParticles.Play();
 
 
-        bodyRenderer.size = size;
+        Vector2 size = bodyRenderer.size;
 
 
-        AtualizarCollider(size.y);
+        while(size.y < maxSize)
+        {
+            size.y +=
+                growSpeed * Time.deltaTime;
 
 
-        yield return null;
-    }
+            if(size.y > maxSize)
+                size.y = maxSize;
 
 
-    if(growthParticles != null)
-    {
-        growthParticles.Stop(
-            true,
-            ParticleSystemStopBehavior.StopEmitting
-        );
-    }
+            bodyRenderer.size = size;
 
 
-    isGrowing = false;
-    isGrown = true;
+            AtualizarCollider(size.y);
 
 
-    FinalizarCrescimento();
+            yield return null;
+        }
 
 
-    Debug.Log("A planta cresceu!");
-}
+        if(growthParticles != null)
+        {
+            growthParticles.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmitting
+            );
+        }
+
+
+        isGrowing = false;
+        isGrown = true;
+
+
+        FinalizarCrescimento();
+
+
+        Debug.Log("A planta cresceu!");
+    }   
 
     void AtualizarCollider(float height)
     {
         if(!climbCollider) return;
-
 
         climbCollider.size =
         new Vector2(
             climbCollider.size.x,
             height
         );
-
 
         // mantém o pé da planta fixo
         climbCollider.offset =

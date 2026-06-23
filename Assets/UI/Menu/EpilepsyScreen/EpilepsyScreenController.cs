@@ -10,8 +10,16 @@ namespace Assets.UI.Menu.EpilepsyScreen
 
         private void OnEnable()
         {
+            if (GlobalData.avisoEpilepsiaMostrado)
+            {
+                GoToStartScreen();
+                return; 
+            }
+
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.schedule.Execute(GoToStartScreen).StartingIn((long)(time * 1000));
+            
+            GlobalData.avisoEpilepsiaMostrado = true; 
         }
 
         private void GoToStartScreen()

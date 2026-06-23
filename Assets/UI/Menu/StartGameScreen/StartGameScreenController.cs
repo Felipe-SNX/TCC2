@@ -25,6 +25,15 @@ namespace Assets.UI.Menu.StartGameScreen
         private bool estaSaindo = false;
         private float opacidadeTela = 1f;
 
+        void Start()
+        {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.ConnectButtons(root);
+                AudioManager.Instance.PlayMenuMusic();
+            }
+        }
+
         private void OnEnable()
         {
             root = GetComponent<UIDocument>().rootVisualElement;

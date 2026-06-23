@@ -10,7 +10,7 @@
             </ui:VisualElement>
             <ui:Label name="txt-tempo-total" text="Tempo Total: 00:00" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:Label name="txt-tentativas" text="Tentativas: 0" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
-            <ui:Label name="txt-coletaveis" text="Coletáveis: 0" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:Label name="txt-coletaveis" text="Coletaveis: 0" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement class="container-botoes">
                 <ui:Button name="btn-reset" class="botao-menu">
                     <ui:Label text="Reiniciar Fase" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>

@@ -20,21 +20,34 @@
 .titulo-tela {
     font-size: 110px; 
     -unity-font-style: bold;
-    margin: 0; padding: 0; white-space: nowrap;
+    margin: 0; 
+    padding: 0; 
+    white-space: nowrap;
 }
 
 .titulo-cinza {
     color: #444444; 
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 8px 8px 0px rgba(0, 0, 0, 0.8);
 }
 
 .mascara {
-    position: absolute; top: 0; left: 0; bottom: 0; width: 0%; overflow: hidden;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    width: 0%; 
+    overflow: hidden;
 }
 
 .colorido-ciano {
     color: #00FFFF; 
-    position: absolute; left: 0; top: 0;
-    text-shadow: 0px 0px 10px rgba(0, 255, 102, 1);
+    position: absolute; 
+    left: 0; 
+    top: 0;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
 }
 
 .barra-progresso-container {
@@ -45,7 +58,7 @@
     background-color: rgba(0, 0, 0, 0.8); 
     border-radius: 20px;
     border-width: 3px; 
-    border-color: rgba(0, 255, 102, 1); 
+    border-color: rgba(0, 255, 102, 1);
     margin-top: 20px;
     margin-bottom: 40px; 
     overflow: hidden; 
@@ -55,7 +68,7 @@
 .barra-preenchimento-neon {
     height: 100%;
     width: 0%; 
-    background-color: rgba(0, 255, 102, 1); 
+    background-color: rgba(0, 255, 102, 1);
     border-radius: 16px; 
 }
 
@@ -66,6 +79,10 @@
     -unity-text-align: middle-center;
     transition-property: opacity;
     transition-duration: 0.5s;
+    
+    -unity-text-outline-width: 3px; 
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
 }
 
 .oculto {

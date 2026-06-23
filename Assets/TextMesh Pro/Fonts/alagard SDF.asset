@@ -63,7 +63,7 @@ Material:
     - _GlowOffset: 0
     - _GlowOuter: 0.05
     - _GlowPower: 0.75
-    - _GradientScale: 21
+    - _GradientScale: 6
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
@@ -86,8 +86,8 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _TextureHeight: 2048
-    - _TextureWidth: 2048
+    - _TextureHeight: 1024
+    - _TextureWidth: 1024
     - _UnderlayDilate: 0
     - _UnderlayOffsetX: 0
     - _UnderlayOffsetY: 0
@@ -126,39 +126,39 @@ MonoBehaviour:
     m_FaceIndex: 0
     m_FamilyName: Alagard
     m_StyleName: Medium
-    m_PointSize: 292
+    m_PointSize: 72
     m_Scale: 1
     m_UnitsPerEM: 1024
-    m_LineHeight: 299.98438
-    m_AscentLine: 219
-    m_CapLine: 201
-    m_MeanLine: 146
+    m_LineHeight: 73.96875
+    m_AscentLine: 54
+    m_CapLine: 50
+    m_MeanLine: 36
     m_Baseline: 0
-    m_DescentLine: -54.75
-    m_SuperscriptOffset: 219
+    m_DescentLine: -13.5
+    m_SuperscriptOffset: 54
     m_SuperscriptSize: 0.5
-    m_SubscriptOffset: -54.75
+    m_SubscriptOffset: -13.5
     m_SubscriptSize: 0.5
-    m_UnderlineOffset: -43.628906
-    m_UnderlineThickness: 14.542969
-    m_StrikethroughOffset: 58.4
-    m_StrikethroughThickness: 14.542969
-    m_TabWidth: 91
+    m_UnderlineOffset: -10.7578125
+    m_UnderlineThickness: 3.5859375
+    m_StrikethroughOffset: 14.4
+    m_StrikethroughThickness: 3.5859375
+    m_TabWidth: 23
   m_Material: {fileID: -911838697301593426}
   m_SourceFontFileGUID: cf0c63b48e4dcda40b154a233ba16624
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: cf0c63b48e4dcda40b154a233ba16624
     faceIndex: 0
-    pointSizeSamplingMode: 0
-    pointSize: 292
-    padding: 20
+    pointSizeSamplingMode: 1
+    pointSize: 72
+    padding: 5
     paddingMode: 1
     packingMode: 0
-    atlasWidth: 2048
-    atlasHeight: 2048
-    characterSetSelectionMode: 1
-    characterSequence: 32 - 126, 160 - 255, 8192 - 8303, 8364, 8482, 9633
+    atlasWidth: 1024
+    atlasHeight: 1024
+    characterSetSelectionMode: 7
+    characterSequence: "\xE1\xE9\xED\xF3\xFA\xC1\xC9\xCD\xD3\xDA\xE3\xF5\xC3\xD5\xE2\xEA\xEE\xF4\xFB\xC2\xCA\xCE\xD4\xDB\xE7\xC7"
     referencedFontAssetGUID: 
     referencedTextAssetGUID: 
     fontStyle: 0
@@ -177,16 +177,16 @@ MonoBehaviour:
   m_IsMultiAtlasTexturesEnabled: 0
   m_GetFontFeatures: 1
   m_ClearDynamicDataOnBuild: 1
-  m_AtlasWidth: 2048
-  m_AtlasHeight: 2048
-  m_AtlasPadding: 20
+  m_AtlasWidth: 1024
+  m_AtlasHeight: 1024
+  m_AtlasPadding: 5
   m_AtlasRenderMode: 4165
   m_UsedGlyphRects: []
   m_FreeGlyphRects:
   - m_X: 0
     m_Y: 0
-    m_Width: 2047
-    m_Height: 2047
+    m_Width: 1023
+    m_Height: 1023
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
     m_LigatureSubstitutionRecords: []

@@ -5,6 +5,10 @@
     background-color: transparent;
 }
 
+.tela-inteira Label {
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
+}
+
 .titulo-container { 
     position: relative; 
     height: 100px; 

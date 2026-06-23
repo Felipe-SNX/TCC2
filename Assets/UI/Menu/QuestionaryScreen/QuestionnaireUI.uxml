@@ -11,15 +11,15 @@
             <ui:Label text="Sua avaliação nos ajuda a entender o impacto das cores!" class="desc-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement class="input-group">
                 <ui:Label text="Seu E-mail:" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
-                <ui:TextField name="input_email" class="custom-input"/>
-                <ui:Label name="lbl_erro_email" text="* Digite um e-mail válido com @" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:TextField name="input_email" class="custom-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:Label name="lbl_erro_email" text="* Digite um e-mail valido com @" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
             <ui:VisualElement class="input-group">
-                <ui:Label text="Seu PIN (Apenas números):" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
-                <ui:TextField name="input_pin" max-length="6" class="custom-input"/>
-                <ui:Label name="lbl_erro_pin" text="* O PIN deve conter apenas números" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:Label text="Seu PIN (Apenas numeros):" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:TextField name="input_pin" max-length="6" class="custom-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:Label name="lbl_erro_pin" text="* O PIN deve conter apenas numeros" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             </ui:VisualElement>
-            <ui:Label name="lbl_question_1" text="Como você avalia o impacto da fase em seu estado mental?" class="texto-pergunta" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:Label name="lbl_question_1" text="Como voce avalia o impacto da fase em seu estado mental?" class="texto-pergunta" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
             <ui:VisualElement class="slider-row">
                 <ui:SliderInt name="slider_q1" low-value="1" high-value="5" value="3" class="custom-slider"/>
                 <ui:Label name="lbl_valor_q1" text="3" class="slider-value-right" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
