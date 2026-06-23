@@ -49,7 +49,7 @@ public class PlayerState : MonoBehaviour
         {
             sr.color = Color.blue;
         } else {
-            sr.color = Color.gray;
+            sr.color = new Color(0.8117f, 0.8117f, 0.8117f, 1f);
         }
     }
 
