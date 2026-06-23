@@ -55,8 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerClimb playerClimbScript;
     private InputSystem_Actions controls;
-    private PlayerWallSlide wallSlideScript;
-    private PlayerWallJump wallJumpScript;
+/*     private PlayerWallSlide wallSlideScript;
+    private PlayerWallJump wallJumpScript; */
 
     private void Awake()
     {
@@ -67,8 +67,8 @@ public class PlayerMovement : MonoBehaviour
 
         controls = new InputSystem_Actions();
 
-        wallSlideScript = GetComponent<PlayerWallSlide>();
-        wallJumpScript = GetComponent<PlayerWallJump>();
+/*         wallSlideScript = GetComponent<PlayerWallSlide>();
+        wallJumpScript = GetComponent<PlayerWallJump>(); */
         playerClimbScript = GetComponent<PlayerClimb>();
 
         controls.Player.Jump.performed += context => TryJump();
@@ -135,9 +135,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused)
             return;
-
+/* 
         if (wallJumpScript != null && wallJumpScript.IsWallJumping)
-            return;
+            return; */
 
         if (verticalInput < -0.5f && currentPlatform != null)
         {
@@ -151,14 +151,14 @@ public class PlayerMovement : MonoBehaviour
             PlayJumpAudio();
             return;
         }
-
+/* 
         if (wallSlideScript != null && !IsGrounded() && wallSlideScript.IsWalled() && wallJumpScript != null)
         {
             wallJumpScript.ExecuteJump();
             PlayJumpAudio();
             return;
         }
-
+ */
         if (IsGrounded())
         {
             Jump();
@@ -175,8 +175,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (wallJumpScript != null && wallJumpScript.IsWallJumping)
-            return;
+  /*       if (wallJumpScript != null && wallJumpScript.IsWallJumping)
+            return; */
 
         if (playerClimbScript != null && playerClimbScript.IsClimbing)
             return;
@@ -320,8 +320,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipSprite()
     {
-        if (wallJumpScript != null && wallJumpScript.IsWallJumping)
-            return;
+/*         if (wallJumpScript != null && wallJumpScript.IsWallJumping)
+            return; */
 
         Vector3 escala = transform.localScale;
 

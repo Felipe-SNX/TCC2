@@ -189,4 +189,51 @@ public class PlantLogic : MonoBehaviour
             playerContact = false;
         }
     }
+
+    /*void Grow()
+    {
+        isGrown = true;
+
+        // Efeito visual da habilidade Planta
+        if (AbilityPulseEffect.Instance != null)
+        {
+            AbilityPulseEffect.Instance.PlayPulse(
+                new Color(0.3f, 1f, 0.3f, 1f)
+            );
+        }else
+        {
+            Debug.LogError("AbilityPulseEffect.Instance é NULL");
+        }
+
+        // Ativa animação
+        if (animator != null)
+            animator.SetTrigger("Crescer");
+
+        // Troca o sprite se houver um definido
+        if (grownSprite != null && sr != null)
+            sr.sprite = grownSprite;
+
+        // Altera a cor do SpriteRenderer ao crescer
+        if (sr != null)
+        {
+            sr.color = Color.green;
+        }
+
+        // Configura a colisão com base no tipo de crescimento
+        if (growthDirection == GrowthDirection.Horizontal)
+        {
+            if (plantCollider != null)
+            {
+                plantCollider.isTrigger = false;
+                gameObject.layer = LayerMask.NameToLayer("Ground");
+            }
+        }
+        else
+        {
+            // Planta vertical vira escada
+            gameObject.tag = "Ladder";
+        }
+
+        Debug.Log("A planta cresceu!");
+    }*/
 }

@@ -72187,8 +72187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMenuScroll
   velocidade: 2
-  limiteY: 50
-  limiteX: 50
+  limiteY: 80
+  limiteX: 80
 --- !u!1001 &526018738
 PrefabInstance:
   m_ObjectHideFlags: 0
