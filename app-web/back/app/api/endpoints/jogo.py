@@ -19,10 +19,15 @@ def salvar_resposta_do_jogo(request: Request, resposta_in: RespostaGameCreate, d
     - Verifica as credenciais do paciente (email e pin).
     - Salva a resposta no banco.
     """
+
+    logger.info("Entrou no endpoint", exc_info=True)
+
     paciente = db.query(Paciente).filter(
         Paciente.email == resposta_in.email,
         Paciente.pin == resposta_in.pin
     ).first()
+
+    logger.info("Paciente criado", exc_info=True)
 
     if not paciente:
         raise HTTPException(

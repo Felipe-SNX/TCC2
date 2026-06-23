@@ -104,7 +104,7 @@ namespace Assets.UI.Menu.QuestionaryScreen
             }
 
             // Validação do PIN 
-            if (string.IsNullOrWhiteSpace(inputPin.text) || !int.TryParse(inputPin.text, out int pinNumber))
+            if (string.IsNullOrWhiteSpace(inputPin.text) || !int.TryParse(inputPin.text, out int pinNumber) || inputPin.text.Length != 6)
             {
                 erroPin.style.display = DisplayStyle.Flex; 
                 formularioValido = false;
