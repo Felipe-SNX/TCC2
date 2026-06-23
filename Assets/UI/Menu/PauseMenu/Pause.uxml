@@ -1,17 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    
-    <Style src="Pause.uss" />
-
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/PauseMenu/Pause.uss?fileID=7433441132597879392&amp;guid=e134a3217edc1be48b1bc8374beba437&amp;type=3#Pause"/>
     <ui:VisualElement class="tela-pause-fundo">
-        
-        <ui:Label text="Pausado" class="titulo-pause" />
-
-        <ui:Button name="btn-retomar" text="Retomar" class="botao-pause" />
-        <ui:Button name="btn-reset" text="Reiniciar Fase" class="botao-pause" />
-        <ui:Button name="btn-config" text="Configurações" class="botao-pause" />
-        <ui:Button name="btn-menu" text="Voltar ao Menu Principal" class="botao-pause" />
-
+        <ui:VisualElement class="painel-vidro">
+            <ui:VisualElement class="titulo-container">
+                <ui:Label text="PAUSADO" class="titulo-tela titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement name="mascara-titulo" class="mascara">
+                    <ui:Label text="PAUSADO" name="Label" class="titulo-tela colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="container-botoes">
+                <ui:Button name="btn-retomar" class="botao-menu">
+                    <ui:Label text="Retomar" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                </ui:Button>
+                <ui:Button name="btn-reset" class="botao-menu">
+                    <ui:Label text="Reiniciar Fase" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                </ui:Button>
+                <ui:Button name="btn-config" class="botao-menu">
+                    <ui:Label text="Configuracoes" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                </ui:Button>
+                <ui:Button name="btn-menu" class="botao-menu">
+                    <ui:Label text="Menu Principal" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
-
 </ui:UXML>

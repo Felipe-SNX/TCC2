@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <Style src="Loading.uss" />
-
-    <ui:VisualElement class="tela-loading">
-        
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/LoadingScreen/Loading.uss?fileID=7433441132597879392&amp;guid=f5a81d5256555f349a6c32f0910b7830&amp;type=3#Loading"/>
+    <ui:VisualElement name="fundo-caverna" class="tela-inteira">
         <ui:VisualElement class="container-central">
-            <ui:Label text="CARREGANDO..." class="texto-loading" />
-            
-            <ui:VisualElement class="barra-fundo">
-                <ui:VisualElement name="barra-preenchimento" class="barra-preenchimento" />
+            <ui:VisualElement class="titulo-container">
+                <ui:Label text="CARREGANDO" class="titulo-tela titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement name="mascara-titulo" class="mascara">
+                    <ui:Label name="texto-colorido" text="CARREGANDO" class="titulo-tela colorido-ciano" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
             </ui:VisualElement>
-
-            <ui:Label name="txt-porcentagem" text="0%" class="texto-porcentagem" />
+            <ui:VisualElement name="container-barra" class="barra-progresso-container">
+                <ui:VisualElement name="barra-preenchimento" class="barra-preenchimento-neon"/>
+            </ui:VisualElement>
+            <ui:Label name="prompt-text" text="PRESSIONE QUALQUER TECLA" class="prompt-carregamento oculto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
         </ui:VisualElement>
-
     </ui:VisualElement>
 </ui:UXML>

@@ -23,12 +23,13 @@ namespace Platformer.Environment
         [Header("Background Size")]
         [SerializeField]
         [Tooltip("Size of the background in world units (X, Y, Z)")]
-        public Vector3 backgroundSize = new Vector3(16f, 10f, 1f);
+        public Vector3 backgroundSize = new(16f, 10f, 1f);
 
         [Header("Color Configuration")]
         [SerializeField]
         [Tooltip("List of colors to cycle through")]
-        public List<Color> colors = new List<Color>
+        public List<Color> colors = new()
+
         {
             Color.white,
             new Color(1f, 0.8f, 0.5f),

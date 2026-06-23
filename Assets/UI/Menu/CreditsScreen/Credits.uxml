@@ -1,30 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    
-    <Style src="Credits.uss" />
-
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/CreditsScreen/Credits.uss?fileID=7433441132597879392&amp;guid=13ae438aefb23774686f6db39291d01c&amp;type=3#Credits"/>
     <ui:VisualElement class="tela-inteira">
-        
-        <ui:Label text="Créditos" class="titulo-creditos" />
-
-        <ui:VisualElement class="container-equipe">
-            
-            <ui:Label text="Level Design e Programação" class="texto-cargo" />
-            <ui:Label text="Carlos Eduardo" class="texto-nome cor-verde" />
-
-            <ui:Label text="Programação e UI" class="texto-cargo" />
-            <ui:Label text="Felipe Eduardo" class="texto-nome cor-amarela" />
-
-            <ui:Label text="Arte e Level Design" class="texto-cargo" />
-            <ui:Label text="Luiz Bussolo" class="texto-nome cor-vermelha" />
-
-            <ui:Label text="Programação e UI" class="texto-cargo" />
-            <ui:Label text="Rodolfo" class="texto-nome cor-azul" />
-
+        <ui:VisualElement class="titulo-container">
+            <ui:Label text="Creditos" class="titulo-tela titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:VisualElement name="mascara-titulo" class="mascara">
+                <ui:Label name="titulo-frente" text="Creditos" class="titulo-tela colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            </ui:VisualElement>
         </ui:VisualElement>
-
-        <ui:Button name="btn-voltar" text="Voltar" class="botao-voltar" />
-
+        <ui:ScrollView name="janela-rolagem" vertical-scroller-visibility="Auto" class="janela-rolagem">
+            <ui:VisualElement name="conteudo-rolagem" class="conteudo-rolagem">
+                <ui:Label text="EQUIPE PRINCIPAL" class="categoria-header" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Level Design e Programacao" class="texto-cargo" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label text="Carlos Eduardo" class="texto-nome cor-verde" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Programacao e UI" class="texto-cargo" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label text="Felipe Eduardo" class="texto-nome cor-amarela" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Arte e Level Design" class="texto-cargo" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label text="Luiz Bussolo" class="texto-nome cor-vermelha" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Programacao e UI" class="texto-cargo" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label text="Rodolfo" class="texto-nome cor-azul" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:Label text="TRILHA SONORA E SFX" class="categoria-header" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Piano Background" class="texto-asset" />
+                    <ui:Label text="Composição: leberch" class="texto-cargo" />
+                    <ui:Label text="Fonte: Pixabay" class="texto-cargo" />
+                </ui:VisualElement>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Fog Of Peace" class="texto-asset" />
+                    <ui:Label text="Composição: DSTechnician" class="texto-cargo" />
+                    <ui:Label text="Fonte: Pixabay" class="texto-cargo" />
+                </ui:VisualElement>
+                <ui:Label text="ASSETS VISUAIS E FONTES" class="categoria-header" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Raven Fantasy Icons" class="texto-asset" />
+                    <ui:Label text="Criado por: Raven Fantasy" class="texto-cargo" />
+                    <ui:Label text="Fonte: itch.io" class="texto-cargo" />
+                </ui:VisualElement>
+                <ui:VisualElement class="bloco-credito">
+                    <ui:Label text="Pixel Art Woods Tileset and Background" class="texto-asset" />
+                    <ui:Label text="Criado por: karslori" class="texto-cargo" />
+                    <ui:Label text="Fonte: Unity Asset Store" class="texto-cargo" />
+                </ui:VisualElement>
+                <ui:VisualElement class="espacador-fim"/>
+            </ui:VisualElement>
+        </ui:ScrollView>
+        <ui:Button name="btn-voltar" class="botao-menu botao-voltar">
+            <ui:Label text="Voltar" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+        </ui:Button>
     </ui:VisualElement>
-
 </ui:UXML>

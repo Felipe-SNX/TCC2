@@ -17,7 +17,7 @@ public class MessagePuzzleUI : MonoBehaviour
     [Header("Eventos")]
     public UnityEvent onPuzzleSolved;
 
-    private List<MessageFragment> answerOrder = new List<MessageFragment>();
+    private List<MessageFragment> answerOrder = new();
 
     public void OpenPuzzle(List<MessageFragment> fragments)
     {
@@ -38,7 +38,7 @@ public class MessagePuzzleUI : MonoBehaviour
         ClearArea(collectedPartsArea);
         ClearArea(answerSlotsArea);
 
-        List<MessageFragment> shuffled = new List<MessageFragment>(fragments);
+        List<MessageFragment> shuffled = new(fragments);
         Shuffle(shuffled);
 
         foreach (MessageFragment fragment in shuffled)

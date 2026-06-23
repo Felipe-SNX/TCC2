@@ -1,37 +1,81 @@
 .tela-pause-fundo {
     flex-grow: 1;
-    background-color: rgba(60, 75, 100, 0.85); 
+    background-color: rgba(0, 0, 0, 0.6);
     align-items: center;     
     justify-content: center;  
 }
 
-.titulo-pause {
-    font-size: 70px;
-    color: white;
-    -unity-font-style: bold;
-    margin-bottom: 50px;
-    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5);
+.painel-vidro {
+    background-color: rgba(15, 23, 42, 0.9);
+    border-radius: 30px;
+    border-width: 2px;
+    border-color: rgba(0, 255, 255, 0.3);
+    padding: 60px 100px;
+    align-items: center;
 }
 
-.botao-pause {
-    width: 500px; 
-    font-size: 35px;
-    color: black;
-    background-color: #FDF9EB;
-    padding: 15px 20px;
+.titulo-container {
+    position: relative;
+    height: 100px;
+    margin-bottom: 40px;
+    align-self: center;
+}
+
+.titulo-tela {
+    font-size: 80px;
+    -unity-font-style: bold;
+    margin: 0; padding: 0; white-space: nowrap;
+}
+
+.titulo-cinza { color: #444444; }
+
+.mascara {
+    position: absolute; top: 0; left: 0; bottom: 0; width: 0%; overflow: hidden;
+}
+
+.colorido {
+    color: rgba(0, 255, 102, 1);
+    position: absolute; left: 0; top: 0;
+    text-shadow: 0px 0px 15px rgba(0, 255, 102, 0.5);
+}
+
+.container-botoes {
+    align-items: center;
+    width: 100%;
+}
+
+.botao-menu {
+    align-self: center;
     margin-bottom: 25px;
-    border-radius: 8px;
-    border-left-width: 8px;
-    border-bottom-width: 6px;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-color: #D6D0B9;
-    -unity-font-style: bold;
-    transition-duration: 0.15s;
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
+    position: relative;
 }
 
-.botao-pause:hover,
-.botao-pause:focus {
-    background-color: #FFFFFF;
-    scale: 1.05;
+.texto-botao {
+    font-size: 45px;
+    color: #888888;
+    -unity-font-style: bold;
+    padding-bottom: 5px;
+    transition-duration: 0.2s;
+}
+
+.linha-inferior {
+    position: absolute;
+    bottom: -5px; left: 0; right: 0;
+    height: 6px; 
+    background-color: #FF3333;
+    scale: 0 1;
+    transform-origin: center;
+    transition-property: scale;
+    transition-duration: 0.2s;
+}
+
+.botao-menu:hover .texto-botao {
+    color: #FFFFFF;
+}
+
+.botao-menu:hover .linha-inferior{
+    scale: 1 1;
 }

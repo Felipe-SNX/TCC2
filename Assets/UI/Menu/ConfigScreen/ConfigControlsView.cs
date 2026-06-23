@@ -1,50 +1,58 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[System.Serializable] 
-public class ConfigControlsView
+namespace Assets.UI.Menu.ConfigScreen
 {
-    private VisualElement root;
-    public void Inicializar(VisualElement container)
+    [System.Serializable] 
+    public class ConfigControlsView
     {
-        root = container;
-        root.Clear(); 
+        private VisualElement root;
+        
+        public void Inicializar(VisualElement container)
+        {
+            root = container;
+            root.Clear(); 
 
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentação", true);
+            // Adiciona um pequeno respiro no topo do ScrollView
+            root.style.paddingTop = 15;
 
-        // Linhas normais para as teclas individuais
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/space"), "Pular / Saltar", false);
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/shift"), "Dash", false);
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Ação", false);
-        GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/q"), "Descartar", false);
-    }
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/keyboard-wasd"), "Movimentacao", true);
 
-    private void GerarLinha(Sprite icone, string acao, bool ehLargo)
+            // Linhas normais para as teclas individuais
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/space"), "Pular / Saltar", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/shift"), "Dash", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/e"), "Acao", false);
+            GerarLinha(Resources.Load<Sprite>("IconesControles/keyboard/keyboard-solid/q"), "Descartar", false);
+        }
+
+        private void GerarLinha(Sprite icone, string acao, bool ehLargo)
         {
             if (icone == null) return;
 
-            VisualElement linha = new VisualElement();
+            VisualElement linha = new();
             linha.AddToClassList("linha-controle");
 
-            Label labelAcao = new Label(acao);
-            labelAcao.AddToClassList("texto-acao");
+            Label labelAcao = new(acao);
+            labelAcao.AddToClassList("labels"); 
 
-            VisualElement wrapperDireita = new VisualElement();
+            VisualElement wrapperDireita = new();
             wrapperDireita.AddToClassList("tecla-wrapper-direita");
 
-            VisualElement iconeElement = new VisualElement();
+            VisualElement iconeElement = new();
+            
             if (ehLargo)
                 iconeElement.AddToClassList("tecla-container-larga");
             else
                 iconeElement.AddToClassList("tecla-container");
 
-
+            iconeElement.AddToClassList("icone-cromatico"); 
             iconeElement.style.backgroundImage = new StyleBackground(icone);
 
-            linha.Add(labelAcao);         
+            linha.Add(labelAcao);        
             wrapperDireita.Add(iconeElement); 
             linha.Add(wrapperDireita);
 
             root.Add(linha);
         }
+    }
 }

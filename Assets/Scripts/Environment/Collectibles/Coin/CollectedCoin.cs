@@ -82,7 +82,7 @@ namespace CoinSystem
             if (CoinParticule != null)
             {
                 // Set the particle system's position to the coin's position and play it
-                Vector3 particlePosition = new Vector3(position.x, position.y, 0f);
+                Vector3 particlePosition = new(position.x, position.y, 0f);
                 CoinParticule.transform.position = particlePosition;
                 CoinParticule.Play();
             }

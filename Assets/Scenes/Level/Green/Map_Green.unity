@@ -58558,18 +58558,63 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: jumpSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 12137e0ba8b7dad4c933713e5d5bc7d7, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: menuMusic
       value: 
       objectReference: {fileID: 8300000, guid: 7a3db1ba0e7b7a2409ad374aaa0c8667, type: 3}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 582532791}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: levelMusic
       value: 
       objectReference: {fileID: 8300000, guid: f4de00dc83c18e144bc887b0996f280a, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: endPhaseSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ceb520778414054b84557e437d62f90, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: climbVineSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 297f0df525b73d742ab1c3de0bc48edd, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: fallWaterSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 07c2e6179eb6ec44e99d70823a3b0fe7, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: walkGrassSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 44b1e987072b403429d28ec8cdf7fbef, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: walkWaterSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 1aaad7512aa733b4bba0e1549f7efd6c, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: loopSfxSource
+      value: 
+      objectReference: {fileID: 582532791}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: collectWaterSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 10a3e12884b8acb4789f83ab9c923be4, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: collectMessageSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 41877b5e9015be34b88234b9e9300934, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+--- !u!82 &582532791 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6523377679234746085, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+  m_PrefabInstance: {fileID: 582532790}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &582739798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -333820,6 +333865,10 @@ PrefabInstance:
     - target: {fileID: 2635741520899679096, guid: 44e9be5c39f60ef4981c83cc7f58d545, type: 3}
       propertyPath: m_Name
       value: System_UI_Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580375157472516368, guid: 44e9be5c39f60ef4981c83cc7f58d545, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

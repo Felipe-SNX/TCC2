@@ -9,43 +9,20 @@ public class PlantLogic : MonoBehaviour
         Horizontal
     }
 
-
     [Header("Crescimento")]
-    [SerializeField]
-    private GrowthDirection growthDirection = GrowthDirection.Vertical;
-
-
-    [SerializeField]
-    private SpriteRenderer bodyRenderer;
-
-
-    [SerializeField]
-    private BoxCollider2D climbCollider;
-
-
-    [SerializeField]
-    private float maxSize = 6f;
-
-
-    [SerializeField]
-    private float growSpeed = 3f;
-
-    [SerializeField]
-    private ParticleSystem growthParticles;
-
-    [SerializeField]
-    private PlantGlow plantGlow;
-
-
+    [SerializeField] private GrowthDirection growthDirection = GrowthDirection.Vertical;
+    [SerializeField] private SpriteRenderer bodyRenderer;
+    [SerializeField] private BoxCollider2D climbCollider;
+    [SerializeField] private float maxSize = 6f;
+    [SerializeField] private float growSpeed = 3f;
+    [SerializeField] private ParticleSystem growthParticles;
+    [SerializeField] private PlantGlow plantGlow;
 
     private bool isGrown;
     private bool isGrowing;
     private bool playerContact;
 
-
     private InputSystem_Actions controls;
-
-
 
     void Awake()
     {
@@ -57,32 +34,23 @@ public class PlantLogic : MonoBehaviour
         };
     }
 
-
-
     private void OnEnable()
     {
         controls.Enable();
     }
-
-
 
     private void OnDisable()
     {
         controls.Disable();
     }
 
-
-
-
     void TentarCrescerPlanta()
     {
         if (!playerContact) return;
         if (isGrown || isGrowing) return;
 
-
         PlayerMovement movimento =
             FindAnyObjectByType<PlayerMovement>();
-
 
         if (movimento != null &&
             !movimento.IsGrounded())
@@ -93,7 +61,6 @@ public class PlantLogic : MonoBehaviour
 
             return;
         }
-
 
         if (PlayerState.Instance != null &&
             PlayerState.Instance.UseWater())
@@ -114,75 +81,66 @@ public class PlantLogic : MonoBehaviour
         }
     }
 
-
-
-
     IEnumerator Grow()
-{
-    isGrowing = true;
-
-
-    if(growthParticles != null)
-        growthParticles.Play();
-
-
-    Vector2 size = bodyRenderer.size;
-
-
-    while(size.y < maxSize)
     {
-        size.y +=
-            growSpeed * Time.deltaTime;
+        isGrowing = true;
 
 
-        if(size.y > maxSize)
-            size.y = maxSize;
+        if(growthParticles != null)
+            growthParticles.Play();
 
 
-        bodyRenderer.size = size;
+        Vector2 size = bodyRenderer.size;
 
 
-        AtualizarCollider(size.y);
+        while(size.y < maxSize)
+        {
+            size.y +=
+                growSpeed * Time.deltaTime;
 
 
-        yield return null;
-    }
+            if(size.y > maxSize)
+                size.y = maxSize;
 
 
-    if(growthParticles != null)
-    {
-        growthParticles.Stop(
-            true,
-            ParticleSystemStopBehavior.StopEmitting
-        );
-    }
+            bodyRenderer.size = size;
 
 
-    isGrowing = false;
-    isGrown = true;
+            AtualizarCollider(size.y);
 
 
-    FinalizarCrescimento();
+            yield return null;
+        }
 
 
-    Debug.Log("A planta cresceu!");
-}
+        if(growthParticles != null)
+        {
+            growthParticles.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmitting
+            );
+        }
 
 
+        isGrowing = false;
+        isGrown = true;
 
 
+        FinalizarCrescimento();
+
+
+        Debug.Log("A planta cresceu!");
+    }   
 
     void AtualizarCollider(float height)
     {
         if(!climbCollider) return;
-
 
         climbCollider.size =
         new Vector2(
             climbCollider.size.x,
             height
         );
-
 
         // mantém o pé da planta fixo
         climbCollider.offset =
@@ -191,10 +149,6 @@ public class PlantLogic : MonoBehaviour
             height / 2f
         );
     }
-
-
-
-
 
     void FinalizarCrescimento()
     {
@@ -220,10 +174,6 @@ public class PlantLogic : MonoBehaviour
         }
     }
 
-
-
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
@@ -231,10 +181,6 @@ public class PlantLogic : MonoBehaviour
             playerContact = true;
         }
     }
-
-
-
-
 
     private void OnTriggerExit2D(Collider2D other)
     {

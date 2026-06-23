@@ -1,27 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
->
-    <Style src="EndLevel.uss" />
-
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/EndLevelScreen/EndLevel.uss?fileID=7433441132597879392&amp;guid=b90dc93a4d50c35428ff17350395eb68&amp;type=3#EndLevel"/>
     <ui:VisualElement class="tela-cheia">
-        
-        <ui:VisualElement class="banner-anuncio">
-            
-            <ui:Label name="txt-nome-fase" text="Nome da Fase" class="titulo" />
-            
-            <ui:Label name="txt-tempo-total" text="Tempo Total: 00:00" class="texto-fase" />
-            <ui:Label name="txt-tentativas" text="Número de Tentativas: 0" class="texto-fase" />
-            <ui:Label name="txt-coletaveis" text="Número de Coletáveis obtidos: 0" class="texto-fase" />
-            
-            <ui:VisualElement class="container-botoes">
-                <ui:Button name="btn-reset" text="Reiniciar Fase" class="botao" />
-                <ui:Button name="btn-voltar-menu" text="Voltar a seleção de fase" class="botao" />
+        <ui:VisualElement class="painel-vidro">
+            <ui:VisualElement class="titulo-container">
+                <ui:Label name="txt-nome-fase" text="Nome da Fase" class="titulo titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement name="mascara-titulo" class="mascara">
+                    <ui:Label name="txt-nome-fase-colorido" text="Nome da Fase" class="titulo colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
             </ui:VisualElement>
-
+            <ui:Label name="txt-tempo-total" text="Tempo Total: 00:00" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:Label name="txt-tentativas" text="Tentativas: 0" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:Label name="txt-coletaveis" text="Coletaveis: 0" class="texto-stats" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:VisualElement class="container-botoes">
+                <ui:Button name="btn-reset" class="botao-menu">
+                    <ui:Label text="Reiniciar Fase" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                </ui:Button>
+                <ui:Button name="btn-voltar-menu" class="botao-menu">
+                    <ui:Label text="Voltar ao Menu" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                </ui:Button>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

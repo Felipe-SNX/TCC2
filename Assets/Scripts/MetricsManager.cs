@@ -82,7 +82,8 @@ public class MetricsManager : MonoBehaviour
 
     public void SubmitDataWithSurvey(int responseScore, string email, int pin)
     {
-        GameplayData pacoteCompleto = new GameplayData
+        GameplayData pacoteCompleto = new()
+
         {
             currentLevel = nameCurrentLevel,
             time = finalTimeLevel,
@@ -104,7 +105,7 @@ public class MetricsManager : MonoBehaviour
 
     private IEnumerator SendData(string jsonTexto)
     {
-        using (UnityWebRequest request = new UnityWebRequest(urlEndpoint, "POST"))
+        using (UnityWebRequest request = new(urlEndpoint, "POST"))
         {
             byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonTexto);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
