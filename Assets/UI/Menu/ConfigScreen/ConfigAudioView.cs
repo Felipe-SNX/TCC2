@@ -156,7 +156,7 @@ namespace Assets.UI.Menu.ConfigScreen
                     });
                 }
             }
-
+            
             return slider;
         }
 

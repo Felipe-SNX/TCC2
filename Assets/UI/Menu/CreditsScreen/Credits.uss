@@ -15,6 +15,7 @@
     margin-bottom: 20px; 
     align-self: center; 
 }
+
 .titulo-tela { 
     font-size: 100px; 
     -unity-font-style: bold; 
@@ -23,9 +24,26 @@
     white-space: nowrap; 
     -unity-text-align: middle-center; 
 }
-.titulo-cinza { color: #444444; }
-.mascara { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; overflow: hidden; }
-.colorido { color: rgba(0, 255, 102, 1); position: absolute; left: 0; top: 0; }
+
+.titulo-cinza { 
+    color: #444444; 
+}
+
+.mascara { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    width: 0%; 
+    overflow: hidden;
+}
+
+.colorido {
+    color: rgba(0, 255, 102, 1); 
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+}
 
 .janela-rolagem {
     width: 70%; 
@@ -46,10 +64,15 @@
     width: 100%;
     padding-top: 10px;
     padding-bottom: 80px; 
+
+    background-color: rgba(15, 23, 42, 0.85); 
+    border-radius: 20px; 
+    padding-left: 5px; 
+    padding-right: 5px;
 }
 
 .categoria-header {
-    font-size: 55px;
+    font-size: 65px;
     color: rgba(0, 255, 102, 1);
     -unity-font-style: bold;
     margin-top: 70px;
@@ -59,31 +82,61 @@
 
 .bloco-credito {
     align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 50px; 
     width: 100%;
 }
 
 .texto-cargo {
-    font-size: 45px; 
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
+    font-size: 65px; 
     color: #AAAAAA; 
     margin-bottom: 5px;
+    white-space: normal; 
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
 }
 
 .texto-nome {
-    font-size: 70px; 
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
+    font-size: 85px; 
     -unity-font-style: bold;
+    white-space: normal; 
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
 }
 
 .texto-asset {
-    font-size: 50px; 
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
+    font-size: 65px; 
     color: #FFFFFF;
     -unity-font-style: bold;
+    white-space: normal; 
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgba(0, 0, 0, 1);
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
 }
 
-.cor-verde { color: #32CD32; }
-.cor-amarela { color: #FFD700; }
-.cor-vermelha { color: #FF3333; }
-.cor-azul { color: #00BFFF; }
+.cor-verde { 
+    color: #32CD32; 
+}
+
+.cor-amarela { 
+    color: #FFD700; 
+}
+
+.cor-vermelha { 
+    color: #FF3333; 
+}
+
+.cor-azul { 
+    color: #00BFFF; 
+}
 
 .espacador-fim {
     height: 500px; 
@@ -98,10 +151,31 @@
     padding: 0;
 }
 
-.texto-botao { font-size: 65px; color: #888888; -unity-font-style: bold; padding-bottom: 5px; transition-duration: 0.2s; }
-.linha-inferior { height: 6px; width: 0%; background-color: #FF3333; transition-property: width, translate; transition-duration: 0.2s, 0.2s; }
-.botao-menu:hover .texto-botao, .botao-menu:focus .texto-botao { color: #FFFFFF; translate: 10px 0; }
-.botao-menu:hover .linha-inferior, .botao-menu:focus .linha-inferior { width: 100%; translate: 10px 0; }
+.texto-botao { 
+    font-size: 65px; 
+    color: #888888; 
+    -unity-font-style: bold; 
+    padding-bottom: 5px; 
+    transition-duration: 0.2s; 
+}
+
+.linha-inferior { 
+    height: 6px; 
+    width: 0%; 
+    background-color: #FF3333; 
+    transition-property: width, 
+    translate; transition-duration: 0.2s, 0.2s; 
+}
+
+.botao-menu:hover .texto-botao, .botao-menu:focus .texto-botao { 
+    color: #FFFFFF; 
+    translate: 10px 0; 
+}
+
+.botao-menu:hover .linha-inferior, .botao-menu:focus .linha-inferior { 
+    width: 100%; 
+    translate: 10px 0; 
+}
 
 .janela-rolagem .unity-scroller__low-button,
 .janela-rolagem .unity-scroller__high-button {

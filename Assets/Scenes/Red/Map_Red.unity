@@ -1151,6 +1151,10 @@ PrefabInstance:
       value: System_UI_Level
       objectReference: {fileID: 0}
     - target: {fileID: 3786614620192629170, guid: 44e9be5c39f60ef4981c83cc7f58d545, type: 3}
+      propertyPath: corFase
+      value: Vermelho
+      objectReference: {fileID: 0}
+    - target: {fileID: 3786614620192629170, guid: 44e9be5c39f60ef4981c83cc7f58d545, type: 3}
       propertyPath: nomeDaFase
       value: 'Fase 2: Vermelha'
       objectReference: {fileID: 0}
