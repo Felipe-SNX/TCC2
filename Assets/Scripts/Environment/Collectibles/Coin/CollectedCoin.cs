@@ -11,7 +11,7 @@ namespace CoinSystem
         public float Distance; // Vertical movement range for floating effect
 
         [SerializeField] private AudioClip coinSound; // Sound to play on collection
-        [SerializeField] private AudioSource audioSource; // Audio source used to play the sound
+        [SerializeField] private AudioManager audioSource; // Audio source used to play the sound
 
         public float moveSpeed = 1.0f; // Speed of vertical movement
         public float originalY; // Original Y position of the coin
@@ -29,6 +29,11 @@ namespace CoinSystem
             spriteRenderer = GetComponent<SpriteRenderer>();
             coinCollider = GetComponent<Collider2D>();
             lightRenderer = GetComponent<Light2D>();
+
+            if (AudioManager.Instance != null)
+            {
+                audioSource = AudioManager.Instance;
+            }
         }
 
         private void Update()
@@ -43,7 +48,7 @@ namespace CoinSystem
             if (other.CompareTag("Player"))
             {
                 if (audioSource != null && coinSound != null)
-                    audioSource.PlayOneShot(coinSound);
+                    audioSource.PlayCoinSFX(coinSound);
                     
                 CreateCoinParticule(transform.position);
 

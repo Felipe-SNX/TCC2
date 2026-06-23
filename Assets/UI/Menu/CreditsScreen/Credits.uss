@@ -65,10 +65,7 @@
     padding-top: 10px;
     padding-bottom: 80px; 
 
-    background-color: rgba(15, 23, 42, 0.85); 
-    border-radius: 20px; 
-    padding-left: 5px; 
-    padding-right: 5px;
+ 
 }
 
 .categoria-header {
