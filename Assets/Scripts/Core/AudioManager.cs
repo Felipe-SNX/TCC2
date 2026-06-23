@@ -98,9 +98,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayButtonClick(AudioClip clip)
     {
-        if (clip != null && musicSource != null)
+        if (clip != null && sfxSource != null)
         {
-            musicSource.PlayOneShot(clip);
+            sfxSource.PlayOneShot(clip, sfxVolume * masterVolume);
         }
     }
 

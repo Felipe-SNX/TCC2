@@ -58568,7 +58568,7 @@ PrefabInstance:
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: sfxSource
       value: 
-      objectReference: {fileID: 582532791}
+      objectReference: {fileID: 0}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: levelMusic
       value: 
@@ -58577,6 +58577,10 @@ PrefabInstance:
       propertyPath: endPhaseSFX
       value: 
       objectReference: {fileID: 8300000, guid: 0ceb520778414054b84557e437d62f90, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: climbVineSFX
       value: 
@@ -58596,11 +58600,15 @@ PrefabInstance:
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: loopSfxSource
       value: 
-      objectReference: {fileID: 582532791}
+      objectReference: {fileID: 0}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: collectWaterSFX
       value: 
       objectReference: {fileID: 8300000, guid: 10a3e12884b8acb4789f83ab9c923be4, type: 3}
+    - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: buttonClickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: df0ea5a2a24b625488fdc3ba4126cd40, type: 3}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: collectMessageSFX
       value: 
@@ -58610,11 +58618,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
---- !u!82 &582532791 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6523377679234746085, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
-  m_PrefabInstance: {fileID: 582532790}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &582739798
 PrefabInstance:
   m_ObjectHideFlags: 0
