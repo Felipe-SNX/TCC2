@@ -61,7 +61,6 @@ namespace Assets.UI.Menu.LoadingScreen
 
             StartCoroutine(CarregarCenaAssincronamente(GlobalData.nextScene));
         }
-
         private void AplicarCores(Color corTema)
         {
             if (textoColorido != null) textoColorido.style.color = corTema;

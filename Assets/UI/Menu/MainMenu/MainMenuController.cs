@@ -83,7 +83,7 @@ namespace Assets.UI.Menu.MainMenu
 
             if (tituloColorido != null) tituloColorido.style.color = corMisturada;
 
-            if(!tituloCarregado && mascaraTitulo != null)
+            if (!tituloCarregado && mascaraTitulo != null)
             {
                 progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
                 mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));

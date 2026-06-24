@@ -1,40 +1,36 @@
 .tela-cheia {
     flex-grow: 1;
     justify-content: center; 
-    background-color: rgba(0, 0, 0, 0.4); 
+    align-items: center; 
+    background-color: transparent; 
 }
 
 .banner-anuncio {
     width: 100%; 
-    background-color: rgba(30, 40, 55, 0.95);
+    background-color: rgba(15, 23, 42, 0.85); 
     
-    border-top-width: 12px;
-    border-bottom-width: 12px;
-    border-color: #FFD700; 
-    
-    padding-top: 30px;
-    padding-bottom: 50px;
-    
+    border-top-width: 8px; 
+    border-bottom-width: 8px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-color: #FFFFFF; 
+    padding-top: 40px;
+    padding-bottom: 40px;
     align-items: center; 
-    
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 .texto-fase {
-    font-size: 60px;
-    color: #A0C0D0;
+    font-size: 70px;
+    color: #FFFFFF;
     -unity-font-style: bold;
     margin-bottom: -15px;
-    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 1); 
 }
 
 .texto-gigante {
-    font-size: 120px;
-    color: white;
+    font-size: 130px;
+    color: #FFFFFF; 
     -unity-font-style: bold;
-    text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); 
-    transition-duration: 0.2s; 
+    text-shadow: 6px 6px 0px rgba(0, 0, 0, 1); 
+    letter-spacing: 5px;
 }

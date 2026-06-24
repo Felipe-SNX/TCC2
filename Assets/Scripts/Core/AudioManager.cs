@@ -98,9 +98,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayButtonClick(AudioClip clip)
     {
-        if (clip != null && musicSource != null)
+        if (clip != null && sfxSource != null)
         {
-            musicSource.PlayOneShot(clip);
+            sfxSource.PlayOneShot(clip, sfxVolume * masterVolume);
         }
     }
 
@@ -226,6 +226,17 @@ public class AudioManager : MonoBehaviour
     public void PlayEndPhase()
     {
         PlaySFX(endPhaseSFX);
+    }
+
+    public void PlayCoinSFX(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("SFX clip não configurado.");
+            return;
+        }
+
+        sfxSource.PlayOneShot(clip, sfxVolume * masterVolume);
     }
 
     public void SetMasterVolume(float volume)

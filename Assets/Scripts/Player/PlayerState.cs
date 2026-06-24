@@ -49,7 +49,7 @@ public class PlayerState : MonoBehaviour
         {
             sr.color = Color.blue;
         } else {
-            sr.color = Color.red;
+            sr.color = new Color(0.8117f, 0.8117f, 0.8117f, 1f);
         }
     }
 
@@ -64,6 +64,9 @@ public class PlayerState : MonoBehaviour
         {
             AbilityPulseEffect.Instance.PlayPulse(Color.green);
         }
+        
+        sr = GetComponent<SpriteRenderer>();
+        ChangeColor(sr);
 
         return true;
     }
