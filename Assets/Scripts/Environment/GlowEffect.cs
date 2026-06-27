@@ -3,32 +3,33 @@ using UnityEngine.Rendering.Universal;
 
 public class GlowEffect : MonoBehaviour
 {
-    [SerializeField]
-    private Light2D glow;
+    [Header("Configurações de Luz")]
+    [SerializeField] private Light2D glow;
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float minIntensity = 0.3f;
+    [SerializeField] private float maxIntensity = 0.8f;
 
-    [SerializeField]
-    private float speed = 2f;
-
-    [SerializeField]
-    private float min = .3f;
-
-    [SerializeField]
-    private float max = .8f;
-
+    private bool isActive = true;
 
     void Update()
     {
-        glow.intensity =
-            Mathf.Lerp(
-                min,
-                max,
-                (Mathf.Sin(Time.time * speed) + 1) / 2
-            );
-    }
+        if (!isActive || glow == null) return;
 
+        glow.intensity = Mathf.Lerp(
+            minIntensity,
+            maxIntensity,
+            (Mathf.Sin(Time.time * speed) + 1f) / 2f
+        );
+    }
 
     public void DisableGlow()
     {
-        glow.enabled = false;
+        isActive = false;
+
+        if (glow != null)
+        {
+            glow.intensity = 0f;
+            glow.enabled = false;
+        }
     }
 }

@@ -16,7 +16,7 @@ public class PlantLogic : MonoBehaviour
     [SerializeField] private float maxSize = 6f;
     [SerializeField] private float growSpeed = 3f;
     [SerializeField] private ParticleSystem growthParticles;
-    [SerializeField] private PlantGlow plantGlow;
+    [SerializeField] private GlowEffect plantGlow;
 
     private bool isGrown;
     private bool isGrowing;
