@@ -10,25 +10,38 @@ public class GlowEffect : MonoBehaviour
     private float speed = 2f;
 
     [SerializeField]
-    private float min = .3f;
+    private float minIntensity = .3f;
 
     [SerializeField]
-    private float max = .8f;
+    private float maxIntensity = .8f;
+
+
+    private bool active = true;
 
 
     void Update()
     {
+        if (!active || glow == null)
+            return;
+
+
         glow.intensity =
             Mathf.Lerp(
-                min,
-                max,
-                (Mathf.Sin(Time.time * speed) + 1) / 2
+                minIntensity,
+                maxIntensity,
+                (Mathf.Sin(Time.time * speed) + 1) / 2f
             );
     }
 
 
     public void DisableGlow()
     {
-        glow.enabled = false;
+        active = false;
+
+        if(glow != null)
+        {
+            glow.intensity = 0;
+            glow.enabled = false;
+        }
     }
 }
