@@ -11,30 +11,30 @@ public class AudioManager : MonoBehaviour
     private const string KEY_VOLUME_SFX = "VolumeSFX";
 
     [Header("Music Clips")]
-    public AudioClip menuMusic;
-    public AudioClip levelMusic;
-    public AudioClip pauseMusic;
-    public AudioClip buttonClickSound;
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] private AudioClip levelMusic;
+    [SerializeField] private AudioClip pauseMusic;
+    [SerializeField] private AudioClip buttonClickSound;
 
     [Header("SFX Clips")]
-    public AudioClip walkGrassSFX;
-    public AudioClip fallWaterSFX;
-    public AudioClip walkWaterSFX;
-    public AudioClip collectWaterSFX;
-    public AudioClip climbVineSFX;
-    public AudioClip jumpSFX;
-    public AudioClip collectMessageSFX;
-    public AudioClip endPhaseSFX;
+    [SerializeField] private AudioClip walkGrassSFX;
+    [SerializeField] private AudioClip fallWaterSFX;
+    [SerializeField] private AudioClip walkWaterSFX;
+    [SerializeField] private AudioClip collectWaterSFX;
+    [SerializeField] private AudioClip climbVineSFX;
+    [SerializeField] private AudioClip jumpSFX;
+    [SerializeField] private AudioClip collectMessageSFX;
+    [SerializeField] private AudioClip endPhaseSFX;
 
     [Header("Audio Sources")]
-    public AudioSource musicSource;
-    public AudioSource sfxSource;
-    public AudioSource loopSfxSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource loopSfxSource;
 
     [Header("Volume")]
-    [Range(0f, 1f)] public float masterVolume = 0.5f;
-    [Range(0f, 1f)] public float musicVolume = 0.5f;
-    [Range(0f, 1f)] public float sfxVolume = 0.8f;
+    [Range(0f, 1f)] [SerializeField] private float masterVolume = 0.5f;
+    [Range(0f, 1f)] [SerializeField] private float musicVolume = 0.5f;
+    [Range(0f, 1f)] [SerializeField] private float sfxVolume = 0.8f;
 
     private AudioClip currentMusic;
     private AudioClip currentLoopSFX;
