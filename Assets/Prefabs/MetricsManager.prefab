@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7095270769838589624}
   - component: {fileID: 7338588849730849921}
+  - component: {fileID: 7275964133903170712}
   m_Layer: 0
   m_Name: MetricsManager
   m_TagString: Untagged
@@ -44,4 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a86183506d2b654695fd5c7c5f839b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MetricsManager
-  urlEndpoint: https://endpoint
+--- !u!114 &7275964133903170712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629961599075256430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4bddc25210731429913fe214dba4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TelemetryClient
+  urlEndpoint: http://localhost:8000/api/v1/jogo/respostas
