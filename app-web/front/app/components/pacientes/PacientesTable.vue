@@ -7,6 +7,7 @@
         label="Buscar paciente por nome ou e-mail"
         variant="outlined"
         density="compact"
+        color="primary"
         hide-details
         clearable
         class="mr-4"
