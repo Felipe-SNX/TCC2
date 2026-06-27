@@ -408745,6 +408745,10 @@ PrefabInstance:
       propertyPath: collectMessageSFX
       value: 
       objectReference: {fileID: 8300000, guid: 41877b5e9015be34b88234b9e9300934, type: 3}
+    - target: {fileID: 8531006858739470323, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4821634660468210764, guid: c13b79c90972b1a4ab09261490e8a9ff, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

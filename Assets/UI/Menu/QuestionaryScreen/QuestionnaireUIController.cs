@@ -72,9 +72,9 @@ namespace Assets.UI.Menu.QuestionaryScreen
 
         void Start()
         {
-            if (AudioManager.Instance != null)
+            if (UIAudioManager.Instance != null)
             {
-                AudioManager.Instance.ConnectButtons(root);
+                UIAudioManager.Instance.ConnectButtons(root);
             }
         }
 

@@ -34,9 +34,9 @@ public class CollectibleMessage : MonoBehaviour
 
         MessageManager.Instance.CollectFragment(fragment);
 
-        if (AudioManager.Instance != null)
+        if (UIAudioManager.Instance != null)
         {
-            AudioManager.Instance.PlayCollectMessage();
+            UIAudioManager.Instance.PlayCollectMessage();
         }
 
         Destroy(gameObject);

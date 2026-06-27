@@ -4280,7 +4280,7 @@ RectTransform:
   m_LocalScale: {x: 0.877411, y: 1.1326, z: 1.1326}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -57837,7 +57837,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1277779868}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -58981,6 +58981,10 @@ PrefabInstance:
       propertyPath: collectMessageSFX
       value: 
       objectReference: {fileID: 8300000, guid: 41877b5e9015be34b88234b9e9300934, type: 3}
+    - target: {fileID: 8531006858739470323, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4821634660468210764, guid: c13b79c90972b1a4ab09261490e8a9ff, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -219359,7 +219363,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -237056,7 +237060,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -326565,7 +326569,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -334695,11 +334699,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
---- !u!4 &1199530338681000062 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6223258289119885247, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
-  m_PrefabInstance: {fileID: 1199530338681000061}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2362919049501717407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -334832,7 +334831,7 @@ PrefabInstance:
       addedObject: {fileID: 247671405}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6569261742038726068, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
-      insertIndex: -1
+      insertIndex: 10
       addedObject: {fileID: 2042344697}
   m_SourcePrefab: {fileID: 100100000, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
 --- !u!1001 &5166599162192349526
@@ -335000,3 +334999,4 @@ SceneRoots:
   - {fileID: 1299134042}
   - {fileID: 91891191}
   - {fileID: 739789128}
+  - {fileID: 548692238}
