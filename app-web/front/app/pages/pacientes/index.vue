@@ -5,6 +5,7 @@
       :total-items="total"
       :loading="isLoading"
       @update:options="fetchPacientes"
+      @update:search="handleSearchUpdate"
       @create="openCreateDialog"
       @edit="openEditDialog"
       @delete="handleDelete"
@@ -43,6 +44,7 @@ const pacientes = ref([]);
 const total = ref(0);
 const isLoading = ref(false);
 const currentOptions = ref({ page: 1, itemsPerPage: 25 });
+const searchQuery = ref("");
 
 const dialogOpen = ref(false);
 const selectedPaciente = ref<any | null>(null);
@@ -58,6 +60,7 @@ const fetchPacientes = async (options: {
     const data = await pacientesService.listar(
       options.page,
       options.itemsPerPage,
+      searchQuery.value || undefined,
     );
     pacientes.value = data.items;
     total.value = data.total;
@@ -72,6 +75,12 @@ const fetchPacientes = async (options: {
   } finally {
     isLoading.value = false;
   }
+};
+
+const handleSearchUpdate = (search: string) => {
+  searchQuery.value = search;
+  // Reseta para a primeira página ao realizar uma nova busca
+  fetchPacientes({ page: 1, itemsPerPage: currentOptions.value.itemsPerPage });
 };
 
 const openCreateDialog = () => {

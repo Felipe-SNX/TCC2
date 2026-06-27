@@ -1,7 +1,21 @@
 <template>
   <v-form @submit.prevent="onSubmit" ref="form">
-    <div class="d-flex flex-column ga-4 pa-6 elevation-2 rounded bg-surface">
-      <div class="text-h5 text-center mb-4">Login</div>
+    <div class="d-flex flex-column ga-1 pa-6 elevation-2 rounded bg-surface">
+      <img
+        src="/logo-v3.png"
+        alt="Logo"
+        class="mx-auto"
+        width="120"
+        height="auto"
+      />
+
+      <img
+        src="/espectro-label.png"
+        alt="Logo"
+        class="mx-auto mb-6"
+        width="240"
+        height="auto"
+      />
 
       <v-text-field
         v-model="email"
@@ -39,7 +53,12 @@
       </v-btn>
 
       <div class="d-flex justify-space-between mt-2">
-        <v-btn variant="text" size="small" color="secondary" @click="$emit('forgot-password')">
+        <v-btn
+          variant="text"
+          size="small"
+          color="secondary"
+          @click="$emit('forgot-password')"
+        >
           Esqueci minha senha
         </v-btn>
         <v-btn

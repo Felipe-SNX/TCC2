@@ -1,5 +1,6 @@
 import random
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from app.models.schema import Paciente
 from app.schemas.paciente import PacienteCreate, PacienteUpdate
 
@@ -9,17 +10,22 @@ def get_paciente(db: Session, paciente_id: str):
 def get_paciente_by_email(db: Session, email: str):
     return db.query(Paciente).filter(Paciente.email == email).first()
 
-def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None):
+def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None, search: str = None):
     query = db.query(Paciente)
     if user_role == 'PSICOLOGO' and user_id:
         query = query.filter(Paciente.created_by == user_id)
+    if search:
+        termo = f"%{search}%"
+        query = query.filter(
+            or_(Paciente.nome.ilike(termo), Paciente.email.ilike(termo))
+        )
     return query
 
-def get_pacientes(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None):
-    return _get_pacientes_query(db, user_id, user_role).offset(skip).limit(limit).all()
+def get_pacientes(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None, search: str = None):
+    return _get_pacientes_query(db, user_id, user_role, search).offset(skip).limit(limit).all()
 
-def get_pacientes_count(db: Session, user_id: str = None, user_role: str = None):
-    return _get_pacientes_query(db, user_id, user_role).count()
+def get_pacientes_count(db: Session, user_id: str = None, user_role: str = None, search: str = None):
+    return _get_pacientes_query(db, user_id, user_role, search).count()
 
 def _generate_unique_pin(db: Session) -> str:
     while True:
