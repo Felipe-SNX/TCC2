@@ -20,13 +20,14 @@ def criar_paciente(paciente_in: PacienteCreate, db: Session = Depends(get_db), c
 @router.get("/", response_model=PacientePaginatedResponse)
 def listar_pacientes(
     page: int = Query(1, ge=1), 
-    items_per_page: int = Query(25, ge=1, le=100), 
+    items_per_page: int = Query(25, ge=1, le=100),
+    search: str = Query(None, description="Buscar por nome ou e-mail"),
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_user)
 ):
     skip = (page - 1) * items_per_page
-    items = crud_paciente.get_pacientes(db=db, skip=skip, limit=items_per_page, user_id=current_user.id, user_role=current_user.role)
-    total = crud_paciente.get_pacientes_count(db=db, user_id=current_user.id, user_role=current_user.role)
+    items = crud_paciente.get_pacientes(db=db, skip=skip, limit=items_per_page, user_id=current_user.id, user_role=current_user.role, search=search)
+    total = crud_paciente.get_pacientes_count(db=db, user_id=current_user.id, user_role=current_user.role, search=search)
     return {"items": items, "total": total}
 
 @router.get("/{paciente_id}", response_model=PacienteResponse)

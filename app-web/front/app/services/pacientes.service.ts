@@ -8,12 +8,13 @@ export interface PacienteForm {
 }
 
 export const pacientesService = {
-  async listar(page: number, itemsPerPage: number) {
+  async listar(page: number, itemsPerPage: number, search?: string) {
     const { $api } = useNuxtApp() as any
     const response = await $api.get('/pacientes/', {
       params: {
         page,
-        items_per_page: itemsPerPage
+        items_per_page: itemsPerPage,
+        ...(search ? { search } : {}),
       }
     })
     return response.data
