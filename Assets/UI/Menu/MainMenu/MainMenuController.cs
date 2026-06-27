@@ -12,6 +12,7 @@ namespace Assets.UI.Menu.MainMenu
         [SerializeField] private GameObject objetoConfiguracoes;
         [SerializeField] private GameObject objetoSelecaoFases;
         [SerializeField] private GameObject objetoCreditos;
+        [SerializeField] private GameObject objetoTipoJogador;
         
         [Header("Configurações de Cor e Animação")]
         public float velocidadeTrocaDeCor = 0.4f; 
@@ -29,6 +30,35 @@ namespace Assets.UI.Menu.MainMenu
         
         private float progressoPreenchimento = 0f;
         private bool tituloCarregado = false; 
+
+        private void Start()
+        {
+            if(!GlobalData.perguntaTipoJogadorMostrado){
+                root.schedule.Execute(() => 
+                {
+                    AbrirTelaComoModal(objetoTipoJogador);
+                }).StartingIn(100); 
+            }
+        }
+
+        private void AbrirTelaComoModal(GameObject objetoModal)
+        {
+            if (objetoModal != null)
+            {
+                var popup = objetoModal.GetComponent<IMenuPopup>();
+
+                if (popup != null)
+                {
+                    root.style.display = DisplayStyle.None; 
+
+                    popup.AoFechar = () => { 
+                        root.style.display = DisplayStyle.Flex; 
+                    };
+
+                    objetoModal.SetActive(true);
+                }
+            }
+        }
 
         private void OnEnable()
         {

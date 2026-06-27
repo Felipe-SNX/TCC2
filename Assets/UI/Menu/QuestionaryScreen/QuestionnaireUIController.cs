@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Text.RegularExpressions;
 
 namespace Assets.UI.Menu.QuestionaryScreen
 {
@@ -8,69 +7,37 @@ namespace Assets.UI.Menu.QuestionaryScreen
     {
         [Header("Fluxo de Telas")]
         [SerializeField] private GameObject resultScreen;
-        private VisualElement mascaraTitulo;
-        private float progressoPreenchimento = 0f;
         [SerializeField] private float velocidadePreenchimento = 50f;
 
-        private UIDocument uiDocument;
-        private TextField inputEmail;
-        private TextField inputPin;
-        private Label erroEmail;
-        private Label erroPin;
-        private Label q1ValorLabel;
-        private SliderInt q1Slider;
-        private Button submitButton;
-        private Button skipButton;
-
         private VisualElement root;
+        private VisualElement mascaraTitulo;
+        private float progressoPreenchimento = 0f;
+
+        private SliderInt q1Slider;
+        private Label q1ValorLabel;
+        private Button submitButton;
 
         private void OnEnable()
         {
-            uiDocument = GetComponent<UIDocument>();
+            var uiDocument = GetComponent<UIDocument>();
             root = uiDocument.rootVisualElement;
+
             mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
-            progressoPreenchimento = 0f;
-
-            inputEmail = root.Q<TextField>("input_email");
-            inputPin = root.Q<TextField>("input_pin");
-            erroEmail = root.Q<Label>("lbl_erro_email");
-            erroPin = root.Q<Label>("lbl_erro_pin");
-
-            q1ValorLabel = root.Q<Label>("lbl_valor_q1");
             q1Slider = root.Q<SliderInt>("slider_q1");
+            q1ValorLabel = root.Q<Label>("lbl_valor_q1");
             submitButton = root.Q<Button>("btn_submit");
-            skipButton = root.Q<Button>("btn_skip");
 
-            // Atualiza o valor do texto ao arrastar o slider
-            if (q1Slider != null && q1ValorLabel != null)
-            {
-                q1Slider.RegisterValueChangedCallback(evt => {
-                    q1ValorLabel.text = evt.newValue.ToString();
-                });
-            }
+            progressoPreenchimento = 0f;
+            if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
 
-            if (inputEmail != null)
-            {
-                // Verifica se a chave "EmailUsuario" já existe salva na máquina
-                if (PlayerPrefs.HasKey("EmailUsuario"))
-                {
-                    // Injeta o valor salvo direto no campo de texto
-                    inputEmail.value = PlayerPrefs.GetString("EmailUsuario");
-                }
-            }
+            q1Slider?.RegisterValueChangedCallback(evt => {
+                if (q1ValorLabel != null) q1ValorLabel.text = evt.newValue.ToString();
+            });
 
-            if (submitButton != null)
-            {
-                submitButton.clicked += ValidateAndSubmit;
-            }
-
-            if (skipButton != null)
-            {
-                skipButton.clicked += SkipQuestionnaire;
-            }
+            if (submitButton != null) submitButton.clicked += OnSubmit;
         }
 
-        void Start()
+        private void Start()
         {
             if (UIAudioManager.Instance != null)
             {
@@ -87,64 +54,23 @@ namespace Assets.UI.Menu.QuestionaryScreen
             }
         }
 
-        private void ValidateAndSubmit()
+        private void OnSubmit()
         {
-            bool formularioValido = true;
+            int scoreCor = q1Slider != null ? q1Slider.value : 3;
 
-            // Validação do E-mail 
-            string emailRegexPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            if (string.IsNullOrWhiteSpace(inputEmail.text) || !Regex.IsMatch(inputEmail.text, emailRegexPattern))
-            {
-                erroEmail.style.display = DisplayStyle.Flex; 
-                formularioValido = false;
-            }
-            else
-            {
-                erroEmail.style.display = DisplayStyle.None; 
-            }
-
-            // Validação do PIN 
-            if (string.IsNullOrWhiteSpace(inputPin.text) || !int.TryParse(inputPin.text, out int pinNumber) || inputPin.text.Length != 6)
-            {
-                erroPin.style.display = DisplayStyle.Flex; 
-                formularioValido = false;
-            }
-            else
-            {
-                erroPin.style.display = DisplayStyle.None; 
-            }
-
-            if (!formularioValido)
-            {
-                return;
-            }
-
-            string emailFinal = inputEmail.text;
-            int pinFinal = int.Parse(inputPin.text);
-            int scoreCor = q1Slider.value;
-
-            PlayerPrefs.SetString("EmailUsuario", emailFinal);
-            PlayerPrefs.Save();  
-            Debug.Log("[SISTEMA] E-mail salvo localmente: " + emailFinal);
+            string emailFinal = GameSession.UserEmail;
+            int pinFinal = int.TryParse(GameSession.UserPIN, out int pin) ? pin : 0;
 
             if (MetricsManager.Instance != null)
             {
-                MetricsManager.Instance.SubmitDataWithSurvey(scoreCor, emailFinal, pinFinal); 
+                MetricsManager.Instance.SubmitDataWithSurvey(scoreCor, emailFinal, pinFinal);
             }
 
-            gameObject.SetActive(false); 
-
-            if (resultScreen != null)
-            {
-                resultScreen.SetActive(true);
-            }
+            TransitionToResult();
         }
 
-        private void SkipQuestionnaire()
+        private void TransitionToResult()
         {
-            Debug.Log("[SISTEMA] Usuário pulou o questionário.");
-            
-            // Deixa o objeto inativo e segue para a tela de resultado
             gameObject.SetActive(false);
             if (resultScreen != null)
             {
@@ -154,8 +80,7 @@ namespace Assets.UI.Menu.QuestionaryScreen
 
         private void OnDisable()
         {
-            if (submitButton != null) submitButton.clicked -= ValidateAndSubmit;
-            if (skipButton != null) skipButton.clicked -= SkipQuestionnaire;
+            if (submitButton != null) submitButton.clicked -= OnSubmit;
         }
     }
 }

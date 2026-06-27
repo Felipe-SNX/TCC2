@@ -5,6 +5,7 @@ public class FinishFlag : MonoBehaviour
 {
     [Header("Interface")]
     [SerializeField] private GameObject questionnaireScreen;
+    [SerializeField] private GameObject resultScreen; 
 
     private bool completedLevel = false;
 
@@ -36,7 +37,15 @@ public class FinishFlag : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
-        if (questionnaireScreen != null)
+        if (GameSession.IsEnthusiast)
+        {
+            Debug.Log("[FinishFlag] Jogador Entusiasta: Pulando questionário.");
+            if (resultScreen != null)
+            {
+                resultScreen.SetActive(true);
+            }
+        }
+        else if (questionnaireScreen != null)
         {
             questionnaireScreen.SetActive(true);
         }
