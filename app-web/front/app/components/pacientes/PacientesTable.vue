@@ -1,6 +1,17 @@
 <template>
   <v-card elevation="2" class="rounded-lg">
     <v-card-title class="d-flex align-center pa-4 bg-surface-light">
+      <v-text-field
+        v-model="search"
+        prepend-inner-icon="mdi-magnify"
+        label="Buscar paciente por nome ou e-mail"
+        variant="outlined"
+        density="compact"
+        hide-details
+        clearable
+        class="mr-4"
+        style="max-width: 380px"
+      />
       <v-spacer></v-spacer>
       <v-btn
         color="primary"
@@ -107,7 +118,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps<{
   items: any[];
@@ -117,12 +128,23 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: "update:options", options: { page: number; itemsPerPage: number }): void;
+  (e: "update:search", search: string): void;
   (e: "create"): void;
   (e: "edit", item: any): void;
   (e: "delete", item: any): void;
   (e: "view-dashboard", item: any): void;
   (e: "refresh-pin", item: any): void;
 }>();
+
+const search = ref("");
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+watch(search, (value) => {
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    emit("update:search", value ?? "");
+  }, 400);
+});
 
 const headers = [
   { title: "Paciente", key: "nome", align: "start" as const, sortable: false },
