@@ -6,39 +6,26 @@ namespace CoinSystem
 {
     public class CollectedCoin : MonoBehaviour
     {
-        public int coinsToGive; // Number of coins this collectible gives to the player
-        public ParticleSystem CoinParticule; // Particle effect to play when the coin is collected
-        public float Distance; // Vertical movement range for floating effect
+        public ParticleSystem CoinParticule; 
+        public float Distance; 
 
-        [SerializeField] private AudioClip coinSound; // Sound to play on collection
-        [SerializeField] private AudioManager audioSource; // Audio source used to play the sound
+        public float moveSpeed = 1.0f; 
+        public float originalY; 
 
-        public float moveSpeed = 1.0f; // Speed of vertical movement
-        public float originalY; // Original Y position of the coin
-
-        private SpriteRenderer spriteRenderer; // Used to hide the coin after collection
-        private Collider2D coinCollider; // Used to disable collisions after collection
-
+        private SpriteRenderer spriteRenderer; 
+        private Collider2D coinCollider; 
         private Light2D lightRenderer;
 
         private void Start()
         {
             originalY = transform.position.y;
-
-            // Get required components
             spriteRenderer = GetComponent<SpriteRenderer>();
             coinCollider = GetComponent<Collider2D>();
             lightRenderer = GetComponent<Light2D>();
-
-            if (AudioManager.Instance != null)
-            {
-                audioSource = AudioManager.Instance;
-            }
         }
 
         private void Update()
         {
-            // Floating up and down effect using sine wave
             float newY = originalY + Mathf.Sin(Time.time * moveSpeed) * Distance;
             transform.position = new Vector2(transform.position.x, newY);
         }
@@ -47,8 +34,10 @@ namespace CoinSystem
         {
             if (other.CompareTag("Player"))
             {
-                if (audioSource != null && coinSound != null)
-                    audioSource.PlayCoinSFX(coinSound);
+                if (UIAudioManager.Instance != null)
+                {
+                    UIAudioManager.Instance.PlayCoinSFX();
+                }
                     
                 CreateCoinParticule(transform.position);
 
@@ -63,16 +52,10 @@ namespace CoinSystem
 
         private void Collect()
         {
-            if (spriteRenderer != null)
-                spriteRenderer.enabled = false;
+            if (spriteRenderer != null) spriteRenderer.enabled = false;
+            if (coinCollider != null) coinCollider.enabled = false;
+            if (lightRenderer != null) lightRenderer.enabled = false;
 
-            if (coinCollider != null)
-                coinCollider.enabled = false;
-
-            if (lightRenderer != null)
-                lightRenderer.enabled = false;
-
-            // Destroy the coin after a short delay to let the sound finish
             StartCoroutine(DestroyAfterDelay(1f));
         }
 
@@ -86,7 +69,6 @@ namespace CoinSystem
         {
             if (CoinParticule != null)
             {
-                // Set the particle system's position to the coin's position and play it
                 Vector3 particlePosition = new(position.x, position.y, 0f);
                 CoinParticule.transform.position = particlePosition;
                 CoinParticule.Play();

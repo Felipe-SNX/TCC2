@@ -4,9 +4,10 @@ public class LevelController : MonoBehaviour
 {
     private void Start()
     {
-        if (AudioManager.Instance != null)
+     
+        if (MusicManager.Instance != null)
         {
-            AudioManager.Instance.PlayLevelMusic();
+            MusicManager.Instance.PlayLevelMusic();
         }
     }
 }

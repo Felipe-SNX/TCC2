@@ -1,26 +1,10 @@
+// MetricsManager.cs
 using UnityEngine;
-using UnityEngine.Networking;
-using System.Collections;
 using UnityEngine.SceneManagement;
-
-[System.Serializable]
-public class GameplayData
-{
-    public string currentLevel;
-    public float time;
-    public int tries;   
-    public int response; 
-    public string email;
-    public string pin;
-    public int colectables;
-}
 
 public class MetricsManager : MonoBehaviour
 {
     public static MetricsManager Instance;
-
-    [Header("Configuração de Endpoints")]
-    [SerializeField] private string urlEndpoint = "http://localhost:8000/api/v1/jogo/respostas";
 
     // Variáveis internas da fase atual
     private float stopWatchLevel = 0f;
@@ -61,15 +45,9 @@ public class MetricsManager : MonoBehaviour
         activeStopWatch = (nameCurrentLevel != "Main_Menu");
     }
 
-    public void CountTries()
-    {
-        countTries++;
-    }
-
-    public void RegisterCollectible()
-    {
-        countCollectibles++;
-    }
+    public void CountTries() => countTries++;
+    
+    public void RegisterCollectible() => countCollectibles++;
 
     public void FinishLevelAndFreezeData()
     {
@@ -83,7 +61,6 @@ public class MetricsManager : MonoBehaviour
     public void SubmitDataWithSurvey(int responseScore, string email, int pin)
     {
         GameplayData pacoteCompleto = new()
-
         {
             currentLevel = nameCurrentLevel,
             time = finalTimeLevel,
@@ -94,35 +71,17 @@ public class MetricsManager : MonoBehaviour
             colectables = finalCollectiblesLevel
         };
 
-        string jsonDados = JsonUtility.ToJson(pacoteCompleto);
-        Debug.Log("[MÉTRICAS] Enviando pacote unificado: " + jsonDados);
-
-        StartCoroutine(SendData(jsonDados));
+        if (TelemetryClient.Instance != null)
+        {
+            TelemetryClient.Instance.SubmitData(pacoteCompleto);
+        }
+        else
+        {
+            Debug.LogError("[MÉTRICAS] TelemetryClient não encontrado na cena!");
+        }
 
         countTries = 1;
         countCollectibles = 0;
-    }
-
-    private IEnumerator SendData(string jsonTexto)
-    {
-        using (UnityWebRequest request = new(urlEndpoint, "POST"))
-        {
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonTexto);
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            yield return request.SendWebRequest();
-
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                Debug.Log("[MÉTRICAS] Sucesso absoluto! O site recebeu os dados e o questionário.");
-            }
-            else
-            {
-                Debug.LogWarning("[MÉTRICAS] Erro ao enviar para o endpoint: " + request.error);
-            }
-        }
     }
 
     private void OnDestroy()
@@ -130,23 +89,8 @@ public class MetricsManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public string GetNameLevel()
-    {
-        return nameCurrentLevel; 
-    }
-
-    public float GetTimeLevel()
-    {
-        return finalTimeLevel; 
-    }
-
-    public int GetTriesLevel()
-    {
-        return finalTriesLevel; 
-    }
-
-    public int GetCollectiblesCount()
-    {
-        return finalCollectiblesLevel;
-    }
+    public string GetNameLevel() => nameCurrentLevel;
+    public float GetTimeLevel() => finalTimeLevel;
+    public int GetTriesLevel() => finalTriesLevel;
+    public int GetCollectiblesCount() => finalCollectiblesLevel;
 }

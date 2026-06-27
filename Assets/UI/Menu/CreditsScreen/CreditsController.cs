@@ -31,9 +31,9 @@ namespace Assets.UI.Menu.CreditsScreen
 
         void Start()
         {
-            if (AudioManager.Instance != null && root != null)
+            if (UIAudioManager.Instance != null)
             {
-                AudioManager.Instance.ConnectButtons(root);
+                UIAudioManager.Instance.ConnectButtons(root);
             }
         }
 
