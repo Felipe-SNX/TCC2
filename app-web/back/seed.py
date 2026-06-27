@@ -34,9 +34,9 @@ from app.core.security import get_password_hash
 # Fases do jogo (Levels correspondentes às cores) e seus pesos de resposta
 # Distribui respostas de forma tendenciosa por nível para simular efeitos clínicos
 DISTRIBUICAO_POR_LEVEL: dict[str, list[int]] = {
-    "Level_1":  [1, 1, 2, 2, 3, 3, 4, 5, 5, 5],  # vermelho: estimulante/energético
-    "Level_2":  [2, 3, 3, 4, 4, 4, 5, 5, 5, 5],  # verde: calmante
-    "Level_3":  [1, 2, 2, 3, 3, 3, 4, 4, 5, 5],  # amarelo: alegre/neutro
+    "map_red":    [1, 1, 2, 2, 3, 3, 4, 5, 5, 5],  # vermelho: estimulante/energético
+    "map_green":  [2, 3, 3, 4, 4, 4, 5, 5, 5, 5],  # verde: calmante
+    "map_yellow": [1, 2, 2, 3, 3, 3, 4, 4, 5, 5],  # amarelo: alegre/neutro
 }
 
 LEVELS = list(DISTRIBUICAO_POR_LEVEL.keys())

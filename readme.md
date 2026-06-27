@@ -82,7 +82,7 @@ TCC2/
 cd app-web/back
 
 # Crie e ative um ambiente virtual
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # No Windows use: venv\Scripts\activate
 
 # Instale as dependências
