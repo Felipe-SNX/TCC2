@@ -9,8 +9,6 @@ namespace CoinSystem
         public ParticleSystem CoinParticule; 
         public float Distance; 
 
-        [SerializeField] private AudioClip coinSound; 
-
         public float moveSpeed = 1.0f; 
         public float originalY; 
 
@@ -36,9 +34,9 @@ namespace CoinSystem
         {
             if (other.CompareTag("Player"))
             {
-                if (UIAudioManager.Instance != null && coinSound != null)
+                if (UIAudioManager.Instance != null)
                 {
-                    UIAudioManager.Instance.PlayCoinSFX(coinSound);
+                    UIAudioManager.Instance.PlayCoinSFX();
                 }
                     
                 CreateCoinParticule(transform.position);

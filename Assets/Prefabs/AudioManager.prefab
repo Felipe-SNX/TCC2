@@ -324,6 +324,7 @@ MonoBehaviour:
   buttonClickSound: {fileID: 8300000, guid: df0ea5a2a24b625488fdc3ba4126cd40, type: 3}
   collectMessageSFX: {fileID: 8300000, guid: 41877b5e9015be34b88234b9e9300934, type: 3}
   endPhaseSFX: {fileID: 8300000, guid: 0ceb520778414054b84557e437d62f90, type: 3}
+  coinSound: {fileID: 8300000, guid: bba97dad64e6dfa4a962f2832a073ca2, type: 3}
 --- !u!1 &6756412233006689469
 GameObject:
   m_ObjectHideFlags: 0

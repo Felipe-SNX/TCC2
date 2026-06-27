@@ -10,6 +10,7 @@ public class UIAudioManager : MonoBehaviour
     [SerializeField] private AudioClip buttonClickSound;
     [SerializeField] private AudioClip collectMessageSFX;
     [SerializeField] private AudioClip endPhaseSFX;
+    [SerializeField] private AudioClip coinSound; 
 
     private AudioSource sfxSource;
 
@@ -41,9 +42,9 @@ public class UIAudioManager : MonoBehaviour
     public void PlayEndPhase() => PlaySFX(endPhaseSFX);
     private void PlayButtonClick() => PlaySFX(buttonClickSound);
 
-    public void PlayCoinSFX(AudioClip clip)
+    public void PlayCoinSFX()
     {
-        if (clip != null) sfxSource.PlayOneShot(clip);
+        if (coinSound != null) sfxSource.PlayOneShot(coinSound);
     }
 
     private void PlaySFX(AudioClip clip)

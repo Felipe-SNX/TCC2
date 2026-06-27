@@ -328431,6 +328431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
   climbSpeed: 5
+  horizontalSpeed: 8
 --- !u!4 &2042344707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5496296623552628724, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
