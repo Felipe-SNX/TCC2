@@ -5,6 +5,7 @@
       :items="items"
       :loading="loading"
       :items-per-page="10"
+      :sort-by="[{ key: 'created_at', order: 'desc' }]"
       class="elevation-0"
       hover
     >
@@ -100,13 +101,17 @@ const headers = [
 
 const formatDateTime = (dateString: string) => {
   if (!dateString) return "-";
-  const date = new Date(dateString);
+  // O backend salva em UTC sem o sufixo 'Z', então adicionamos para forçar
+  // a interpretação correta como UTC antes de converter para o fuso de Brasília.
+  const utcString = dateString.endsWith("Z") ? dateString : dateString + "Z";
+  const date = new Date(utcString);
   return date.toLocaleString("pt-BR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "America/Sao_Paulo",
   });
 };
 
