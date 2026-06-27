@@ -70,6 +70,29 @@
         </div>
       </template>
 
+      <template v-slot:item.observacoes="{ item }">
+        <small
+          class="text-medium-emphasis"
+          style="
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+          "
+          :title="item.observacoes"
+        >
+          {{ item.observacoes || "-" }}
+        </small>
+      </template>
+
+      <template v-slot:item.created_at="{ item }">
+        <span class="text-caption text-medium-emphasis text-no-wrap">
+          {{ formatDateTime(item.created_at) }}
+        </span>
+      </template>
+
       <template v-slot:item.acoes="{ item }">
         <v-tooltip text="Ver Respostas" location="top">
           <template v-slot:activator="{ props: tooltipProps }">
@@ -151,8 +174,35 @@ const headers = [
   { title: "Paciente", key: "nome", align: "start" as const, sortable: false },
   { title: "Idade", key: "idade", align: "center" as const, sortable: false },
   { title: "PIN", key: "pin", align: "start" as const, sortable: false },
+  {
+    title: "Observações",
+    key: "observacoes",
+    align: "start" as const,
+    sortable: false,
+    width: "30%",
+  },
+  {
+    title: "Criado em",
+    key: "created_at",
+    align: "start" as const,
+    sortable: false,
+  },
   { title: "Ações", key: "acoes", align: "end" as const, sortable: false },
 ];
+
+const formatDateTime = (dateString: string) => {
+  if (!dateString) return "-";
+  const utcString = dateString.endsWith("Z") ? dateString : dateString + "Z";
+  const date = new Date(utcString);
+  return date.toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "America/Sao_Paulo",
+  });
+};
 
 const options = ref({
   page: 1,
