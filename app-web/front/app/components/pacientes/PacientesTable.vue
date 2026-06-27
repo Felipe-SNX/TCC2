@@ -88,48 +88,50 @@
       </template>
 
       <template v-slot:item.created_at="{ item }">
-        <span class="text-caption text-medium-emphasis text-no-wrap">
+        <span class="text-caption text-medium-emphasis text-no-wrap w-full">
           {{ formatDateTime(item.created_at) }}
         </span>
       </template>
 
       <template v-slot:item.acoes="{ item }">
-        <v-tooltip text="Ver Respostas" location="top">
-          <template v-slot:activator="{ props: tooltipProps }">
-            <v-btn
-              icon="mdi-chart-line"
-              variant="text"
-              size="small"
-              color="secondary"
-              v-bind="tooltipProps"
-              @click="$emit('view-dashboard', item)"
-            ></v-btn>
-          </template>
-        </v-tooltip>
-        <v-tooltip text="Editar" location="top">
-          <template v-slot:activator="{ props: tooltipProps }">
-            <v-btn
-              icon="mdi-pencil"
-              variant="text"
-              size="small"
-              color="warning"
-              v-bind="tooltipProps"
-              @click="$emit('edit', item)"
-            ></v-btn>
-          </template>
-        </v-tooltip>
-        <v-tooltip text="Excluir" location="top">
-          <template v-slot:activator="{ props: tooltipProps }">
-            <v-btn
-              icon="mdi-delete"
-              variant="text"
-              size="small"
-              color="error"
-              v-bind="tooltipProps"
-              @click="$emit('delete', item)"
-            ></v-btn>
-          </template>
-        </v-tooltip>
+        <div class="d-flex flex-row align-center justify-center text-no-wrap">
+          <v-tooltip text="Ver Respostas" location="top">
+            <template v-slot:activator="{ props: tooltipProps }">
+              <v-btn
+                icon="mdi-chart-line"
+                variant="text"
+                size="small"
+                color="secondary"
+                v-bind="tooltipProps"
+                @click="$emit('view-dashboard', item)"
+              ></v-btn>
+            </template>
+          </v-tooltip>
+          <v-tooltip text="Editar" location="top">
+            <template v-slot:activator="{ props: tooltipProps }">
+              <v-btn
+                icon="mdi-pencil"
+                variant="text"
+                size="small"
+                color="warning"
+                v-bind="tooltipProps"
+                @click="$emit('edit', item)"
+              ></v-btn>
+            </template>
+          </v-tooltip>
+          <v-tooltip text="Excluir" location="top">
+            <template v-slot:activator="{ props: tooltipProps }">
+              <v-btn
+                icon="mdi-delete"
+                variant="text"
+                size="small"
+                color="error"
+                v-bind="tooltipProps"
+                @click="$emit('delete', item)"
+              ></v-btn>
+            </template>
+          </v-tooltip>
+        </div>
       </template>
 
       <template v-slot:no-data>
