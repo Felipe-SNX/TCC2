@@ -58985,6 +58985,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5906119724266648523, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: levelMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: d7aa0ab2df2273244a87a497688484ce, type: 3}
     - target: {fileID: 7040787534482772017, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
       propertyPath: jumpSFX
       value: 
