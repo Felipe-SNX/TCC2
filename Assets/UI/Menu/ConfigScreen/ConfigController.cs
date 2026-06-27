@@ -75,9 +75,9 @@ namespace Assets.UI.Menu.ConfigScreen
 
         void Start()
         {
-            if (AudioManager.Instance != null)
+            if (UIAudioManager.Instance != null)
             {
-                AudioManager.Instance.ConnectButtons(root);
+                UIAudioManager.Instance.ConnectButtons(root);
             }
         }
 

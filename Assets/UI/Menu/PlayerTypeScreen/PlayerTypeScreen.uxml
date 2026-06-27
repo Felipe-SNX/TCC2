@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu/PlayerTypeScreen/PlayerTypeScreen.uss?fileID=7433441132597879392&amp;guid=7435edd20e3c2f64bad9713dbd97c014&amp;type=3#PlayerTypeScreen"/>
+    <ui:VisualElement name="screen-overlay" class="tela-cheia">
+        <ui:VisualElement name="main-container" class="painel-vidro">
+            <ui:VisualElement class="titulo-container">
+                <ui:Label text="Perfil de Jogador" class="titulo titulo-cinza" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                <ui:VisualElement name="mascara-titulo" class="mascara">
+                    <ui:Label text="Perfil de Jogador" class="titulo colorido" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label text="Selecione o seu tipo de acesso para iniciarmos" class="desc-fase" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+            <ui:VisualElement name="selection-panel" style="width: 100%;">
+                <ui:VisualElement class="container-botoes">
+                    <ui:Button name="btn_enthusiast" class="botao-menu">
+                        <ui:Label text="Entusiasta (Apenas Jogar)" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                        <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                    </ui:Button>
+                    <ui:Button name="btn_recommended" class="botao-menu">
+                        <ui:Label text="Recomendado (Pesquisa)" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                        <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior"/>
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="credentials-panel" class="hidden" style="width: 100%;">
+                <ui:VisualElement class="input-group" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);">
+                    <ui:Label text="Seu E-mail:" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:TextField name="input_email" class="custom-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label name="lbl_erro_email" text="* Digite um e-mail valido com @" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="input-group" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);">
+                    <ui:Label text="Seu PIN (Apenas numeros):" class="label-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:TextField name="input_pin" max-length="6" class="custom-input" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    <ui:Label name="lbl_erro_pin" text="* O PIN deve conter apenas numeros" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="input-group" style="margin-top: 25px; margin-bottom: 10px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);">
+                    <ui:VisualElement class="manual-toggle-container">
+                        <ui:Toggle name="toggle_lgpd" class="custom-checkbox" />
+                        <ui:Label text="Eu li e concordo com os termos de coleta e tratamento dos meus dados para fins acadêmicos" class="manual-toggle-text" />
+                    </ui:VisualElement>
+                    <ui:Label name="lbl_erro_lgpd" text="* A aceitacao e obrigatorio para jogadores recomendados" class="erro-texto" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="container-botoes" style="flex-direction: row; justify-content: space-around; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);">
+                    <ui:Button name="btn_back" class="botao-menu">
+                        <ui:Label text="Voltar" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                        <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    </ui:Button>
+                    <ui:Button name="btn_submit" class="botao-menu">
+                        <ui:Label text="Iniciar Jogo" picking-mode="Ignore" class="texto-botao" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                        <ui:VisualElement name="linha-inferior" picking-mode="Ignore" class="linha-inferior" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf?fileID=12800000&amp;guid=cf0c63b48e4dcda40b154a233ba16624&amp;type=3#alagard&quot;);"/>
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

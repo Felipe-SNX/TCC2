@@ -2872,6 +2872,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &91331586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 770829611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1 &91891190
 GameObject:
   m_ObjectHideFlags: 0
@@ -4083,6 +4094,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1991196396}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 1576961472}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -4098,6 +4113,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (7)
       objectReference: {fileID: 0}
     - target: {fileID: 2650673636635427141, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_TagString
@@ -4280,7 +4299,7 @@ RectTransform:
   m_LocalScale: {x: 0.877411, y: 1.1326, z: 1.1326}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5164,6 +5183,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 167305955243685038, guid: f67120ac4d421504f8056d26e786b652, type: 3}
   m_PrefabInstance: {fileID: 1768560134}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &281267488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 713653512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1 &282232008
 GameObject:
   m_ObjectHideFlags: 0
@@ -21649,6 +21679,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1991196396}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 738927232}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -21664,6 +21698,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (8)
       objectReference: {fileID: 0}
     - target: {fileID: 2650673636635427141, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_TagString
@@ -21743,7 +21781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710818737959765141, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Name
-      value: PF_GrowingPlant (6)
+      value: PF_GrowingPlant (8)
       objectReference: {fileID: 0}
     - target: {fileID: 8922251421352024062, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Size.x
@@ -23141,6 +23179,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &503453297 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 1417657648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1 &505568856
 GameObject:
   m_ObjectHideFlags: 0
@@ -57837,7 +57886,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1277779868}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -58873,6 +58922,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &581872085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 2026192807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1001 &582532790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58981,6 +59041,10 @@ PrefabInstance:
       propertyPath: collectMessageSFX
       value: 
       objectReference: {fileID: 8300000, guid: 41877b5e9015be34b88234b9e9300934, type: 3}
+    - target: {fileID: 8531006858739470323, guid: 5c0f358ca7f893641b0a36b27c01b6d1, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4821634660468210764, guid: c13b79c90972b1a4ab09261490e8a9ff, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -218839,6 +218903,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 553742688}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 281267488}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -218854,6 +218922,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (6)
       objectReference: {fileID: 0}
     - target: {fileID: 3344021970404124418, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_LocalScale.x
@@ -219359,7 +219431,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -219514,6 +219586,17 @@ MeshRenderer:
   m_SortingOrder: 100
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &738927232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 398424762}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1 &739789127
 GameObject:
   m_ObjectHideFlags: 0
@@ -219744,6 +219827,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 553742688}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 91331586}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -219759,6 +219846,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (3)
       objectReference: {fileID: 0}
     - target: {fileID: 3344021970404124418, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_LocalScale.x
@@ -220011,6 +220102,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 553742688}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 1252427959}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -220026,6 +220121,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3344021970404124418, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_LocalScale.x
@@ -237056,7 +237155,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -248752,6 +248851,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f67120ac4d421504f8056d26e786b652, type: 3}
+--- !u!114 &1252427959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 782602445}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1001 &1253105298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266346,6 +266456,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 553742688}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 503453297}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -266361,6 +266475,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (5)
       objectReference: {fileID: 0}
     - target: {fileID: 3344021970404124418, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_LocalScale.x
@@ -306855,6 +306973,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1576961472 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 171584746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1001 &1593714431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -323147,6 +323276,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1662863606 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314522068110081406, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 143707247467315179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1001 &1665675185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -326565,7 +326705,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1199530338681000062}
+  m_Father: {fileID: 1277779868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -328254,6 +328394,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 553742688}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 581872085}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -328269,6 +328413,10 @@ PrefabInstance:
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SortingOrder
       value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302793631924149998, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: m_Name
+      value: Base (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3344021970404124418, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_LocalScale.x
@@ -328427,6 +328575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
   climbSpeed: 5
+  horizontalSpeed: 8
 --- !u!4 &2042344707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5496296623552628724, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
@@ -334158,6 +334307,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 553742688}
     m_Modifications:
+    - target: {fileID: 110973697771761309, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: glow
+      value: 
+      objectReference: {fileID: 1662863606}
     - target: {fileID: 709005228659746124, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_DrawMode
       value: 0
@@ -334205,6 +334358,10 @@ PrefabInstance:
     - target: {fileID: 3583728292516106213, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: maxSize
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583728292516106213, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+      propertyPath: plantGlow
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4436650386786221910, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SpriteTilingProperty.drawMode
@@ -334695,11 +334852,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
---- !u!4 &1199530338681000062 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6223258289119885247, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
-  m_PrefabInstance: {fileID: 1199530338681000061}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2362919049501717407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -334832,7 +334984,7 @@ PrefabInstance:
       addedObject: {fileID: 247671405}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6569261742038726068, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
-      insertIndex: -1
+      insertIndex: 10
       addedObject: {fileID: 2042344697}
   m_SourcePrefab: {fileID: 100100000, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
 --- !u!1001 &5166599162192349526
@@ -335000,3 +335152,4 @@ SceneRoots:
   - {fileID: 1299134042}
   - {fileID: 91891191}
   - {fileID: 739789128}
+  - {fileID: 548692238}

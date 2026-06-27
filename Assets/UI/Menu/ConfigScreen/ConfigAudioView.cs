@@ -6,16 +6,12 @@ namespace Assets.UI.Menu.ConfigScreen
     [System.Serializable]
     public class ConfigAudioView
     {
+
         private const float VOL_PADRAO_MASTER = 50f;
         private const float VOL_PADRAO_MUSICA = 50f;
-        private const float VOL_PADRAO_SFX = 80f;
-
-        private const string KEY_VOLUME_MASTER = "VolumeMaster";
-        private const string KEY_VOLUME_MUSICA = "VolumeMusica";
-        private const string KEY_VOLUME_SFX = "VolumeSFX";
+        private const float VOL_PADRAO_SFX = 80f; 
 
         private VisualElement root;
-
         private Slider sliderMaster;
         private Slider sliderMusica;
         private Slider sliderSFX;
@@ -28,12 +24,9 @@ namespace Assets.UI.Menu.ConfigScreen
             sliderSFX = ConfigurarSliderCompleto("slider-som", "txt-valor-som", "cor-sfx");
             sliderMusica = ConfigurarSliderCompleto("slider-musica", "txt-valor-musica", "cor-musica");
 
-            InicializarSliderMaster();
-            InicializarSliderSFX();
-            InicializarSliderMusica();
+            InicializarSliders();
 
             Button btnReset = root.Q<Button>("btn-reset-audio");
-
             if (btnReset != null)
             {
                 btnReset.clicked -= ResetarParaPadrao;
@@ -41,98 +34,26 @@ namespace Assets.UI.Menu.ConfigScreen
             }
         }
 
-        private void InicializarSliderMaster()
+        private void InicializarSliders()
         {
-            if (sliderMaster == null)
-                return;
-
-            float valorSalvo = PlayerPrefs.GetFloat(KEY_VOLUME_MASTER, VOL_PADRAO_MASTER);
-
-            sliderMaster.SetValueWithoutNotify(valorSalvo);
-            AtualizarLabelERastroAoAbrir(sliderMaster, "txt-valor-master");
-
-            if (AudioManager.Instance != null)
+            if (AudioSettingsCore.Instance != null)
             {
-                AudioManager.Instance.SetMasterVolume(valorSalvo / 100f);
+                AplicarAoSlider(sliderMaster, AudioSettingsCore.Instance.MasterVolume * 100f, "txt-valor-master");
+                AplicarAoSlider(sliderSFX, AudioSettingsCore.Instance.SfxVolume * 100f, "txt-valor-som");
+                AplicarAoSlider(sliderMusica, AudioSettingsCore.Instance.MusicVolume * 100f, "txt-valor-musica");
             }
 
-            sliderMaster.RegisterValueChangedCallback(evt =>
-            {
-                float valorPorcentagem = evt.newValue;
-
-                PlayerPrefs.SetFloat(KEY_VOLUME_MASTER, valorPorcentagem);
-                PlayerPrefs.Save();
-
-                if (AudioManager.Instance != null)
-                {
-                    AudioManager.Instance.SetMasterVolume(valorPorcentagem / 100f);
-                }
-
-                AtualizarLabelERastroAoAbrir(sliderMaster, "txt-valor-master");
-            });
+            sliderMaster?.RegisterValueChangedCallback(evt => AudioSettingsCore.Instance?.SetMasterVolume(evt.newValue / 100f));
+            sliderSFX?.RegisterValueChangedCallback(evt => AudioSettingsCore.Instance?.SetSFXVolume(evt.newValue / 100f));
+            sliderMusica?.RegisterValueChangedCallback(evt => AudioSettingsCore.Instance?.SetMusicVolume(evt.newValue / 100f));
         }
 
-        private void InicializarSliderSFX()
+        private void AplicarAoSlider(Slider slider, float valor, string labelName)
         {
-            if (sliderSFX == null)
-                return;
-
-            float valorSalvo = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, VOL_PADRAO_SFX);
-
-            sliderSFX.SetValueWithoutNotify(valorSalvo);
-            AtualizarLabelERastroAoAbrir(sliderSFX, "txt-valor-som");
-
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.SetSFXVolume(valorSalvo / 100f);
-            }
-
-            sliderSFX.RegisterValueChangedCallback(evt =>
-            {
-                float valorPorcentagem = evt.newValue;
-
-                PlayerPrefs.SetFloat(KEY_VOLUME_SFX, valorPorcentagem);
-                PlayerPrefs.Save();
-
-                if (AudioManager.Instance != null)
-                {
-                    AudioManager.Instance.SetSFXVolume(valorPorcentagem / 100f);
-                }
-
-                AtualizarLabelERastroAoAbrir(sliderSFX, "txt-valor-som");
-            });
-        }
-
-        private void InicializarSliderMusica()
-        {
-            if (sliderMusica == null)
-                return;
-
-            float valorSalvo = PlayerPrefs.GetFloat(KEY_VOLUME_MUSICA, VOL_PADRAO_MUSICA);
-
-            sliderMusica.SetValueWithoutNotify(valorSalvo);
-            AtualizarLabelERastroAoAbrir(sliderMusica, "txt-valor-musica");
-
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.SetMusicVolume(valorSalvo / 100f);
-            }
-
-            sliderMusica.RegisterValueChangedCallback(evt =>
-            {
-                float valorPorcentagem = evt.newValue;
-
-                PlayerPrefs.SetFloat(KEY_VOLUME_MUSICA, valorPorcentagem);
-                PlayerPrefs.Save();
-
-                if (AudioManager.Instance != null)
-                {
-                    AudioManager.Instance.SetMusicVolume(valorPorcentagem / 100f);
-                }
-
-                AtualizarLabelERastroAoAbrir(sliderMusica, "txt-valor-musica");
-            });
-        }
+            if (slider == null) return;
+            slider.SetValueWithoutNotify(valor);
+            AtualizarLabelERastroAoAbrir(slider, labelName);
+        }   
 
         private Slider ConfigurarSliderCompleto(string nomeSlider, string nomeLabel, string corClasse)
         {
@@ -143,20 +64,14 @@ namespace Assets.UI.Menu.ConfigScreen
             {
                 slider.lowValue = 0f;
                 slider.highValue = 100f;
-
-                adicionarRastroSlider(slider, corClasse);
+                AdicionarRastroSlider(slider, corClasse);
 
                 if (label != null)
                 {
                     label.text = Mathf.RoundToInt(slider.value).ToString();
-
-                    slider.RegisterValueChangedCallback(evt =>
-                    {
-                        label.text = Mathf.RoundToInt(evt.newValue).ToString();
-                    });
+                    slider.RegisterValueChangedCallback(evt => label.text = Mathf.RoundToInt(evt.newValue).ToString());
                 }
             }
-            
             return slider;
         }
 
@@ -177,7 +92,7 @@ namespace Assets.UI.Menu.ConfigScreen
             }
         }
 
-        private void adicionarRastroSlider(Slider slider, string corClasse)
+        private void AdicionarRastroSlider(Slider slider, string corClasse)
         {
             if (slider != null)
             {
@@ -211,64 +126,22 @@ namespace Assets.UI.Menu.ConfigScreen
 
         private void ResetarParaPadrao()
         {
-            AplicarValorSliderMaster(VOL_PADRAO_MASTER);
-            AplicarValorSliderSFX(VOL_PADRAO_SFX);
-            AplicarValorSliderMusica(VOL_PADRAO_MUSICA);
+            if (sliderMaster != null) sliderMaster.value = VOL_PADRAO_MASTER;
+            if (sliderSFX != null) sliderSFX.value = VOL_PADRAO_SFX;
+            if (sliderMusica != null) sliderMusica.value = VOL_PADRAO_MUSICA;
 
-            PlayerPrefs.Save();
-
-            Debug.Log("Configurações de áudio resetadas.");
-        }
-
-        private void AplicarValorSliderMaster(float valorPorcentagem)
-        {
-            if (sliderMaster == null)
-                return;
-
-            sliderMaster.value = valorPorcentagem;
-
-            PlayerPrefs.SetFloat(KEY_VOLUME_MASTER, valorPorcentagem);
-
-            if (AudioManager.Instance != null)
+            if (AudioSettingsCore.Instance != null)
             {
-                AudioManager.Instance.SetMasterVolume(valorPorcentagem / 100f);
+                AudioSettingsCore.Instance.SetMasterVolume(VOL_PADRAO_MASTER / 100f);
+                AudioSettingsCore.Instance.SetSFXVolume(VOL_PADRAO_SFX / 100f);
+                AudioSettingsCore.Instance.SetMusicVolume(VOL_PADRAO_MUSICA / 100f);
             }
 
             AtualizarLabelERastroAoAbrir(sliderMaster, "txt-valor-master");
-        }
-
-        private void AplicarValorSliderSFX(float valorPorcentagem)
-        {
-            if (sliderSFX == null)
-                return;
-
-            sliderSFX.value = valorPorcentagem;
-
-            PlayerPrefs.SetFloat(KEY_VOLUME_SFX, valorPorcentagem);
-
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.SetSFXVolume(valorPorcentagem / 100f);
-            }
-
             AtualizarLabelERastroAoAbrir(sliderSFX, "txt-valor-som");
-        }
-
-        private void AplicarValorSliderMusica(float valorPorcentagem)
-        {
-            if (sliderMusica == null)
-                return;
-
-            sliderMusica.value = valorPorcentagem;
-
-            PlayerPrefs.SetFloat(KEY_VOLUME_MUSICA, valorPorcentagem);
-
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.SetMusicVolume(valorPorcentagem / 100f);
-            }
-
             AtualizarLabelERastroAoAbrir(sliderMusica, "txt-valor-musica");
+
+            Debug.Log("Configurações de áudio resetadas para: 50, 80, 50.");
         }
     }
 }

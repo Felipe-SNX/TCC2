@@ -3,8 +3,8 @@ using UnityEngine;
 public class EndPhaseTrigger : MonoBehaviour
 {
     [Header("Puzzle")]
-    public MessagePuzzleUI puzzleUI;
-    public int totalFragmentsRequired = 3;
+    [SerializeField] private MessagePuzzleUI puzzleUI;
+    [SerializeField] private int totalFragmentsRequired = 3;
 
     [Header("Fim de fase")]
     [SerializeField] private GameObject finalPhaseUI;
@@ -17,10 +17,7 @@ public class EndPhaseTrigger : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
-        if (phaseCompleted)
-            return;
-
-        if (puzzleOpened)
+        if (phaseCompleted || puzzleOpened)
             return;
 
         if (MessageManager.Instance == null)
@@ -45,14 +42,12 @@ public class EndPhaseTrigger : MonoBehaviour
             return;
 
         phaseCompleted = true;
-
         Debug.Log("Fim da fase acionado!");
-
         Time.timeScale = 1f;
 
-        if (AudioManager.Instance != null)
+        if (UIAudioManager.Instance != null)
         {
-            AudioManager.Instance.PlayEndPhase();
+            UIAudioManager.Instance.PlayEndPhase();
         }
 
         if (finalPhaseUI != null)

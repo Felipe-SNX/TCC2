@@ -191,6 +191,10 @@ PrefabInstance:
       value: FinishFlag
       objectReference: {fileID: 0}
     - target: {fileID: 3968762538765675081, guid: ea81496012d866249adc734c2b235a42, type: 3}
+      propertyPath: resultScreen
+      value: 
+      objectReference: {fileID: 3086617490325804628}
+    - target: {fileID: 3968762538765675081, guid: ea81496012d866249adc734c2b235a42, type: 3}
       propertyPath: questionnaireScreen
       value: 
       objectReference: {fileID: 7600839200207235517}

@@ -1,16 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(PlayerMovement))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerClimb : MonoBehaviour
 {
-    [Header("Configurações de Escalada")]
+    [Header("Configurações")]
     [SerializeField] private float climbSpeed = 5f;
+    [SerializeField] private float horizontalSpeed = 8f; 
 
     public bool IsClimbing { get; private set; }
 
     private Rigidbody2D rb;
-    private PlayerMovement playerMovement;
+    private PlayerInputController input; 
     
     private bool isNearLadder;
     private bool canClimb = true;
@@ -18,14 +19,23 @@ public class PlayerClimb : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerMovement = GetComponent<PlayerMovement>();
+        input = GetComponent<PlayerInputController>();
     }
 
     private void Update()
     {
-        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) return;
+        if (PlayerState.Instance != null && PlayerState.Instance.IsMovementPaused) 
+        {
+            IsClimbing = false;
+            return;
+        }
 
-        if (isNearLadder && Mathf.Abs(playerMovement.VerticalInput) > 0.1f && canClimb)
+        if (isNearLadder) 
+            Debug.Log("Perto da escada! Input vertical: " + input.MoveVector.y);
+
+        bool wantsToClimb = Mathf.Abs(input.MoveVector.y) > 0.1f;
+        
+        if (isNearLadder && wantsToClimb && canClimb)
         {
             if (PlayerState.Instance.CurrentWaterStatus())
             {
@@ -37,7 +47,7 @@ public class PlayerClimb : MonoBehaviour
                 IsClimbing = true;
             }
         }
-        else if (!isNearLadder || !canClimb)
+        else
         {
             IsClimbing = false;
         }
@@ -48,7 +58,11 @@ public class PlayerClimb : MonoBehaviour
         if (IsClimbing)
         {
             rb.gravityScale = 0f;
-            rb.linearVelocity = new Vector2(playerMovement.MoveInput * playerMovement.Speed, playerMovement.VerticalInput * climbSpeed);
+            rb.linearVelocity = new Vector2(input.MoveVector.x * horizontalSpeed, input.MoveVector.y * climbSpeed);
+        }
+        else
+        {
+            rb.gravityScale = 3f; 
         }
     }
 
@@ -61,19 +75,43 @@ public class PlayerClimb : MonoBehaviour
     {
         canClimb = false;
         IsClimbing = false;
-
-        playerMovement.AddJumpForce(); 
-
         yield return new WaitForSeconds(0.2f);
-
         canClimb = true;
     }
 
-    private void OnTriggerStay2D(Collider2D collision) => CheckClimbing(collision, true);
-    private void OnTriggerExit2D(Collider2D collision) => CheckClimbing(collision, false);
-
-    private void CheckClimbing(Collider2D collision, bool state)
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.CompareTag("Ladder")) isNearLadder = state;
+        if (collision.CompareTag("Ladder") || collision.CompareTag("VineArea"))
+        {
+            isNearLadder = true;
+            Debug.Log("Detectou entrada na escada!");
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) 
+    {
+        if (collision.CompareTag("Ladder") || collision.CompareTag("VineArea"))
+        {
+            isNearLadder = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) 
+    {
+        if (collision.CompareTag("Ladder") || collision.CompareTag("VineArea"))
+        {
+            isNearLadder = false;
+            IsClimbing = false;
+            Debug.Log("Saiu da escada!");
+        }
+    }
+
+    private void SetLadderState(Collider2D collision, bool state)
+    {
+        if (collision.CompareTag("Ladder") || collision.CompareTag("VineArea")) 
+        {
+            isNearLadder = state;
+            Debug.Log($"Colisão com {collision.tag} detectada! Estado: {state}");
+        }
     }
 }
