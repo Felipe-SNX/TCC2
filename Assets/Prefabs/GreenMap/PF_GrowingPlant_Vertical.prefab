@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6945887512031241611}
   - component: {fileID: 1234385851038242365}
   - component: {fileID: 8314522068110081406}
-  - component: {fileID: 110973697771761309}
+  - component: {fileID: 9181543837392562632}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -145,7 +145,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &110973697771761309
+--- !u!114 &9181543837392562632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,8 +156,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f834f9dae7725bb41a7d6026144cfa9c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GlowEffect
-  glow: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::PlantGlow
+  glow: {fileID: 8314522068110081406}
   speed: 2
   minIntensity: 1
   maxIntensity: 3
@@ -5157,7 +5157,7 @@ MonoBehaviour:
   maxSize: 6
   growSpeed: 3
   growthParticles: {fileID: 7175934801545834226}
-  plantGlow: {fileID: 0}
+  plantGlow: {fileID: 9181543837392562632}
 --- !u!61 &3191224009919002297
 BoxCollider2D:
   m_ObjectHideFlags: 0
