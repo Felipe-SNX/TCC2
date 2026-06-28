@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Loading.unity
     guid: 7c6ac17dbd880d14092c4d3ea446f01c
   - enabled: 1
-    path: Assets/Scenes/Level/Green/Map_Green.unity
+    path: Assets/Scenes/Level/Green/Mapa Verde.unity
     guid: cd856a2fea1ca4941b38b77d5f0f2f73
   - enabled: 1
     path: Assets/Scenes/Red/Map_Red.unity

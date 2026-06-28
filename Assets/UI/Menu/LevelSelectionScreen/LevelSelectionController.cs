@@ -38,9 +38,9 @@ namespace Assets.UI.Menu.LevelSelectionScreen
             Button btnAmarela = root.Q<Button>("btn-fase-amarela");
             Button btnVoltar = root.Q<Button>("btn-voltar");
 
-            ConfigurarBotao(btnVerde, () => CarregarFase("Map_Green"));
-            ConfigurarBotao(btnVermelha, () => CarregarFase("Map_Red"));
-            ConfigurarBotao(btnAmarela, () => CarregarFase("Map_Yellow"));
+            ConfigurarBotao(btnVerde, () => CarregarFase("Mapa Verde"));
+            ConfigurarBotao(btnVermelha, () => CarregarFase("Mapa Vermelho"));
+            ConfigurarBotao(btnAmarela, () => CarregarFase("Mapa Amarelo"));
 
             btnVerde?.RegisterCallback<GeometryChangedEvent>(evt => btnVerde.Focus());
 
