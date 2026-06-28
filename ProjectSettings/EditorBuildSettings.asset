@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Red/Map_Red.unity
     guid: 56908b7f25817e44f9b325df49a41acb
+  - enabled: 1
+    path: Assets/Scenes/Level/Yellow/Map_Yellow.unity
+    guid: b3a90eed14e36814b82241f69ad0f6da
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

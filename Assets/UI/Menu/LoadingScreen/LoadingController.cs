@@ -9,7 +9,8 @@ namespace Assets.UI.Menu.LoadingScreen
     {
         [Header("Grids de Fundo")]
         [SerializeField] private GameObject gridFase1; 
-        [SerializeField] private GameObject gridFase2; 
+        [SerializeField] private GameObject gridFase2;
+        [SerializeField] private GameObject gridFase3;  
 
         private Color corFloresta;
         private Color corCaverna;
@@ -36,9 +37,13 @@ namespace Assets.UI.Menu.LoadingScreen
             {
                 gridFase1.SetActive(true);
             }
+            if (gridFase2 != null && GlobalData.nextScene == "Map_Red")
+            {
+                gridFase2.SetActive(true);
+            }
             else
             {
-                if (gridFase2 != null) gridFase2.SetActive(true);
+                if (gridFase3 != null) gridFase3.SetActive(true);
             }
         }
 
