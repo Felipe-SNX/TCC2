@@ -37,7 +37,7 @@ namespace Assets.UI.Menu.LoadingScreen
             {
                 gridFase1.SetActive(true);
             }
-            if (gridFase2 != null && GlobalData.nextScene == "Map_Red")
+            else if (gridFase2 != null && GlobalData.nextScene == "Map_Red")
             {
                 gridFase2.SetActive(true);
             }
