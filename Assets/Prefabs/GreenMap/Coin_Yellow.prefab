@@ -111,7 +111,7 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.589
+  m_FalloffIntensity: 1
   m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_Intensity: 100
   m_LightVolumeIntensity: 0.15
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2
+  m_PointLightOuterRadius: 1.5
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -343,4 +343,4 @@ MonoBehaviour:
   glow: {fileID: 4549085433657142984}
   speed: 5
   minIntensity: 5
-  maxIntensity: 50
+  maxIntensity: 25
