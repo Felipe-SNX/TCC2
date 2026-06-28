@@ -27,10 +27,14 @@ namespace Assets.UI.Menu.StartGameScreen
 
         void Start()
         {
-            if (AudioManager.Instance != null)
+            if (UIAudioManager.Instance != null)
             {
-                AudioManager.Instance.ConnectButtons(root);
-                AudioManager.Instance.PlayMenuMusic();
+                UIAudioManager.Instance.ConnectButtons(root);
+            }
+
+            if (MusicManager.Instance != null)
+            {
+                MusicManager.Instance.PlayMenuMusic();
             }
         }
 

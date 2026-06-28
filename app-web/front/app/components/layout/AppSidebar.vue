@@ -91,7 +91,7 @@ onMounted(() => {
 });
 
 function setTheme(dark: boolean) {
-  theme.global.name.value = dark ? "dark" : "light";
+  theme.change(dark ? "dark" : "light");
   localStorage.setItem("isDarkTheme", dark.toString());
 }
 

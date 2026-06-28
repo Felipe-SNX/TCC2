@@ -1,7 +1,14 @@
 <template>
   <div class="chart-wrapper">
-    <Line v-if="chartData.labels.length > 0" :data="chartData" :options="chartOptions" />
-    <div v-else class="d-flex align-center justify-center fill-height text-medium-emphasis">
+    <Line
+      v-if="chartData.labels.length > 0"
+      :data="chartData"
+      :options="chartOptions"
+    />
+    <div
+      v-else
+      class="d-flex align-center justify-center fill-height text-medium-emphasis"
+    >
       Não há dados suficientes para exibir o gráfico neste período.
     </div>
   </div>
@@ -20,7 +27,7 @@ import {
   Legend,
   Filler,
   ChartData,
-  ChartOptions
+  ChartOptions,
 } from "chart.js";
 import { Line } from "vue-chartjs";
 
@@ -32,7 +39,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 );
 
 const props = defineProps<{
@@ -67,7 +74,7 @@ const chartData = computed<ChartData<"line">>(() => {
   });
 
   const labels = sortedItems.map((item) => formatDateTime(item.created_at));
-  const dataPoints = sortedItems.map((item) => item.resposta);
+  const dataPoints = sortedItems.map((item) => item.response);
 
   return {
     labels,

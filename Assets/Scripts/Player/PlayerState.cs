@@ -1,16 +1,20 @@
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerState : MonoBehaviour
 {
     public static PlayerState Instance { get; private set; }
 
-    [Header("Estado do Inventário")]
-    [SerializeField] private bool hasWater = false;
+    [Header("Configurações Visuais")]
+    [SerializeField] private Color normalColor = new Color(0.8117f, 0.8117f, 0.8117f, 1f);
+    [SerializeField] private Color waterColor = Color.blue;
 
+    [Header("Estado")]
+    [SerializeField] private bool hasWater = false;
     public bool IsMovementPaused { get; private set; }
 
     private SpriteRenderer sr;
-    
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,6 +23,8 @@ public class PlayerState : MonoBehaviour
             return;
         }
         Instance = this;
+
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public void SetPauseMovement(bool isPaused)
@@ -29,28 +35,16 @@ public class PlayerState : MonoBehaviour
 
     public void CollectWater()
     {
-        sr = GetComponent<SpriteRenderer>();
         hasWater = true;
         Debug.Log("Player pegou água!");
-        ChangeColor(sr);
+        UpdateVisuals();
     }
 
     public void DiscardWater()
     {
-        sr = GetComponent<SpriteRenderer>();
         hasWater = false;
         Debug.Log("Player descartou a água!");
-        ChangeColor(sr);
-    }
-
-    private void ChangeColor(SpriteRenderer sr)
-    {
-        if (hasWater && sr != null)
-        {
-            sr.color = Color.blue;
-        } else {
-            sr.color = new Color(0.8117f, 0.8117f, 0.8117f, 1f);
-        }
+        UpdateVisuals();
     }
 
     public bool UseWater()
@@ -65,21 +59,19 @@ public class PlayerState : MonoBehaviour
             AbilityPulseEffect.Instance.PlayPulse(Color.green);
         }
         
-        sr = GetComponent<SpriteRenderer>();
-        ChangeColor(sr);
-
+        UpdateVisuals();
         return true;
     }
 
-    public void PauseMovement()
+    private void UpdateVisuals()
     {
-        IsMovementPaused = true;
+        if (sr != null)
+        {
+            sr.color = hasWater ? waterColor : normalColor;
+        }
     }
 
-    public void ResumeMovement()
-    {
-        IsMovementPaused = false;
-    }
-
+    public void PauseMovement() => IsMovementPaused = true;
+    public void ResumeMovement() => IsMovementPaused = false;
     public bool CurrentWaterStatus() => hasWater;
 }
