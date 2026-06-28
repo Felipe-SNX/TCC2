@@ -56,7 +56,7 @@ def login_for_access_token(login_data: LoginSchema, db: Session = Depends(get_db
 
 @router.post("/registrar", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
 def registrar_usuario(usuario_in: UsuarioRegister, db: Session = Depends(get_db)):
-    """Registro público de novo usuário. Sempre como PSICOLOGO e ativo=False."""
+    """Registro público de novo usuário. Sempre como ADMIN e ativo=True."""
     existente = get_usuario_by_email(db, email=usuario_in.email)
     if existente:
         raise HTTPException(status_code=400, detail="Este e-mail já está cadastrado.")

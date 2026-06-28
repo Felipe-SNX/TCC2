@@ -12,6 +12,7 @@ class Usuario(Base):
     email = Column(String(255), unique=True, nullable=False)
     senha = Column(String(255), nullable=False)
     ativo = Column(Boolean, nullable=False, default=False)
+    created_by = Column(String(36), ForeignKey("usuarios.id"), nullable=True)
 
 class Paciente(Base):
     __tablename__ = "pacientes"

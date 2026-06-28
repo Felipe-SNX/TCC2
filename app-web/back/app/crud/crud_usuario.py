@@ -9,20 +9,37 @@ def get_usuario(db: Session, usuario_id: str):
 def get_usuario_by_email(db: Session, email: str):
     return db.query(Usuario).filter(Usuario.email == email).first()
 
-def get_usuarios(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Usuario).offset(skip).limit(limit).all()
+def _get_usuarios_query(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    """Monta a query de usuários com filtro de visibilidade por hierarquia."""
+    query = db.query(Usuario)
+    
+    if user_role == 'ADMIN':
+        if user_created_by is not None:
+            # Admin criado por outro: vê usuários criados por ele OU pelo mesmo pai (irmãos)
+            query = query.filter(
+                Usuario.created_by.in_([user_id, user_created_by]),
+                Usuario.id != user_id
+            )
+        else:
+            # Admin auto-registrado (created_by=NULL): vê apenas usuários que ele criou
+            query = query.filter(Usuario.created_by == user_id)
+    return query
 
-def get_usuarios_count(db: Session):
-    return db.query(Usuario).count()
+def get_usuarios(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    return _get_usuarios_query(db, user_id, user_role, user_created_by).offset(skip).limit(limit).all()
 
-def create_usuario(db: Session, usuario: UsuarioCreate):
+def get_usuarios_count(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    return _get_usuarios_query(db, user_id, user_role, user_created_by).count()
+
+def create_usuario(db: Session, usuario: UsuarioCreate, created_by_id: str = None):
     hashed_password = get_password_hash(usuario.senha)
     db_usuario = Usuario(
         nome=usuario.nome,
         email=usuario.email,
         role=usuario.role,
         senha=hashed_password,
-        ativo=True
+        ativo=True,
+        created_by=created_by_id
     )
     db.add(db_usuario)
     db.commit()
@@ -30,14 +47,14 @@ def create_usuario(db: Session, usuario: UsuarioCreate):
     return db_usuario
 
 def create_usuario_registro(db: Session, usuario: UsuarioRegister):
-    """Cria um usuário via auto-registro. Sempre PSICOLOGO e sempe inicia inativo."""
+    """Cria um usuário via auto-registro. Sempre ADMIN e sempre inicia ativo."""
     hashed_password = get_password_hash(usuario.senha)
     db_usuario = Usuario(
         nome=usuario.nome,
         email=usuario.email,
-        role='PSICOLOGO',
+        role='ADMIN',
         senha=hashed_password,
-        ativo=False
+        ativo=True
     )
     db.add(db_usuario)
     db.commit()
