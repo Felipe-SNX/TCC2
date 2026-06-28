@@ -65,9 +65,12 @@ def obter_usuario(
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     
+    allowed_creators = [current_user.id]
     if current_user.created_by is not None:
-        if usuario.created_by not in [current_user.id, current_user.created_by] or usuario.id == current_user.id:
-            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para visualizar este usuário.")
+        allowed_creators.append(current_user.created_by)
+        
+    if usuario.created_by not in allowed_creators or usuario.id == current_user.id:
+        raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para visualizar este usuário.")
             
     return usuario
 
@@ -82,9 +85,12 @@ def atualizar_usuario(
     if not usuario_existente:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
         
+    allowed_creators = [current_user.id]
     if current_user.created_by is not None:
-        if usuario_existente.created_by not in [current_user.id, current_user.created_by] or usuario_existente.id == current_user.id:
-            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para editar este usuário.")
+        allowed_creators.append(current_user.created_by)
+        
+    if usuario_existente.created_by not in allowed_creators or usuario_existente.id == current_user.id:
+        raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para editar este usuário.")
             
     usuario = crud_usuario.update_usuario(db=db, usuario_id=usuario_id, usuario_in=usuario_in)
     return usuario
@@ -102,9 +108,12 @@ def excluir_usuario(
     if not usuario_existente:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
         
+    allowed_creators = [current_user.id]
     if current_user.created_by is not None:
-        if usuario_existente.created_by not in [current_user.id, current_user.created_by] or usuario_existente.id == current_user.id:
-            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para excluir este usuário.")
+        allowed_creators.append(current_user.created_by)
+        
+    if usuario_existente.created_by not in allowed_creators or usuario_existente.id == current_user.id:
+        raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para excluir este usuário.")
             
     crud_usuario.delete_usuario(db=db, usuario_id=usuario_id)
 
@@ -122,9 +131,12 @@ def toggle_ativo_usuario(
     if not usuario_existente:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
         
+    allowed_creators = [current_user.id]
     if current_user.created_by is not None:
-        if usuario_existente.created_by not in [current_user.id, current_user.created_by] or usuario_existente.id == current_user.id:
-            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para alterar o status deste usuário.")
+        allowed_creators.append(current_user.created_by)
+        
+    if usuario_existente.created_by not in allowed_creators or usuario_existente.id == current_user.id:
+        raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para alterar o status deste usuário.")
             
     usuario = crud_usuario.toggle_ativo(db=db, usuario_id=usuario_id)
     return usuario

@@ -37,14 +37,13 @@ def obter_paciente(paciente_id: str, db: Session = Depends(get_db), current_user
         raise HTTPException(status_code=404, detail="Paciente não encontrado.")
     if current_user.role == "PSICOLOGO" and paciente.created_by != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
-    if current_user.role == "ADMIN" and current_user.created_by is not None:
-        visible_user_ids = [current_user.id, current_user.created_by]
-        # Allow if created by current user, or created by a user visible to current user
-        # crud_paciente is handling this logic, but for individual access we do a manual check.
-        # It's easier to check if the paciente's creator is in the visible list.
-        # visible list: users created by current_user or by current_user's creator
+    if current_user.role == "ADMIN":
         from app.models.schema import Usuario
-        visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        if current_user.created_by is not None:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        else:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by == current_user.id).all()
+        
         valid_creator_ids = [current_user.id] + [r[0] for r in visible_users]
         
         if paciente.created_by not in valid_creator_ids:
@@ -64,9 +63,13 @@ def atualizar_paciente(
         raise HTTPException(status_code=404, detail="Paciente não encontrado.")
     if current_user.role == "PSICOLOGO" and paciente_existente.created_by != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
-    if current_user.role == "ADMIN" and current_user.created_by is not None:
+    if current_user.role == "ADMIN":
         from app.models.schema import Usuario
-        visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        if current_user.created_by is not None:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        else:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by == current_user.id).all()
+            
         valid_creator_ids = [current_user.id] + [r[0] for r in visible_users]
         
         if paciente_existente.created_by not in valid_creator_ids:
@@ -84,9 +87,13 @@ def excluir_paciente(
         raise HTTPException(status_code=404, detail="Paciente não encontrado.")
     if current_user.role == "PSICOLOGO" and paciente_existente.created_by != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
-    if current_user.role == "ADMIN" and current_user.created_by is not None:
+    if current_user.role == "ADMIN":
         from app.models.schema import Usuario
-        visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        if current_user.created_by is not None:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        else:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by == current_user.id).all()
+            
         valid_creator_ids = [current_user.id] + [r[0] for r in visible_users]
         
         if paciente_existente.created_by not in valid_creator_ids:
@@ -107,9 +114,13 @@ def renovar_pin_paciente(
         raise HTTPException(status_code=404, detail="Paciente não encontrado.")
     if current_user.role == "PSICOLOGO" and paciente_existente.created_by != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
-    if current_user.role == "ADMIN" and current_user.created_by is not None:
+    if current_user.role == "ADMIN":
         from app.models.schema import Usuario
-        visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        if current_user.created_by is not None:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        else:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by == current_user.id).all()
+            
         valid_creator_ids = [current_user.id] + [r[0] for r in visible_users]
         
         if paciente_existente.created_by not in valid_creator_ids:
@@ -131,12 +142,17 @@ def listar_respostas_do_paciente(
         paciente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
         if not paciente or paciente.created_by != current_user.id:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso negado. Este paciente pertence a outro psicólogo.")
-    elif current_user.role == "ADMIN" and current_user.created_by is not None:
+    elif current_user.role == "ADMIN":
         paciente = crud_paciente.get_paciente(db, paciente_id=paciente_id)
         if not paciente:
              raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Paciente não encontrado.")
+        
         from app.models.schema import Usuario
-        visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        if current_user.created_by is not None:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by.in_([current_user.id, current_user.created_by])).all()
+        else:
+            visible_users = db.query(Usuario.id).filter(Usuario.created_by == current_user.id).all()
+            
         valid_creator_ids = [current_user.id] + [r[0] for r in visible_users]
         
         if paciente.created_by not in valid_creator_ids:

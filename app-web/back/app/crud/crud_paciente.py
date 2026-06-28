@@ -17,13 +17,21 @@ def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None
     
     if user_role == 'PSICOLOGO' and user_id:
         query = query.filter(Paciente.created_by == user_id)
-    elif user_role == 'ADMIN' and user_created_by is not None:
-        # Admin não-raiz: pacientes criados por ele OU pelos usuários que ele pode ver
-        visible_user_ids = db.query(Usuario.id).filter(
-            Usuario.created_by.in_([user_id, user_created_by])
-        ).all()
-        ids = [user_id] + [r[0] for r in visible_user_ids]
-        query = query.filter(Paciente.created_by.in_(ids))
+    elif user_role == 'ADMIN':
+        if user_created_by is not None:
+            # Admin criado por outro: pacientes criados por ele OU pelos usuários visíveis
+            visible_user_ids = db.query(Usuario.id).filter(
+                Usuario.created_by.in_([user_id, user_created_by])
+            ).all()
+            ids = [user_id] + [r[0] for r in visible_user_ids]
+            query = query.filter(Paciente.created_by.in_(ids))
+        else:
+            # Admin auto-registrado: pacientes criados por ele OU por usuários que ele criou
+            visible_user_ids = db.query(Usuario.id).filter(
+                Usuario.created_by == user_id
+            ).all()
+            ids = [user_id] + [r[0] for r in visible_user_ids]
+            query = query.filter(Paciente.created_by.in_(ids))
         
     if search:
         termo = f"%{search}%"

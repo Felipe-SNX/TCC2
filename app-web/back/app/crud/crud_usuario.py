@@ -10,14 +10,19 @@ def get_usuario_by_email(db: Session, email: str):
     return db.query(Usuario).filter(Usuario.email == email).first()
 
 def _get_usuarios_query(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    """Monta a query de usuários com filtro de visibilidade por hierarquia."""
     query = db.query(Usuario)
     
-    if user_role == 'ADMIN' and user_created_by is not None:
-        # Admin não-raiz: vê usuários criados por ele e criados pelo pai (irmãos)
-        query = query.filter(
-            Usuario.created_by.in_([user_id, user_created_by]),
-            Usuario.id != user_id
-        )
+    if user_role == 'ADMIN':
+        if user_created_by is not None:
+            # Admin criado por outro: vê usuários criados por ele OU pelo mesmo pai (irmãos)
+            query = query.filter(
+                Usuario.created_by.in_([user_id, user_created_by]),
+                Usuario.id != user_id
+            )
+        else:
+            # Admin auto-registrado (created_by=NULL): vê apenas usuários que ele criou
+            query = query.filter(Usuario.created_by == user_id)
     return query
 
 def get_usuarios(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None, user_created_by: str = None):
