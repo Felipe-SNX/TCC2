@@ -324170,6 +324170,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1710244237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9181543837392562632, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
+  m_PrefabInstance: {fileID: 143707247467315179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f834f9dae7725bb41a7d6026144cfa9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlantGlow
 --- !u!4 &1723910420 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3344021970404124418, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
@@ -334451,7 +334462,7 @@ PrefabInstance:
     - target: {fileID: 3583728292516106213, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: plantGlow
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1710244237}
     - target: {fileID: 4436650386786221910, guid: 479a6688c95d20347a81f26532398c8b, type: 3}
       propertyPath: m_SpriteTilingProperty.drawMode
       value: 0
@@ -335064,6 +335075,30 @@ PrefabInstance:
     - target: {fileID: 8843400523744611672, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021221640181186386, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: waterColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021221640181186386, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: waterColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021221640181186386, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: waterColor.r
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021221640181186386, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: normalColor.b
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021221640181186386, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: normalColor.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021221640181186386, guid: 6b92588a2df8d4c4581c26ae72c62d03, type: 3}
+      propertyPath: normalColor.r
+      value: 0.5019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
