@@ -57913,8 +57913,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Para andar, use    <size=190%><voffset=0.25em><sprite name="a"></voffset></size> 
-    <size=190%><voffset=0.25em><sprite name="d"></voffset></size>ou as setas    <size=190%><voffset=0.25em><sprite
+  m_text: Para andar, use   <size=190%><voffset=0.25em><sprite name="a"></voffset></size> 
+    <size=190%><voffset=0.25em><sprite name="d"></voffset></size>ou as setas   <size=190%><voffset=0.25em><sprite
     name="arrow-left"></voffset></size>  <size=190%><voffset=0.25em><sprite name="arrow-right"></voffset></size>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8305d4e077224d34db170871012dcc6d, type: 2}
@@ -248348,6 +248348,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1038454206}
     m_Modifications:
+    - target: {fileID: 286903321193531515, guid: 8a860291ca97d4d4eae8c1486ae609dc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 286903321193531515, guid: 8a860291ca97d4d4eae8c1486ae609dc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1894412481
+      objectReference: {fileID: 0}
     - target: {fileID: 4216665251240668959, guid: 8a860291ca97d4d4eae8c1486ae609dc, type: 3}
       propertyPath: m_Name
       value: CollectibleMessage
@@ -334502,9 +334510,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1164716124313395699, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_text
-      value: "Clique     <size=190%><voffset=0.25em><sprite name=\"e\"></voffset></size>para
-        coletar um pote de \xE1gua\nClique     <size=190%><voffset=0.25em><sprite
-        name=\"q\"></voffset></size>para descartar o pote de \xE1gua"
+      value: "Clique   <size=190%><voffset=0.25em><sprite name=\"e\"></voffset></size>para
+        coletar um pote de \xE1gua\nClique   <size=190%><voffset=0.25em><sprite name=\"q\"></voffset></size>para
+        descartar o pote de \xE1gua"
       objectReference: {fileID: 0}
     - target: {fileID: 1164716124313395699, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_fontSize
@@ -334632,7 +334640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_text
-      value: Para pular, use     <size=190%><voffset=0.25em><sprite name="space"></voffset></size>
+      value: Para pular, use   <size=190%><voffset=0.25em><sprite name="space"></voffset></size>
       objectReference: {fileID: 0}
     - target: {fileID: 3559106614863934198, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_fontSize
@@ -334792,8 +334800,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142104914952941188, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_text
-      value: Para descer a plataforma segure      <size=190%><voffset=0.25em><sprite
-        name="arrow-down"></voffset></size>e clique      <size=190%><voffset=0.25em><sprite
+      value: Para descer a plataforma segure    <size=190%><voffset=0.25em><sprite
+        name="arrow-down"></voffset></size>e clique    <size=190%><voffset=0.25em><sprite
         name="space"></voffset></size>
       objectReference: {fileID: 0}
     - target: {fileID: 7142104914952941188, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
@@ -334866,7 +334874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7770344164159126964, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
       propertyPath: m_text
-      value: "Com um pote com \xE1gua, clique     <size=190%><voffset=0.25em><sprite
+      value: "Com um pote com \xE1gua, clique   <size=190%><voffset=0.25em><sprite
         name=\"e\"></voffset></size>na planta para faze-l\xE1 crescer"
       objectReference: {fileID: 0}
     - target: {fileID: 7770344164159126964, guid: 913152fc1f06d25429bccd1e9cca8719, type: 3}
