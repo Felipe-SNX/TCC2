@@ -15,7 +15,7 @@ MonoBehaviour:
   backgroundSize: {x: 10000, y: 30000, z: 10}
   colors:
   - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0.33490568, a: 1}
+  - {r: 1, g: 0.7341389, b: 0, a: 1}
   colorTransitionDuration: 1.9
   transitionSmoothness: 1
   sortingOrder: -100
