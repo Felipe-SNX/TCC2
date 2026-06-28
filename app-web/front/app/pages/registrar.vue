@@ -14,8 +14,7 @@
           >
             <div class="text-h5 text-center mb-2">Criar Conta</div>
             <div class="text-body-2 text-center text-medium-emphasis mb-2">
-              Preencha os dados abaixo para solicitar acesso ao sistema. Sua
-              conta será revisada por um administrador.
+              Preencha os dados abaixo para criar sua conta no sistema.
             </div>
 
             <v-text-field
@@ -147,7 +146,7 @@ const handleRegister = async () => {
 
     showSnackbar({
       message:
-        "Conta criada com sucesso! Aguarde a ativação por um administrador.",
+        "Conta criada com sucesso! Você já pode fazer login.",
       color: "success",
       timeout: 5000,
     });

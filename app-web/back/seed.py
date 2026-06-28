@@ -82,16 +82,25 @@ def seed_usuarios(db):
 
     users_to_create = [
         {
-            "nome": "Administrador",
+            "nome": "Administrador Raiz",
             "email": "admin@admin.com",
             "role": "ADMIN",
             "senha": "123",
+            "created_by": None,
+        },
+        {
+            "nome": "Admin Secundário",
+            "email": "admin2@admin.com",
+            "role": "ADMIN",
+            "senha": "123",
+            "created_by": "admin@admin.com", # Usaremos o email para achar no loop
         },
         {
             "nome": "Dra. Ana Paula",
             "email": "psico@psico.com",
             "role": "PSICOLOGO",
             "senha": "123",
+            "created_by": "admin2@admin.com",
         },
     ]
 
@@ -99,6 +108,12 @@ def seed_usuarios(db):
         if db.query(Usuario).filter(Usuario.email == user_data["email"]).first():
             print(f"  ⚠️  Usuário {user_data['email']} já existe — pulando.")
             continue
+            
+        created_by_id = None
+        if user_data["created_by"]:
+            parent = db.query(Usuario).filter(Usuario.email == user_data["created_by"]).first()
+            if parent:
+                created_by_id = parent.id
 
         novo = Usuario(
             nome=user_data["nome"],
@@ -106,6 +121,7 @@ def seed_usuarios(db):
             role=user_data["role"],
             senha=get_password_hash(user_data["senha"]),
             ativo=True,
+            created_by=created_by_id
         )
         db.add(novo)
         print(f"  ✅ {user_data['nome']} ({user_data['role']}) criado.")
