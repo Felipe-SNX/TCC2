@@ -9,20 +9,32 @@ def get_usuario(db: Session, usuario_id: str):
 def get_usuario_by_email(db: Session, email: str):
     return db.query(Usuario).filter(Usuario.email == email).first()
 
-def get_usuarios(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Usuario).offset(skip).limit(limit).all()
+def _get_usuarios_query(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    query = db.query(Usuario)
+    
+    if user_role == 'ADMIN' and user_created_by is not None:
+        # Admin não-raiz: vê usuários criados por ele e criados pelo pai (irmãos)
+        query = query.filter(
+            Usuario.created_by.in_([user_id, user_created_by]),
+            Usuario.id != user_id
+        )
+    return query
 
-def get_usuarios_count(db: Session):
-    return db.query(Usuario).count()
+def get_usuarios(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    return _get_usuarios_query(db, user_id, user_role, user_created_by).offset(skip).limit(limit).all()
 
-def create_usuario(db: Session, usuario: UsuarioCreate):
+def get_usuarios_count(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None):
+    return _get_usuarios_query(db, user_id, user_role, user_created_by).count()
+
+def create_usuario(db: Session, usuario: UsuarioCreate, created_by_id: str = None):
     hashed_password = get_password_hash(usuario.senha)
     db_usuario = Usuario(
         nome=usuario.nome,
         email=usuario.email,
         role=usuario.role,
         senha=hashed_password,
-        ativo=True
+        ativo=True,
+        created_by=created_by_id
     )
     db.add(db_usuario)
     db.commit()

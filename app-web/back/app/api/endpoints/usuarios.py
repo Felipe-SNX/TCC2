@@ -41,7 +41,7 @@ def criar_usuario(
     usuario_existente = crud_usuario.get_usuario_by_email(db, email=usuario_in.email)
     if usuario_existente:
         raise HTTPException(status_code=400, detail="Email já cadastrado.")
-    return crud_usuario.create_usuario(db=db, usuario=usuario_in)
+    return crud_usuario.create_usuario(db=db, usuario=usuario_in, created_by_id=current_user.id)
 
 @router.get("/", response_model=UsuarioPaginatedResponse)
 def listar_usuarios(
@@ -51,8 +51,8 @@ def listar_usuarios(
     current_user: Usuario = Depends(allow_admin)
 ):
     skip = (page - 1) * items_per_page
-    items = crud_usuario.get_usuarios(db=db, skip=skip, limit=items_per_page)
-    total = crud_usuario.get_usuarios_count(db=db)
+    items = crud_usuario.get_usuarios(db=db, skip=skip, limit=items_per_page, user_id=current_user.id, user_role=current_user.role, user_created_by=current_user.created_by)
+    total = crud_usuario.get_usuarios_count(db=db, user_id=current_user.id, user_role=current_user.role, user_created_by=current_user.created_by)
     return {"items": items, "total": total}
 
 @router.get("/{usuario_id}", response_model=UsuarioResponse)
@@ -64,6 +64,11 @@ def obter_usuario(
     usuario = crud_usuario.get_usuario(db, usuario_id=usuario_id)
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+    
+    if current_user.created_by is not None:
+        if usuario.created_by not in [current_user.id, current_user.created_by] or usuario.id == current_user.id:
+            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para visualizar este usuário.")
+            
     return usuario
 
 @router.put("/{usuario_id}", response_model=UsuarioResponse)
@@ -73,9 +78,15 @@ def atualizar_usuario(
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(allow_admin)
 ):
-    usuario = crud_usuario.update_usuario(db=db, usuario_id=usuario_id, usuario_in=usuario_in)
-    if not usuario:
+    usuario_existente = crud_usuario.get_usuario(db, usuario_id=usuario_id)
+    if not usuario_existente:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+        
+    if current_user.created_by is not None:
+        if usuario_existente.created_by not in [current_user.id, current_user.created_by] or usuario_existente.id == current_user.id:
+            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para editar este usuário.")
+            
+    usuario = crud_usuario.update_usuario(db=db, usuario_id=usuario_id, usuario_in=usuario_in)
     return usuario
 
 @router.delete("/{usuario_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -86,9 +97,16 @@ def excluir_usuario(
 ):
     if current_user.id == usuario_id:
         raise HTTPException(status_code=400, detail="Não é possível excluir o próprio usuário.")
-    deleted = crud_usuario.delete_usuario(db=db, usuario_id=usuario_id)
-    if not deleted:
+        
+    usuario_existente = crud_usuario.get_usuario(db, usuario_id=usuario_id)
+    if not usuario_existente:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+        
+    if current_user.created_by is not None:
+        if usuario_existente.created_by not in [current_user.id, current_user.created_by] or usuario_existente.id == current_user.id:
+            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para excluir este usuário.")
+            
+    crud_usuario.delete_usuario(db=db, usuario_id=usuario_id)
 
 @router.patch("/{usuario_id}/ativo", response_model=UsuarioResponse)
 def toggle_ativo_usuario(
@@ -99,7 +117,14 @@ def toggle_ativo_usuario(
     """Alterna o status ativo/inativo de um usuário. Apenas administradores."""
     if current_user.id == usuario_id:
         raise HTTPException(status_code=400, detail="Não é possível alterar o status do próprio usuário.")
-    usuario = crud_usuario.toggle_ativo(db=db, usuario_id=usuario_id)
-    if not usuario:
+        
+    usuario_existente = crud_usuario.get_usuario(db, usuario_id=usuario_id)
+    if not usuario_existente:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+        
+    if current_user.created_by is not None:
+        if usuario_existente.created_by not in [current_user.id, current_user.created_by] or usuario_existente.id == current_user.id:
+            raise HTTPException(status_code=403, detail="Acesso negado. Você não tem permissão para alterar o status deste usuário.")
+            
+    usuario = crud_usuario.toggle_ativo(db=db, usuario_id=usuario_id)
     return usuario

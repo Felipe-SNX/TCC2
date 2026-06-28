@@ -10,10 +10,21 @@ def get_paciente(db: Session, paciente_id: str):
 def get_paciente_by_email(db: Session, email: str):
     return db.query(Paciente).filter(Paciente.email == email).first()
 
-def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None, search: str = None):
+def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None, search: str = None):
     query = db.query(Paciente)
+    
+    from app.models.schema import Usuario
+    
     if user_role == 'PSICOLOGO' and user_id:
         query = query.filter(Paciente.created_by == user_id)
+    elif user_role == 'ADMIN' and user_created_by is not None:
+        # Admin não-raiz: pacientes criados por ele OU pelos usuários que ele pode ver
+        visible_user_ids = db.query(Usuario.id).filter(
+            Usuario.created_by.in_([user_id, user_created_by])
+        ).all()
+        ids = [user_id] + [r[0] for r in visible_user_ids]
+        query = query.filter(Paciente.created_by.in_(ids))
+        
     if search:
         termo = f"%{search}%"
         query = query.filter(
@@ -21,11 +32,11 @@ def _get_pacientes_query(db: Session, user_id: str = None, user_role: str = None
         )
     return query
 
-def get_pacientes(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None, search: str = None):
-    return _get_pacientes_query(db, user_id, user_role, search).offset(skip).limit(limit).all()
+def get_pacientes(db: Session, skip: int = 0, limit: int = 100, user_id: str = None, user_role: str = None, user_created_by: str = None, search: str = None):
+    return _get_pacientes_query(db, user_id, user_role, user_created_by, search).offset(skip).limit(limit).all()
 
-def get_pacientes_count(db: Session, user_id: str = None, user_role: str = None, search: str = None):
-    return _get_pacientes_query(db, user_id, user_role, search).count()
+def get_pacientes_count(db: Session, user_id: str = None, user_role: str = None, user_created_by: str = None, search: str = None):
+    return _get_pacientes_query(db, user_id, user_role, user_created_by, search).count()
 
 def _generate_unique_pin(db: Session) -> str:
     while True:

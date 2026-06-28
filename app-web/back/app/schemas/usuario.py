@@ -36,6 +36,7 @@ class UsuarioSelfUpdate(BaseModel):
 class UsuarioResponse(UsuarioBase):
     id: str
     ativo: bool
+    created_by: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
 
