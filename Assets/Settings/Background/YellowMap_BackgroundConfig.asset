@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c122ff69ab295346b6e68539a2e711b, type: 3}
+  m_Name: YellowMap_BackgroundConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Environment.BackgroundConfig
+  backgroundSize: {x: 10000, y: 30000, z: 10}
+  colors:
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.7341389, b: 0, a: 1}
+  colorTransitionDuration: 1.9
+  transitionSmoothness: 1
+  sortingOrder: -100
+  sortingLayerName: Background
