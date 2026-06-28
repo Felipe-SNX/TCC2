@@ -30,14 +30,14 @@ def create_usuario(db: Session, usuario: UsuarioCreate):
     return db_usuario
 
 def create_usuario_registro(db: Session, usuario: UsuarioRegister):
-    """Cria um usuário via auto-registro. Sempre PSICOLOGO e sempe inicia inativo."""
+    """Cria um usuário via auto-registro. Sempre ADMIN e sempre inicia ativo."""
     hashed_password = get_password_hash(usuario.senha)
     db_usuario = Usuario(
         nome=usuario.nome,
         email=usuario.email,
-        role='PSICOLOGO',
+        role='ADMIN',
         senha=hashed_password,
-        ativo=False
+        ativo=True
     )
     db.add(db_usuario)
     db.commit()
