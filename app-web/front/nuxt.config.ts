@@ -14,6 +14,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify'],
   },
+  
   vite: {
     plugins: [
       vuetify({ autoImport: true }),
@@ -23,6 +24,15 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
+    server: {
+      watch: {
+        usePolling: true, 
+        interval: 1000,  
+      },
+      hmr: {
+        protocol: 'ws',
+        host: '0.0.0.0', 
+      }
+    }
   },
-
 })
