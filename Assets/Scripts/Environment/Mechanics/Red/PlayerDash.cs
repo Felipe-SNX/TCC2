@@ -33,6 +33,8 @@ public class PlayerDash : MonoBehaviour
     private IEnumerator PerformDash()
     {
         canDash = false;
+
+        PlayerState.Instance?.SetDashVisual();
         
         PlayerState.Instance?.SetPauseMovement(true); 
         
@@ -44,6 +46,7 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
 
         rb.gravityScale = defaultGravity;
+        PlayerState.Instance?.RestoreVisual();
         PlayerState.Instance?.SetPauseMovement(false);
 
         yield return new WaitForSeconds(dashCooldown);

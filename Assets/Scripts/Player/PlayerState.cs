@@ -8,6 +8,7 @@ public class PlayerState : MonoBehaviour
     [Header("Configurações Visuais")]
     [SerializeField] private Color normalColor = new Color(0.8117f, 0.8117f, 0.8117f, 1f);
     [SerializeField] private Color waterColor = Color.blue;
+    [SerializeField] private Color dashColor = Color.red;
 
     [Header("Estado")]
     [SerializeField] private bool hasWater = false;
@@ -63,12 +64,26 @@ public class PlayerState : MonoBehaviour
         return true;
     }
 
+        public void SetDashVisual()
+    {
+        if (sr != null)
+        {
+            sr.color = dashColor;
+        }
+    }
+
     private void UpdateVisuals()
     {
         if (sr != null)
         {
             sr.color = hasWater ? waterColor : normalColor;
         }
+    }
+
+        public void RestoreVisual()
+    {
+        if (sr != null)
+            sr.color = normalColor;
     }
 
     public void PauseMovement() => IsMovementPaused = true;
