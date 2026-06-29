@@ -93,4 +93,18 @@ public class MetricsManager : MonoBehaviour
     public float GetTimeLevel() => finalTimeLevel;
     public int GetTriesLevel() => finalTriesLevel;
     public int GetCollectiblesCount() => finalCollectiblesLevel;
+
+    public LevelStats GetLevelStats()
+    {
+        LevelStats pacoteCompleto = new()
+        {
+            nameCurrentLevel = nameCurrentLevel,
+            finalTimeLevel = finalTimeLevel,
+            finalTriesLevel = finalTriesLevel,
+            finalCollectiblesLevel = finalCollectiblesLevel
+        };
+
+        return pacoteCompleto;
+    }
+
 }
