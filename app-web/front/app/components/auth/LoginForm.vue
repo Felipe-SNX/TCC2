@@ -53,14 +53,7 @@
       </v-btn>
 
       <div class="d-flex justify-space-between mt-2">
-        <v-btn
-          variant="text"
-          size="small"
-          color="secondary"
-          @click="$emit('forgot-password')"
-        >
-          Esqueci minha senha
-        </v-btn>
+        <v-spacer />
         <v-btn
           variant="text"
           size="small"
@@ -84,7 +77,6 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "submit", payload: { email: string; password: string }): void;
   (e: "register"): void;
-  (e: "forgot-password"): void;
 }>();
 
 const form = ref<any>(null);

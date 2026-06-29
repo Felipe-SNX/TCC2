@@ -1,17 +1,4 @@
 services:
-
-#   {
-#     "currentLevel": "Level_1",
-#     "time": 45.5,
-#     "tries": 1,
-#     "response": 4,
-#     "email": "emailPaciente@email.com",
-#     "pin": '123456',
-# }
-
-
-#
-
   db:
     image: mysql:8.0
     container_name: tcc_db
