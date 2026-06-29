@@ -1,7 +1,8 @@
 ## ⚙️ Como Executar o Projeto Localmente via Docker
 
 ### Pré-requisitos
-- Docker e instalados na sua máquina.
+- Windows 10 ou Superior
+- Docker Engine e instalado na sua máquina.
 - Git para clonar o repositório.
 
 ### Clonar projeto localmente
@@ -18,6 +19,10 @@ O projeto está totalmente containerizado. Você não precisa instalar dependên
 - Aguarde a inicialização
 
 > O front estará acessível em http://localhost:3000.
+
+- Usuários de Teste:
+- Psicólogo: psico@psico.com, Senha: 123
+- Admin: admin@admin.com, Senha: 123
 
 ## Rodando o jogo
 - Descompacte a pasta Build.zip
