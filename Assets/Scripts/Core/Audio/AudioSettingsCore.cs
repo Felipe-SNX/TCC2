@@ -30,9 +30,9 @@ public class AudioSettingsCore : MonoBehaviour
 
     private void LoadPreferences()
     {
-        MasterVolume = PlayerPrefs.GetFloat(KEY_VOLUME_MASTER, 50f) / 100f;
-        MusicVolume = PlayerPrefs.GetFloat(KEY_VOLUME_MUSICA, 50f) / 100f;
-        SfxVolume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 80f) / 100f;
+        MasterVolume = PlayerPrefs.GetFloat(KEY_VOLUME_MASTER, 30f) / 100f;
+        MusicVolume = PlayerPrefs.GetFloat(KEY_VOLUME_MUSICA, 20f) / 100f;
+        SfxVolume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 20f) / 100f;
     }
 
     public void SetMasterVolume(float volume)
