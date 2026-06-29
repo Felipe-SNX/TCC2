@@ -2,13 +2,18 @@
 
 ### Pré-requisitos
 - Docker e instalados na sua máquina.
-- (Opcional) Git para clonar o repositório.
+- Git para clonar o repositório.
+
+### Clonar projeto localmente
+- Abra seu terminal
+- Digite o comando 'git clone https://github.com/Felipe-SNX/TCC2.git'
 
 ### Inicialização Rápida (Via Docker)
 O projeto está totalmente containerizado. Você não precisa instalar dependências locais do Python
 
 ### Rodando o site
-- Vá até a pasta app-web
+- Vá até a pasta do projeto
+- Entre na pasta app-web
 - Execute o arquivo rebuild.bat (windows)
 - Aguarde a inicialização
 
