@@ -27,7 +27,6 @@ namespace Assets.UI.Menu.PauseMenu
         public float velocidadePreenchimento = 50f;
         private float progressoPreenchimento = 0f;
         private VisualElement mascaraTitulo;
-        private Label tituloColorido;
 
         private void Awake()
         {
@@ -62,7 +61,6 @@ namespace Assets.UI.Menu.PauseMenu
             btnMenu = root.Q<Button>("btn-menu");
 
             mascaraTitulo = root.Q<VisualElement>("mascara-titulo");
-            tituloColorido = root.Q<Label>(className: "colorido");
 
             ConfigurarBotao(btnRetomar, RetomarJogo);
             ConfigurarBotao(btnReset, ReiniciarFase);
@@ -111,24 +109,6 @@ namespace Assets.UI.Menu.PauseMenu
             }
         }
 
-        private void AplicarCorDinamica(Color corDaFase)
-        {
-            if (tituloColorido == null) return;
-
-            tituloColorido.style.color = new StyleColor(corDaFase);
-
-            Color corSombra = new Color(corDaFase.r, corDaFase.g, corDaFase.b, 0.5f);
-
-            TextShadow sombraCromatica = new TextShadow
-            {
-                offset = Vector2.zero, 
-                blurRadius = 15f,     
-                color = corSombra
-            };
-
-            tituloColorido.style.textShadow = new StyleTextShadow(sombraCromatica);
-        }
-
         public void AlternarPause()
         {
             if (objetoConfiguracoes != null && objetoConfiguracoes.activeSelf) 
@@ -145,17 +125,6 @@ namespace Assets.UI.Menu.PauseMenu
             JogoPausado = true;
             Time.timeScale = 0f; 
             root.style.display = DisplayStyle.Flex; 
-
-            string cenaAtual = SceneManager.GetActiveScene().name;
-
-            if (cenaAtual == "Mapa Vermelho")
-                AplicarCorDinamica(Color.red);
-            else if (cenaAtual == "Mapa Verde")
-                AplicarCorDinamica(Color.green);
-            else if (cenaAtual == "Mapa Amarelo")
-                AplicarCorDinamica(Color.yellow);
-            
-            root.style.display = DisplayStyle.Flex;
 
             progressoPreenchimento = 0f;
             if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);

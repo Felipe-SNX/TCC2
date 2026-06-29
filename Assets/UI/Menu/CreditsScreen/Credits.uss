@@ -64,6 +64,8 @@
     width: 100%;
     padding-top: 10px;
     padding-bottom: 80px; 
+
+ 
 }
 
 .categoria-header {
@@ -77,22 +79,21 @@
 
 .bloco-credito {
     align-items: center;
-    justify-content: center;
-    flex-direction: column; 
+    flex-wrap: wrap;
     margin-bottom: 50px; 
     width: 100%;
 }
 
 .texto-cargo {
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/alagard.ttf");
-    font-size: 50px; /* Um pouco menor para dar destaque ao nome */
+    font-size: 65px; 
     color: #AAAAAA; 
-    margin-bottom: -15px; /* Puxa o nome para mais perto do cargo */
+    margin-bottom: 5px;
     white-space: normal; 
     -unity-text-align: middle-center;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 3px;
     -unity-text-outline-color: rgba(0, 0, 0, 1);
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
 }
 
 .texto-nome {
