@@ -2,7 +2,7 @@
 
 ### Pré-requisitos
 - Windows 10 ou Superior
-- Docker Engine e instalado na sua máquina.
+- Docker Engine instalado na sua máquina.
 - Git para clonar o repositório.
 
 ### Clonar projeto localmente
