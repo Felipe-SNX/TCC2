@@ -25,17 +25,19 @@ namespace Assets.UI.Menu.EndLevelScreen
             
             if (MetricsManager.Instance != null)
             {
-                float tempo = MetricsManager.Instance.GetTimeLevel(); 
+                LevelStats stats = MetricsManager.Instance.GetLevelStats();
+
+                float tempo = stats.finalTimeLevel;
                 string tempoFormatado = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(tempo / 60F), Mathf.FloorToInt(tempo % 60));
 
-                string nomeDaFaseAtual = MetricsManager.Instance.GetNameLevel();
+                string nomeDaFaseAtual = stats.nameCurrentLevel;
 
                 if (txtNomeFase != null) txtNomeFase.text = nomeDaFaseAtual; 
                 if (txtNomeFaseColorido != null) txtNomeFaseColorido.text = nomeDaFaseAtual; 
 
                 if (txtTempoTotal != null) txtTempoTotal.text = "Tempo: " + tempoFormatado;
-                if (txtTentativas != null) txtTentativas.text = "Tentativas: " + MetricsManager.Instance.GetTriesLevel();
-                if (txtColetaveis != null) txtColetaveis.text = "Coletáveis: " + MetricsManager.Instance.GetCollectiblesCount();
+                if (txtTentativas != null) txtTentativas.text = "Tentativas: " + stats.finalTriesLevel;
+                if (txtColetaveis != null) txtColetaveis.text = "Coletáveis: " + stats.finalCollectiblesLevel;
             }
 
             root.Q<Button>("btn-reset").clicked += RetryLevel;
