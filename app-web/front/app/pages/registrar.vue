@@ -106,7 +106,6 @@ const form = ref({
 });
 const confirmSenha = ref("");
 
-// TODO: ajuste Regras de validação pro lugar certo
 const nomeRules = [
   (v: string) => !!v || "O nome é obrigatório.",
   (v: string) => v.length >= 3 || "O nome deve ter no mínimo 3 caracteres.",
@@ -145,8 +144,7 @@ const handleRegister = async () => {
     });
 
     showSnackbar({
-      message:
-        "Conta criada com sucesso! Você já pode fazer login.",
+      message: "Conta criada com sucesso! Você já pode fazer login.",
       color: "success",
       timeout: 5000,
     });

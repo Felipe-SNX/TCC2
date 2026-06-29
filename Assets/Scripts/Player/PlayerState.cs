@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerState : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private Color normalColor = new Color(0.8117f, 0.8117f, 0.8117f, 1f);
     [SerializeField] private Color waterColor = Color.blue;
     [SerializeField] private Color dashColor = Color.red;
+
+    [SerializeField] private float dashColorDuration = 1f;
 
     [Header("Estado")]
     [SerializeField] private bool hasWater = false;
@@ -79,11 +82,20 @@ public class PlayerState : MonoBehaviour
             sr.color = hasWater ? waterColor : normalColor;
         }
     }
-
-        public void RestoreVisual()
+    public void RestoreVisual()
     {
+        StartCoroutine(RestoreVisualCoroutine());
+    }
+
+
+    private IEnumerator RestoreVisualCoroutine()
+    {
+        yield return new WaitForSeconds(dashColorDuration);
+
         if (sr != null)
+        {
             sr.color = normalColor;
+        }
     }
 
     public void PauseMovement() => IsMovementPaused = true;

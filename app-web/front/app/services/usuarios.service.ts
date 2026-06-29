@@ -37,7 +37,6 @@ export const usuariosService = {
   },
 
   async toggleAtivo(id: string) {
-    // TODO: padronizar esse monte de chamada
     const { $api } = useNuxtApp() as any;
     const response = await $api.patch(`/usuarios/${id}/ativo`);
     return response.data;
