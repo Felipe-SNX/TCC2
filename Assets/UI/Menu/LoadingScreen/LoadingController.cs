@@ -32,7 +32,7 @@ namespace Assets.UI.Menu.LoadingScreen
 
         private void Start()
         {
-            if (gridFase1 != null && GlobalData.nextScene == "Map_Green")
+            if (gridFase1 != null && GlobalData.nextScene == "Mapa Verde")
             {
                 gridFase1.SetActive(true);
             }
@@ -52,7 +52,7 @@ namespace Assets.UI.Menu.LoadingScreen
             barraContainer = root.Q<VisualElement>("container-barra");
             promptText = root.Q<Label>("prompt-text");
 
-            Color corEscolhida = (GlobalData.nextScene == "Map_Green") ? corFloresta : corCaverna;
+            Color corEscolhida = (GlobalData.nextScene == "Mapa Verde") ? corFloresta : corCaverna;
             AplicarCores(corEscolhida);
 
             if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
