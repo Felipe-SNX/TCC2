@@ -9,6 +9,9 @@ public class EndPhaseTrigger : MonoBehaviour
     [Header("Fim de fase")]
     [SerializeField] private GameObject finalPhaseUI;
 
+    public float Distance; 
+    public float moveSpeed = 1.0f; 
+    public float originalY; 
     private bool puzzleOpened = false;
     private bool phaseCompleted = false;
 
@@ -54,5 +57,15 @@ public class EndPhaseTrigger : MonoBehaviour
         {
             finalPhaseUI.SetActive(true);
         }
+    }
+
+    private void Start()
+    {
+        originalY = transform.position.y;
+    }
+    private void Update()
+    {
+        float newY = originalY + Mathf.Sin(Time.time * moveSpeed) * Distance;
+        transform.position = new Vector2(transform.position.x, newY);
     }
 }
