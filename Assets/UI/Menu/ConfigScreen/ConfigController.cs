@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Assets.UI.Menu.ConfigScreen
@@ -71,6 +72,8 @@ namespace Assets.UI.Menu.ConfigScreen
 
             progressoPreenchimento = 0f;
             if (mascaraTitulo != null) mascaraTitulo.style.width = Length.Percent(0);
+
+            AplicarCorDinamicaDaFase();
         }
 
         void Start()
@@ -85,7 +88,7 @@ namespace Assets.UI.Menu.ConfigScreen
         {
             if (root == null || root.style.display == DisplayStyle.None) return;
 
-            float pulso = (Mathf.Sin(Time.time * velocidadePulso) + 1f) / 2f; 
+            float pulso = (Mathf.Sin(Time.unscaledTime * velocidadePulso) + 1f) / 2f; 
             
             float opacidadeForte = Mathf.Lerp(0.4f, 1f, pulso);
             float opacidadeFraca = Mathf.Lerp(0.2f, 0.8f, pulso);
@@ -101,7 +104,6 @@ namespace Assets.UI.Menu.ConfigScreen
                 if (borda != null) 
                 {
                     borda.style.borderBottomColor = cianoPulso;
-                    
                     borda.style.borderTopColor = Color.clear;
                     borda.style.borderLeftColor = Color.clear;
                     borda.style.borderRightColor = Color.clear;
@@ -110,7 +112,7 @@ namespace Assets.UI.Menu.ConfigScreen
 
             if (mascaraTitulo != null && progressoPreenchimento < 100f)
             {
-                progressoPreenchimento += Time.deltaTime * velocidadePreenchimento;
+                progressoPreenchimento += Time.unscaledDeltaTime * velocidadePreenchimento;
                 mascaraTitulo.style.width = Length.Percent(Mathf.Clamp(progressoPreenchimento, 0, 100));
             }
         }
@@ -121,6 +123,34 @@ namespace Assets.UI.Menu.ConfigScreen
 
             elementosOpacidade = root.Query<VisualElement>(className: "elemento-pulsante").ToList();
             bordasGraficos = root.Query<VisualElement>(className: "borda-cromatica").ToList();
+        }
+
+        private void AplicarCorDinamicaDaFase()
+        {
+            Label tituloColorido = root.Q<Label>(className: "colorido");
+            if (tituloColorido == null) return;
+
+            string cenaAtual = SceneManager.GetActiveScene().name;
+            Color corDaFase;
+
+            if (cenaAtual == "Mapa Vermelho") 
+                corDaFase = Color.red;
+            else if (cenaAtual == "Mapa Amarelo") 
+                corDaFase = Color.yellow;
+            else if (cenaAtual == "Mapa Verde") 
+                corDaFase = Color.green;
+            else 
+                return; 
+
+            tituloColorido.style.color = new StyleColor(corDaFase);
+
+            Color corSombra = new Color(corDaFase.r, corDaFase.g, corDaFase.b, 0.5f);
+            tituloColorido.style.textShadow = new StyleTextShadow(new TextShadow
+            {
+                offset = Vector2.zero,
+                blurRadius = 15f,
+                color = corSombra
+            });
         }
 
         private void FecharTela()

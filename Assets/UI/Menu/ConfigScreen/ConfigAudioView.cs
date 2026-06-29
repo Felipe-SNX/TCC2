@@ -7,9 +7,9 @@ namespace Assets.UI.Menu.ConfigScreen
     public class ConfigAudioView
     {
 
-        private const float VOL_PADRAO_MASTER = 50f;
-        private const float VOL_PADRAO_MUSICA = 50f;
-        private const float VOL_PADRAO_SFX = 80f; 
+        private const float VOL_PADRAO_MASTER = 30f;
+        private const float VOL_PADRAO_MUSICA = 20f;
+        private const float VOL_PADRAO_SFX = 20f; 
 
         private VisualElement root;
         private Slider sliderMaster;
