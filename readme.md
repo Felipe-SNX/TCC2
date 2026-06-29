@@ -1,3 +1,67 @@
+## ⚙️ Como Executar o Projeto Localmente via Docker
+
+### Pré-requisitos
+- Docker e instalados na sua máquina.
+- (Opcional) Git para clonar o repositório.
+
+### Inicialização Rápida (Via Docker)
+O projeto está totalmente containerizado. Você não precisa instalar dependências locais do Python
+
+### Rodando o site
+- Vá até a pasta app-web
+- Execute o arquivo rebuild.bat (windows)
+- Aguarde a inicialização
+
+> O front estará acessível em http://localhost:3000.
+
+## Rodando o jogo
+- Descompacte a pasta Build.zip
+- Execute o arquivo Espectro.exe dentro da pasta descompactada
+- Aguarde a inicialização
+
+## ⚙️ Como Executar o Projeto Localmente Manualmente
+
+### Pré-requisitos
+
+- Python 3.10 ou superior
+- Node.js 18+ (recomendado Node 24+)
+- NPM
+
+### 1. Rodando o Backend (API)
+
+```bash
+cd app-web/back
+
+# Crie e ative um ambiente virtual
+python3 -m venv venv
+source venv/bin/activate  # No Windows use: venv\Scripts\activate
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# (Opcional) Execute as migrations caso seja o primeiro uso
+alembic upgrade head
+
+# Execute o servidor localmente
+uvicorn app.main:app --reload --port 8000
+```
+
+> A API estará rodando em `http://localhost:8000`. Acesse a documentação interativa em `http://localhost:8000/docs`.
+
+### 2. Rodando o Frontend (Dashboard)
+
+```bash
+cd app-web/front
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+> O front estará acessível em `http://localhost:3000`.
+
 # 🎨 TCC
 
 Este projeto é um artefato de software desenvolvido como **Trabalho de Conclusão de Curso (TCC)** para o curso de Tecnologia em Análise e Desenvolvimento de Sistemas na **Universidade Federal do Paraná (UFPR)**.
@@ -68,45 +132,4 @@ TCC2/
 
 ---
 
-## ⚙️ Como Executar o Projeto Localmente
 
-### Pré-requisitos
-
-- Python 3.10 ou superior
-- Node.js 18+ (recomendado Node 24+)
-- NPM
-
-### 1. Rodando o Backend (API)
-
-```bash
-cd app-web/back
-
-# Crie e ative um ambiente virtual
-python3 -m venv venv
-source venv/bin/activate  # No Windows use: venv\Scripts\activate
-
-# Instale as dependências
-pip install -r requirements.txt
-
-# (Opcional) Execute as migrations caso seja o primeiro uso
-alembic upgrade head
-
-# Execute o servidor localmente
-uvicorn app.main:app --reload --port 8000
-```
-
-> A API estará rodando em `http://localhost:8000`. Acesse a documentação interativa em `http://localhost:8000/docs`.
-
-### 2. Rodando o Frontend (Dashboard)
-
-```bash
-cd app-web/front
-
-# Instale as dependências
-npm install
-
-# Inicie o servidor de desenvolvimento
-npm run dev
-```
-
-> O front estará acessível em `http://localhost:3000`.
